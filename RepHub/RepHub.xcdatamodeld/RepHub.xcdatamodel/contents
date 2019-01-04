@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Exercise" representedClassName="Exercise" syncable="YES" codeGenerationType="class">
+        <attribute name="focusArea" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="force" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="joint" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modality" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="muscleGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="exerciseLogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseLogs" inverseName="exercise" inverseEntity="ExerciseLogs" syncable="YES"/>
+        <relationship name="inWorkout" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExercisesInWorkout" inverseName="forExercise" inverseEntity="ExercisesInWorkout" syncable="YES"/>
+    </entity>
+    <entity name="ExerciseLogs" representedClassName="ExerciseLogs" syncable="YES" codeGenerationType="class">
+        <attribute name="dateRecorded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="timeDuration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="exerciseLogs" inverseEntity="Exercise" syncable="YES"/>
+    </entity>
+    <entity name="ExercisesInWorkout" representedClassName="ExercisesInWorkout" syncable="YES" codeGenerationType="class">
+        <attribute name="indexNo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="targetReps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="targetSets" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="forExercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="inWorkout" inverseEntity="Exercise" syncable="YES"/>
+        <relationship name="forWorkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="exercises" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <entity name="Hydrate" representedClassName="Hydrate" syncable="YES" codeGenerationType="class">
+        <attribute name="hydrationGoal" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isEnabled" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminderFrequency" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="60" defaultValueString="6" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminderInterval" optional="YES" attributeType="String" defaultValueString="hours" syncable="YES"/>
+    </entity>
+    <entity name="HydrationLogs" representedClassName="HydrationLogs" syncable="YES" codeGenerationType="class">
+        <attribute name="drink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="logTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="oz" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Workout" representedClassName="Workout" syncable="YES">
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="workoutType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExercisesInWorkout" inverseName="forWorkout" inverseEntity="ExercisesInWorkout" syncable="YES"/>
+        <relationship name="logs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutLogs" inverseName="workout" inverseEntity="WorkoutLogs" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutLogs" representedClassName="WorkoutLogs" syncable="YES" codeGenerationType="class">
+        <attribute name="dateRecorded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeDuration" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="logs" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Exercise" positionX="72" positionY="-396" width="128" height="30"/>
+        <element name="ExerciseLogs" positionX="70" positionY="-144" width="128" height="148"/>
+        <element name="ExercisesInWorkout" positionX="-144" positionY="-394" width="128" height="120"/>
+        <element name="Hydrate" positionX="-171" positionY="-243" width="128" height="105"/>
+        <element name="HydrationLogs" positionX="-162" positionY="-234" width="128" height="90"/>
+        <element name="Workout" positionX="-360" positionY="-396" width="128" height="135"/>
+        <element name="WorkoutLogs" positionX="-362" positionY="-144" width="128" height="103"/>
+    </elements>
+</model>
