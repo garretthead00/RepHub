@@ -23,6 +23,7 @@ class FeedTVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         self.tableView.refreshControl = self.refreshControl
         self.loadPosts()
+        print("Hello World!")
 
     }
     
