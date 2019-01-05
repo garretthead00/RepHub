@@ -31,7 +31,6 @@ class WorkoutViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
         self.loadWorkout()
         self.editControlsStackView.isHidden = true
-          print("Hello World!!")
 
     }
 
