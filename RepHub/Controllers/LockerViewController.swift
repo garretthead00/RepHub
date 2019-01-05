@@ -22,7 +22,6 @@ class LockerViewController: UIViewController {
         self.collectionView.delegate = self
         fetchUser()
         fetchUserPosts()
-        print("Hello World!!!")
 
     }
     
