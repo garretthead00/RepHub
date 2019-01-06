@@ -81,6 +81,11 @@ class HelperService {
                 let newHashTagRef = API.HashTag.HASHTAG_DB_REF.child(word.lowercased())
                 newHashTagRef.updateChildValues([newPostId:true])
             }
+            if word.hasPrefix("@") {
+                word = word.trimmingCharacters(in: CharacterSet.punctuationCharacters)
+                let newUserTagRef = API.UserTag.USERTAG_DB_REF.child(currentUserId)
+                newUserTagRef.updateChildValues([newPostId:true])
+            }
         }
         let timestamp = Int(Date().timeIntervalSince1970)
         var data = ["uid": currentUserId,"photoUrl": photoUrl, "caption": caption, "repCount": 0, "ratio": ratio, "timestamp": timestamp] as [String : Any]

@@ -18,6 +18,7 @@ struct API {
     static var Feed = FeedAPI()
     static var MyPosts = MyPostsAPI()
     static var HashTag = HashTagAPI()
+    static var UserTag = UserTagAPI()
     static var Notification = NotificationAPI()
     static var Hydrate = HydrateAPI()
     static var Exercise = ExerciseAPI()
