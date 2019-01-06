@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -149,6 +149,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-8w-TnG">
                                                     <rect key="frame" x="199.5" y="10.5" width="28" height="28"/>
                                                     <state key="normal" image="tagged"/>
+                                                    <connections>
+                                                        <action selector="tagged_TouchUpInside:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="sIL-8x-fw6"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KF1-uX-bY6">
                                                     <rect key="frame" x="299" y="10.5" width="28" height="28"/>
@@ -239,7 +242,7 @@
                 <viewControllerPlaceholder storyboardName="Search" referencedIdentifier="DetailPostTVC" id="LSx-o9-Rrq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I5o-lx-ydr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-134" y="-840"/>
+            <point key="canvasLocation" x="840" y="-816"/>
         </scene>
         <!--CommentsTVC-->
         <scene sceneID="8Ki-JX-2f3">
@@ -247,7 +250,7 @@
                 <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="CommentsTVC" id="KM5-t8-YDK" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XUg-m2-wb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133" y="-553"/>
+            <point key="canvasLocation" x="840" y="-529"/>
         </scene>
         <!--UserLocker-->
         <scene sceneID="P9R-b0-xZz">
@@ -255,7 +258,7 @@
                 <viewControllerPlaceholder storyboardName="Search" referencedIdentifier="UserLocker" id="wZi-dx-p3V" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cQ-eg-gjU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-150" y="-368"/>
+            <point key="canvasLocation" x="823" y="-345"/>
         </scene>
         <!--Activity-->
         <scene sceneID="6od-HK-MQo">
@@ -355,7 +358,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hWR-Fk-kex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-959" y="-553"/>
+            <point key="canvasLocation" x="-55" y="-528"/>
         </scene>
         <!--Settings-->
         <scene sceneID="6k3-k6-3xg">
@@ -559,14 +562,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ChargeIcon" width="25" height="25"/>
+        <image name="ChargeIcon" width="18" height="18"/>
         <image name="LockerIcon" width="25" height="25"/>
-        <image name="PlannerIcon" width="25" height="25"/>
-        <image name="cog" width="30" height="30"/>
-        <image name="message" width="50" height="50"/>
-        <image name="pin" width="50" height="50"/>
-        <image name="stats" width="50" height="50"/>
-        <image name="tagged" width="50" height="50"/>
+        <image name="PlannerIcon" width="18" height="18"/>
+        <image name="cog" width="22.5" height="22.5"/>
+        <image name="message" width="37.5" height="37.5"/>
+        <image name="pin" width="37.5" height="37.5"/>
+        <image name="stats" width="37.5" height="37.5"/>
+        <image name="tagged" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kuZ-aE-6sp"/>

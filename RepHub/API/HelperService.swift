@@ -83,8 +83,12 @@ class HelperService {
             }
             if word.hasPrefix("@") {
                 word = word.trimmingCharacters(in: CharacterSet.punctuationCharacters)
-                let newUserTagRef = API.UserTag.USERTAG_DB_REF.child(currentUserId)
-                newUserTagRef.updateChildValues([newPostId:true])
+                API.RepHubUser.observeUserByName(username: word, completion: {
+                    user in
+                    let newUserTagRef = API.UserTag.USERTAG_DB_REF.child(user.uid!)
+                    newUserTagRef.updateChildValues([newPostId:true])
+                })
+
             }
         }
         let timestamp = Int(Date().timeIntervalSince1970)

@@ -15,6 +15,8 @@ class LockerViewController: UIViewController {
     
     var user: RepHubUser!
     var userPosts : [Post] = []
+    var taggedPosts : [Post] = []
+    var viewingPosts : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,33 @@ class LockerViewController: UIViewController {
             self.collectionView.reloadData()
         })
     }
+    
+    private func fetchTaggedPosts(){
+        self.userPosts = []
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        API.UserTag.USERTAG_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
+            snapshot in
+            API.Post.observePost(withId: snapshot.key, completion: {
+                post in
+                self.userPosts.append(post)
+                self.collectionView.reloadData()
+            })
+        })
+        
+        API.RepHubUser.observerCurrentUser(completion: { (user) in
+            self.user = user
+            self.collectionView.reloadData()
+        })
+    }
 
+    @IBAction func tagged_TouchUpInside(_ sender: Any) {
+        //self.viewingPosts = "Tagged"
+        self.fetchTaggedPosts()
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Settings" {
             let settingsVC = segue.destination as! SettingTableViewController
