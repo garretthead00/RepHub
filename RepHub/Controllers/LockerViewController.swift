@@ -77,7 +77,6 @@ class LockerViewController: UIViewController {
     }
 
     @IBAction func tagged_TouchUpInside(_ sender: Any) {
-        //self.viewingPosts = "Tagged"
         self.fetchTaggedPosts()
     }
     
