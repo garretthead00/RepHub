@@ -16,7 +16,7 @@ class LockerViewController: UIViewController {
     var user: RepHubUser!
     var userPosts : [Post] = []
     var taggedPosts : [Post] = []
-    var viewingPosts : String = ""
+    var viewingPosts : [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,7 @@ class LockerViewController: UIViewController {
         self.collectionView.delegate = self
         fetchUser()
         fetchUserPosts()
+        fetchTaggedPosts()
         print("Hello World!!!")
 
     }
@@ -46,18 +47,18 @@ class LockerViewController: UIViewController {
             API.Post.observePost(withId: snapshot.key, completion: {
                 post in
                 self.userPosts.append(post)
+                self.viewingPosts.append(post)
                 self.collectionView.reloadData()
             })
         })
         
-        API.RepHubUser.observerCurrentUser(completion: { (user) in
-            self.user = user
-            self.collectionView.reloadData()
-        })
+//        API.RepHubUser.observerCurrentUser(completion: { (user) in
+//            self.user = user
+//            self.collectionView.reloadData()
+//        })
     }
     
     private func fetchTaggedPosts(){
-        self.userPosts = []
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
@@ -65,21 +66,23 @@ class LockerViewController: UIViewController {
             snapshot in
             API.Post.observePost(withId: snapshot.key, completion: {
                 post in
-                self.userPosts.append(post)
+                self.taggedPosts.append(post)
                 self.collectionView.reloadData()
             })
-        })
-        
-        API.RepHubUser.observerCurrentUser(completion: { (user) in
-            self.user = user
-            self.collectionView.reloadData()
         })
     }
 
     @IBAction func tagged_TouchUpInside(_ sender: Any) {
-        self.fetchTaggedPosts()
+        self.viewingPosts = []
+        self.viewingPosts = self.taggedPosts
+        self.collectionView.reloadData()
     }
     
+    @IBAction func posts_TouchUpInside(_ sender: Any) {
+        self.viewingPosts = []
+        self.viewingPosts = self.userPosts
+        self.collectionView.reloadData()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Settings" {
@@ -98,12 +101,12 @@ class LockerViewController: UIViewController {
 extension LockerViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.userPosts.count
+        return self.viewingPosts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PostCollectionViewCell
-        let post = self.userPosts[indexPath.row]
+        let post = self.viewingPosts[indexPath.row]
         cell.post = post
         cell.delegate = self
         return cell
