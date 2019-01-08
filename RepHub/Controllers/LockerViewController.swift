@@ -18,6 +18,8 @@ class LockerViewController: UIViewController {
     var taggedPosts : [Post] = []
     var viewingPosts : [Post] = []
     
+    var delegate: CenterViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.dataSource = self
@@ -71,7 +73,10 @@ class LockerViewController: UIViewController {
             })
         })
     }
-
+    @IBAction func menu_TouchUpInside(_ sender: Any) {
+        delegate?.toggleRightPanel?()
+    }
+    
     @IBAction func tagged_TouchUpInside(_ sender: Any) {
         self.viewingPosts = []
         self.viewingPosts = self.taggedPosts
@@ -150,3 +155,18 @@ extension LockerViewController : PostCellDelegate{
     }
 }
 
+extension LockerViewController: SidePanelViewControllerDelegate {
+    func didSelectMenuOption(_ identifier: String) {
+        // segue to selector's option VC
+        performSegue(withIdentifier: identifier, sender: postId)
+    }
+    
+    
+//    func didSelectAnimal(_ animal: Animal) {
+//        imageView.image = animal.image
+//        titleLabel.text = animal.title
+//        creatorLabel.text = animal.creator
+//
+//        delegate?.collapseSidePanels?()
+//    }
+}
