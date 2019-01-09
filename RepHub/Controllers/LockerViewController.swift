@@ -74,6 +74,7 @@ class LockerViewController: UIViewController {
         })
     }
     @IBAction func menu_TouchUpInside(_ sender: Any) {
+        print("menu_TouchUpInside")
         delegate?.toggleRightPanel?()
     }
     
@@ -158,7 +159,7 @@ extension LockerViewController : PostCellDelegate{
 extension LockerViewController: SidePanelViewControllerDelegate {
     func didSelectMenuOption(_ identifier: String) {
         // segue to selector's option VC
-        performSegue(withIdentifier: identifier, sender: postId)
+        performSegue(withIdentifier: identifier, sender: nil)
     }
     
     

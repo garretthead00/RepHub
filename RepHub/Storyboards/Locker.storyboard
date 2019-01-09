@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Side Panel View Controller-->
+        <!--LockerMenuViewController-->
         <scene sceneID="4oh-vy-fgo">
             <objects>
-                <viewController id="SVK-fo-hxc" customClass="SidePanelViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LockerMenuViewController" id="SVK-fo-hxc" userLabel="LockerMenuViewController" customClass="SidePanelViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vGH-hu-OrE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,12 +66,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3F-BY-Xja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-935.20000000000005" y="-2108.095952023988"/>
+            <point key="canvasLocation" x="-959" y="-2104"/>
         </scene>
         <!--Locker-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController title="Locker" id="8rJ-Kc-sve" customClass="LockerViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LockerViewController" title="Locker" id="8rJ-Kc-sve" customClass="LockerViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -271,15 +271,14 @@
                                 <rect key="frame" x="329" y="7" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="menu"/>
+                                <connections>
+                                    <action selector="menu_TouchUpInside:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Nrq-L3-Bk6"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="menu_TouchUpInside:" destination="8rJ-Kc-sve" id="dsx-4v-Ftx"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="4Q5-Dp-Cbu" id="QCE-75-Frf"/>
-                        <outlet property="settingsButton" destination="DtI-Ox-0Sp" id="tfw-4h-vV4"/>
                         <segue destination="LSx-o9-Rrq" kind="show" identifier="DetailPost" id="kuZ-aE-6sp"/>
                     </connections>
                 </viewController>
@@ -610,19 +609,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZ3-5T-8H4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1898.4000000000001" y="-1304.7976011994003"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="H1E-VW-vNS">
-            <objects>
-                <viewController id="rXz-FD-XBL" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xJY-UM-hAv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2SF-nQ-f37" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

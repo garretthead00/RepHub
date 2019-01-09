@@ -26,7 +26,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    var rightViewController: SidePanelViewController?
+    var lockerMenuViewController: SidePanelViewController?
     
     let centerPanelExpandedOffset: CGFloat = 60
     
@@ -35,12 +35,10 @@ class ContainerViewController: UIViewController {
         
         lockerViewController = UIStoryboard.lockerViewController()!
         lockerViewController.delegate = self
-        
         lockerNavigationController = UINavigationController(rootViewController: lockerViewController)
         view.addSubview(lockerNavigationController.view)
-        addChildViewController(lockerNavigationController)
-        
-        lockerNavigationController.didMove(toParentViewController: self)
+        addChild(lockerNavigationController)
+        lockerNavigationController.didMove(toParent: self)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         lockerNavigationController.view.addGestureRecognizer(panGestureRecognizer)
@@ -50,19 +48,9 @@ class ContainerViewController: UIViewController {
 // MARK: CenterViewController delegate
 extension ContainerViewController: CenterViewControllerDelegate {
     
-    func toggleLeftPanel() {
-        
-        let notAlreadyExpanded = (currentState != .leftPanelExpanded)
-        
-        if notAlreadyExpanded {
-            addLeftPanelViewController()
-        }
-        
-        animateLeftPanel(shouldExpand: notAlreadyExpanded)
-    }
     
     func toggleRightPanel() {
-        
+        print("toggleRightPanel from ContainerVC")
         let notAlreadyExpanded = (currentState != .rightPanelExpanded)
         
         if notAlreadyExpanded {
@@ -77,58 +65,31 @@ extension ContainerViewController: CenterViewControllerDelegate {
         switch currentState {
         case .rightPanelExpanded:
             toggleRightPanel()
-        case .leftPanelExpanded:
-            toggleLeftPanel()
         default:
             break
         }
     }
-    
-    func addLeftPanelViewController() {
-        
-        guard leftViewController == nil else { return }
-        
-        if let vc = UIStoryboard.leftViewController() {
-            vc.animals = Animal.allCats()
-            addChildSidePanelController(vc)
-            leftViewController = vc
-        }
-    }
+
     
     func addChildSidePanelController(_ sidePanelController: SidePanelViewController) {
         
-        sidePanelController.delegate = centerViewController
+        sidePanelController.delegate = lockerViewController
         view.insertSubview(sidePanelController.view, at: 0)
         
-        addChildViewController(sidePanelController)
-        sidePanelController.didMove(toParentViewController: self)
+        addChild(sidePanelController)
+        sidePanelController.didMove(toParent: self)
     }
     
     func addRightPanelViewController() {
         
-        guard rightViewController == nil else { return }
-        
+        guard lockerMenuViewController == nil else { return }
         if let vc = UIStoryboard.lockerMenuViewController() {
-            vc.animals = Animal.allDogs()
+            //vc.animals = Animal.allDogs()
             addChildSidePanelController(vc)
-            rightViewController = vc
+            lockerMenuViewController = vc
         }
     }
-    
-    func animateLeftPanel(shouldExpand: Bool) {
-        
-        if shouldExpand {
-            currentState = .leftPanelExpanded
-            animateCenterPanelXPosition(targetPosition: lockerNavigationController.view.frame.width - centerPanelExpandedOffset)
-            
-        } else {
-            animateCenterPanelXPosition(targetPosition: 0) { _ in
-                self.currentState = .bothCollapsed
-                self.leftViewController?.view.removeFromSuperview()
-                self.leftViewController = nil
-            }
-        }
-    }
+
     
     func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
         
@@ -146,8 +107,8 @@ extension ContainerViewController: CenterViewControllerDelegate {
         } else {
             animateCenterPanelXPosition(targetPosition: 0) { _ in
                 self.currentState = .bothCollapsed
-                self.rightViewController?.view.removeFromSuperview()
-                self.rightViewController = nil
+                self.lockerMenuViewController?.view.removeFromSuperview()
+                self.lockerMenuViewController = nil
             }
         }
     }
@@ -174,9 +135,7 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
             
         case .began:
             if currentState == .bothCollapsed {
-                if gestureIsDraggingFromLeftToRight {
-                    //addLeftPanelViewController()
-                } else {
+                if gestureIsDraggingFromRightToLeft {
                     addRightPanelViewController()
                 }
                 
@@ -190,7 +149,7 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
             }
             
         case .ended:
-            if let _ = rightViewController,
+            if let _ = lockerMenuViewController,
                 let rview = recognizer.view {
                 let hasMovedGreaterThanHalfway = rview.center.x < 0
                 animateRightPanel(shouldExpand: hasMovedGreaterThanHalfway)
