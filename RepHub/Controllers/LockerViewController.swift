@@ -11,14 +11,13 @@ import UIKit
 class LockerViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var settingsButton: UIBarButtonItem!
+    @IBOutlet weak var TrailingConstraint: NSLayoutConstraint!
     
     var user: RepHubUser!
     var userPosts : [Post] = []
     var taggedPosts : [Post] = []
     var viewingPosts : [Post] = []
-    
-    var delegate: CenterViewControllerDelegate?
+    var isMenuShowing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +26,11 @@ class LockerViewController: UIViewController {
         fetchUser()
         fetchUserPosts()
         fetchTaggedPosts()
-        print("Hello World!!!")
 
     }
     
     
-    private func fetchUser(){
+     func fetchUser(){
         API.RepHubUser.observerCurrentUser(completion: { (user) in
             self.user = user
             self.navigationItem.title = user.username
@@ -40,7 +38,7 @@ class LockerViewController: UIViewController {
         })
     }
     
-    private func fetchUserPosts(){
+     func fetchUserPosts(){
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
@@ -60,7 +58,7 @@ class LockerViewController: UIViewController {
 //        })
     }
     
-    private func fetchTaggedPosts(){
+     func fetchTaggedPosts(){
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
@@ -74,8 +72,16 @@ class LockerViewController: UIViewController {
         })
     }
     @IBAction func menu_TouchUpInside(_ sender: Any) {
-        print("menu_TouchUpInside")
-        delegate?.toggleRightPanel?()
+        if (isMenuShowing) {
+            TrailingConstraint.constant = 210
+        } else {
+            TrailingConstraint.constant = 0
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+        isMenuShowing = !isMenuShowing
+
     }
     
     @IBAction func tagged_TouchUpInside(_ sender: Any) {
@@ -154,20 +160,4 @@ extension LockerViewController : PostCellDelegate{
     func goToDetailPostTVC(postId: String) {
         performSegue(withIdentifier: "DetailPost", sender: postId)
     }
-}
-
-extension LockerViewController: SidePanelViewControllerDelegate {
-    func didSelectMenuOption(_ identifier: String) {
-        // segue to selector's option VC
-        performSegue(withIdentifier: identifier, sender: nil)
-    }
-    
-    
-//    func didSelectAnimal(_ animal: Animal) {
-//        imageView.image = animal.image
-//        titleLabel.text = animal.title
-//        creatorLabel.text = animal.creator
-//
-//        delegate?.collapseSidePanels?()
-//    }
 }

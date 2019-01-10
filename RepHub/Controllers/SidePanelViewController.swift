@@ -11,7 +11,7 @@ class SidePanelViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var delegate: SidePanelViewControllerDelegate?
+   
     
     private var menuOptions = ["Activity","Messenger","Stats","Following","Followers","Settings"]
 
@@ -40,9 +40,8 @@ extension SidePanelViewController: UITableViewDataSource {
 extension SidePanelViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let animal = animals[indexPath.row]
-        //delegate?.didSelectAnimal(animal)
-        delegate?.didSelectMenuOption(menuOptions[indexPath.row])
+        print("menu item selecte: \(indexPath.row)")
+
     }
 }
 
