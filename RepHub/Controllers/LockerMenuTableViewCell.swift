@@ -10,6 +10,10 @@ import UIKit
 
 class LockerMenuTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var menuOptionLabel: UILabel!
+    @IBOutlet weak var menuOptionImageView: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

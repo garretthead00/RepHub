@@ -21,6 +21,7 @@ class LockerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        TrailingConstraint.constant = 210
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         fetchUser()
@@ -160,4 +161,12 @@ extension LockerViewController : PostCellDelegate{
     func goToDetailPostTVC(postId: String) {
         performSegue(withIdentifier: "DetailPost", sender: postId)
     }
+}
+
+extension LockerViewController : LockerMenuViewDelegate {
+    func goTo(withIdentifier identifier: String) {
+        performSegue(withIdentifier: identifier, sender: nil)
+    }
+    
+    
 }
