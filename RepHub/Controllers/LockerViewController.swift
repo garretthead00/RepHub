@@ -112,14 +112,7 @@ class LockerViewController: UIViewController {
             let postId = sender as! String
             detailVC.postId = postId
         }
-        if segue.identifier == "Activity" {
-            print("prepareSegue for Activity")
-            //let activityVC = segue.destination as! ActivityTableViewController
-           
-//            let detailVC = segue.destination as! DetailPostTableViewController
-//            let postId = sender as! String
-//            detailVC.postId = postId
-        }
+
     }
     
 }

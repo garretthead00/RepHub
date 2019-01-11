@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680B999521E93B2E00FE6C4F /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680B999421E93B2E00FE6C4F /* FollowViewController.swift */; };
 		680F17FC20D1FAD400FABE7D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F17FB20D1FAD400FABE7D /* AuthService.swift */; };
 		6815848620EF0272007CE53A /* HashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815848520EF0272007CE53A /* HashTagViewController.swift */; };
 		6815FCB121552B3200E26732 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCB021552B3200E26732 /* UserAPI.swift */; };
@@ -136,6 +137,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		680B999421E93B2E00FE6C4F /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		680F17FB20D1FAD400FABE7D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6815848520EF0272007CE53A /* HashTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagViewController.swift; sourceTree = "<group>"; };
 		6815FCB021552B3200E26732 /* UserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				685B111D20F4043F00EE2DA4 /* WalkthroughViewController.swift */,
 				68C1DEC821E46526005048C6 /* LockerMenuTableViewCell.swift */,
 				685B111720F0FE6800EE2DA4 /* ActivityTableViewController.swift */,
+				680B999421E93B2E00FE6C4F /* FollowViewController.swift */,
 				68E987C921052DF10022150A /* PlannerTableViewController.swift */,
 				685B111F20F404DA00EE2DA4 /* WalkthroughPageViewController.swift */,
 				6890F3AA21C478C800147AC8 /* JournalTableViewController.swift */,
@@ -736,6 +739,7 @@
 				6849860A20E71B1B00853A39 /* UserLockerViewController.swift in Sources */,
 				685B111620F0FDAA00EE2DA4 /* ActivityTableViewCell.swift in Sources */,
 				684A28D92127165400F00CA8 /* UserWorkoutsAPI.swift in Sources */,
+				680B999521E93B2E00FE6C4F /* FollowViewController.swift in Sources */,
 				688A21EF2156C5160084C7CE /* UserBodyMeasurements.swift in Sources */,
 				6890F3AB21C478C800147AC8 /* JournalTableViewController.swift in Sources */,
 				6890F3A921C4319500147AC8 /* UserJournalEntriesAPI.swift in Sources */,
