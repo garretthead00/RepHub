@@ -379,7 +379,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="POR-dr-rPh">
-                                                            <rect key="frame" x="8" y="5.5" width="184" height="30"/>
+                                                            <rect key="frame" x="8" y="6" width="184" height="30"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star_filled_green" translatesAutoresizingMaskIntoConstraints="NO" id="yX5-pr-l2Z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -416,8 +416,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="dataSource" destination="ysd-D9-5W0" id="GjB-Ia-YGu"/>
-                                            <outlet property="delegate" destination="ysd-D9-5W0" id="taV-nv-UbK"/>
+                                            <outlet property="dataSource" destination="ysd-D9-5W0" id="MHr-Yj-9fD"/>
+                                            <outlet property="delegate" destination="ysd-D9-5W0" id="VZi-Vu-bj1"/>
                                         </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6o1-Dd-EAb">
@@ -479,16 +479,6 @@
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <navigationItem key="navigationItem" id="hFA-Rn-Xin">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="hFV-Rh-PBm">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7eS-ze-Lvm">
-                                <rect key="frame" x="16" y="9.5" width="25" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="ChargeIcon"/>
-                                <connections>
-                                    <segue destination="zUx-iS-gaE" kind="show" identifier="Activity" id="FYi-JT-71G"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="DtI-Ox-0Sp">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FwZ-mS-LZO">
                                 <rect key="frame" x="329" y="7" width="30" height="30"/>
@@ -503,8 +493,10 @@
                     <connections>
                         <outlet property="TrailingConstraint" destination="VIx-PH-BWK" id="FRt-Dd-RIb"/>
                         <outlet property="collectionView" destination="4Q5-Dp-Cbu" id="QCE-75-Frf"/>
+                        <outlet property="lockerMenuView" destination="ysd-D9-5W0" id="CLS-dU-BlN"/>
                         <segue destination="LSx-o9-Rrq" kind="show" identifier="DetailPost" id="kuZ-aE-6sp"/>
                         <segue destination="FTk-4B-Jam" kind="showDetail" identifier="Settings" id="1jS-Iw-rh9"/>
+                        <segue destination="zUx-iS-gaE" kind="show" identifier="Activity" id="Ywf-1a-DEb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

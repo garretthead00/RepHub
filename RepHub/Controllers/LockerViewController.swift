@@ -13,6 +13,10 @@ class LockerViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var TrailingConstraint: NSLayoutConstraint!
     
+    
+    
+    @IBOutlet weak var lockerMenuView: LockerMenuView!
+    
     var user: RepHubUser!
     var userPosts : [Post] = []
     var taggedPosts : [Post] = []
@@ -27,6 +31,7 @@ class LockerViewController: UIViewController {
         fetchUser()
         fetchUserPosts()
         fetchTaggedPosts()
+        self.lockerMenuView?.delegate = self
 
     }
     
@@ -107,6 +112,14 @@ class LockerViewController: UIViewController {
             let postId = sender as! String
             detailVC.postId = postId
         }
+        if segue.identifier == "Activity" {
+            print("prepareSegue for Activity")
+            //let activityVC = segue.destination as! ActivityTableViewController
+           
+//            let detailVC = segue.destination as! DetailPostTableViewController
+//            let postId = sender as! String
+//            detailVC.postId = postId
+        }
     }
     
 }
@@ -133,7 +146,10 @@ extension LockerViewController : UICollectionViewDataSource {
         return headerView
     }
     
+    
+    
 }
+
 
 extension LockerViewController : UICollectionViewDelegateFlowLayout {
     
@@ -164,8 +180,10 @@ extension LockerViewController : PostCellDelegate{
 }
 
 extension LockerViewController : LockerMenuViewDelegate {
-    func goTo(withIdentifier identifier: String) {
+    func goTo(identifier: String) {
+        print("dele boys")
         performSegue(withIdentifier: identifier, sender: nil)
+
     }
     
     
