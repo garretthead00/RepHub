@@ -43,13 +43,6 @@ class SavedViewController: UIViewController {
             self.collectionView.reloadData()
             ProgressHUD.dismiss()
         })
-        //self.collectionView.reloadData()
-//        API.Post.observeTopPost(completion: {
-//            post in
-//            self.posts.append(post)
-//            self.collectionView.reloadData()
-//            ProgressHUD.dismiss()
-//        })
     }
     
     // MARK: Navigation

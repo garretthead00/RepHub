@@ -132,7 +132,6 @@ class PostAPI {
         guard let currentuser = API.RepHubUser.CURRENT_USER else {
             return
         }
-        
         SAVED_DB_REF.child(currentuser.uid).observe(.childAdded, with: {
             snapshot in
             let postId = snapshot.key

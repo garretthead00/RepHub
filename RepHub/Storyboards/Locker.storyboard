@@ -875,6 +875,7 @@
                     <navigationItem key="navigationItem" title="Saved" id="ASL-vc-Ofs"/>
                     <connections>
                         <outlet property="collectionView" destination="yeP-YY-cDg" id="bJM-Lq-7Ce"/>
+                        <segue destination="LSx-o9-Rrq" kind="show" identifier="DetailPost" id="USL-KF-zZB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GV7-Nt-itJ" sceneMemberID="firstResponder"/>
@@ -892,6 +893,6 @@
         <image name="user2x" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kuZ-aE-6sp"/>
+        <segue reference="USL-KF-zZB"/>
     </inferredMetricsTieBreakers>
 </document>

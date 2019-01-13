@@ -86,7 +86,7 @@ class FeedTableViewCell: UITableViewCell {
             self.timestampLabel.text = timeText
         }
         self.updateRep(post: self.post!)
-        self.updateSaved(post: self.post!)
+        //self.updateSaved(post: self.post!)
     }
     
     func updateRep(post: Post){
