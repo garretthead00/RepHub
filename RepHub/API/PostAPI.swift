@@ -14,6 +14,7 @@ import FirebaseDatabase
 class PostAPI {
     
     var POSTS_DB_REF = Database.database().reference().child("posts")
+    var SAVED_DB_REF = Database.database().reference().child("saved")
     
     // listens to all events on the posts location of the database.
     func observePosts(completion: @escaping(Post) -> Void){
@@ -95,6 +96,36 @@ class PostAPI {
             })
 
         })
+    }
+    
+    func savePost(withPostId id: String, completion: @escaping(Bool) -> Void){
+        guard let currentuser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        SAVED_DB_REF.child(currentuser.uid).child(id).setValue(true, withCompletionBlock: {
+            error, ref in
+            
+            if let error = error {
+                print("Data could not be saved: \(error).")
+                completion(false)
+            } else {
+                print("Data saved successfully!")
+                print("ref: \(ref.key)")
+                self.POSTS_DB_REF.child(ref.key).child("saved").child(currentuser.uid).setValue(true, withCompletionBlock: {
+                    error, ref in
+                    if let error = error {
+                        print("Data could not be saved: \(error).")
+                        completion(false)
+                    } else {
+                        print("Data saved successfully!")
+                        completion(true)
+                        // ADD COMPLETION
+                    }
+                })
+                
+            }
+        })
+        
     }
 
     

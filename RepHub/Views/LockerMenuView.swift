@@ -15,7 +15,6 @@ class LockerMenuView: UIView, UITableViewDataSource, UITableViewDelegate {
     
     private var menuOptions = ["Activity","Messenger","Saved","Following","Followers","Settings"]
     private var imgNames = ["ChargeIcon", "message", "star_filled_green", "user-group", "user-group", "cog"]
-    private var segueIdentifiers = ["Activity","Messenger","Saved","Follow","Follow","Settings"]
     
     var delegate : LockerMenuViewDelegate?
     
@@ -34,7 +33,7 @@ class LockerMenuView: UIView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected option: \(menuOptions[indexPath.row])")
         //self.menudelegate?.goTo(identifier: menuOptions[indexPath.row])
-        delegate?.goTo(identifier: segueIdentifiers[indexPath.row])
+        delegate?.goTo(identifier: menuOptions[indexPath.row])
         
     }
     

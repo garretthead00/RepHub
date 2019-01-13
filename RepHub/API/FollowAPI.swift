@@ -78,4 +78,26 @@ class FollowAPI {
         })
     }
     
+    
+    func fetchFollowing(forUserId uid:String, completion: @escaping(RepHubUser) -> Void){
+        FOLLOWING_DB_REF.child(uid).observe(.childAdded, with: {
+            snapshot in
+            let followingUID = snapshot.key
+            API.RepHubUser.observeUser(withId: followingUID, completion: {
+                user in
+                completion(user)
+            })
+        })
+    }
+    
+    func fetchFollowers(forUserId uid:String, completion: @escaping(RepHubUser) -> Void){
+        FOLLOWERS_DB_REF.child(uid).observe(.childAdded, with: {
+            snapshot in
+            let followingUID = snapshot.key
+            API.RepHubUser.observeUser(withId: followingUID, completion: {
+                user in
+                completion(user)
+            })
+        })
+    }
 }

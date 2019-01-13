@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FollowViewController: UIViewController {
+class FollowersViewController: UIViewController {
 
     @IBOutlet weak var tableview: UITableView!
     
@@ -25,11 +25,17 @@ class FollowViewController: UIViewController {
         self.searchBar.frame.size.width = view.frame.size.width - 60
         let searchItem = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = searchItem
-        self.loadUsers()
+        
+        // Load users Followers
+        self.loadFollowers()
     }
     
-    private func loadUsers() {
-        API.RepHubUser.observeUsers(completion: {
+    
+    private func loadFollowers(){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        API.Follow.fetchFollowers(forUserId: currentUser.uid, completion: {
             user in
             self.isFollowing(userId: user.uid!, completed: {
                 value in
@@ -75,7 +81,7 @@ class FollowViewController: UIViewController {
 
 }
 
-extension FollowViewController : UITableViewDataSource {
+extension FollowersViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -96,21 +102,21 @@ extension FollowViewController : UITableViewDataSource {
     
 }
 
-extension FollowViewController: UISearchBarDelegate {
+extension FollowersViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchUsers()
     }
 }
 
-extension FollowViewController: DiscoverUserCellDelegate {
+extension FollowersViewController: DiscoverUserCellDelegate {
     func gotoUserLockerVC(userId: String?) {
         performSegue(withIdentifier: "ViewLocker", sender: userId)
     }
 
 }
 
-extension FollowViewController: UserLockerDelegate {
+extension FollowersViewController: UserLockerDelegate {
     func updateFollowButton(forUser user: RepHubUser) {
         for u in self.users {
             if u.uid == user.uid {

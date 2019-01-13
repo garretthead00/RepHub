@@ -29,6 +29,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var volumeView: UIView!
     @IBOutlet weak var volumeButton: UIButton!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var saveButton: UIButton!
     
     var delegate : FeedCellDelegate?
     var player: AVPlayer?
@@ -85,12 +86,18 @@ class FeedTableViewCell: UITableViewCell {
             self.timestampLabel.text = timeText
         }
         self.updateRep(post: self.post!)
+        self.updateSaved(post: self.post!)
     }
     
     func updateRep(post: Post){
         let imageName = post.reps == nil || !post.isRepped! ? "rep_blank" : "rep"
         repButton.setImage(UIImage(named: imageName), for: .normal)
         self.updateRepCount(post: post)
+    }
+    
+    func updateSaved(post: Post){
+        let imageName = post.reps == nil || !post.isSaved! ? "star_green" : "star_filled_green"
+        saveButton.setImage(UIImage(named: imageName), for: .normal)
     }
     
     func updateRepCount(post: Post) {
@@ -181,6 +188,20 @@ class FeedTableViewCell: UITableViewCell {
         
     }
     
+    @IBAction func saveButton_TouchUpInside(_ sender: Any) {
+        print("save Post!")
+        if let id = self.post?.id {
+            API.Post.savePost(withPostId: id, completion: {
+                success in
+                
+                if success {
+                  print("success returned: \(success)")
+                    self.updateView()
+                }
+            })
+        }
+        
+    }
     
     
     @IBAction func volumeButton_TouchUpInside(_ sender: UIButton) {

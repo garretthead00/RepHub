@@ -19,6 +19,8 @@ class Post {
     var repCount : Int?
     var reps : Dictionary<String, Any?>?
     var isRepped : Bool?
+    var saves : Dictionary<String, Any?>?
+    var isSaved : Bool?
     var ratio: CGFloat?
     var timestamp : Int?
 
@@ -35,10 +37,14 @@ extension Post {
         post.ratio = data["ratio"] as? CGFloat
         post.repCount = data["repCount"] as? Int
         post.reps = data["reps"] as? Dictionary<String, Any?>
+        post.saves = data["saved"] as? Dictionary<String, Any?>
         post.timestamp = data["timestamp"] as? Int
         if let currentUserId = Auth.auth().currentUser?.uid {
             if post.reps != nil {
                 post.isRepped = post.reps![currentUserId] != nil
+            }
+            if post.saves != nil {
+                post.isSaved = post.saves![currentUserId] != nil
             }
         }
         return post
