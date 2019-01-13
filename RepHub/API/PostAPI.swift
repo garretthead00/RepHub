@@ -127,6 +127,26 @@ class PostAPI {
         })
         
     }
+    
+    func fetchSavedPosts(completion: @escaping(Post) -> Void){
+        guard let currentuser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        
+        SAVED_DB_REF.child(currentuser.uid).observe(.childAdded, with: {
+            snapshot in
+            let postId = snapshot.key
+            self.POSTS_DB_REF.child(postId).observeSingleEvent(of: .value, with: {
+                postSnapshot in
+                if let data = postSnapshot.value as? [String: Any] {
+                    let post = Post.transformPostPhoto(data: data, key: postSnapshot.key)
+                    completion(post)
+                }
+            })
+            
+        })
+        
+    }
 
     
 }

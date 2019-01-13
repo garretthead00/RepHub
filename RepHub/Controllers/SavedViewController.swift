@@ -18,7 +18,7 @@ class SavedViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        loadTopPosts()
+        loadSavedPosts()
     }
     
     
@@ -32,6 +32,24 @@ class SavedViewController: UIViewController {
             self.collectionView.reloadData()
             ProgressHUD.dismiss()
         })
+    }
+    
+    private func loadSavedPosts(){
+        ProgressHUD.show("Loading...", interaction: false)
+        self.posts.removeAll()
+        API.Post.fetchSavedPosts(completion: {
+            post in            
+            self.posts.append(post)
+            self.collectionView.reloadData()
+            ProgressHUD.dismiss()
+        })
+        //self.collectionView.reloadData()
+//        API.Post.observeTopPost(completion: {
+//            post in
+//            self.posts.append(post)
+//            self.collectionView.reloadData()
+//            ProgressHUD.dismiss()
+//        })
     }
     
     // MARK: Navigation

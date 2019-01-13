@@ -823,7 +823,7 @@
         <!--Saved-->
         <scene sceneID="Wcf-ko-Nc0">
             <objects>
-                <viewController id="Ed0-dp-EOY" customClass="SearchViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ed0-dp-EOY" customClass="SavedViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mmf-ok-rhc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
