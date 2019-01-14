@@ -500,6 +500,9 @@
                                                         <constraint firstAttribute="width" constant="26" id="dJD-n1-C9D"/>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="star_green"/>
+                                                    <connections>
+                                                        <action selector="saveButton_TouchUpInside:" destination="MOW-jz-JAh" eventType="touchUpInside" id="fsn-bA-fcF"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

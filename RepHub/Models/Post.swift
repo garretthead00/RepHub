@@ -45,6 +45,8 @@ extension Post {
             }
             if post.saves != nil {
                 post.isSaved = post.saves![currentUserId] != nil
+            } else {
+                post.isSaved = false
             }
         }
         return post

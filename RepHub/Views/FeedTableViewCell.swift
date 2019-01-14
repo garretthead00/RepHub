@@ -193,20 +193,26 @@ class FeedTableViewCell: UITableViewCell {
         if self.post?.isSaved ?? false {
             print("isSaved -- remove from saved")
             if let id = self.post?.id {
-                print("got in")
+           
                 API.Post.removeSaved(withPostId: id, completion: {
                     post in
-                    print("removed from save: \(post.isSaved)")
                     self.post?.isSaved = post.isSaved
-                    self.updateSaved(post: self.post!)
+                    print("self.post.isSaved: \(self.post?.isSaved) --- post.isSaved: \(post.isSaved)")
+                    //self.updateSaved(post: self.post!)
+                    self.post = post
+                    self.updateView()
                 })
             }
         } else {
             print("save Post -- add to saved")
             if let id = self.post?.id {
                 API.Post.savePost(withPostId: id, completion: {
-                    success in
-                    self.updateSaved(post: self.post!)
+                    post in
+                    self.post?.isSaved = post.isSaved
+                    print("self.post.isSaved: \(self.post?.isSaved) --- post.isSaved: \(post.isSaved)")
+                    //self.updateSaved(post: self.post!)
+                    self.post = post
+                    self.updateView()
                 })
             }
         }
