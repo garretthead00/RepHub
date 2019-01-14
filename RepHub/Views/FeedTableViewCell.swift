@@ -189,17 +189,29 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     @IBAction func saveButton_TouchUpInside(_ sender: Any) {
-        print("save Post!")
-        if let id = self.post?.id {
-            API.Post.savePost(withPostId: id, completion: {
-                success in
-                
-                if success {
-                  print("success returned: \(success)")
-                    self.updateView()
-                }
-            })
+        
+        if self.post?.isSaved ?? false {
+            print("isSaved -- remove from saved")
+            if let id = self.post?.id {
+                print("got in")
+                API.Post.removeSaved(withPostId: id, completion: {
+                    post in
+                    print("removed from save: \(post.isSaved)")
+                    self.post?.isSaved = post.isSaved
+                    self.updateSaved(post: self.post!)
+                })
+            }
+        } else {
+            print("save Post -- add to saved")
+            if let id = self.post?.id {
+                API.Post.savePost(withPostId: id, completion: {
+                    success in
+                    self.updateSaved(post: self.post!)
+                })
+            }
         }
+        
+
         
     }
     

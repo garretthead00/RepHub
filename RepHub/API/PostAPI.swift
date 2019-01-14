@@ -128,6 +128,26 @@ class PostAPI {
         
     }
     
+    func removeSaved(withPostId id: String, completion: @escaping(Post) -> Void) {
+        guard  let currentuser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        SAVED_DB_REF.child(currentuser.uid).child(id).removeValue(completionBlock: {
+            err, ref in
+            self.POSTS_DB_REF.child(ref.key).child("saved").child(currentuser.uid).removeValue(completionBlock: {
+                error, ref in
+                self.POSTS_DB_REF.child(id).observeSingleEvent(of: .value, with: {
+                    snapshot in
+                    if let data = snapshot.value as? [String: Any] {
+                        let post = Post.transformPostPhoto(data: data, key: snapshot.key)
+                        completion(post)
+                    }
+                })
+                
+            })
+        })
+    }
+    
     func fetchSavedPosts(completion: @escaping(Post) -> Void){
         guard let currentuser = API.RepHubUser.CURRENT_USER else {
             return
