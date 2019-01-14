@@ -86,7 +86,7 @@ class FeedTableViewCell: UITableViewCell {
             self.timestampLabel.text = timeText
         }
         self.updateRep(post: self.post!)
-        //self.updateSaved(post: self.post!)
+        self.updateSaved(post: self.post!)
     }
     
     func updateRep(post: Post){
@@ -96,7 +96,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func updateSaved(post: Post){
-        let imageName = post.reps == nil || !post.isSaved! ? "star_green" : "star_filled_green"
+        let imageName = post.saves == nil || !post.isSaved! ? "star_green" : "star_filled_green"
         saveButton.setImage(UIImage(named: imageName), for: .normal)
     }
     

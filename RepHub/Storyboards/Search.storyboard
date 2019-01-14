@@ -205,9 +205,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uab-Ea-XQx">
-                                <rect key="frame" x="0.0" y="32" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uab-Ea-XQx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jqz-v5-YK5">
                                     <size key="itemSize" width="129" height="127"/>
@@ -382,6 +381,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.77197594960000004" green="1" blue="0.77870561940000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="uab-Ea-XQx" firstAttribute="bottom" secondItem="oaX-oB-m1W" secondAttribute="bottom" id="4eL-29-G5n"/>
+                            <constraint firstItem="uab-Ea-XQx" firstAttribute="top" secondItem="oaX-oB-m1W" secondAttribute="top" id="Gvi-SX-wdo"/>
+                            <constraint firstItem="uab-Ea-XQx" firstAttribute="trailing" secondItem="oaX-oB-m1W" secondAttribute="trailing" id="Y7A-cg-PDW"/>
+                            <constraint firstItem="uab-Ea-XQx" firstAttribute="leading" secondItem="oaX-oB-m1W" secondAttribute="leading" id="gjM-uv-BGK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="oaX-oB-m1W"/>
                     </view>
                     <navigationItem key="navigationItem" id="bZW-r7-qKM">
@@ -455,7 +460,7 @@
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Iys-ax-4Nf">
-                                            <rect key="frame" x="16" y="353" width="98" height="26"/>
+                                            <rect key="frame" x="16" y="353" width="134" height="26"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvT-JO-yQD">
                                                     <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
@@ -488,11 +493,17 @@
                                                     </constraints>
                                                     <state key="normal" backgroundImage="share"/>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x93-nQ-Nmm">
+                                                    <rect key="frame" x="108" y="0.0" width="26" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="26" id="al9-sp-Esg"/>
+                                                        <constraint firstAttribute="width" constant="26" id="dJD-n1-C9D"/>
+                                                    </constraints>
+                                                    <state key="normal" backgroundImage="star_green"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="QPm-nq-LsO" firstAttribute="height" secondItem="ZvT-JO-yQD" secondAttribute="height" id="01I-NV-TMQ"/>
-                                                <constraint firstItem="QPm-nq-LsO" firstAttribute="centerX" secondItem="Iys-ax-4Nf" secondAttribute="centerX" id="5i1-vs-cDT"/>
-                                                <constraint firstItem="RcL-Jt-9yN" firstAttribute="height" secondItem="QPm-nq-LsO" secondAttribute="height" id="rku-yN-wUg"/>
+                                                <constraint firstItem="QPm-nq-LsO" firstAttribute="centerY" secondItem="ZvT-JO-yQD" secondAttribute="centerY" id="i5t-wM-GPd"/>
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LDr-Y7-FgJ">
@@ -580,6 +591,7 @@
                                     <outlet property="profileImageView" destination="24I-p6-68U" id="Ehu-PO-lnR"/>
                                     <outlet property="repButton" destination="ZvT-JO-yQD" id="ZNc-Cs-I0q"/>
                                     <outlet property="repCountLabel" destination="dke-eF-dGO" id="4fw-q9-UHy"/>
+                                    <outlet property="saveButton" destination="x93-nQ-Nmm" id="qWH-wV-h7E"/>
                                     <outlet property="timestampLabel" destination="gX4-Uy-keh" id="QRf-gh-ua9"/>
                                     <outlet property="usernameLabel" destination="NXb-cH-FKC" id="7bC-5h-WLy"/>
                                     <outlet property="volumeButton" destination="yfn-UX-cpL" id="O6w-lo-pFx"/>
@@ -628,11 +640,12 @@
         <image name="pin" width="37.5" height="37.5"/>
         <image name="rep_blank" width="37.5" height="37.5"/>
         <image name="share" width="37.5" height="37.5"/>
+        <image name="star_green" width="180" height="180"/>
         <image name="stats" width="37.5" height="37.5"/>
         <image name="tagged" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eGj-p3-1um"/>
-        <segue reference="tDO-Ji-DJM"/>
+        <segue reference="pkD-oA-aGe"/>
+        <segue reference="ryE-qS-6fp"/>
     </inferredMetricsTieBreakers>
 </document>
