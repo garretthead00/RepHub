@@ -75,6 +75,7 @@
 		686F38E920ED425400502636 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F38E820ED425400502636 /* FilterCollectionViewCell.swift */; };
 		686F38EB20ED8E2800502636 /* HashTagAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F38EA20ED8E2800502636 /* HashTagAPI.swift */; };
 		6875622D2048EF6100DDD09D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875622C2048EF6100DDD09D /* SearchViewController.swift */; };
+		6875AFB521EEBAF8008F3E95 /* UserLockerCRV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */; };
 		6885873E20D9CD4100DAC4A3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885873D20D9CD4100DAC4A3 /* Comment.swift */; };
 		68876F8A2144425700DE1E45 /* WorkoutExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68876F892144425700DE1E45 /* WorkoutExercises.swift */; };
 		688A21ED2156C2440084C7CE /* bodyMeasurementsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A21EC2156C2430084C7CE /* bodyMeasurementsDataStore.swift */; };
@@ -210,6 +211,7 @@
 		686F38E820ED425400502636 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		686F38EA20ED8E2800502636 /* HashTagAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagAPI.swift; sourceTree = "<group>"; };
 		6875622C2048EF6100DDD09D /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLockerCRV.swift; sourceTree = "<group>"; };
 		6885873D20D9CD4100DAC4A3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		68876F892144425700DE1E45 /* WorkoutExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExercises.swift; sourceTree = "<group>"; };
 		688A21EC2156C2430084C7CE /* bodyMeasurementsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bodyMeasurementsDataStore.swift; sourceTree = "<group>"; };
@@ -357,6 +359,16 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6875AFB121EEB920008F3E95 /* Datastores */ = {
+			isa = PBXGroup;
+			children = (
+				6815FCBA215599F500E26732 /* HealthKitSetupAssistant.swift */,
+				688A21EC2156C2430084C7CE /* bodyMeasurementsDataStore.swift */,
+				68F9C0F721612CA3000799C4 /* WorkoutStore.swift */,
+			);
+			path = Datastores;
+			sourceTree = "<group>";
+		};
 		6885873620D9AEB100DAC4A3 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +409,7 @@
 			children = (
 				681E438520DDB56900FB6686 /* LockerCRV.swift */,
 				68E987CB21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift */,
+				6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */,
 				68E987D32106838D0022150A /* HydrateLogTableViewCell.swift */,
 				689CAAA42123793C00BC2975 /* ExerciseTypesTableViewCell.swift */,
 				68C77D6921E7E7900000A73B /* LockerMenuView.swift */,
@@ -512,9 +525,7 @@
 				688E3CE620D6AF730032B35F /* Models */,
 				688EE25E20CC2FD6007EE071 /* Storyboards */,
 				6815FCB221552B7E00E26732 /* Config.swift */,
-				6815FCBA215599F500E26732 /* HealthKitSetupAssistant.swift */,
-				688A21EC2156C2430084C7CE /* bodyMeasurementsDataStore.swift */,
-				68F9C0F721612CA3000799C4 /* WorkoutStore.swift */,
+				6875AFB121EEB920008F3E95 /* Datastores */,
 				68379C7D20D21D870079FD56 /* GoogleService-Info.plist */,
 				68379C7620D219A60079FD56 /* Info.plist */,
 				68459ECD20D225F400CB2176 /* ProgressHUD.bundle */,
@@ -695,6 +706,7 @@
 				685B111A20F100DC00EE2DA4 /* NotificationAPI.swift in Sources */,
 				684A28D421270ADE00F00CA8 /* ExerciseTypesForWorkoutTableViewController.swift in Sources */,
 				68E987DC2107CC050022150A /* HydrateReminderTableViewCell.swift in Sources */,
+				6875AFB521EEBAF8008F3E95 /* UserLockerCRV.swift in Sources */,
 				6890F3A121A5F48C00147AC8 /* WorkoutCalorieTracker.swift in Sources */,
 				6815FCBD2155D22100E26732 /* BioTableViewController.swift in Sources */,
 				684CF32520DB2A060009357B /* PostAPI.swift in Sources */,
