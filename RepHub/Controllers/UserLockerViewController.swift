@@ -15,7 +15,6 @@ protocol UserLockerDelegate {
 class UserLockerViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    //@IBOutlet weak var followButton: UIButton!
     private var user: RepHubUser!
     private var userPosts : [Post] = []
     var userId = ""
@@ -37,15 +36,6 @@ class UserLockerViewController: UIViewController {
                 user.isFollowing = value
                 self.user = user
                 self.navigationItem.title = user.username
-                if user.uid != API.RepHubUser.CURRENT_USER?.uid {
-                    if user.isFollowing! {
-                        //self.configureUnfollowButton()
-                    } else {
-                        //self.configureFollowButton()
-                    }
-                } else {
-                    //self.followButton.isHidden = true
-                }
                 self.collectionView.reloadData()
             })
         })
@@ -61,44 +51,6 @@ class UserLockerViewController: UIViewController {
             })
         })
     }
-    
-//    func configureFollowButton() {
-//        self.followButton.backgroundColor = UIColor(red: 8/255, green: 129/255, blue: 194/255, alpha: 1)
-//        self.followButton.frame.size.width = 70
-//        self.followButton.frame.size.height = 18
-//        self.followButton.layer.cornerRadius = 3
-//        self.followButton.setTitleColor(UIColor.white, for: .normal)
-//        self.followButton.setTitle("Follow", for: UIControl.State.normal)
-//        self.followButton.addTarget(self, action: #selector(self.followUser), for: UIControl.Event.touchUpInside)
-//    }
-//
-//    func configureUnfollowButton() {
-//        self.followButton.backgroundColor = UIColor.lightGray
-//        self.followButton.frame.size.width = 70
-//        self.followButton.frame.size.height = 18
-//        self.followButton.layer.cornerRadius = 3
-//        self.followButton.setTitleColor(UIColor.darkGray, for: .normal)
-//        self.followButton.setTitle("Following", for: UIControl.State.normal)
-//        self.followButton.addTarget(self, action: #selector(self.unfollowUser), for: UIControl.Event.touchUpInside)
-//    }
-    
-    @objc private func followUser() {
-        if !user!.isFollowing! {
-            API.Follow.followAction(withUser: user!.uid!)
-            //configureUnfollowButton()
-            user!.isFollowing! = true
-            delegate?.updateFollowButton(forUser: user!)
-        }
-    }
-    
-    @objc private func unfollowUser() {
-        if self.user!.isFollowing! {
-            API.Follow.unFollowAction(withUser: self.user!.uid!)
-            //self.configureFollowButton()
-            self.user!.isFollowing! = false
-        }
-    }
-    
 
     private func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
         API.Follow.isFollowing(userId: userId, completed: completed)
