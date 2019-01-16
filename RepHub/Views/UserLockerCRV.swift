@@ -50,20 +50,18 @@ class UserLockerCRV: UICollectionReusableView {
             self.followingCountLabel.text = "\(count)"
         })
         self.followButton.titleLabel?.text = ""
-        API.Follow.isFollowing(userId: user!.uid!, completed: {
-            isFollowing in
-            if isFollowing {
-                self.followButton.setTitle("unfollow", for: .normal)
-                self.followButton.titleLabel?.numberOfLines = 0
-                self.followButton.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.followButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-            } else {
-                self.followButton.setTitle("follow", for: .normal)
-                self.followButton.titleLabel?.numberOfLines = 0
-                self.followButton.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.followButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-            }
-        })
+        if user!.isFollowing! {
+            self.followButton.setTitle("unfollow", for: .normal)
+            self.followButton.titleLabel?.numberOfLines = 0
+            self.followButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            self.followButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        } else {
+            self.followButton.setTitle("follow", for: .normal)
+            self.followButton.titleLabel?.numberOfLines = 0
+            self.followButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            self.followButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        }
+
     }
     
     private func clear(){
@@ -74,4 +72,15 @@ class UserLockerCRV: UICollectionReusableView {
         
     }
     
+    @IBAction func followButton_TouchUpInside(_ sender: Any) {
+        if !user!.isFollowing! {
+            API.Follow.followAction(withUser: user!.uid!)
+            user!.isFollowing! = true
+            self.updateView()
+        } else {
+            API.Follow.unFollowAction(withUser: self.user!.uid!)
+            self.user!.isFollowing! = false
+            self.updateView()
+        }
+    }
 }

@@ -551,6 +551,9 @@
                                                     <state key="normal">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="followButton_TouchUpInside:" destination="FPG-y4-7qC" eventType="touchUpInside" id="8c0-Ww-bSy"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7m-5Z-phY">
                                                     <rect key="frame" x="214" y="0.0" width="25" height="25"/>
