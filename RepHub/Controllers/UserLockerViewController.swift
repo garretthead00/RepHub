@@ -14,6 +14,7 @@ protocol UserLockerDelegate {
 
 class UserLockerViewController: UIViewController {
 
+    @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     private var user: RepHubUser!
     private var userPosts : [Post] = []
@@ -65,6 +66,33 @@ class UserLockerViewController: UIViewController {
         }
     }
 
+    @IBAction func menuButton_TouchUpInside(_ sender: Any) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let reportAction = UIAlertAction(title: "Report", style: .default, handler: { action in
+            
+        })
+        let blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
+            
+        })
+        let shareAction = UIAlertAction(title: "Share", style: .default, handler: { action in
+            
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        })
+        
+        reportAction.setValue(UIColor.red, forKey: "titleTextColor")
+        blockAction.setValue(UIColor.red, forKey: "titleTextColor")
+        cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
+        alert.addAction(reportAction)
+        alert.addAction(blockAction)
+        alert.addAction(shareAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+    }
 }
 
 extension UserLockerViewController : UICollectionViewDataSource {

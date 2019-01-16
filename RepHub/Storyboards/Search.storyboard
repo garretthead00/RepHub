@@ -428,7 +428,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qhl-CF-Qe5">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hGm-xi-poV">
                                     <size key="itemSize" width="129" height="127"/>
@@ -635,11 +635,15 @@
                                 <rect key="frame" x="314" y="0.0" width="45" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="more"/>
+                                <connections>
+                                    <action selector="menuButton_TouchUpInside:" destination="xrq-8J-SxI" eventType="touchUpInside" id="SYy-70-oXX"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Qhl-CF-Qe5" id="syv-MQ-5zV"/>
+                        <outlet property="menuButton" destination="qTU-8Q-HMI" id="Pl5-AU-5eY"/>
                         <segue destination="7ld-gj-CA9" kind="show" identifier="DetailPost" id="3R2-cZ-Cck"/>
                     </connections>
                 </viewController>
@@ -662,7 +666,7 @@
         <image name="user2x" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ozt-63-1xp"/>
+        <segue reference="Mou-EN-Ud0"/>
         <segue reference="3R2-cZ-Cck"/>
     </inferredMetricsTieBreakers>
 </document>

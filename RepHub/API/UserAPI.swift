@@ -100,5 +100,13 @@ class UserAPI {
         })
     }
     
+    func blockUser(withId id: String) {
+        
+    }
+    
+    func reportUser(with id: String) {
+        
+    }
+    
     
 }
