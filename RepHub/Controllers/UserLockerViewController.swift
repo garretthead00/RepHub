@@ -71,7 +71,7 @@ class UserLockerViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let reportAction = UIAlertAction(title: "Report", style: .default, handler: { action in
-            
+            API.Report.reportUser(withId: self.user!.uid!, comment: "comment")
         })
         let blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
             API.Block.blockUser(withId: self.user!.uid!)
