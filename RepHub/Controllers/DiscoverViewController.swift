@@ -26,6 +26,7 @@ class DiscoverViewController: UIViewController {
     }
     
     private func loadUsers() {
+
         API.RepHubUser.observeUsers(completion: {
             user in
             self.isFollowing(userId: user.uid!, completed: {

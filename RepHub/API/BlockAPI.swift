@@ -18,37 +18,37 @@ class BlockAPI {
     
     func blockUser(withId id: String){
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCK_DB_REF.child(id).child(currentUser.uid).setValue(true, withCompletionBlock: {
-                err, ref in
-                //API.Follow.unFollowAction(withUser: id)
-                API.Follow.FOLLOWERS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
-                API.Follow.FOLLOWING_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
-                
-                API.UserPosts.USER_POSTS_DB_REF.child(id).observeSingleEvent(of: .value, with: {
-                    snapshot in
-                    if let data = snapshot.value as? [String : Any] {
-                        for key in data.keys {
-                            Database.database().reference().child("feed").child(API.RepHubUser.CURRENT_USER!.uid).child(key).removeValue()
-                        }
+            BLOCK_DB_REF.child(currentUser.uid).child(id).setValue(true)
+            BLOCK_DB_REF.child(id).child(currentUser.uid).setValue(true)
+            API.Follow.FOLLOWERS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).setValue(NSNull())
+            API.Follow.FOLLOWERS_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
+            API.Follow.FOLLOWING_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
+            API.Follow.FOLLOWING_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).setValue(NSNull())
+
+            API.UserPosts.USER_POSTS_DB_REF.child(id).observeSingleEvent(of: .value, with: {
+                snapshot in
+                if let data = snapshot.value as? [String : Any] {
+                    for key in data.keys {
+                        Database.database().reference().child("feed").child(API.RepHubUser.CURRENT_USER!.uid).child(key).removeValue()
                     }
-                })
-                API.UserPosts.USER_POSTS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
-                    snapshot in
-                    if let data = snapshot.value as? [String : Any] {
-                        for key in data.keys {
-                            Database.database().reference().child("feed").child(id).child(key).removeValue()
-                        }
-                    }
-                })
-                API.Follow.FOLLOWERS_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
-                API.Follow.FOLLOWING_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).setValue(NSNull())
-                API.Follow.FOLLOWERS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
-                API.Follow.FOLLOWING_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
-                let newNotificationReference = API.Notification.NOTIFICATION_DB_REF.child(id).child("\(API.RepHubUser.CURRENT_USER!.uid)-\(id)")
-                newNotificationReference.setValue(NSNull())
-                
-                
+                }
             })
+            API.UserPosts.USER_POSTS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
+                snapshot in
+                if let data = snapshot.value as? [String : Any] {
+                    for key in data.keys {
+                        Database.database().reference().child("feed").child(id).child(key).removeValue()
+                    }
+                }
+            })
+            
+            let newNotificationReference = API.Notification.NOTIFICATION_DB_REF.child(id).child("\(API.RepHubUser.CURRENT_USER!.uid)-\(id)")
+            newNotificationReference.setValue(NSNull())
+            
+            let newNotificationReferenceInverse = API.Notification.NOTIFICATION_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child("\(id)-\(API.RepHubUser.CURRENT_USER!.uid)")
+            newNotificationReferenceInverse.setValue(NSNull())
+                
+
         }
     }
     
