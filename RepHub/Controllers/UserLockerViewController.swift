@@ -74,7 +74,7 @@ class UserLockerViewController: UIViewController {
             
         })
         let blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
-            
+            API.Block.blockUser(withId: self.user!.uid!)
         })
         let shareAction = UIAlertAction(title: "Share", style: .default, handler: { action in
             

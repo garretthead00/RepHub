@@ -35,7 +35,6 @@ class SearchViewController: UIViewController {
         })
     }
     @IBAction func refreshButton_TouchUpInside(_ sender: Any) {
-        
         loadTopPosts()
     }
     

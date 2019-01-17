@@ -51,6 +51,7 @@ class FollowAPI {
         newNotificationReference.setValue(NSNull())
     }
     
+    
     func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
         FOLLOWERS_DB_REF.child(userId).child(API.RepHubUser.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
             snapshot in

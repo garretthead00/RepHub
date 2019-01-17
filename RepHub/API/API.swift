@@ -31,4 +31,5 @@ struct API {
     static var UserWorkoutLogs = UserWorkoutLogsAPI()
     static var WourkoutJournal = WorkoutJournalAPI()
     static var UserJournalEntries = UserJournalEntriesAPI()
+    static var Block = BlockAPI()
 }

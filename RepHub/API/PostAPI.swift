@@ -85,13 +85,21 @@ class PostAPI {
     }
     
     func observeTopPost(completion: @escaping(Post) -> Void) {
+        var blockedUsers = [String]()
+        API.Block.fetchBlockedUsers(completion: {
+            userId in
+            blockedUsers.append(userId)
+        })
         POSTS_DB_REF.queryOrdered(byChild: "repCount").observeSingleEvent(of: .value, with: {
             snapshot in
             let arraySnapshot = (snapshot.children.allObjects as! [DataSnapshot]).reversed()
             arraySnapshot.forEach({ child in
                 if let data = child.value as? [String: Any] {
-                    let post = Post.transformPostPhoto(data: data, key: child.key)
-                    completion(post)
+                    let uid = data["uid"] as! String
+                    if !blockedUsers.contains(uid) {
+                        let post = Post.transformPostPhoto(data: data, key: child.key)
+                        completion(post)
+                    }
                 }
             })
 
