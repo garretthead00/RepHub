@@ -90,12 +90,16 @@ class PostAPI {
         var blockedUsers = [String]()
         API.Block.fetchBlockedUsers(completion: {
             userId in
+            print("blocked")
             blockedUsers.append(userId)
         })
         API.Block.fetchBlockedByUsers(completion: {
             userId in
+            print("blockedby")
             blockedUsers.append(userId)
+
         })
+        print("blockersUsers.count: \(blockedUsers.count)")
         POSTS_DB_REF.queryOrdered(byChild: "repCount").observeSingleEvent(of: .value, with: {
             snapshot in
             let arraySnapshot = (snapshot.children.allObjects as! [DataSnapshot]).reversed()

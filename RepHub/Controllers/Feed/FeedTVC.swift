@@ -137,15 +137,14 @@ extension FeedTVC : FeedCellDelegate {
     func goToHashTagVC(hashtag: String) {
         performSegue(withIdentifier: "HashTag", sender: hashtag)
     }
+    
     func toggleMenu(postId: String,userId: String){
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let reportAction = UIAlertAction(title: "Report", style: .default, handler: { action in
             API.Report.reportPost(withId: postId, userId: userId, comment: "comment")
         })
-        let blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
-            API.Block.blockUser(withId: userId)
-        })
+
         let muteAction = UIAlertAction(title: "Mute", style: .default, handler: { action in
             
         })
@@ -154,11 +153,9 @@ extension FeedTVC : FeedCellDelegate {
         })
         
         reportAction.setValue(UIColor.red, forKey: "titleTextColor")
-        blockAction.setValue(UIColor.red, forKey: "titleTextColor")
         muteAction.setValue(UIColor.red, forKey: "titleTextColor")
         cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
         alert.addAction(reportAction)
-        alert.addAction(blockAction)
         alert.addAction(muteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)

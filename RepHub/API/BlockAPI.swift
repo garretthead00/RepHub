@@ -72,10 +72,10 @@ class BlockAPI {
             })
         }
     }
-    
+
     func fetchBlockedByUsers(completion: @escaping(String) -> Void) {
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCKED_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
+            BLOCKED_BY_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
                 snapshot in
                 if let data = snapshot.key as? String {
                     completion(data)
@@ -83,10 +83,11 @@ class BlockAPI {
             })
         }
     }
-    
+
     func isBlocked(userId: String, completion: @escaping(Bool) -> Void) {
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCKED_DB_REF.child(currentUser.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            BLOCKED_BY_DB_REF.child(currentUser.uid).child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+                print("snapshot: \(snapshot.exists())")
                 if snapshot.exists(){
                     completion(true)
                 }else{
