@@ -73,22 +73,9 @@ class UserLockerViewController: UIViewController {
         let reportAction = UIAlertAction(title: "Report", style: .default, handler: { action in
             API.Report.reportUser(withId: self.user!.uid!, comment: "comment")
         })
-        
-        var blockAction : UIAlertAction?
-        API.Block.isBlocked(userId: self.user!.uid!, completion: {
-            isBlocked in
-            
-            if isBlocked {
-                blockAction = UIAlertAction(title: "Unblock", style: .default, handler: { action in
-                    API.Block.unblockUser(withId: self.user!.uid!)
-                })
-            } else {
-                blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
-                    API.Block.blockUser(withId: self.user!.uid!)
-                })
-            }
+        let blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
+            API.Block.blockUser(withId: self.user!.uid!)
         })
-        
 
         let muteAction = UIAlertAction(title: "Mute", style: .default, handler: { action in
             
@@ -98,11 +85,11 @@ class UserLockerViewController: UIViewController {
         })
         
         reportAction.setValue(UIColor.red, forKey: "titleTextColor")
-        blockAction!.setValue(UIColor.red, forKey: "titleTextColor")
+        blockAction.setValue(UIColor.red, forKey: "titleTextColor")
         muteAction.setValue(UIColor.red, forKey: "titleTextColor")
         cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
         alert.addAction(reportAction)
-        alert.addAction(blockAction!)
+        alert.addAction(blockAction)
         alert.addAction(muteAction)
         alert.addAction(cancelAction)
         
