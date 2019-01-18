@@ -12,6 +12,7 @@ import KILabel
 protocol CommentCellDelegate {
     func goToUserLockerVC(userId: String)
     func goToHashTagVC(hashtag: String)
+    func reportComment(withId: String, userId: String)
 }
 
 class CommentTableViewCell: UITableViewCell {
@@ -20,6 +21,7 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var commentLabel: KILabel!
+    @IBOutlet weak var reportButton: UIButton!
     
     var delegate : CommentCellDelegate?
     var comment: Comment? {
@@ -65,13 +67,22 @@ class CommentTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
         nameLabel.addGestureRecognizer(tapGesture)
         nameLabel.isUserInteractionEnabled = true
+        let reportButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.reportButton_TouchUpSinde))
+        reportButton.addGestureRecognizer(reportButtonTapGesture)
+        reportButton.isUserInteractionEnabled = true
     }
     
+    @objc private func reportButton_TouchUpSinde(){
+        if let id = user?.uid {
+            delegate?.reportComment(withId: self.comment!.commentId!, userId: id)
+        }
+    }
     @objc private func nameLabel_TouchUpInside() {
         if let id = user?.uid {
             delegate?.goToUserLockerVC(userId: id)
         }
     }
+
     
     override func prepareForReuse() {
         super.prepareForReuse()

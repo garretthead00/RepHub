@@ -14,6 +14,7 @@ protocol FeedCellDelegate {
     func goToCommentsVC(postId: String)
     func goToUserLockerVC(userId: String)
     func goToHashTagVC(hashtag: String)
+    func toggleMenu(postId: String, userId: String)
 }
 
 
@@ -152,6 +153,9 @@ class FeedTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    @IBAction func moreButton_TouchUpInside(_ sender: Any) {
+        delegate?.toggleMenu(postId: self.post!.id!, userId: self.user!.uid!)
+    }
     @IBAction func commentButton_touchUpInside(_ sender: Any) {
         if let id = post?.id {
             self.delegate?.goToCommentsVC(postId: id)

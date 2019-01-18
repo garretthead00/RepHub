@@ -202,4 +202,7 @@ extension CommentViewController : CommentCellDelegate {
     func goToHashTagVC(hashtag: String) {
         performSegue(withIdentifier: "HashTag", sender: hashtag)
     }
+    func reportComment(withId: String, userId: String) {
+        API.Report.reportComment(withId: withId, userId: userId, comment: "comment")
+    }
 }

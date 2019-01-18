@@ -18,7 +18,7 @@ class CommentAPI {
         COMMENT_DB_REF.child(id).observeSingleEvent(of: .value, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
-                let comment = Comment.transformComment(data: data)
+                let comment = Comment.transformComment(data: data, key: snapshot.key)
                 completion(comment)
             }
         })

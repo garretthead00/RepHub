@@ -9,7 +9,7 @@
 import Foundation
 
 class Comment {
-    
+    var commentId : String?
     var commentText : String?
     var uid: String?
     
@@ -17,8 +17,9 @@ class Comment {
 
 extension Comment {
     
-    static func transformComment(data: [String: Any]) -> Comment {
+    static func transformComment(data: [String: Any], key: String) -> Comment {
         let comment = Comment()
+        comment.commentId = key as? String
         comment.uid = data["uid"] as? String
         comment.commentText = data["comment"] as? String
         return comment

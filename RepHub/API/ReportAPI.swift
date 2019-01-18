@@ -21,7 +21,9 @@ class ReportAPI {
             let newReportRef = REPORTED_USERS_DB_REF.childByAutoId()
             let timestamp = Int(Date().timeIntervalSince1970)
             newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": id])
-            USER_REPORTS_DB_REF.child(id).setValue(["dateLastReported": timestamp])
+            USER_REPORTS_DB_REF.child(id).updateChildValues(["dateLastReported": timestamp])
+            
+            
             USER_REPORTS_DB_REF.child(id).child("reports").child(newReportRef.key).setValue(true)
         }
         
@@ -30,18 +32,18 @@ class ReportAPI {
         if let currentUser = API.RepHubUser.CURRENT_USER {
             let newReportRef = REPORTED_POSTS_DB_REF.childByAutoId()
             let timestamp = Int(Date().timeIntervalSince1970)
-            newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": id, "postId": id])
-            USER_REPORTS_DB_REF.child(id).setValue(["dateLastReported": timestamp])
-            USER_REPORTS_DB_REF.child(id).child("post-reports").child(newReportRef.key).setValue(true)
+            newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": userId, "postId": id])
+            USER_REPORTS_DB_REF.child(userId).updateChildValues(["dateLastReported": timestamp])
+            USER_REPORTS_DB_REF.child(userId).child("post-reports").child(newReportRef.key).setValue(true)
         }
     }
     func reportComment(withId id: String, userId: String, comment: String){
         if let currentUser = API.RepHubUser.CURRENT_USER {
             let newReportRef = REPORTED_COMMENTS_DB_REF.childByAutoId()
             let timestamp = Int(Date().timeIntervalSince1970)
-            newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": id, "commentId": id])
-            USER_REPORTS_DB_REF.child(id).setValue(["dateLastReported": timestamp])
-            USER_REPORTS_DB_REF.child(id).child("comment-reports").child(newReportRef.key).setValue(true)
+            newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": userId, "commentId": id])
+            USER_REPORTS_DB_REF.child(userId).updateChildValues(["dateLastReported": timestamp])
+            USER_REPORTS_DB_REF.child(userId).child("comment-reports").child(newReportRef.key).setValue(true)
         }
     }
     
