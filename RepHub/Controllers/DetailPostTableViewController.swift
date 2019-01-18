@@ -91,7 +91,7 @@ extension DetailPostTableViewController : FeedCellDelegate {
         let blockAction = UIAlertAction(title: "Block", style: .default, handler: { action in
             API.Block.blockUser(withId: userId)
         })
-        let shareAction = UIAlertAction(title: "Share", style: .default, handler: { action in
+        let muteAction = UIAlertAction(title: "Mute", style: .default, handler: { action in
             
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
@@ -100,10 +100,11 @@ extension DetailPostTableViewController : FeedCellDelegate {
         
         reportAction.setValue(UIColor.red, forKey: "titleTextColor")
         blockAction.setValue(UIColor.red, forKey: "titleTextColor")
+        muteAction.setValue(UIColor.red, forKey: "titleTextColor")
         cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
         alert.addAction(reportAction)
         alert.addAction(blockAction)
-        alert.addAction(shareAction)
+        alert.addAction(muteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }

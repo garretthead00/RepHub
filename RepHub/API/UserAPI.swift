@@ -56,7 +56,10 @@ class UserAPI {
             userId in
             blockedUsers.append(userId)
         })
-        
+        API.Block.fetchBlockedByUsers(completion: {
+            userId in
+            blockedUsers.append(userId)
+        })
        USERS_DB_REF.observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
@@ -69,6 +72,17 @@ class UserAPI {
                     }
                 }
 
+            }
+        })
+    }
+    func observeAllUsers(completion: @escaping(RepHubUser) -> Void){
+        USERS_DB_REF.observe(.childAdded, with: {
+            snapshot in
+            if let data = snapshot.value as? [String: Any] {
+                let user = RepHubUser.transformUser(data: data, key: snapshot.key)
+                if user.uid! != self.CURRENT_USER?.uid {
+                    completion(user)
+                }
             }
         })
     }

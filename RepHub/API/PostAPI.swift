@@ -84,9 +84,15 @@ class PostAPI {
         }
     }
     
+    
     func observeTopPost(completion: @escaping(Post) -> Void) {
+        
         var blockedUsers = [String]()
         API.Block.fetchBlockedUsers(completion: {
+            userId in
+            blockedUsers.append(userId)
+        })
+        API.Block.fetchBlockedByUsers(completion: {
             userId in
             blockedUsers.append(userId)
         })
@@ -102,7 +108,7 @@ class PostAPI {
                     }
                 }
             })
-
+            
         })
     }
     

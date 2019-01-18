@@ -13,13 +13,14 @@ import FirebaseAuth
 
 class BlockAPI {
     
-    var BLOCK_DB_REF = Database.database().reference().child("block")
+    var BLOCKED_DB_REF = Database.database().reference().child("blocked")
+    var BLOCKED_BY_DB_REF = Database.database().reference().child("blockedBy")
     
     
     func blockUser(withId id: String){
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCK_DB_REF.child(currentUser.uid).child(id).setValue(true)
-            BLOCK_DB_REF.child(id).child(currentUser.uid).setValue(true)
+            BLOCKED_DB_REF.child(currentUser.uid).child(id).setValue(true)
+            BLOCKED_BY_DB_REF.child(id).child(currentUser.uid).setValue(true)
             API.Follow.FOLLOWERS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).setValue(NSNull())
             API.Follow.FOLLOWERS_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
             API.Follow.FOLLOWING_DB_REF.child(id).child(API.RepHubUser.CURRENT_USER!.uid).setValue(NSNull())
@@ -53,21 +54,54 @@ class BlockAPI {
     }
     
     func unblockUser(withId id: String){
+        print("unblockuser")
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCK_DB_REF.child(id).child(currentUser.uid).removeValue()
+            BLOCKED_DB_REF.child(currentUser.uid).child(id).removeValue()
+            BLOCKED_BY_DB_REF.child(id).child(currentUser.uid).removeValue()
 
         }
     }
     
     func fetchBlockedUsers(completion: @escaping(String) -> Void) {
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCK_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
+            BLOCKED_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
                 snapshot in
                 if let data = snapshot.key as? String {
                     completion(data)
                 }
             })
         }
+    }
+    func fetchBlockedByUsers(completion: @escaping(String) -> Void) {
+        if let currentUser = API.RepHubUser.CURRENT_USER {
+            BLOCKED_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
+                snapshot in
+                if let data = snapshot.key as? String {
+                    completion(data)
+                }
+            })
+        }
+    }
+    
+
+    
+    func isBlocked(userId: String, completion: @escaping(Bool) -> Void) {
+        var blockedUsers = [String]()
+        if let currentUser = API.RepHubUser.CURRENT_USER {
+            BLOCKED_DB_REF.child(currentUser.uid).observe(.childAdded, with: {
+                snapshot in
+                if let data = snapshot.key as? String {
+                    blockedUsers.append(data)
+                }
+            })
+            if !blockedUsers.contains(userId) {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+        
+        
     }
     
     
