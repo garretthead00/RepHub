@@ -77,8 +77,15 @@ class UserLockerViewController: UIViewController {
             API.Block.blockUser(withId: self.user!.uid!)
         })
 
-        let muteAction = UIAlertAction(title: "Mute", style: .default, handler: { action in
-            
+        API.Follow.isFollowing(userId: userId, completed: {
+            isFollowing in
+            if isFollowing {
+                let muteAction = UIAlertAction(title: "Mute", style: .default, handler: { action in
+                    API.Mute.muteUser(withId: self.user!.uid!)
+                })
+                muteAction.setValue(UIColor.red, forKey: "titleTextColor")
+                alert.addAction(muteAction)
+            }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             
@@ -86,11 +93,9 @@ class UserLockerViewController: UIViewController {
         
         reportAction.setValue(UIColor.red, forKey: "titleTextColor")
         blockAction.setValue(UIColor.red, forKey: "titleTextColor")
-        muteAction.setValue(UIColor.red, forKey: "titleTextColor")
         cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
         alert.addAction(reportAction)
         alert.addAction(blockAction)
-        alert.addAction(muteAction)
         alert.addAction(cancelAction)
         
         present(alert, animated: true)

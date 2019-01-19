@@ -31,9 +31,14 @@ class FeedAPI {
                     post in
                     API.RepHubUser.observeUser(withId: post.uid!, completion: {
                         user in
-                        results.append((post, user))
-                        //results.insert((post,user), at: index)
-                        myGroup.leave()
+                        API.Mute.isMuted(userId: user.uid!, completion: {
+                            isMuted in
+                            if !isMuted {
+                                results.append((post, user))
+                            }
+                            myGroup.leave()
+                        })
+                        
                     })
                 })
             }
@@ -58,9 +63,13 @@ class FeedAPI {
                     post in
                     API.RepHubUser.observeUser(withId: post.uid!, completion: {
                         user in
-                        results.append((post, user))
-                        //results.insert((post,user), at: index)
-                        myGroup.leave()
+                        API.Mute.isMuted(userId: user.uid!, completion: {
+                            isMuted in
+                            if !isMuted {
+                                results.append((post, user))
+                            }
+                            myGroup.leave()
+                        })
                     })
                 })
             }
