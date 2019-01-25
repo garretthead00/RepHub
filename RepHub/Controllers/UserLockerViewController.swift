@@ -18,8 +18,9 @@ class UserLockerViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     private var user: RepHubUser!
     private var userPosts : [Post] = []
+    var taggedPosts : [Post] = []
+    var viewingPosts : [Post] = []
     var userId = ""
-    
     var delegate : UserLockerDelegate?
     
     override func viewDidLoad() {
@@ -28,6 +29,7 @@ class UserLockerViewController: UIViewController {
         collectionView.delegate = self
         fetchUser()
         fetchUserPosts()
+        fetchTaggedPosts()
     }
     
     private func fetchUser(){
@@ -40,7 +42,6 @@ class UserLockerViewController: UIViewController {
                 self.isBlocked(userId: user.uid!, completed: {
                     value in
                     user.isBlocked = value
-                    print("isBlocked: \(value)")
                     self.navigationItem.title = user.username
                     self.collectionView.reloadData()
                 })
@@ -55,6 +56,18 @@ class UserLockerViewController: UIViewController {
             API.Post.observePost(withId: snapshot.key, completion: {
                 post in
                 self.userPosts.append(post)
+                self.viewingPosts.append(post)
+                self.collectionView.reloadData()
+            })
+        })
+    }
+    
+    func fetchTaggedPosts(){
+        API.UserTag.USERTAG_DB_REF.child(userId).observe(.childAdded, with: {
+            snapshot in
+            API.Post.observePost(withId: snapshot.key, completion: {
+                post in
+                self.taggedPosts.append(post)
                 self.collectionView.reloadData()
             })
         })
@@ -66,6 +79,21 @@ class UserLockerViewController: UIViewController {
     private func isBlocked(userId: String, completed: @escaping(Bool) -> Void) {
         API.Block.isBlocked(userId: userId, completion: completed)
     }
+    
+    @IBAction func posts_TouchUpInside(_ sender: Any) {
+        print("show user posts")
+        self.viewingPosts = []
+        self.viewingPosts = self.userPosts
+        self.collectionView.reloadData()
+    }
+    
+    @IBAction func tagged_TouchUpInside(_ sender: Any) {
+        print("show tagged posts")
+        self.viewingPosts = []
+        self.viewingPosts = self.taggedPosts
+        self.collectionView.reloadData()
+    }
+    
     
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -121,12 +149,12 @@ class UserLockerViewController: UIViewController {
 extension UserLockerViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.userPosts.count
+        return self.viewingPosts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PostCollectionViewCell
-        let post = self.userPosts[indexPath.row]
+        let post = self.viewingPosts[indexPath.row]
         cell.post = post
         cell.delegate = self
         return cell

@@ -334,7 +334,7 @@
                                             <rect key="frame" x="16" y="394" width="343" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption...." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VVJ-6R-izT" customClass="KILabel">
-                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="66.5" height="15.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -581,6 +581,9 @@
                                                         <constraint firstAttribute="height" constant="30" id="Xup-lH-ivP"/>
                                                     </constraints>
                                                     <state key="normal" image="user2x"/>
+                                                    <connections>
+                                                        <action selector="posts_TouchUpInside:" destination="xrq-8J-SxI" eventType="touchUpInside" id="AvV-wu-f6S"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTg-zA-3kY">
                                                     <rect key="frame" x="109" y="0.0" width="109" height="30"/>
@@ -589,6 +592,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWT-do-MZw">
                                                     <rect key="frame" x="218" y="0.0" width="109" height="30"/>
                                                     <state key="normal" image="tagged"/>
+                                                    <connections>
+                                                        <action selector="tagged_TouchUpInside:" destination="xrq-8J-SxI" eventType="touchUpInside" id="SpI-yk-ix2"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

@@ -73,6 +73,7 @@ class LockerViewController: UIViewController {
             })
         })
     }
+    
     @IBAction func menu_TouchUpInside(_ sender: Any) {
         if (isMenuShowing) {
             TrailingConstraint.constant = 210
