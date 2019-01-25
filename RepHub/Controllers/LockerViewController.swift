@@ -58,10 +58,6 @@ class LockerViewController: UIViewController {
             })
         })
         
-//        API.RepHubUser.observerCurrentUser(completion: { (user) in
-//            self.user = user
-//            self.collectionView.reloadData()
-//        })
     }
     
      func fetchTaggedPosts(){
