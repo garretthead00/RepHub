@@ -102,6 +102,25 @@ extension DetailPostTableViewController : FeedCellDelegate {
                 alert.addAction(muteAction)
             }
         })
+        
+        if userId == API.RepHubUser.CURRENT_USER?.uid {
+            if self.posts[0].isCommentsDisabled! {
+                let enableCommentsAction = UIAlertAction(title: "Enable Comments", style: .default, handler: { action in
+                    // disable comments
+                    API.Post.enableComments(withPostId: self.postId!)
+                })
+                enableCommentsAction.setValue(UIColor.red, forKey: "titleTextColor")
+                alert.addAction(enableCommentsAction)
+            } else {
+                let disableCommentsAction = UIAlertAction(title: "Disable Comments", style: .default, handler: { action in
+                    // disable comments
+                    API.Post.disableComments(withPostId: self.postId!)
+                })
+                disableCommentsAction.setValue(UIColor.red, forKey: "titleTextColor")
+                alert.addAction(disableCommentsAction)
+            }
+
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             
         })

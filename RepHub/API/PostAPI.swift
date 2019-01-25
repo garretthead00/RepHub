@@ -172,6 +172,14 @@ class PostAPI {
         })
         
     }
+    
+    func disableComments(withPostId id: String) {
+        POSTS_DB_REF.child(id).child("isCommentsDisabled").setValue(true)
+    }
+    
+    func enableComments(withPostId id: String) {
+        POSTS_DB_REF.child(id).child("isCommentsDisabled").setValue(false)
+    }
 
     
 }
