@@ -82,7 +82,7 @@
                                             <rect key="frame" x="16" y="394" width="343" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vad-La-QYh" customClass="KILabel">
-                                                    <rect key="frame" x="0.0" y="0.0" width="63" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="62.5" height="15.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -251,7 +251,7 @@
                 <viewControllerPlaceholder storyboardName="Search" referencedIdentifier="UserLocker" id="CeJ-bN-Idk" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aPc-Ii-FTa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-361" y="-1572"/>
+            <point key="canvasLocation" x="-362" y="-1650"/>
         </scene>
         <!--Comment View Controller-->
         <scene sceneID="cox-iz-yIm">
@@ -390,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1DL-eD-ANU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="216.80000000000001" y="-2120.6896551724139"/>
+            <point key="canvasLocation" x="217" y="-2119"/>
         </scene>
         <!--Hash Tag View Controller-->
         <scene sceneID="cUc-GU-Lws">
@@ -469,7 +469,7 @@
         <image name="star_green" width="180" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pSP-uw-aUF"/>
-        <segue reference="UQ2-QF-RJo"/>
+        <segue reference="rQR-rC-QXA"/>
+        <segue reference="tFT-Vv-0F1"/>
     </inferredMetricsTieBreakers>
 </document>

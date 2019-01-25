@@ -63,6 +63,8 @@
 		684CF32E20DB39880009357B /* PostCommentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684CF32D20DB39880009357B /* PostCommentsAPI.swift */; };
 		685AF5E721F3B7B300E3C928 /* MuteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685AF5E621F3B7B300E3C928 /* MuteAPI.swift */; };
 		685AF5E921F3CA6500E3C928 /* BlockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685AF5E821F3CA6500E3C928 /* BlockedViewController.swift */; };
+		685AF5EB21F6A3D800E3C928 /* BlockedUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685AF5EA21F6A3D800E3C928 /* BlockedUsersViewController.swift */; };
+		685AF5ED21F6A4D900E3C928 /* BlockedUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685AF5EC21F6A4D900E3C928 /* BlockedUserTableViewCell.swift */; };
 		685B111620F0FDAA00EE2DA4 /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111520F0FDAA00EE2DA4 /* ActivityTableViewCell.swift */; };
 		685B111820F0FE6800EE2DA4 /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111720F0FE6800EE2DA4 /* ActivityTableViewController.swift */; };
 		685B111A20F100DC00EE2DA4 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111920F100DC00EE2DA4 /* NotificationAPI.swift */; };
@@ -203,6 +205,8 @@
 		684CF32D20DB39880009357B /* PostCommentsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentsAPI.swift; sourceTree = "<group>"; };
 		685AF5E621F3B7B300E3C928 /* MuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteAPI.swift; sourceTree = "<group>"; };
 		685AF5E821F3CA6500E3C928 /* BlockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedViewController.swift; sourceTree = "<group>"; };
+		685AF5EA21F6A3D800E3C928 /* BlockedUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewController.swift; sourceTree = "<group>"; };
+		685AF5EC21F6A4D900E3C928 /* BlockedUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTableViewCell.swift; sourceTree = "<group>"; };
 		685B111520F0FDAA00EE2DA4 /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		685B111720F0FE6800EE2DA4 /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		685B111920F100DC00EE2DA4 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
@@ -441,6 +445,7 @@
 				688E3CEC20D890120032B35F /* CommentTableViewCell.swift */,
 				683AB57B20E000C8001B3345 /* PostCollectionViewCell.swift */,
 				683AB58120E198DF001B3345 /* DiscoverUserTableViewCell.swift */,
+				685AF5EC21F6A4D900E3C928 /* BlockedUserTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -475,6 +480,7 @@
 				686F38E620ED3D7800502636 /* FilterViewController.swift */,
 				6849860920E71B1B00853A39 /* UserLockerViewController.swift */,
 				683AB57F20E042C9001B3345 /* DiscoverViewController.swift */,
+				685AF5EA21F6A3D800E3C928 /* BlockedUsersViewController.swift */,
 				685AF5E821F3CA6500E3C928 /* BlockedViewController.swift */,
 			);
 			path = Controllers;
@@ -761,6 +767,7 @@
 				6815848620EF0272007CE53A /* HashTagViewController.swift in Sources */,
 				688E3CE520D6AF690032B35F /* RepHubUser.swift in Sources */,
 				684A28D721270C0E00F00CA8 /* ExercisesTableViewController.swift in Sources */,
+				685AF5ED21F6A4D900E3C928 /* BlockedUserTableViewCell.swift in Sources */,
 				683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */,
 				68C1DEC921E46526005048C6 /* LockerMenuTableViewCell.swift in Sources */,
 				688E3CED20D890120032B35F /* CommentTableViewCell.swift in Sources */,
@@ -815,6 +822,7 @@
 				685C3AE121EB762000DFCF7F /* SavedViewController.swift in Sources */,
 				68F9C0FA2161303D000799C4 /* WorkoutSession.swift in Sources */,
 				68E987D42106838D0022150A /* HydrateLogTableViewCell.swift in Sources */,
+				685AF5EB21F6A3D800E3C928 /* BlockedUsersViewController.swift in Sources */,
 				686F38E720ED3D7800502636 /* FilterViewController.swift in Sources */,
 				684CF32E20DB39880009357B /* PostCommentsAPI.swift in Sources */,
 				68678F6921F0223600E56D70 /* BlockAPI.swift in Sources */,

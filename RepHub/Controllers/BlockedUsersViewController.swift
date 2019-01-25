@@ -1,14 +1,14 @@
 //
-//  DiscoverUserViewController.swift
+//  BlockedUsersViewController.swift
 //  RepHub
 //
-//  Created by Garrett Head on 6/24/18.
-//  Copyright © 2018 Garrett Head. All rights reserved.
+//  Created by Garrett on 1/21/19.
+//  Copyright © 2019 Garrett Head. All rights reserved.
 //
 
 import UIKit
 
-class DiscoverViewController: UIViewController {
+class BlockedUsersViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     private var users : [RepHubUser] = []
@@ -26,7 +26,7 @@ class DiscoverViewController: UIViewController {
     }
     
     private func loadUsers() {
-
+        
         API.RepHubUser.observeUsers(completion: {
             user in
             self.isFollowing(userId: user.uid!, completed: {
@@ -42,15 +42,18 @@ class DiscoverViewController: UIViewController {
         API.Follow.isFollowing(userId: userId, completed: completed)
     }
     
+    private func isBlocked(userId: String, completed: @escaping(Bool) -> Void) {
+        API.Block.isBlocked(userId: userId, completion: completed)
+    }
     
     func searchUsers(){
         if let searchText = searchBar.text?.lowercased(){
             self.users.removeAll()
             self.tableView.reloadData()
             API.RepHubUser.queryUsers(withText: searchText, completion: { user in
-                self.isFollowing(userId: user.uid!, completed: {
-                    value in
-                    user.isFollowing = value
+                self.isBlocked(userId: user.uid!, completed: {
+                    isBlocked in
+                    user.isBlocked = isBlocked
                     self.users.append(user)
                     self.tableView.reloadData()
                 })
@@ -66,10 +69,10 @@ class DiscoverViewController: UIViewController {
             userVC.delegate = self
         }
     }
-
+    
 }
 
-extension DiscoverViewController : UITableViewDataSource {
+extension BlockedUsersViewController : UITableViewDataSource {
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -80,34 +83,26 @@ extension DiscoverViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DiscoverUserTableViewCell", for: indexPath) as! DiscoverUserTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BlockedUserTableViewCell", for: indexPath) as! BlockedUserTableViewCell
         cell.user = self.users[indexPath.row]
         cell.delegate = self
         return cell
     }
 }
 
-extension DiscoverViewController: UISearchBarDelegate {
+extension BlockedUsersViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchUsers()
     }
 }
 
-extension DiscoverViewController: DiscoverUserCellDelegate {
+extension BlockedUsersViewController: BlockedUserCellDelegate {
     func gotoUserLockerVC(userId: String?) {
         performSegue(withIdentifier: "ViewLocker", sender: userId)
     }
     
 }
 
-extension DiscoverViewController: UserLockerDelegate {
-    func updateFollowButton(forUser user: RepHubUser) {
-        for u in self.users {
-            if u.uid == user.uid {
-                u.isFollowing = user.isFollowing
-                self.tableView.reloadData()
-            }
-        }
-    }
-}
+
+
