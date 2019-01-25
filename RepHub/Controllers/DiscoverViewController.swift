@@ -42,6 +42,7 @@ class DiscoverViewController: UIViewController {
         API.Follow.isFollowing(userId: userId, completed: completed)
     }
     
+    
     func searchUsers(){
         if let searchText = searchBar.text?.lowercased(){
             self.users.removeAll()

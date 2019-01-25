@@ -86,7 +86,7 @@ class BlockAPI {
 
     func isBlocked(userId: String, completion: @escaping(Bool) -> Void) {
         if let currentUser = API.RepHubUser.CURRENT_USER {
-            BLOCKED_BY_DB_REF.child(currentUser.uid).child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            BLOCKED_DB_REF.child(currentUser.uid).child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 print("snapshot: \(snapshot.exists())")
                 if snapshot.exists(){
                     completion(true)

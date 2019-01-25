@@ -20,6 +20,7 @@ class RepHubUser {
     var lastName : String?
     var dateOfBirth : String?
     var biologicalSex : String?
+    var isBlocked : Bool?
     
 }
 
