@@ -22,6 +22,13 @@ class CameraViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // present the imagepicker view on load.
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.imageLimit = 1
+        present(imagePickerController, animated: true,completion: nil)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CameraViewController.handleSelectPhoto))
         photo.addGestureRecognizer(tapGesture)
         photo.isUserInteractionEnabled = true
@@ -101,11 +108,10 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
-        // fires after an image has been selected from the Image Picker
-        
+        // if the user has selected a video
         if let videoUrl = info["UIImagePickerControllerMediaURL"] as? URL {
             if let thumbnail = self.generateVideoThumbnail(videoUrl) {
                 self.selectedPhoto = thumbnail
@@ -115,9 +121,10 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             dismiss(animated: true, completion: nil)
         }
         
-        if let selectedProfileImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            selectedPhoto = selectedProfileImage
-            photo.image = selectedProfileImage
+        // if the user selected a photo and not a video
+        if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            selectedPhoto = image
+            photo.image = image
             dismiss(animated: true, completion: {
                 self.performSegue(withIdentifier: "Filter", sender: nil)
             })
