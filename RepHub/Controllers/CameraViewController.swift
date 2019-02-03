@@ -72,20 +72,20 @@ class CameraViewController: UIViewController {
         present(pickerController, animated: true, completion: nil)
     }
 
-    @IBAction func shareImage_TouchUpInside(_ sender: Any) {
-        view.endEditing(true)
-        ProgressHUD.show("Posting...", interaction: false)
-        if let photoImg = selectedPhoto, let imageData = photoImg.jpegData(compressionQuality: 1) {
-            let ratio = photoImg.size.width / photoImg.size.height
-            HelperService.uploadToServer(data: imageData, videoUrl: self.videoUrl, ratio: ratio, caption: caption.text, onSuccess: {
-                self.clean()
-                self.tabBarController?.selectedIndex = 0
-            })
-        }
-        else {
-            ProgressHUD.showError("Please select an image.")
-        }
-    }
+//    @IBAction func shareImage_TouchUpInside(_ sender: Any) {
+//        view.endEditing(true)
+//        ProgressHUD.show("Posting...", interaction: false)
+//        if let photoImg = selectedPhoto, let imageData = photoImg.jpegData(compressionQuality: 1) {
+//            let ratio = photoImg.size.width / photoImg.size.height
+//            HelperService.uploadToServer(data: imageData, videoUrl: self.videoUrl, ratio: ratio, caption: caption.text, onSuccess: {
+//                self.clean()
+//                self.tabBarController?.selectedIndex = 0
+//            })
+//        }
+//        else {
+//            ProgressHUD.showError("Please select an image.")
+//        }
+//    }
     
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
         let imagePickerController = ImagePickerController()

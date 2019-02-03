@@ -12,18 +12,18 @@ import FirebaseDatabase
 
 class HelperService {
     
-    static func uploadToServer(data: Data, videoUrl: URL? = nil, ratio: CGFloat, caption: String, onSuccess: @escaping() -> Void) {
+    static func uploadToServer(data: Data, videoUrl: URL? = nil, ratio: CGFloat, caption: String, isCommentsDisabled: Bool, onSuccess: @escaping() -> Void) {
         
         if let videoUrl = videoUrl {
             self.uploadVideoToStorage(videoUrl: videoUrl, onSuccess: { videoUrl in
                 self.uploadToStorage(data: data, onSuccess: { thumbnailImageUrl in
-                    self.postToDatabase(photoUrl: thumbnailImageUrl, videoUrl: videoUrl, ratio: ratio, caption: caption, onSuccess: onSuccess)
+                    self.postToDatabase(photoUrl: thumbnailImageUrl, videoUrl: videoUrl, ratio: ratio, caption: caption, isCommentsDisabled: isCommentsDisabled, onSuccess: onSuccess)
                 })
             })
         } else {
             self.uploadToStorage(data: data) {
                 photoUrl in
-                self.postToDatabase(photoUrl: photoUrl, ratio: ratio, caption: caption, onSuccess: onSuccess)
+                self.postToDatabase(photoUrl: photoUrl, ratio: ratio, caption: caption, isCommentsDisabled: isCommentsDisabled, onSuccess: onSuccess)
             }
         }
     }
@@ -65,7 +65,7 @@ class HelperService {
         })
     }
     
-    static private func postToDatabase(photoUrl : String, videoUrl: String? = nil, ratio: CGFloat, caption: String, onSuccess: @escaping() -> Void) {
+    static private func postToDatabase(photoUrl : String, videoUrl: String? = nil, ratio: CGFloat, caption: String, isCommentsDisabled: Bool, onSuccess: @escaping() -> Void) {
 
         let newPostId = API.Post.POSTS_DB_REF.childByAutoId().key
         let newPostReference = API.Post.POSTS_DB_REF.child(newPostId)
@@ -92,7 +92,7 @@ class HelperService {
             }
         }
         let timestamp = Int(Date().timeIntervalSince1970)
-        var data = ["uid": currentUserId,"photoUrl": photoUrl, "caption": caption, "repCount": 0, "ratio": ratio, "timestamp": timestamp] as [String : Any]
+        var data = ["uid": currentUserId,"photoUrl": photoUrl, "caption": caption, "repCount": 0, "ratio": ratio, "timestamp": timestamp, "isCommentsDisabled" : isCommentsDisabled] as [String : Any]
         if let videoUrl = videoUrl {
             data["videoUrl"] = videoUrl
         }

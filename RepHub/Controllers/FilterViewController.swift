@@ -17,6 +17,7 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     var selectedImage : UIImage!
+    var videoUrl : URL!
     var delegate: FilterViewControllerDelegate?
     private let filterOptions = [
         "CIPhotoEffectChrome",
@@ -69,6 +70,7 @@ class FilterViewController: UIViewController {
         if segue.identifier == "PostSettings" {
             let postSettingsTVC = segue.destination as! PostSettingsTableViewController
             postSettingsTVC.selectedImage = selectedImage
+            postSettingsTVC.videoUrl = videoUrl
             
         }
     }

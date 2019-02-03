@@ -70,6 +70,7 @@ class ImagePickerViewController: UIViewController {
         if segue.identifier == "Filter" {
             let filterVC = segue.destination as! FilterViewController
             filterVC.selectedImage = self.selectedPhoto
+            filterVC.videoUrl = self.videoUrl
             filterVC.delegate = self
         }
     }
