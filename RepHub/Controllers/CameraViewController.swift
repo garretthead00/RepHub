@@ -111,6 +111,7 @@ extension CameraViewController : UIImagePickerControllerDelegate, UINavigationCo
         // Local variable inserted by Swift 4.2 migrator.
         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
+        
         // if the user has selected a video
         if let videoUrl = info["UIImagePickerControllerMediaURL"] as? URL {
             if let thumbnail = self.generateVideoThumbnail(videoUrl) {
@@ -118,6 +119,7 @@ extension CameraViewController : UIImagePickerControllerDelegate, UINavigationCo
                 self.photo.image = thumbnail
                 self.videoUrl = videoUrl
             }
+
             dismiss(animated: true, completion: nil)
         }
         

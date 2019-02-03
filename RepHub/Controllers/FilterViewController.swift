@@ -35,16 +35,24 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
         self.imageView.image = selectedImage
         // Do any additional setup after loading the view.
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton_TouchUpInside))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButton_TouchUpInside))
     }
 
 
     
-    @IBAction func doneButton_TouchUpInside(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-        delegate?.updatePhoto(image: self.imageView.image!)
+    @objc private func doneButton_TouchUpInside(_ sender: Any) {
+        //dismiss(animated: true, completion: nil)
+        //delegate?.updatePhoto(image: self.imageView.image!)
+//        dismiss(animated: true, completion: {
+//            self.performSegue(withIdentifier: "PostSettings", sender: nil)
+//        })
+        self.performSegue(withIdentifier: "PostSettings", sender: nil)
+
     }
-    @IBAction func cancelButton_TouchUpInside(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @objc private func cancelButton_TouchUpInside(_ sender: Any) {
+        //dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     private func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
@@ -55,6 +63,14 @@ class FilterViewController: UIViewController {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PostSettings" {
+            let postSettingsTVC = segue.destination as! PostSettingsTableViewController
+            postSettingsTVC.selectedImage = selectedImage
+            
+        }
     }
 }
 

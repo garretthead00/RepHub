@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMotionUsageDescription</key>
-	<string>For tracking steps, distance, and flights ascended during a workout session.</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>We will use your health information to track your health goals and achievements.</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>We will share your health data with only our application for better health accuracy.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -29,9 +23,17 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Allow access to Camera.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>We will share your health data with only our application for better health accuracy.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>We will use your health information to track your health goals and achievements.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow access to Microphone.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>For tracking steps, distance, and flights ascended during a workout session.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Allow access to Photo Library.</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>
