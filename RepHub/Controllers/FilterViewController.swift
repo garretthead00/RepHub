@@ -43,16 +43,12 @@ class FilterViewController: UIViewController {
 
     
     @objc private func doneButton_TouchUpInside(_ sender: Any) {
-        //dismiss(animated: true, completion: nil)
-        //delegate?.updatePhoto(image: self.imageView.image!)
-//        dismiss(animated: true, completion: {
-//            self.performSegue(withIdentifier: "PostSettings", sender: nil)
-//        })
         self.performSegue(withIdentifier: "PostSettings", sender: nil)
 
     }
     @objc private func cancelButton_TouchUpInside(_ sender: Any) {
-        //dismiss(animated: true, completion: nil)
+        self.imageView.image = nil
+        self.videoUrl = nil
         navigationController?.popViewController(animated: true)
     }
     
@@ -69,7 +65,7 @@ class FilterViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PostSettings" {
             let postSettingsTVC = segue.destination as! PostSettingsTableViewController
-            postSettingsTVC.selectedImage = selectedImage
+            postSettingsTVC.selectedImage = self.imageView.image
             postSettingsTVC.videoUrl = videoUrl
             
         }
@@ -102,7 +98,7 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
         filter?.setValue(ciImage, forKey: kCIInputImageKey)
         if let filteredImage = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
             let result = context.createCGImage(filteredImage, from: filteredImage.extent)
-            self.imageView.image = UIImage(cgImage: result!)
+            self.imageView.image = UIImage(cgImage: result!, scale: selectedImage.scale, orientation: selectedImage.imageOrientation)
         }
     }
 }

@@ -190,11 +190,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="274.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gos-ws-Hmx">
-                                                    <rect key="frame" x="16" y="11" width="343" height="253"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gos-ws-Hmx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="274.5"/>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gos-ws-Hmx" firstAttribute="leading" secondItem="Jne-Bu-Pwr" secondAttribute="leading" id="1uD-m8-yOK"/>
+                                                <constraint firstAttribute="bottom" secondItem="gos-ws-Hmx" secondAttribute="bottom" id="B4q-CO-hFH"/>
+                                                <constraint firstAttribute="trailing" secondItem="gos-ws-Hmx" secondAttribute="trailing" id="IGp-EO-A7S"/>
+                                                <constraint firstItem="gos-ws-Hmx" firstAttribute="top" secondItem="Jne-Bu-Pwr" secondAttribute="top" id="TRp-9X-tNW"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CaptionCell" rowHeight="130" id="EoQ-FY-3HX">
@@ -354,17 +359,17 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="captionCell" destination="EoQ-FY-3HX" id="1ji-cN-agw"/>
-                        <outlet property="captionTextView" destination="L4X-14-MIL" id="56Y-Ce-kTg"/>
-                        <outlet property="disableCommentsSwitch" destination="fu6-DU-41D" id="Mrw-HK-jfq"/>
-                        <outlet property="locationCell" destination="hOM-NW-e3y" id="uXc-au-22y"/>
-                        <outlet property="postCaptionCell" destination="YqS-PM-pQy" id="PcT-2Y-c56"/>
-                        <outlet property="postImage" destination="gos-ws-Hmx" id="cnF-15-ix7"/>
-                        <outlet property="settingsCell" destination="GOo-DG-qoQ" id="ghE-q3-6GV"/>
-                        <outlet property="shareCell" destination="lcK-Rf-213" id="FFl-oD-3Y9"/>
-                        <outlet property="shareToFacebookSwitch" destination="pIF-rF-rjo" id="ni0-MV-wLv"/>
-                        <outlet property="shareToInstagramSwitch" destination="CS6-LU-DN3" id="BtH-P0-VvA"/>
-                        <outlet property="shareToSnapchatSwitch" destination="K7b-Wl-qaA" id="ste-DB-oWw"/>
+                        <outlet property="captionCell" destination="EoQ-FY-3HX" id="tCj-Gg-Ozx"/>
+                        <outlet property="captionTextView" destination="L4X-14-MIL" id="a9d-FV-57i"/>
+                        <outlet property="disableCommentsSwitch" destination="fu6-DU-41D" id="pn2-fg-NoO"/>
+                        <outlet property="locationCell" destination="hOM-NW-e3y" id="Jfj-6S-eDb"/>
+                        <outlet property="postCell" destination="YqS-PM-pQy" id="DQC-CL-kBL"/>
+                        <outlet property="postImage" destination="gos-ws-Hmx" id="j5f-bo-SFj"/>
+                        <outlet property="settingsCell" destination="GOo-DG-qoQ" id="5k6-vF-VlH"/>
+                        <outlet property="shareCell" destination="lcK-Rf-213" id="g1t-dv-NkJ"/>
+                        <outlet property="shareToFacebookSwitch" destination="pIF-rF-rjo" id="Zlt-wa-22M"/>
+                        <outlet property="shareToInstagramSwitch" destination="CS6-LU-DN3" id="HI5-Cx-Qkz"/>
+                        <outlet property="shareToSnapchatSwitch" destination="K7b-Wl-qaA" id="wlh-V0-daF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o7B-my-i7D" userLabel="First Responder" sceneMemberID="firstResponder"/>

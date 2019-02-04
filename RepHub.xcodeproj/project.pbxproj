@@ -27,6 +27,7 @@
 		6833EE3F211BC85B0018DAA2 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833EE3E211BC85B0018DAA2 /* Exercise.swift */; };
 		6833EE41211E2E770018DAA2 /* ExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833EE40211E2E770018DAA2 /* ExerciseViewController.swift */; };
 		6833EE43211E33180018DAA2 /* ExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833EE42211E33180018DAA2 /* ExercisesTableViewCell.swift */; };
+		6834806E2207488A0024EA66 /* PostSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6834806D2207488A0024EA66 /* PostSettingsTableViewController.swift */; };
 		68379C7E20D21D870079FD56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68379C7D20D21D870079FD56 /* GoogleService-Info.plist */; };
 		683AB57A20DFF2A3001B3345 /* UserPostsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AB57920DFF2A3001B3345 /* UserPostsAPI.swift */; };
 		683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AB57B20E000C8001B3345 /* PostCollectionViewCell.swift */; };
@@ -85,7 +86,6 @@
 		688A21EF2156C5160084C7CE /* UserBodyMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A21EE2156C5160084C7CE /* UserBodyMeasurements.swift */; };
 		688C0B2C2203CC50001F7B25 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C0B2B2203CC50001F7B25 /* ImagePickerViewController.swift */; };
 		688C0B302205FCDF001F7B25 /* UITextViewPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C0B2F2205FCDF001F7B25 /* UITextViewPlaceholder.swift */; };
-		688C0B332205FE57001F7B25 /* PostSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C0B322205FE56001F7B25 /* PostSettingsTableViewController.swift */; };
 		688E3CDD20D337960032B35F /* FeedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688E3CDC20D337960032B35F /* FeedTVC.swift */; };
 		688E3CE120D35BCA0032B35F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688E3CE020D35BCA0032B35F /* Post.swift */; };
 		688E3CE320D46F410032B35F /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688E3CE220D46F410032B35F /* FeedTableViewCell.swift */; };
@@ -166,6 +166,7 @@
 		6833EE3E211BC85B0018DAA2 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		6833EE40211E2E770018DAA2 /* ExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewController.swift; sourceTree = "<group>"; };
 		6833EE42211E33180018DAA2 /* ExercisesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesTableViewCell.swift; sourceTree = "<group>"; };
+		6834806D2207488A0024EA66 /* PostSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSettingsTableViewController.swift; sourceTree = "<group>"; };
 		68379C7620D219A60079FD56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68379C7D20D21D870079FD56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		683AB57920DFF2A3001B3345 /* UserPostsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostsAPI.swift; sourceTree = "<group>"; };
@@ -227,7 +228,6 @@
 		688A21EE2156C5160084C7CE /* UserBodyMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBodyMeasurements.swift; sourceTree = "<group>"; };
 		688C0B2B2203CC50001F7B25 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		688C0B2F2205FCDF001F7B25 /* UITextViewPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewPlaceholder.swift; sourceTree = "<group>"; };
-		688C0B322205FE56001F7B25 /* PostSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSettingsTableViewController.swift; sourceTree = "<group>"; };
 		688E3CDC20D337960032B35F /* FeedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedTVC.swift; path = RepHub/Controllers/Feed/FeedTVC.swift; sourceTree = SOURCE_ROOT; };
 		688E3CE020D35BCA0032B35F /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		688E3CE220D46F410032B35F /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
@@ -460,11 +460,11 @@
 		688E3CE820D6C4EA0032B35F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				688C0B322205FE56001F7B25 /* PostSettingsTableViewController.swift */,
 				68480FE9206344B100B2E312 /* MainTBC.swift */,
 				6885873620D9AEB100DAC4A3 /* Feed */,
 				688EE25A20CB4EEB007EE071 /* SignupViewController.swift */,
 				688EE25820CB44CB007EE071 /* LoginViewController.swift */,
+				6834806D2207488A0024EA66 /* PostSettingsTableViewController.swift */,
 				68BB8255203E63A000458A49 /* CameraViewController.swift */,
 				688C0B2B2203CC50001F7B25 /* ImagePickerViewController.swift */,
 				684A28D521270B2300F00CA8 /* Exercise */,
@@ -814,7 +814,7 @@
 				684A28D321270ADE00F00CA8 /* ExercisesForWorkoutTableViewController.swift in Sources */,
 				683AB57A20DFF2A3001B3345 /* UserPostsAPI.swift in Sources */,
 				6890F39F21A5D38400147AC8 /* ActiveWorkoutView.swift in Sources */,
-				688C0B332205FE57001F7B25 /* PostSettingsTableViewController.swift in Sources */,
+				6834806E2207488A0024EA66 /* PostSettingsTableViewController.swift in Sources */,
 				68BB8256203E63A000458A49 /* CameraViewController.swift in Sources */,
 				68D3767E212E26530083B6D3 /* ExerciseLogViewController.swift in Sources */,
 				6890F3A521C42C2100147AC8 /* WorkoutJournalAPI.swift in Sources */,
