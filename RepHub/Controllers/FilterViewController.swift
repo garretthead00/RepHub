@@ -43,16 +43,12 @@ class FilterViewController: UIViewController {
 
     
     @objc private func doneButton_TouchUpInside(_ sender: Any) {
-        //dismiss(animated: true, completion: nil)
-        //delegate?.updatePhoto(image: self.imageView.image!)
-//        dismiss(animated: true, completion: {
-//            self.performSegue(withIdentifier: "PostSettings", sender: nil)
-//        })
         self.performSegue(withIdentifier: "PostSettings", sender: nil)
 
     }
     @objc private func cancelButton_TouchUpInside(_ sender: Any) {
-        //dismiss(animated: true, completion: nil)
+        self.imageView.image = nil
+        self.videoUrl = nil
         navigationController?.popViewController(animated: true)
     }
     

@@ -90,6 +90,7 @@ extension ImagePickerViewController : UIImagePickerControllerDelegate, UINavigat
         
         if let videoUrl = info["UIImagePickerControllerMediaURL"] as? URL {
             if let thumbnail = self.generateVideoThumbnail(videoUrl) {
+                print("video")
                 self.videoUrl = videoUrl
                 selectedPhoto = thumbnail
                 dismiss(animated: true, completion: {
@@ -100,6 +101,8 @@ extension ImagePickerViewController : UIImagePickerControllerDelegate, UINavigat
         }
         
         if let selectedProfileImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            print("Camera/Library Image")
+            self.videoUrl = nil
             selectedPhoto = selectedProfileImage
             dismiss(animated: true, completion: {
                 self.performSegue(withIdentifier: "Filter", sender: nil)
@@ -110,6 +113,7 @@ extension ImagePickerViewController : UIImagePickerControllerDelegate, UINavigat
     private func generateVideoThumbnail(_ fileUrl: URL) -> UIImage? {
         let asset = AVAsset(url: fileUrl)
         let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
         do {
             let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 6, timescale: 3), actualTime: nil)
             return UIImage(cgImage: thumbnailCGImage)
