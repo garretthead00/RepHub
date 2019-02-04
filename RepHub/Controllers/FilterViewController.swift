@@ -65,7 +65,7 @@ class FilterViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PostSettings" {
             let postSettingsTVC = segue.destination as! PostSettingsTableViewController
-            postSettingsTVC.selectedImage = selectedImage
+            postSettingsTVC.selectedImage = self.imageView.image
             postSettingsTVC.videoUrl = videoUrl
             
         }
@@ -98,7 +98,7 @@ extension FilterViewController : UICollectionViewDelegate, UICollectionViewDataS
         filter?.setValue(ciImage, forKey: kCIInputImageKey)
         if let filteredImage = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
             let result = context.createCGImage(filteredImage, from: filteredImage.extent)
-            self.imageView.image = UIImage(cgImage: result!)
+            self.imageView.image = UIImage(cgImage: result!, scale: selectedImage.scale, orientation: selectedImage.imageOrientation)
         }
     }
 }

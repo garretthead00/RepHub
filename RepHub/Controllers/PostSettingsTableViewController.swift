@@ -94,6 +94,7 @@ class PostSettingsTableViewController: UITableViewController {
                     self.postImage.image = self.selectedImage
                 } else if row == 1 {
                     cell = captionCell
+                    captionTextView.text = ""
                     captionTextView.placeholder = "Caption"
                 } else {
                     cell = locationCell
@@ -101,8 +102,13 @@ class PostSettingsTableViewController: UITableViewController {
                 }
         case 1:
             cell = shareCell
+            shareToFacebookSwitch.isOn = false
+            shareToSnapchatSwitch.isOn = false
+            shareToInstagramSwitch.isOn = false
+
         default:
             cell = settingsCell
+            disableCommentsSwitch.isOn = false
         }
         
         return cell
