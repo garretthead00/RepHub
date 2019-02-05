@@ -28,6 +28,9 @@
 		6833EE41211E2E770018DAA2 /* ExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833EE40211E2E770018DAA2 /* ExerciseViewController.swift */; };
 		6833EE43211E33180018DAA2 /* ExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833EE42211E33180018DAA2 /* ExercisesTableViewCell.swift */; };
 		6834806E2207488A0024EA66 /* PostSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6834806D2207488A0024EA66 /* PostSettingsTableViewController.swift */; };
+		683480702208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6834806F2208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift */; };
+		683480722208C8880024EA66 /* ExerciseTargetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683480712208C8880024EA66 /* ExerciseTargetsCell.swift */; };
+		683480742208D6890024EA66 /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683480732208D6890024EA66 /* WorkoutTableViewController.swift */; };
 		68379C7E20D21D870079FD56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68379C7D20D21D870079FD56 /* GoogleService-Info.plist */; };
 		683AB57A20DFF2A3001B3345 /* UserPostsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AB57920DFF2A3001B3345 /* UserPostsAPI.swift */; };
 		683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AB57B20E000C8001B3345 /* PostCollectionViewCell.swift */; };
@@ -167,6 +170,9 @@
 		6833EE40211E2E770018DAA2 /* ExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewController.swift; sourceTree = "<group>"; };
 		6833EE42211E33180018DAA2 /* ExercisesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesTableViewCell.swift; sourceTree = "<group>"; };
 		6834806D2207488A0024EA66 /* PostSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSettingsTableViewController.swift; sourceTree = "<group>"; };
+		6834806F2208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExeriseTargetSetCollectionViewCell.swift; sourceTree = "<group>"; };
+		683480712208C8880024EA66 /* ExerciseTargetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTargetsCell.swift; sourceTree = "<group>"; };
+		683480732208D6890024EA66 /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
 		68379C7620D219A60079FD56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68379C7D20D21D870079FD56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		683AB57920DFF2A3001B3345 /* UserPostsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostsAPI.swift; sourceTree = "<group>"; };
@@ -308,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				6841E5B52134AB8900D17B87 /* WorkoutViewController.swift */,
+				683480732208D6890024EA66 /* WorkoutTableViewController.swift */,
 				6890F3A221C4177600147AC8 /* WorkoutSurveyViewController.swift */,
 				684A28CC21270ADD00F00CA8 /* CreateWorkoutViewController.swift */,
 				684A28CE21270ADE00F00CA8 /* ExercisesForWorkoutTableViewController.swift */,
@@ -434,6 +441,7 @@
 				68E987CB21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift */,
 				6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */,
 				68E987D32106838D0022150A /* HydrateLogTableViewCell.swift */,
+				6834806F2208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift */,
 				689CAAA42123793C00BC2975 /* ExerciseTypesTableViewCell.swift */,
 				68C77D6921E7E7900000A73B /* LockerMenuView.swift */,
 				6890F39E21A5D38400147AC8 /* ActiveWorkoutView.swift */,
@@ -452,6 +460,7 @@
 				688E3CE220D46F410032B35F /* FeedTableViewCell.swift */,
 				688E3CEC20D890120032B35F /* CommentTableViewCell.swift */,
 				683AB57B20E000C8001B3345 /* PostCollectionViewCell.swift */,
+				683480712208C8880024EA66 /* ExerciseTargetsCell.swift */,
 				683AB58120E198DF001B3345 /* DiscoverUserTableViewCell.swift */,
 			);
 			path = Views;
@@ -772,6 +781,7 @@
 				6862F23321794B3700D65448 /* WorkoutMotionTracker.swift in Sources */,
 				68F33BD421E1C570001BB39B /* UserTagAPI.swift in Sources */,
 				684CF32C20DB36040009357B /* CommentAPI.swift in Sources */,
+				683480742208D6890024EA66 /* WorkoutTableViewController.swift in Sources */,
 				684CB62A2149EE9D0065EB5F /* WorkoutLogsAPI.swift in Sources */,
 				6815848620EF0272007CE53A /* HashTagViewController.swift in Sources */,
 				688E3CE520D6AF690032B35F /* RepHubUser.swift in Sources */,
@@ -822,6 +832,7 @@
 				681E438620DDB56900FB6686 /* LockerCRV.swift in Sources */,
 				689CAAB12123A07B00BC2975 /* WorkoutAPI.swift in Sources */,
 				685C3ADF21EB6FE700DFCF7F /* FollowingViewController.swift in Sources */,
+				683480702208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift in Sources */,
 				684A28E1212747BC00F00CA8 /* WorkoutDetailsTableViewCell.swift in Sources */,
 				689CAAA7212379E900BC2975 /* ExerciseTypesTableViewController.swift in Sources */,
 				68C1DEC321E40D3D005048C6 /* SidePanelViewController.swift in Sources */,
@@ -845,6 +856,7 @@
 				688EE25B20CB4EEB007EE071 /* SignupViewController.swift in Sources */,
 				68C77D6A21E7E7900000A73B /* LockerMenuView.swift in Sources */,
 				684CB62C2149EF680065EB5F /* WorkoutLog.swift in Sources */,
+				683480722208C8880024EA66 /* ExerciseTargetsCell.swift in Sources */,
 				68F9C0F821612CA3000799C4 /* WorkoutStore.swift in Sources */,
 				684A28D121270ADE00F00CA8 /* CreateWorkoutViewController.swift in Sources */,
 				68D08D8821095C2000912F70 /* HydrateDailies.swift in Sources */,

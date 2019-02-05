@@ -92,7 +92,7 @@ class WorkoutsTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Workout" {
-            let workoutTVC = segue.destination as! WorkoutViewController
+            let workoutTVC = segue.destination as! WorkoutTableViewController
             let workout = sender as! String
             workoutTVC.workoutId = workout
         }
