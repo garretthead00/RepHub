@@ -2,94 +2,122 @@
 //  ActivityTableViewController.swift
 //  RepHub
 //
-//  Created by Garrett Head on 7/7/18.
-//  Copyright © 2018 Garrett Head. All rights reserved.
+//  Created by Garrett Head on 2/5/19.
+//  Copyright © 2019 Garrett Head. All rights reserved.
 //
 
 import UIKit
 
 class ActivityTableViewController: UITableViewController {
 
-    private var notifications = [Notification]()
-    private var users = [RepHubUser]()
+    
+    var items = ["caloriesBurned", "exerciseMinutes", "distance", "steps", "caloriesConsumed", "hydration", "sleep","caffeine", "sugar", "protein", "fats", "weight"]
+    
+    //var itemPrimaryColors = []
+    //var itemSecondaryColors = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNotifications()
-    }
-    
-    private func loadNotifications(){
-        guard let currentUser = API.RepHubUser.CURRENT_USER else {
-            return
-        }
-        API.Notification.observeNotification(withId: currentUser.uid, completion: {
-            notification in
-            guard let uid = notification.from else {
-                return
-            }
-            self.fetchUser(uid: uid, completed: {
-                self.notifications.insert(notification, at: 0)
-                self.tableView.reloadData()
-            })
-        })
-    }
-    
-    private func fetchUser(uid : String, completed: @escaping() -> Void ){
-        API.RepHubUser.observeUser(withId: uid, completion: {
-            user in
-            self.users.insert(user, at: 0)
-            completed()
-        })
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        print("----ACTIVITY TVC -----")
     }
 
     // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.notifications.count
+        return 2
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Activity", for: indexPath) as! ActivityTableViewCell
-        let user = self.users[indexPath.row]
-        let notification = self.notifications[indexPath.row]
-        cell.user = user
-        cell.notification = notification
-        cell.delegate = self
-        return cell
+        
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeeklyViewCell", for: indexPath) as! WeeklyViewCell
+             print("--WeeklyViewCell")
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DailyViewCell", for: indexPath) as! DailyViewCell
+             print("--DailyViewCell")
+            return cell
+        }
+    }
+ 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (indexPath.row % 2 > 0) ? calculateRowHeight(row: indexPath.row) : 248
     }
     
-    // MARK: Navigation
+    private func calculateRowHeight(row : Int) -> CGFloat {
+        let totalItem: CGFloat = CGFloat(self.items.count)
+        let totalCellInARow: CGFloat = 2
+        let cellHeight: CGFloat = 132
+        
+        let collViewTopOffset: CGFloat = 10
+        let collViewBottomOffset: CGFloat = 10
+        
+        let minLineSpacing: CGFloat = 5
+        
+        // calculations
+        let totalRow = ceil(totalItem / totalCellInARow)
+        let totalTopBottomOffset = collViewTopOffset + collViewBottomOffset
+        let totalSpacing = CGFloat(totalRow - 1) * minLineSpacing   // total line space in UICollectionView is (totalRow - 1)
+        return (cellHeight * totalRow) + totalTopBottomOffset + totalSpacing
+    }
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailPost" {
-            let detailVC = segue.destination as! DetailPostTableViewController
-            let postId = sender as! String
-            detailVC.postId = postId
-        }
-        if segue.identifier == "ViewLocker" {
-            let profileVC = segue.destination as! UserLockerViewController
-            let userId = sender  as! String
-            profileVC.userId = userId
-        }
-        if segue.identifier == "Comments" {
-            let commentVC = segue.destination as! CommentViewController
-            let postId = sender  as! String
-            commentVC.postId = postId
-        }
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
+    */
 
-}
-
-extension ActivityTableViewController : ActivityCellDelegate{
-    func goToDetailPostTVC(postId: String) {
-        performSegue(withIdentifier: "DetailPost", sender: postId)
-    }
-    
-    func goToUserLockerVC(userId: String) {
-        performSegue(withIdentifier: "ViewLocker", sender: userId)
-    }
-    
-    func goToCommentVC(postId: String) {
-        performSegue(withIdentifier: "Comments", sender: postId)
-    }
-    
 }

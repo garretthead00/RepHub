@@ -18,6 +18,11 @@
 		6815FCBD2155D22100E26732 /* BioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCBC2155D22100E26732 /* BioTableViewController.swift */; };
 		681604F621EED5BB003030B4 /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681604F521EED5BB003030B4 /* ReportAPI.swift */; };
 		681E438620DDB56900FB6686 /* LockerCRV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E438520DDB56900FB6686 /* LockerCRV.swift */; };
+		68261F3E220A8F4C00D3978C /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F3D220A8F4C00D3978C /* ActivityTableViewController.swift */; };
+		68261F40220A928C00D3978C /* WeeklyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F3F220A928C00D3978C /* WeeklyViewCell.swift */; };
+		68261F42220A929B00D3978C /* DailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F41220A929B00D3978C /* DailyViewCell.swift */; };
+		68261F44220A92B500D3978C /* DailyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */; };
+		68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */; };
 		682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682678C420C0AB5200AE620C /* HydrateTVC.swift */; };
 		682CA29320E837510006552D /* MyPostsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29220E837510006552D /* MyPostsAPI.swift */; };
 		682CA29520E858B10006552D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29420E858B10006552D /* SettingTableViewController.swift */; };
@@ -67,7 +72,7 @@
 		684CF32E20DB39880009357B /* PostCommentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684CF32D20DB39880009357B /* PostCommentsAPI.swift */; };
 		685AF5E721F3B7B300E3C928 /* MuteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685AF5E621F3B7B300E3C928 /* MuteAPI.swift */; };
 		685B111620F0FDAA00EE2DA4 /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111520F0FDAA00EE2DA4 /* ActivityTableViewCell.swift */; };
-		685B111820F0FE6800EE2DA4 /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111720F0FE6800EE2DA4 /* ActivityTableViewController.swift */; };
+		685B111820F0FE6800EE2DA4 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111720F0FE6800EE2DA4 /* NotificationsTableViewController.swift */; };
 		685B111A20F100DC00EE2DA4 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111920F100DC00EE2DA4 /* NotificationAPI.swift */; };
 		685B111C20F102C000EE2DA4 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111B20F102C000EE2DA4 /* Notification.swift */; };
 		685B111E20F4043F00EE2DA4 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111D20F4043F00EE2DA4 /* WalkthroughViewController.swift */; };
@@ -160,6 +165,11 @@
 		6815FCBC2155D22100E26732 /* BioTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTableViewController.swift; sourceTree = "<group>"; };
 		681604F521EED5BB003030B4 /* ReportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
 		681E438520DDB56900FB6686 /* LockerCRV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LockerCRV.swift; path = RepHub/Views/LockerCRV.swift; sourceTree = SOURCE_ROOT; };
+		68261F3D220A8F4C00D3978C /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
+		68261F3F220A928C00D3978C /* WeeklyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyViewCell.swift; sourceTree = "<group>"; };
+		68261F41220A929B00D3978C /* DailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewCell.swift; sourceTree = "<group>"; };
+		68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		682678C420C0AB5200AE620C /* HydrateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateTVC.swift; sourceTree = "<group>"; };
 		682CA29220E837510006552D /* MyPostsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsAPI.swift; sourceTree = "<group>"; };
 		682CA29420E858B10006552D /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
@@ -212,7 +222,7 @@
 		684CF32D20DB39880009357B /* PostCommentsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentsAPI.swift; sourceTree = "<group>"; };
 		685AF5E621F3B7B300E3C928 /* MuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteAPI.swift; sourceTree = "<group>"; };
 		685B111520F0FDAA00EE2DA4 /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
-		685B111720F0FE6800EE2DA4 /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
+		685B111720F0FE6800EE2DA4 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		685B111920F100DC00EE2DA4 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		685B111B20F102C000EE2DA4 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		685B111D20F4043F00EE2DA4 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
@@ -440,6 +450,10 @@
 				681E438520DDB56900FB6686 /* LockerCRV.swift */,
 				68E987CB21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift */,
 				6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */,
+				68261F3F220A928C00D3978C /* WeeklyViewCell.swift */,
+				68261F41220A929B00D3978C /* DailyViewCell.swift */,
+				68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */,
+				68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */,
 				68E987D32106838D0022150A /* HydrateLogTableViewCell.swift */,
 				6834806F2208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift */,
 				689CAAA42123793C00BC2975 /* ExerciseTypesTableViewCell.swift */,
@@ -481,9 +495,10 @@
 				682678C420C0AB5200AE620C /* HydrateTVC.swift */,
 				6875622C2048EF6100DDD09D /* SearchViewController.swift */,
 				68C1DEC221E40D3D005048C6 /* SidePanelViewController.swift */,
+				68261F3D220A8F4C00D3978C /* ActivityTableViewController.swift */,
 				685B111D20F4043F00EE2DA4 /* WalkthroughViewController.swift */,
 				68C1DEC821E46526005048C6 /* LockerMenuTableViewCell.swift */,
-				685B111720F0FE6800EE2DA4 /* ActivityTableViewController.swift */,
+				685B111720F0FE6800EE2DA4 /* NotificationsTableViewController.swift */,
 				680B999421E93B2E00FE6C4F /* FollowersViewController.swift */,
 				685C3ADE21EB6FE700DFCF7F /* FollowingViewController.swift */,
 				68E987C921052DF10022150A /* PlannerTableViewController.swift */,
@@ -749,6 +764,7 @@
 				682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */,
 				684A28C9212704E500F00CA8 /* ExerciseTypesForWorkoutTableViewCell.swift in Sources */,
 				68E987CC21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift in Sources */,
+				68261F3E220A8F4C00D3978C /* ActivityTableViewController.swift in Sources */,
 				68B0422D219FAB270078CBE1 /* ActiveWorkoutTableViewController.swift in Sources */,
 				6815FCBB215599F500E26732 /* HealthKitSetupAssistant.swift in Sources */,
 				683AB58020E042C9001B3345 /* DiscoverViewController.swift in Sources */,
@@ -764,9 +780,11 @@
 				685B111E20F4043F00EE2DA4 /* WalkthroughViewController.swift in Sources */,
 				68E987CA21052DF10022150A /* PlannerTableViewController.swift in Sources */,
 				6885873E20D9CD4100DAC4A3 /* Comment.swift in Sources */,
+				68261F42220A929B00D3978C /* DailyViewCell.swift in Sources */,
 				688A21ED2156C2440084C7CE /* bodyMeasurementsDataStore.swift in Sources */,
-				685B111820F0FE6800EE2DA4 /* ActivityTableViewController.swift in Sources */,
+				685B111820F0FE6800EE2DA4 /* NotificationsTableViewController.swift in Sources */,
 				689CAAA52123793C00BC2975 /* ExerciseTypesTableViewCell.swift in Sources */,
+				68261F40220A928C00D3978C /* WeeklyViewCell.swift in Sources */,
 				688E3CDD20D337960032B35F /* FeedTVC.swift in Sources */,
 				6841E5B4212E4E5B00D17B87 /* ExerciseLogsAPI.swift in Sources */,
 				689CAAB32123A0F300BC2975 /* Workout.swift in Sources */,
@@ -786,8 +804,10 @@
 				6815848620EF0272007CE53A /* HashTagViewController.swift in Sources */,
 				688E3CE520D6AF690032B35F /* RepHubUser.swift in Sources */,
 				684A28D721270C0E00F00CA8 /* ExercisesTableViewController.swift in Sources */,
+				68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */,
 				683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */,
 				68C1DEC921E46526005048C6 /* LockerMenuTableViewCell.swift in Sources */,
+				68261F44220A92B500D3978C /* DailyItemCollectionViewCell.swift in Sources */,
 				688E3CED20D890120032B35F /* CommentTableViewCell.swift in Sources */,
 				68B3EC52202FD57800A894CF /* LockerViewController.swift in Sources */,
 				68AD90CE206AC8C500BC6D97 /* ExerciseType.swift in Sources */,
