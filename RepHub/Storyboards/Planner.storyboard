@@ -486,7 +486,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QpS-vy-CA9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeeklyViewCell" rowHeight="228" id="RvF-7K-RFK" customClass="WeeklyViewCell" customModule="RepHub" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="228"/>
@@ -497,7 +497,7 @@
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pTs-w4-hAg">
                                             <rect key="frame" x="16" y="11" width="343" height="206"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pNt-Oc-vYZ">
                                                 <size key="itemSize" width="343" height="179"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -537,6 +537,7 @@
                                         <constraint firstItem="pTs-w4-hAg" firstAttribute="leading" secondItem="odN-pb-PpW" secondAttribute="leadingMargin" id="mfq-pY-I6B"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="collectionView" destination="pTs-w4-hAg" id="gYi-u8-ck9"/>
                                 </connections>
@@ -550,7 +551,7 @@
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cAw-P6-aMZ">
                                             <rect key="frame" x="16" y="11" width="343" height="206"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="h5Z-BZ-Hsz">
                                                 <size key="itemSize" width="132" height="132"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -566,14 +567,14 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart" translatesAutoresizingMaskIntoConstraints="NO" id="1Bp-5b-L5U">
-                                                                <rect key="frame" x="34.5" y="28" width="64" height="64"/>
+                                                                <rect key="frame" x="34" y="28" width="64" height="64"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="64" id="D1v-Ng-2bc"/>
                                                                     <constraint firstAttribute="height" constant="64" id="Qyp-za-WwR"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ij-6C-7hh">
-                                                                <rect key="frame" x="45.5" y="103" width="42" height="21"/>
+                                                                <rect key="frame" x="45" y="103" width="42" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -601,6 +602,7 @@
                                         <constraint firstItem="cAw-P6-aMZ" firstAttribute="leading" secondItem="AwV-q2-TkA" secondAttribute="leadingMargin" id="qko-GM-Ox1"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="collectionView" destination="cAw-P6-aMZ" id="zAL-nY-PQv"/>
                                 </connections>
