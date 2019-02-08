@@ -23,6 +23,7 @@
 		68261F42220A929B00D3978C /* DailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F41220A929B00D3978C /* DailyViewCell.swift */; };
 		68261F44220A92B500D3978C /* DailyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */; };
 		68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */; };
+		68261F48220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */; };
 		682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682678C420C0AB5200AE620C /* HydrateTVC.swift */; };
 		682CA29320E837510006552D /* MyPostsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29220E837510006552D /* MyPostsAPI.swift */; };
 		682CA29520E858B10006552D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29420E858B10006552D /* SettingTableViewController.swift */; };
@@ -170,6 +171,7 @@
 		68261F41220A929B00D3978C /* DailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewCell.swift; sourceTree = "<group>"; };
 		68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExerciseCollectionReusableView.swift; sourceTree = "<group>"; };
 		682678C420C0AB5200AE620C /* HydrateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateTVC.swift; sourceTree = "<group>"; };
 		682CA29220E837510006552D /* MyPostsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsAPI.swift; sourceTree = "<group>"; };
 		682CA29420E858B10006552D /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				681E438520DDB56900FB6686 /* LockerCRV.swift */,
 				68E987CB21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift */,
 				6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */,
+				68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */,
 				68261F3F220A928C00D3978C /* WeeklyViewCell.swift */,
 				68261F41220A929B00D3978C /* DailyViewCell.swift */,
 				68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */,
@@ -871,6 +874,7 @@
 				684A28D021270ADE00F00CA8 /* MuscleGroupsForWorkoutTableViewController.swift in Sources */,
 				684A28D221270ADE00F00CA8 /* WorkoutsTableViewController.swift in Sources */,
 				684A28DD2127296500F00CA8 /* ExercisesForWorkoutTableViewCell.swift in Sources */,
+				68261F48220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift in Sources */,
 				685AF5E721F3B7B300E3C928 /* MuteAPI.swift in Sources */,
 				6890F3A321C4177600147AC8 /* WorkoutSurveyViewController.swift in Sources */,
 				688EE25B20CB4EEB007EE071 /* SignupViewController.swift in Sources */,

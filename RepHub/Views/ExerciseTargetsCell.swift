@@ -22,6 +22,7 @@ class ExerciseTargetsCell: UITableViewCell {
         }
     }
     var aSet : ExerciseSet?
+    var exerciseName : String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,9 +47,17 @@ extension ExerciseTargetsCell : UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("dequeuing target cell")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExerciseTargetSetCell", for: indexPath) as! ExeriseTargetSetCollectionViewCell
-        cell.thisSet = ExerciseSet.init(set: indexPath.row + 1, weight: 125, reps: 8)
+        cell.thisSet = ExerciseSet.init(set: indexPath.row, weight: 125, reps: 8)
         cell.delegate = self
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "WorkoutExerciseCollectionReusableView", for: indexPath) as! WorkoutExerciseCollectionReusableView
+        if let exercise = self.exercise {
+            headerView.exerciseName = self.exerciseName
+        }
+        return headerView
     }
     
     

@@ -17,19 +17,26 @@ class WorkoutTableViewController: UITableViewController {
     var workoutId : String?
     var workout = Workout()
     
-    var randNums = [3,5,2,7,2,5,3,7,8,5,6,3]
+    var randNums = [3,5,10,7,2,5,3,7,8,5,6,3]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
-//        self.tableView.rowHeight = UITableView.automaticDimension
-//        self.tableView.estimatedRowHeight = 420
         self.loadWorkout()
     }
 
     @objc func showEditing(sender: UIBarButtonItem){
-        
+        if self.tableView.isEditing {
+            self.tableView.isEditing = false
+            self.navigationItem.rightBarButtonItem?.title = "Edit"
+
+        }
+        else
+        {
+            self.tableView.isEditing = true
+            self.navigationItem.rightBarButtonItem?.title = "Save"
+        }
     }
     
     private func loadWorkout(){
@@ -72,28 +79,34 @@ class WorkoutTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return self.exercises.count * 2
+         return self.exercises.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let row = indexPath.row
-        let calcRow = (row % 2 == 0) ? (row / 2) : ((row / 2) + 1)
-        if row % 2 == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell", for: indexPath)
-            cell.textLabel?.text = self.exerciseNames[indexPath.row - calcRow]
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseTargetsCell", for: indexPath) as! ExerciseTargetsCell
-            cell.exercise = self.exercises[indexPath.row - calcRow]
-            cell.numItemsInRow = randNums[indexPath.row - calcRow]
-            return cell
-        }
+//        let row = indexPath.row
+//        let calcRow = (row % 2 == 0) ? (row / 2) : ((row / 2) + 1)
+//        if row % 2 == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell", for: indexPath)
+//            cell.textLabel?.text = self.exerciseNames[indexPath.row - calcRow]
+//            return cell
+//        } else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseTargetsCell", for: indexPath) as! ExerciseTargetsCell
+//            cell.exercise = self.exercises[indexPath.row - calcRow]
+//            cell.numItemsInRow = randNums[indexPath.row - calcRow]
+//            return cell
+//        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseTargetsCell", for: indexPath) as! ExerciseTargetsCell
+        cell.exercise = self.exercises[indexPath.row]
+        cell.exerciseName = self.exerciseNames[indexPath.row]
+        cell.numItemsInRow = randNums[indexPath.row]
+        return cell
 
      }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath.row % 2 > 0) ? calculateRowHeight(row: indexPath.row) : 44
+        //return (indexPath.row % 2 > 0) ? calculateRowHeight(row: indexPath.row) : 44
+        return calculateRowHeight(row: indexPath.row)
     }
     
     private func calculateRowHeight(row : Int) -> CGFloat {
@@ -102,26 +115,53 @@ class WorkoutTableViewController: UITableViewController {
         let totalCellInARow: CGFloat = 2
         let cellHeight: CGFloat = 44
         
-        let collViewTopOffset: CGFloat = 10
-        let collViewBottomOffset: CGFloat = 10
+        let collViewTopOffset: CGFloat = 5
+        let collViewBottomOffset: CGFloat = 5
         
         let minLineSpacing: CGFloat = 5
         
         // calculations
         let totalRow = ceil(totalItem / totalCellInARow)
         let totalTopBottomOffset = collViewTopOffset + collViewBottomOffset
-        let totalSpacing = CGFloat(totalRow - 1) * minLineSpacing   // total line space in UICollectionView is (totalRow - 1)
-        return (cellHeight * totalRow) + totalTopBottomOffset + totalSpacing
+        let totalSpacing = CGFloat(totalRow) * minLineSpacing
+        return (cellHeight * totalRow) + totalTopBottomOffset + totalSpacing + 75
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+//        if indexPath.row % 2 == 0 {
+//            return true
+//        } else {
+//            return false
+//        }
+        return true
+        
+    }
+ 
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+//        if indexPath.row % 2 == 0 {
+//            return true
+//        } else {
+//            return false
+//        }
         return true
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let moveExercise = self.exercises[sourceIndexPath.row]
+        let cell = self.tableView.cellForRow(at: sourceIndexPath)
+        let nextCell = self.tableView.cellForRow(at: IndexPath(row: sourceIndexPath.row + 1, section: sourceIndexPath.section))
+        let moveExerciseTargets = self.exercises[sourceIndexPath.row + 1]
+        exercises.remove(at: sourceIndexPath.row)
+        exercises.insert(moveExercise, at: destinationIndexPath.row)
+        self.tableView.reloadData()
+        //exercises.remove(at: sourceIndexPath.row + 1)
+        //exercises.insert(moveExercise, at: destinationIndexPath.row + 1)
+//        self.tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+//        self.tableView.moveRow(at: IndexPath(row: sourceIndexPath.row, section: sourceIndexPath.section), to: IndexPath(row: destinationIndexPath.row + 1, section: destinationIndexPath.section))
+    }
 
     /*
     // Override to support editing the table view.
