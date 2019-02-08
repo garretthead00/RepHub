@@ -26,45 +26,59 @@ class CreateWorkoutViewController: UIViewController {
     }
 
     @objc private func saveWorkout(){
+
         let index = IndexPath(row: 0, section: 0)
         let cell = tableview.cellForRow(at: index) as! CreateWorkoutDetailsTableViewCell
         let description = cell.workoutDescriptionTextView.text
-        let workoutRef = API.Workout.WORKOUT_DB_REF
-        let newWorkoutId = workoutRef.childByAutoId().key
-        let newWorkoutRef = workoutRef.child(newWorkoutId)
+        //let workoutRef = API.Workout.WORKOUT_DB_REF
+        //let newWorkoutId = workoutRef.childByAutoId().key
+        //let newWorkoutRef = workoutRef.child(newWorkoutId)
+        let newWorkoutRef = API.Workout.WORKOUT_DB_REF.childByAutoId()
         if let name = cell.workoutNameTextField.text, !name.isEmpty {
+            // Create a new workout
             newWorkoutRef.setValue(["name" : name, "description" : description], withCompletionBlock: {
                 error, ref in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)
                     return
                 }
-                guard let currentUser = API.RepHubUser.CURRENT_USER else {
-                    return
-                }
-                let currentUserId = currentUser.uid
-                let newUserWorkoutRef = API.UserWorkouts.USER_WORKOUTS_DB_REF.child(currentUserId).child(newWorkoutId)
-                newUserWorkoutRef.setValue(true, withCompletionBlock: {
-                    error, ref in
-                    if error != nil {
-                        ProgressHUD.showError(error!.localizedDescription)
-                       return
-                    }
-                    for index in 0 ..< self.exercises.count {
-                        let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(newWorkoutId).childByAutoId()
-                        newExerciseForWorkoutRef.setValue(["exerciseId": self.exercises[index].id, "atIndex": index], withCompletionBlock: {
+                print("saved workout!")
+
+                // Create the workout-exercises then add the id to the newWorkout.exercises list
+                for index in 0 ..< self.exercises.count {
+                    let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.childByAutoId()
+                    newExerciseForWorkoutRef.setValue(["exerciseId": self.exercises[index].id!, "atIndex": index], withCompletionBlock: {
+                        error, ref in
+                        if error != nil {
+                            ProgressHUD.showError(error!.localizedDescription)
+                            return
+                        }
+                        newWorkoutRef.child("exercises").child(newExerciseForWorkoutRef.key).setValue(true, withCompletionBlock: {
                             error, ref in
                             if error != nil {
                                 ProgressHUD.showError(error!.localizedDescription)
                                 return
                             }
-                            print("saved exercise!")
+                            print("saved workout-exercise!")
                         })
-                    }
-                })
+                    })
+                }
                 
-                ProgressHUD.showSuccess("New Workout Created!")
-                self.dismiss(animated: true, completion: nil)
+            })
+            
+            // Create a new user-workout
+            guard let currentUser = API.RepHubUser.CURRENT_USER else {
+                return
+            }
+            let newUserWorkoutRef = API.UserWorkouts.USER_WORKOUTS_DB_REF.child(currentUser.uid).child(newWorkoutRef.key)
+            newUserWorkoutRef.setValue(true, withCompletionBlock: {
+                error, ref in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+                print("saved user-workout!")
+
             })
         } else {
             ProgressHUD.showError("Name missing!")
