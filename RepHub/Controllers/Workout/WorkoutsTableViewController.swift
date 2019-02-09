@@ -76,7 +76,8 @@ class WorkoutsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let id = self.workouts[indexPath.row].id {
-            performSegue(withIdentifier: "Workout", sender: id)
+            //performSegue(withIdentifier: "Workout", sender: id)
+            performSegue(withIdentifier: "Workout", sender: indexPath.row)
         }
     }
  
@@ -93,8 +94,10 @@ class WorkoutsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Workout" {
             let workoutTVC = segue.destination as! WorkoutTableViewController
-            let workout = sender as! String
-            workoutTVC.workoutId = workout
+            //let workout = sender as! String
+            let index = sender as! Int
+            workoutTVC.workoutId = self.workouts[index].id
+            workoutTVC.workout = self.workouts[index]//workout
         }
     }
  

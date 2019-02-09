@@ -24,6 +24,8 @@
 		68261F44220A92B500D3978C /* DailyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */; };
 		68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */; };
 		68261F48220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */; };
+		68261F4F220F366C00D3978C /* ExerciseTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F4E220F366C00D3978C /* ExerciseTarget.swift */; };
+		68261F51220F38BA00D3978C /* ExerciseTargetsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F50220F38B900D3978C /* ExerciseTargetsAPI.swift */; };
 		682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682678C420C0AB5200AE620C /* HydrateTVC.swift */; };
 		682CA29320E837510006552D /* MyPostsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29220E837510006552D /* MyPostsAPI.swift */; };
 		682CA29520E858B10006552D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29420E858B10006552D /* SettingTableViewController.swift */; };
@@ -172,6 +174,8 @@
 		68261F43220A92B500D3978C /* DailyItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		68261F45220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExerciseCollectionReusableView.swift; sourceTree = "<group>"; };
+		68261F4E220F366C00D3978C /* ExerciseTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTarget.swift; sourceTree = "<group>"; };
+		68261F50220F38B900D3978C /* ExerciseTargetsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTargetsAPI.swift; sourceTree = "<group>"; };
 		682678C420C0AB5200AE620C /* HydrateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateTVC.swift; sourceTree = "<group>"; };
 		682CA29220E837510006552D /* MyPostsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsAPI.swift; sourceTree = "<group>"; };
 		682CA29420E858B10006552D /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
@@ -360,6 +364,7 @@
 				68E987CD2105593B0022150A /* HydrateAPI.swift */,
 				68AF9ECB20E31D8B00EA8D36 /* FeedAPI.swift */,
 				683AB57920DFF2A3001B3345 /* UserPostsAPI.swift */,
+				68261F50220F38B900D3978C /* ExerciseTargetsAPI.swift */,
 				689CAAB02123A07B00BC2975 /* WorkoutAPI.swift */,
 				684CF32420DB2A060009357B /* PostAPI.swift */,
 				684CF32920DB35750009357B /* API.swift */,
@@ -430,6 +435,7 @@
 				686D93C3206F32BF00E4AA20 /* MuscleGroup.swift */,
 				68D08D8721095C2000912F70 /* HydrateDailies.swift */,
 				688A21EE2156C5160084C7CE /* UserBodyMeasurements.swift */,
+				68261F4E220F366C00D3978C /* ExerciseTarget.swift */,
 				684CB62B2149EF680065EB5F /* WorkoutLog.swift */,
 				68AD90CD206AC8C500BC6D97 /* ExerciseType.swift */,
 				683096A62145A71A009AFB83 /* ExerciseLog.swift */,
@@ -795,6 +801,7 @@
 				684CF32A20DB35750009357B /* API.swift in Sources */,
 				6833EE3F211BC85B0018DAA2 /* Exercise.swift in Sources */,
 				6841E5B62134AB8900D17B87 /* WorkoutViewController.swift in Sources */,
+				68261F51220F38BA00D3978C /* ExerciseTargetsAPI.swift in Sources */,
 				684A28DB2127166000F00CA8 /* WorkoutExercisesAPI.swift in Sources */,
 				68E987CE2105593B0022150A /* HydrateAPI.swift in Sources */,
 				6833EE43211E33180018DAA2 /* ExercisesTableViewCell.swift in Sources */,
@@ -821,6 +828,7 @@
 				680B999521E93B2E00FE6C4F /* FollowersViewController.swift in Sources */,
 				688A21EF2156C5160084C7CE /* UserBodyMeasurements.swift in Sources */,
 				6890F3AB21C478C800147AC8 /* JournalTableViewController.swift in Sources */,
+				68261F4F220F366C00D3978C /* ExerciseTarget.swift in Sources */,
 				6890F3A921C4319500147AC8 /* UserJournalEntriesAPI.swift in Sources */,
 				68B3EC4E202FD57800A894CF /* AppDelegate.swift in Sources */,
 				6815FCB321552B7E00E26732 /* Config.swift in Sources */,

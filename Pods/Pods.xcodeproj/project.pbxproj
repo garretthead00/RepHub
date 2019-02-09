@@ -388,6 +388,8 @@
 		677B61461852DA2300CDADDF0C6FD884 /* rescaler_sse2.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F1592CEAA683C2B102A63817143BF8D /* rescaler_sse2.c */; settings = {COMPILER_FLAGS = "-D_THREAD_SAFE -fno-objc-arc"; }; };
 		67F79DE829ECE0D72BB693D6019CFDBE /* histogram_enc.h in Headers */ = {isa = PBXBuildFile; fileRef = 3201B12C84C666460E339C260D1197D8 /* histogram_enc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		680ECF5AE2B82F3A13B49AC0C5D78D74 /* ImageStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF17C8BA273F937FBBC58ECBEF35160 /* ImageStack.swift */; };
+		68261F4A220F349700D3978C /* ExerciseTargetsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F49220F349700D3978C /* ExerciseTargetsAPI.swift */; };
+		68261F4B220F34B800D3978C /* ExerciseTargetsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F49220F349700D3978C /* ExerciseTargetsAPI.swift */; };
 		682AEDD570085C7116241AC91FBF326C /* FIRAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 09DAE3FA4884125B6D64770216D85CC1 /* FIRAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		690495549B97290E4A4C7370FFADEA5D /* FIRGetOOBConfirmationCodeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AF4F2B8D048625FB28F2CF411B506BF6 /* FIRGetOOBConfirmationCodeRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		69386978F07A1B98C68BFED78BDD9882 /* FIRMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDABF90578B98B02588831AEE40A7C1 /* FIRMutableDictionary.m */; };
@@ -1453,6 +1455,7 @@
 		672AA37DD4076A778F62492734775964 /* histogram.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = histogram.cc; path = util/histogram.cc; sourceTree = "<group>"; };
 		67471FA61862DF5624EBD33A111019BC /* FIRTransactionResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRTransactionResult.h; path = Firebase/Database/Public/FIRTransactionResult.h; sourceTree = "<group>"; };
 		678BADAD6FB4A7DCE3FD3BDBE60729B1 /* dec_neon.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = dec_neon.c; path = src/dsp/dec_neon.c; sourceTree = "<group>"; };
+		68261F49220F349700D3978C /* ExerciseTargetsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExerciseTargetsAPI.swift; path = ../RepHub/API/ExerciseTargetsAPI.swift; sourceTree = "<group>"; };
 		684B226D59647BC97434C7CC1766DB24 /* FIRMutableDictionary.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRMutableDictionary.h; path = Firebase/Core/Private/FIRMutableDictionary.h; sourceTree = "<group>"; };
 		68BBD5BA62337B675FF74C27C8D2C2F9 /* FTreeSortedDictionaryEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FTreeSortedDictionaryEnumerator.h; path = Firebase/Database/third_party/FImmutableSortedDictionary/FImmutableSortedDictionary/FTreeSortedDictionaryEnumerator.h; sourceTree = "<group>"; };
 		6911E0D717D77D2C5A2FCBC8A9FDAEF8 /* FIRStorageDeleteTask.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRStorageDeleteTask.h; path = Firebase/Storage/Private/FIRStorageDeleteTask.h; sourceTree = "<group>"; };
@@ -2675,6 +2678,7 @@
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
+				68261F49220F349700D3978C /* ExerciseTargetsAPI.swift */,
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				7C4A4C692781786F25663B662FD0525F /* Frameworks */,
 				B45212DF6BC1F04779306EE583F0100A /* Pods */,
@@ -4466,6 +4470,7 @@
 				F215CE92BEFC96E75C521E54940EEE68 /* FIRAuthWebView.m in Sources */,
 				CE9F2FAE2831FAACF7A98F28A1C59A6D /* FIRAuthWebViewController.m in Sources */,
 				54A01D272C9352012F9FF6492D3B06E1 /* FIRCreateAuthURIRequest.m in Sources */,
+				68261F4A220F349700D3978C /* ExerciseTargetsAPI.swift in Sources */,
 				9220382537C41E7EDEBE51FFD33E7106 /* FIRCreateAuthURIResponse.m in Sources */,
 				18677A97A311289CEC57F957F4E294E4 /* FIRDeleteAccountRequest.m in Sources */,
 				ACBF0C7E0D45A733515946C9D040A857 /* FIRDeleteAccountResponse.m in Sources */,
@@ -4866,6 +4871,7 @@
 				79990437F8B6803014C9CBDDFCE16247 /* FListenProvider.m in Sources */,
 				03A25B64C399E9BE518D84FAE02B29D5 /* FLLRBEmptyNode.m in Sources */,
 				F99CE4D3861E9F7028E9FBCCAC35CA78 /* FLLRBValueNode.m in Sources */,
+				68261F4B220F34B800D3978C /* ExerciseTargetsAPI.swift in Sources */,
 				FDAFF95434EC595FE647795654E4F8FD /* FMaxNode.m in Sources */,
 				A25A4B2402809148CC9ED9A8F144CBBB /* FMerge.m in Sources */,
 				0731DB9D1A3DDFC73757353A5553CE7A /* FNamedNode.m in Sources */,

@@ -15,7 +15,12 @@ class WorkoutTableViewController: UITableViewController {
     var exerciseNames = [String]()
     var exercisesForWorkout = [String]()
     var workoutId : String?
-    var workout : Workout?//= Workout()
+    var workout : Workout? {
+        didSet {
+            self.navigationItem.title = self.workout!.name
+            loadExercises()
+        }
+    }
     
     var randNums = [3,0,10,7,2,5,3,7,8,5,6,3]
     
@@ -23,7 +28,7 @@ class WorkoutTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
-        self.loadWorkout()
+        //self.loadWorkout()
     }
 
     @objc func showEditing(sender: UIBarButtonItem){
