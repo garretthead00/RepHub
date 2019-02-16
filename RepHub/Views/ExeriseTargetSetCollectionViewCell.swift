@@ -9,15 +9,15 @@
 import UIKit
 
 protocol ExerciseTargetSetDelegate {
-    func promptExerciseSetMenu()
+    func promptExerciseSetMenu(cell: ExeriseTargetSetCollectionViewCell)
 }
 
 class ExerciseSet {
     var set : Int?
-    var weight : Int?
+    var weight : Double?
     var reps : Int?
     
-    init(set: Int, weight: Int, reps: Int) {
+    init(set: Int, weight: Double, reps: Int) {
         self.set = set
         self.weight = weight
         self.reps = reps
@@ -48,8 +48,7 @@ class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
     
     private func updateView() {
         
-        print("Im here!!")
-        let setStr = String(self.thisSet!.set!)
+        let setStr = String(self.thisSet!.set! + 1)
         let weightStr = String(self.thisSet!.weight!)
         let repsStr = String(self.thisSet!.reps!)
         self.setTextField.text = setStr
@@ -59,7 +58,6 @@ class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("ExerciseTargetSetCell -- touchesEnded...")
-        //delegate?.promptExerciseSetMenu()
+        delegate?.promptExerciseSetMenu(cell: self)
     }
 }

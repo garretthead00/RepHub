@@ -165,9 +165,9 @@ extension WorkoutViewController : UITableViewDelegate, UITableViewDataSource {
         if let breakTime = self.exercises[indexPath.row].breakTime {
             detailString += " break: \(breakTime)"
         }
-        if let targetSets = self.exercises[indexPath.row].targetSets, let targetReps = self.exercises[indexPath.row].targetReps {
-            detailString += " targets: \(targetSets) x \(targetReps)"
-        }
+//        if let targetSets = self.exercises[indexPath.row].targetSets, let targetReps = self.exercises[indexPath.row].targetReps {
+//            detailString += " targets: \(targetSets) x \(targetReps)"
+//        }
         cell.textLabel?.text = self.exerciseNames[indexPath.row]
         cell.detailTextLabel?.text = detailString
         return cell
@@ -252,8 +252,8 @@ extension WorkoutViewController : UITableViewDelegate, UITableViewDataSource {
                             ProgressHUD.showError(error!.localizedDescription)
                             return
                         }
-                        self.exercises[indexPath.row].targetReps = reps
-                        self.exercises[indexPath.row].targetSets = sets
+//                        self.exercises[indexPath.row].targetReps = reps
+//                        self.exercises[indexPath.row].targetSets = sets
                         self.tableview.reloadData()
                     })
                 }

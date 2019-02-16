@@ -186,9 +186,9 @@ class ActiveWorkoutTableViewController: UITableViewController {
          if let breakTime = self.exercises[indexPath.row].breakTime {
          detailString += " break: \(breakTime)"
          }
-         if let targetSets = self.exercises[indexPath.row].targetSets, let targetReps = self.exercises[indexPath.row].targetReps {
-         detailString += " targets: \(targetSets) x \(targetReps)"
-         }
+//         if let targetSets = self.exercises[indexPath.row].targetSets, let targetReps = self.exercises[indexPath.row].targetReps {
+//         detailString += " targets: \(targetSets) x \(targetReps)"
+//         }
          cell.textLabel?.text = self.exerciseNames[indexPath.row]
          cell.detailTextLabel?.text = detailString
          return cell

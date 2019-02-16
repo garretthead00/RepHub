@@ -23,10 +23,8 @@ class WorkoutAPI {
     }
     
     func observeWorkout(withId id: String, completion: @escaping(Workout) -> Void) {
-        print("workoutAPI --observeWorkout(id)")
         WORKOUT_DB_REF.child(id).observeSingleEvent(of: .value, with: {
         snapshot in
-            print("workoutAPI --found snapshot")
             if let data = snapshot.value as? [String: Any] {
                 //Pass songArray to the completion handler on the main thread.
                 DispatchQueue.main.async() {
@@ -40,15 +38,10 @@ class WorkoutAPI {
     }
     
     func getWorkoutNames(withId id: String, completion: @escaping([String : String]) -> Void){
-        print("workoutAPI --observeWorkout(id)")
         WORKOUT_DB_REF.child(id).observeSingleEvent(of: .value, with: {
             snapshot in
-            print("workoutAPI --found snapshot")
-            
             if let data = snapshot.value as? [String: Any] {
-                
                 let workout = Workout.transformWorkout(data: data, key: snapshot.key)
-                
                 completion([id: workout.name!])
             }
         })

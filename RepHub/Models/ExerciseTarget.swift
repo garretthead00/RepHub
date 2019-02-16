@@ -8,25 +8,23 @@
 
 import Foundation
 
-struct ExerciseTarget {
+class ExerciseTarget {
     var id : String?
     var set : Int?
     var reps : Int?
     var weight : Double?
     var orm : Double?
     var percentORM : Int?
-    var breakTime : Int?
 }
 
-extension Workout {
+extension ExerciseTarget {
     
     static func transformExerciseTarget(data: [String: Any], key: String) -> ExerciseTarget {
-        var target = ExerciseTarget()
+        let target = ExerciseTarget()
         target.id = key
         target.set = data["set"] as? Int
         target.reps = data["reps"] as? Int
         target.weight = data["weight"] as? Double
-        target.breakTime = data["breakTime"] as? Int
         return target
         
     }

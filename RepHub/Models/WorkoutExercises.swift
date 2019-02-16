@@ -13,9 +13,8 @@ class WorkoutExercise {
     var id : String?
     var exerciseId : String?
     var breakTime : String?
-    var targetSets : Int?
-    var targetReps : Int?
-    var atIndex : Int?
+    var targets : [ExerciseTarget]?
+    
 }
 
 extension WorkoutExercise {
@@ -25,9 +24,7 @@ extension WorkoutExercise {
         workoutExercise.id = key
         workoutExercise.exerciseId = data["exerciseId"] as? String
         workoutExercise.breakTime = data["breakTime"] as? String
-        workoutExercise.targetReps = data["targetReps"] as? Int
-        workoutExercise.targetSets = data["targetSets"] as? Int
-        workoutExercise.atIndex = data["atIndex"] as? Int
+        workoutExercise.targets = [ExerciseTarget]()
         return workoutExercise
     }
 }

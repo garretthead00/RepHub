@@ -30,9 +30,6 @@ class CreateWorkoutViewController: UIViewController {
         let index = IndexPath(row: 0, section: 0)
         let cell = tableview.cellForRow(at: index) as! CreateWorkoutDetailsTableViewCell
         let description = cell.workoutDescriptionTextView.text
-        //let workoutRef = API.Workout.WORKOUT_DB_REF
-        //let newWorkoutId = workoutRef.childByAutoId().key
-        //let newWorkoutRef = workoutRef.child(newWorkoutId)
         let newWorkoutRef = API.Workout.WORKOUT_DB_REF.childByAutoId()
         if let name = cell.workoutNameTextField.text, !name.isEmpty {
             // Create a new workout
@@ -46,21 +43,13 @@ class CreateWorkoutViewController: UIViewController {
 
                 // Create the workout-exercises then add the id to the newWorkout.exercises list
                 for index in 0 ..< self.exercises.count {
-                    let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.childByAutoId()
+                    let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(newWorkoutRef.key).child("exercises").childByAutoId()
                     newExerciseForWorkoutRef.setValue(["exerciseId": self.exercises[index].id!, "atIndex": index], withCompletionBlock: {
                         error, ref in
                         if error != nil {
                             ProgressHUD.showError(error!.localizedDescription)
                             return
                         }
-                        newWorkoutRef.child("exercises").child(newExerciseForWorkoutRef.key).setValue(true, withCompletionBlock: {
-                            error, ref in
-                            if error != nil {
-                                ProgressHUD.showError(error!.localizedDescription)
-                                return
-                            }
-                            print("saved workout-exercise!")
-                        })
                     })
                 }
                 

@@ -14,11 +14,13 @@ class WorkoutExercisesAPI {
     var WORKOUT_EXERCISES_DB_REF = Database.database().reference().child("workout-exercises")
     
     func observeWorkoutExercises(withId id: String, completion: @escaping(WorkoutExercise) -> Void) {
-        WORKOUT_EXERCISES_DB_REF.child(id).queryOrdered(byChild: "atIndex").observe(.childAdded, with: {
+        WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").queryOrdered(byChild: "atIndex").observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
                 let workoutExercise = WorkoutExercise.transformWorkoutExercise(data: data, key: snapshot.key)
                 completion(workoutExercise)
+                
+                
             }
         })
     }

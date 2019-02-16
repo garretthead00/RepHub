@@ -34,4 +34,5 @@ struct API {
     static var Block = BlockAPI()
     static var Report = ReportAPI()
     static var Mute = MuteAPI()
+    static var ExerciseTarget = ExerciseTargetAPI()
 }
