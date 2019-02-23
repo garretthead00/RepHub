@@ -16,7 +16,12 @@ class ExerciseTargetsCell: UITableViewCell {
 
     
     @IBOutlet weak var collectionView: UICollectionView!
-    var delegate : ExerciseTargetsCellDelegate?
+    var delegate : ExerciseTargetsCellDelegate? {
+        didSet {
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+        }
+    }
     
     var exercise : WorkoutExercise? {
         didSet {
@@ -36,9 +41,7 @@ class ExerciseTargetsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -62,7 +65,7 @@ extension ExerciseTargetsCell : UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExerciseTargetSetCell", for: indexPath) as! ExeriseTargetSetCollectionViewCell
         if self.exercise!.targets != nil, let count = self.exercise!.targets?.count, count > 0 {
-            cell.thisSet = ExerciseSet.init(set: self.exercise!.targets![indexPath.row].set!, weight: self.exercise!.targets![indexPath.row].weight!, reps: self.exercise!.targets![indexPath.row].reps!)
+            cell.thisSet = ExerciseSet.init(set: indexPath.row , weight: self.exercise!.targets![indexPath.row].weight!, reps: self.exercise!.targets![indexPath.row].reps!)
         } else {
 
             cell.thisSet = ExerciseSet.init(set: 0, weight: 0, reps: 0)

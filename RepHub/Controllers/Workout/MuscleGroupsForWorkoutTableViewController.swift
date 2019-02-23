@@ -9,18 +9,20 @@
 import UIKit
 
 protocol ExerciseTypes_MuscleGroupsForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String]
+    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String])
 }
 
 class MuscleGroupsForWorkoutTableViewController: UITableViewController {
 
     let muscleGroups = ["Abdominals", "Chest", "Biceps", "Legs", "Lower Back", "Shoulders", "Triceps", "Back", "Calves"]
     var exerciseType : String!
-    var exercisesForWorkout = [String]()
     var delegate : ExerciseTypes_MuscleGroupsForWorkoutDelegate!
+    var exercisesInWorkout : [String]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.exerciseType
+        print("MusclegroupTVC exercisesInWorkout \(self.exercisesInWorkout)")
     }
     
     
@@ -58,16 +60,19 @@ class MuscleGroupsForWorkoutTableViewController: UITableViewController {
             let muscleGroup = senderArr[1]
             exercisesTVC.exerciseType = exerciseType
             exercisesTVC.muscleGroup = muscleGroup
-            exercisesTVC.delegate = self
+            exercisesTVC.muscleGroupDelegate = self
+            exercisesTVC.exercisesInWorkout = self.exercisesInWorkout
         }
     }
     
 }
 
 extension MuscleGroupsForWorkoutTableViewController : MuscleGroup_ExercisesForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String] {
-        self.exercisesForWorkout = delegate.addExercisesForWorkout(exercisesToBeAdded: exercisesToBeAdded)
-        return self.exercisesForWorkout
+    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String]) {
+        self.exercisesInWorkout = exercisesToBeAdded
+        delegate.addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: exercisesToBeAdded)
     }
+    
+    
     
 }

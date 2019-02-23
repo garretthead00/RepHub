@@ -315,7 +315,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lAI-b6-asx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-314" y="3509"/>
+            <point key="canvasLocation" x="-263" y="3509"/>
         </scene>
         <!--Workout Table View Controller-->
         <scene sceneID="NV0-iE-DDX">
@@ -326,8 +326,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseTargetsCell" rowHeight="164" id="KGe-h7-ffK" customClass="ExerciseTargetsCell" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="164"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="AddExerciseCell" rowHeight="44" id="jDS-OE-vDY">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jDS-OE-vDY" id="jIg-6b-ubW">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipj-3P-JE4">
+                                            <rect key="frame" x="32" y="11" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="22" id="PAc-fB-g7c"/>
+                                                <constraint firstAttribute="height" constant="22" id="dLk-LN-lOJ"/>
+                                            </constraints>
+                                            <color key="tintColor" red="0.29803921570000003" green="0.85098039219999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWp-sF-pue">
+                                            <rect key="frame" x="62" y="11.5" width="289" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ipj-3P-JE4" firstAttribute="centerY" secondItem="jIg-6b-ubW" secondAttribute="centerY" id="9xC-Es-biv"/>
+                                        <constraint firstItem="NWp-sF-pue" firstAttribute="centerY" secondItem="Ipj-3P-JE4" secondAttribute="centerY" id="Fcp-DY-C7V"/>
+                                        <constraint firstItem="NWp-sF-pue" firstAttribute="leading" secondItem="Ipj-3P-JE4" secondAttribute="trailing" constant="8" id="MZl-c3-Ivn"/>
+                                        <constraint firstItem="Ipj-3P-JE4" firstAttribute="leading" secondItem="jIg-6b-ubW" secondAttribute="leading" constant="32" id="Q8N-Aw-xKE"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="NWp-sF-pue" secondAttribute="trailing" constant="8" id="gpk-NC-hU7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExerciseTargetsCell" rowHeight="164" id="KGe-h7-ffK" customClass="ExerciseTargetsCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="164"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KGe-h7-ffK" id="B6S-Kh-l9e">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="163.5"/>
@@ -431,10 +463,13 @@
                             <outlet property="delegate" destination="dY8-0b-Ko5" id="Myr-1t-2rD"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="a12-mN-0fJ" kind="show" identifier="AddExercise" id="pzq-rR-oqJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bOf-TG-d9L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-314.39999999999998" y="1885.9070464767617"/>
+            <point key="canvasLocation" x="-262" y="2677"/>
         </scene>
         <!--Workout View Controller-->
         <scene sceneID="Jus-FF-jMB">
@@ -476,9 +511,6 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilg-7X-2Vk">
                                                         <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
                                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <connections>
-                                                            <segue destination="a12-mN-0fJ" kind="show" identifier="AddExercise" id="1N3-iU-1Wr"/>
-                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVR-cb-N7n">
                                                         <rect key="frame" x="26" y="0.0" width="64" height="22"/>
@@ -566,7 +598,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJR-tl-UDD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-314.39999999999998" y="2676.6116941529235"/>
+            <point key="canvasLocation" x="-1023" y="1936"/>
         </scene>
         <!--Exercise Log View Controller-->
         <scene sceneID="Yk7-58-Fcz">
@@ -1058,7 +1090,7 @@
         <image name="timer" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JDh-hS-IvX"/>
-        <segue reference="lKw-a1-Dxg"/>
+        <segue reference="pzq-rR-oqJ"/>
+        <segue reference="mNW-wk-SeS"/>
     </inferredMetricsTieBreakers>
 </document>

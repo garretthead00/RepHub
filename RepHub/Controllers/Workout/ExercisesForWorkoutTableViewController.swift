@@ -9,20 +9,24 @@
 import UIKit
 
 protocol MuscleGroup_ExercisesForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String]
+    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String])
 }
 
+protocol ExercisesInWorkoutDelegate {
+    func addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: [String])
+}
 
 enum exercisesForWorkoutSearchBarItems: String {
     case freeWeight = "Free Weight"
     case machine = "Machine"
     case cable = "Cable"
+    
+    static let allValues = [freeWeight, machine, cable]
 }
 
 
 class ExercisesForWorkoutTableViewController: UITableViewController {
 
-    var exercisesForWorkout = [String]()
     private var exercises = [Exercise]()
     private var exercisesForSelectedModality = [Exercise]()
     private var filteredExercises = [Exercise]()
@@ -30,18 +34,23 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
     var muscleGroup : String!
     private var isSearching: Bool = false
     private var searchBar = UISearchBar()
-    var delegate : MuscleGroup_ExercisesForWorkoutDelegate!
+    var muscleGroupDelegate : MuscleGroup_ExercisesForWorkoutDelegate!
+    var exercisesInWorkoutDelegate : ExercisesInWorkoutDelegate!
+    
+    var exercisesInWorkout : [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBarSetup()
         self.loadExercises()
+        self.isSearching = false
         self.navigationItem.title = self.muscleGroup != nil ? self.muscleGroup : self.exerciseType
         let doneButton = UIBarButtonItem(title:"Done",
                                          style: .plain ,
                                          target: self, action: #selector(doneButton_TouchUpInside))
         self.navigationItem.rightBarButtonItem = doneButton
         self.tableView?.allowsMultipleSelection = true
+        print("MusclegroupTVC exercisesInWorkout \(self.exercisesInWorkout)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +68,20 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
     }
     
     @objc private func doneButton_TouchUpInside(){
-        print(self.exercisesForWorkout)
-        self.exercisesForWorkout = delegate.addExercisesForWorkout(exercisesToBeAdded: self.exercisesForWorkout)
+        print("done touched")
+        let i = navigationController?.viewControllers.index(of: self)
+    
+        if let parentVC = self.navigationController?.viewControllers[i!-1] {
+            print("has parent \(parentVC)")
+            if parentVC.isKind(of: MuscleGroupsForWorkoutTableViewController.self){
+                print("parentVC is MuscleGroup")
+                self.muscleGroupDelegate?.addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: self.exercisesInWorkout!)
+            } else if parentVC.isKind(of: ExerciseTypesForWorkoutTableViewController.self) {
+                print("parentVC is ExerciseTypes")
+                self.exercisesInWorkoutDelegate?.addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: self.exercisesInWorkout!)
+                
+            }
+        }
        self.navigationController?.popViewController(animated: true)
     }
     
@@ -91,7 +112,7 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
         var exercisesToDisplay = [Exercise]()
         let cell = tableView.dequeueReusableCell(withIdentifier: "Exercise", for: indexPath) as! ExercisesForWorkoutTableViewCell
         exercisesToDisplay = self.isSearching ? self.filteredExercises : self.exercisesForSelectedModality
-        cell.exercise = exercisesToDisplay[indexPath.row]
+        cell.exercise = self.exercisesForSelectedModality[indexPath.row]
         return cell
     }
     
@@ -99,8 +120,10 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath as IndexPath) as! ExercisesForWorkoutTableViewCell
         if let id = cell.exercise?.id {
             print("---id: \(id)")
-            self.exercisesForWorkout.append(id)//cell.exercise?.id
-            print("---exercisesForWorkout: \(self.exercisesForWorkout)")
+            if self.exercisesInWorkout != nil {
+                self.exercisesInWorkout?.append(id)
+                print("---exercisesForWorkout: \(self.exercisesInWorkout)")
+            }
         }
   
     }
@@ -109,8 +132,8 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath as IndexPath) as! ExercisesForWorkoutTableViewCell
         if let id = cell.exercise?.id {
             print("---id: \(id)")
-            self.exercisesForWorkout = self.exercisesForWorkout.filter({ $0 != id})
-            print("---exercisesForWorkout: \(self.exercisesForWorkout)")
+            self.exercisesInWorkout = self.exercisesInWorkout!.filter({ $0 != id})
+            print("---exercisesForWorkout: \(self.exercisesInWorkout)")
         }
     }
 
@@ -122,18 +145,18 @@ extension ExercisesForWorkoutTableViewController : UISearchBarDelegate {
     // Filters the exercise list when the user selects a scope button.
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         self.exercisesForSelectedModality.removeAll()
-        switch (selectedScope){
-        case exercisesForWorkoutSearchBarItems.freeWeight.hashValue:
+        switch (exercisesForWorkoutSearchBarItems.allValues[selectedScope]){
+        case exercisesForWorkoutSearchBarItems.freeWeight:
             self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.freeWeight.rawValue}
             self.tableView.reloadData()
-        case exercisesForWorkoutSearchBarItems.machine.hashValue:
+        case exercisesForWorkoutSearchBarItems.machine:
             self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.machine.rawValue}
             self.tableView.reloadData()
-        case exercisesForWorkoutSearchBarItems.cable.hashValue:
+        case exercisesForWorkoutSearchBarItems.cable:
             self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.cable.rawValue}
             self.tableView.reloadData()
         default:
-            print("no modality filter selected")
+            print("no modality filter selected \(selectedScope)")
         }
     }
     

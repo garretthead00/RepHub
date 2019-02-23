@@ -18,26 +18,27 @@ class WorkoutTableViewController: UITableViewController {
         didSet {
             self.navigationItem.title = self.workout!.name
            self.refreshController()
-            
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
+        self.tableView.allowsSelectionDuringEditing = true
     }
 
     @objc func showEditing(sender: UIBarButtonItem){
         if self.tableView.isEditing {
             self.tableView.isEditing = false
             self.navigationItem.rightBarButtonItem?.title = "Edit"
-            self.tableView.reloadData()
+            self.saveWorkout()
         }
         else
         {
             self.tableView.isEditing = true
             self.navigationItem.rightBarButtonItem?.title = "Save"
+            self.tableView.reloadData()
+            
         }
     }
     
@@ -64,7 +65,19 @@ class WorkoutTableViewController: UITableViewController {
         })
     }
     
-    
+    private func saveWorkout(){
+        if let id = self.workout?.id{
+            for (index, exercise) in self.exercises.enumerated() {
+                API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(exercise.id!).updateChildValues(["atIndex": index], withCompletionBlock: {
+                    err, ref in
+                    if err != nil {
+                        return
+                    }
+                    
+                })
+            }
+        }
+    }
     
     // MARK: - Table view data source
 
@@ -73,27 +86,38 @@ class WorkoutTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return self.exercises.count
+         return self.exercises.count + 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseTargetsCell", for: indexPath) as! ExerciseTargetsCell
-        cell.exercise = self.exercises[indexPath.row]
-        cell.exerciseName = self.exerciseNames[indexPath.row]
-        cell.delegate = self
-        return cell
-
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddExerciseCell", for: indexPath) as! UITableViewCell
+            if self.tableView.isEditing {
+                cell.isHidden = false
+            } else {
+                cell.isHidden = true
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseTargetsCell", for: indexPath) as! ExerciseTargetsCell
+            cell.exercise = self.exercises[indexPath.row-1]
+            cell.exerciseName = self.exerciseNames[indexPath.row-1]
+            cell.delegate = self
+            return cell
+        }
+        
      }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        if self.exercises[indexPath.row].targets != nil, let count = self.exercises[indexPath.row].targets?.count, count > 0 {
+        if indexPath.row == 0 {
+            return self.tableView.isEditing ? 44 : 0
+        }
+        else if self.exercises[indexPath.row-1].targets != nil, let count = self.exercises[indexPath.row-1].targets?.count, count > 0 {
             return calculateRowHeight(count: count)
         } else {
             return calculateRowHeight(count: 1)
         }
-        
-        
     }
     
     private func calculateRowHeight(count : Int) -> CGFloat {
@@ -116,53 +140,100 @@ class WorkoutTableViewController: UITableViewController {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return indexPath.row == 0 ? false : true
     }
  
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return indexPath.row == 0 ? false : true
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let moveExercise = self.exercises[sourceIndexPath.row]
-        exercises.remove(at: sourceIndexPath.row)
-        exercises.insert(moveExercise, at: destinationIndexPath.row)
+        let moveExercise = self.exercises[sourceIndexPath.row-1]
+        exercises.remove(at: sourceIndexPath.row-1)
+        exercises.insert(moveExercise, at: destinationIndexPath.row-1)
+        
     }
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.exercises.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+           let exerciseId = self.exercises[indexPath.row].id!
+            API.WorkoutExercises.removeWorkoutExercise(workoutId: self.workoutId!, workoutExerciseId:  exerciseId, onSuccess: {
+                result in
+                if result {
+                    API.ExerciseTarget.removeAllTargets(withWorkoutExerciseId: exerciseId, onSuccess: {
+                        result in
+                        if result {
+                            self.exercises.remove(at: indexPath.row)
+                            self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    })
+                }
+            })
         } else if editingStyle == .insert {
         }    
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRow")
+        if indexPath.row == 0 {
+            print("add exercise")
+            performSegue(withIdentifier: "AddExercise", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddExercise" {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let exercisesTVC = destinationNavigationController.topViewController as! ExerciseTypesForWorkoutTableViewController
+            exercisesTVC.nextIndex = self.exercises.count
+            exercisesTVC.workoutId = self.workoutId
+        }
+        else if segue.identifier == "StartWorkout" {
+            let activeWorkoutTVC = segue.destination as! ActiveWorkoutTableViewController
+            activeWorkoutTVC.workoutId = self.workoutId
+        }
     }
 
 
 }
+
 
 extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
     func promptExerciseSetMenu(cell: ExerciseTargetsCell, set: Int) {
         if let index = self.tableView.indexPath(for: cell) {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
-            if self.exercises[index.row].targets!.count > 0 {
+            if self.exercises[index.row-1].targets!.count > 0 {
                 let editAction = UIAlertAction(title: "Edit Set", style: .default, handler: { action in
-                    if let targetId = self.exercises[index.row].targets![set].id {
-                        self.editTarget(withWorkoutExerciseId: self.exercises[index.row].id!, targetId: targetId)
-                    }
+                    let target = self.exercises[index.row-1].targets![set]
+                    self.editTarget(withWorkoutExerciseId: self.exercises[index.row-1].id!, target: target, completion: {
+                        results in
+                        if results.count > 0 {
+                            results.forEach({ result in
+                                target.reps = result.0
+                                target.weight = result.1
+                                self.tableView.reloadData()
+                            })
+                        }
+                    })
+                    
                     
                 })
                 alert.addAction(editAction)
             }
 
             let addAction = UIAlertAction(title: "Add Set", style: .default, handler: { action in
-                let newSet = self.exercises[index.row].targets!.count > 0 ? self.exercises[index.row].targets!.count : 1
-                self.addTarget(workoutExerciseId: self.exercises[index.row].id! ,set: newSet)
+                let newSet = self.exercises[index.row-1].targets!.count > 0 ? self.exercises[index.row-1].targets!.count : 1
+                self.addTarget(workoutExerciseId: self.exercises[index.row-1].id! ,set: newSet)
             })
             let removeAction = UIAlertAction(title: "Remove Set", style: .default, handler: { action in
-                // removes the current set
-                self.removeTarget()
+                let target = self.exercises[index.row-1].targets![set]
+                self.removeTarget(withWorkoutExerciseId: self.exercises[index.row-1].id!, target: target, completion: {
+                    _ in
+                    self.exercises[index.row-1].targets?.remove(at: set)
+                    self.tableView.reloadData()
+                })
             })
     
     
@@ -181,7 +252,7 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
     }
 
     
-    private func editTarget(withWorkoutExerciseId id: String, targetId: String) {
+    private func editTarget(withWorkoutExerciseId id: String, target: ExerciseTarget, completion: @escaping([(Int, Double)]) -> Void) {
         let alert = UIAlertController(title: "Edit set target", message: nil, preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { textField in
@@ -198,15 +269,11 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
             if let reps = alert.textFields?[0].text, reps.count > 0, let weight = alert.textFields?[1].text, weight.count > 0 {
                 let repsVal = Int(reps)
                 let weightVal = Double(weight)
-                API.ExerciseTarget.editTarget(withWorkoutExerciseId: id, targetId: targetId, reps: repsVal!, weight: weightVal!, onSuccess: {
-                    success in
-                    if success {
-                        self.refreshController()
-                    }
-                })
-                
+                API.ExerciseTarget.editTarget(withWorkoutExerciseId: id, targetId: target.id!, reps: repsVal!, weight: weightVal!)
+                completion([(repsVal!,weightVal!)])
             }
-        }))
+                
+            }))
         
         self.present(alert, animated: true)
     }
@@ -235,7 +302,9 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
         self.present(alert, animated: true)
     }
     
-    private func removeTarget() {
+    private func removeTarget(withWorkoutExerciseId id: String, target: ExerciseTarget, completion: @escaping(Bool) -> Void) {
+        API.ExerciseTarget.removeTarget(withWorkoutExerciseId: id, targetId: target.id!)
+        completion(true)
         
     }
     

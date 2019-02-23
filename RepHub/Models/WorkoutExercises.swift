@@ -14,6 +14,7 @@ class WorkoutExercise {
     var exerciseId : String?
     var breakTime : String?
     var targets : [ExerciseTarget]?
+    var atIndex : Int?
     
 }
 
@@ -24,6 +25,7 @@ extension WorkoutExercise {
         workoutExercise.id = key
         workoutExercise.exerciseId = data["exerciseId"] as? String
         workoutExercise.breakTime = data["breakTime"] as? String
+        workoutExercise.atIndex = data["atIndex"] as? Int
         workoutExercise.targets = [ExerciseTarget]()
         return workoutExercise
     }

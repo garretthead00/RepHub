@@ -25,5 +25,19 @@ class WorkoutExercisesAPI {
         })
     }
     
+    func removeWorkoutExercise(workoutId id: String, workoutExerciseId: String, onSuccess: @escaping(Bool) -> Void){
+        WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(workoutExerciseId).removeValue(completionBlock: {
+            err, ref in
+            if err != nil {
+                onSuccess(false)
+            }
+            onSuccess(true)
+        })
+    }
+    
+    func addWorkoutExercise(workoutId id: String, workoutExerciseId: String, atIndex: Int) {
+        let newExerciseRef = WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").childByAutoId()
+        newExerciseRef.setValue(["atIndex": atIndex, "exerciseId":workoutExerciseId])
+    }
 
 }
