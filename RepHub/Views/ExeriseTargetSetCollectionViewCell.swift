@@ -30,7 +30,8 @@ class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var repLabel: UILabel!
     
     var delegate : ExerciseTargetSetDelegate?
-    
+    var setBorderColor : CGColor?
+    var setBackgroundColor : CGColor?
     var thisSet : ExerciseSet? {
         didSet {
             updateView()
@@ -47,7 +48,14 @@ class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateView() {
-        
+        self.setTextField.layer.cornerRadius = 15.0
+        self.setTextField.layer.borderWidth = 2.0
+        self.setTextField.layer.borderColor = self.setBorderColor
+        self.setTextField.layer.backgroundColor = self.setBackgroundColor
+        self.weightTextField.layer.cornerRadius = 15.0
+        self.weightTextField.layer.borderWidth = 2.0
+        self.weightTextField.layer.borderColor = self.setBorderColor
+        self.weightTextField.layer.backgroundColor = self.setBackgroundColor
         let setStr = String(self.thisSet!.set! + 1)
         let weightStr = String(self.thisSet!.weight!)
         let repsStr = String(self.thisSet!.reps!)

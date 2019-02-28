@@ -82,6 +82,7 @@
 		685B112020F404DA00EE2DA4 /* WalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685B111F20F404DA00EE2DA4 /* WalkthroughPageViewController.swift */; };
 		685C3ADF21EB6FE700DFCF7F /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C3ADE21EB6FE700DFCF7F /* FollowingViewController.swift */; };
 		685C3AE121EB762000DFCF7F /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C3AE021EB762000DFCF7F /* SavedViewController.swift */; };
+		6860335C2227707F0009335A /* WorkoutControlsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6860335B2227707E0009335A /* WorkoutControlsTableViewCell.swift */; };
 		6862F23321794B3700D65448 /* WorkoutMotionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862F23221794B3700D65448 /* WorkoutMotionTracker.swift */; };
 		68678F6921F0223600E56D70 /* BlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68678F6821F0223600E56D70 /* BlockAPI.swift */; };
 		686D93C4206F32BF00E4AA20 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D93C3206F32BF00E4AA20 /* MuscleGroup.swift */; };
@@ -235,6 +236,7 @@
 		685B111F20F404DA00EE2DA4 /* WalkthroughPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughPageViewController.swift; sourceTree = "<group>"; };
 		685C3ADE21EB6FE700DFCF7F /* FollowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
 		685C3AE021EB762000DFCF7F /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		6860335B2227707E0009335A /* WorkoutControlsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorkoutControlsTableViewCell.swift; path = /Users/Garrett/Documents/Workspace/RepHub/iOS/RepHub/RepHub/Views/WorkoutControlsTableViewCell.swift; sourceTree = "<absolute>"; };
 		6862F23221794B3700D65448 /* WorkoutMotionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutMotionTracker.swift; sourceTree = "<group>"; };
 		68678F6821F0223600E56D70 /* BlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAPI.swift; sourceTree = "<group>"; };
 		686D93C3206F32BF00E4AA20 /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 			children = (
 				681E438520DDB56900FB6686 /* LockerCRV.swift */,
 				68E987CB21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift */,
+				6860335B2227707E0009335A /* WorkoutControlsTableViewCell.swift */,
 				6875AFB421EEBAF8008F3E95 /* UserLockerCRV.swift */,
 				68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */,
 				68261F3F220A928C00D3978C /* WeeklyViewCell.swift */,
@@ -816,6 +819,7 @@
 				684A28D721270C0E00F00CA8 /* ExercisesTableViewController.swift in Sources */,
 				68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */,
 				683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */,
+				6860335C2227707F0009335A /* WorkoutControlsTableViewCell.swift in Sources */,
 				68C1DEC921E46526005048C6 /* LockerMenuTableViewCell.swift in Sources */,
 				68261F44220A92B500D3978C /* DailyItemCollectionViewCell.swift in Sources */,
 				688E3CED20D890120032B35F /* CommentTableViewCell.swift in Sources */,

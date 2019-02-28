@@ -22,7 +22,6 @@ class ExerciseTargetAPI {
             }
         })
     }
-    
 
     func addTarget(withWorkoutExerciseId id: String, set: Int, reps: Int, weight: Double) {
         let newTargetRef = EXERCISE_TARGETS_DB_REF.child(id).childByAutoId()
@@ -35,11 +34,8 @@ class ExerciseTargetAPI {
             err, ref in
             if err != nil {
                 ProgressHUD.showError(err!.localizedDescription)
-
             }
-
         })
-        
     }
     
     func removeTarget(withWorkoutExerciseId id: String, targetId: String) {

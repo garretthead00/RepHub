@@ -39,5 +39,15 @@ class WorkoutExercisesAPI {
         let newExerciseRef = WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").childByAutoId()
         newExerciseRef.setValue(["atIndex": atIndex, "exerciseId":workoutExerciseId])
     }
+    
+    func setBreak(workoutId id: String, workoutExerciseId: String, breakTime: Int) {
+        let workoutExerciseRef = WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(workoutExerciseId)
+        workoutExerciseRef.updateChildValues(["break": breakTime])
+    }
+    
+    func setORM(workoutId id: String, workoutExerciseId: String, ORM: Int) {
+        let workoutExerciseRef = WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(workoutExerciseId)
+        workoutExerciseRef.updateChildValues(["ORM": ORM])
+    }
 
 }
