@@ -76,13 +76,13 @@ class ExerciseLogViewController: UIViewController {
         let currentUserId = currentUser.uid
         API.UserExerciseLogs.USER_EXERCISE_LOGS_DB_REF.child(currentUserId).observe(.childAdded, with: {
             snapshot in
-            API.ExerciseLog.obeserveExerciseLogs(withId: snapshot.key , completion: {
-                log in
-                if log.exerciseId == self.exerciseId! {
-                    self.exerciseLogs.insert(log, at: 0)
-                    self.tableview.reloadData()
-                }
-            })
+//            API.ExerciseLog.obeserveExerciseLogs(withId: snapshot.key , completion: {
+//                log in
+////                if log.exerciseId == self.exerciseId! {
+////                    self.exerciseLogs.insert(log, at: 0)
+////                    self.tableview.reloadData()
+////                }
+//            })
         })
     }
     
@@ -178,7 +178,7 @@ extension ExerciseLogViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Log", for: indexPath)
         let reps = String(describing: self.exerciseLogs[indexPath.row].reps!)
-        let weight = String(describing: self.exerciseLogs[indexPath.row].weightLBS!)
+        let weight = String(describing: self.exerciseLogs[indexPath.row].weight!)
         cell.textLabel?.text = "\(reps) x \(weight)"
         return cell
     }

@@ -14,6 +14,8 @@ protocol ExerciseTargetsCellDelegate {
     func setTarget(withId id: String)
 }
 
+
+
 class ExerciseTargetsCell: UITableViewCell {
 
     
@@ -69,13 +71,13 @@ extension ExerciseTargetsCell : UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExerciseTargetSetCell", for: indexPath) as! ExeriseTargetSetCollectionViewCell
         if self.exercise!.targets != nil, let count = self.exercise!.targets?.count, count > 0 {
-            cell.thisSet = ExerciseSet.init(set: indexPath.row , weight: self.exercise!.targets![indexPath.row].weight!, reps: self.exercise!.targets![indexPath.row].reps!)
+            cell.thisSet = ExerciseSet.init(set: indexPath.row , weight: self.exercise!.targets![indexPath.row].weight!, reps: self.exercise!.targets![indexPath.row].reps!, score: 0.0)
             cell.setBorderColor = self.borderColors[indexPath.row]
             cell.setBackgroundColor = self.backgroundColors[indexPath.row]
         } else {
             cell.setBorderColor = UIColor.darkGray.cgColor
             cell.setBackgroundColor = UIColor.lightGray.cgColor
-            cell.thisSet = ExerciseSet.init(set: 0, weight: 0, reps: 0)
+            cell.thisSet = ExerciseSet.init(set: 0, weight: 0, reps: 0, score: 0.0)
         }
         cell.delegate = self
         return cell

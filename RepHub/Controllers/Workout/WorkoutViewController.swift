@@ -22,7 +22,7 @@ class WorkoutViewController: UIViewController {
     var workoutId : String?
     var workout = Workout()
     private let breakOptions = ["15 seconds", "30 seconds", "45 seconds", "1 minute", "1.5 minutes", "2 minutes", "2.5 minutes", "3 minutes", "5 minutes", "10 minutes", "15 minutes"]
-    private var selectedBreak = String()
+    private var selectedBreak : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -307,7 +307,7 @@ extension WorkoutViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedBreak = breakOptions[row]
+        selectedBreak = Int(breakOptions[row])
     }
 }
 

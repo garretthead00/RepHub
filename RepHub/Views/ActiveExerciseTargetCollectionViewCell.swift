@@ -1,33 +1,35 @@
 //
-//  ExeriseTargetSetCollectionViewCell.swift
+//  ActiveExerciseTargetCollectionViewCell.swift
 //  RepHub
 //
-//  Created by Garrett Head on 2/4/19.
+//  Created by Garrett Head on 3/2/19.
 //  Copyright © 2019 Garrett Head. All rights reserved.
 //
 
 import UIKit
 
-protocol ExerciseTargetSetDelegate {
-    func promptExerciseSetMenu(cell: ExeriseTargetSetCollectionViewCell)
+protocol ActiveExerciseTargetSetDelegate {
+    func addExerciseLog(forSet: Int)
 }
 
 
-
-class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var setTextField: UITextField!
-    @IBOutlet weak var weightTextField: UITextField!
-    @IBOutlet weak var repLabel: UILabel!
+class ActiveExerciseTargetCollectionViewCell: UICollectionViewCell {
     
-    var delegate : ExerciseTargetSetDelegate?
+    
+    @IBOutlet weak var setTextField: UITextField!
+    @IBOutlet weak var repLabel: UILabel!
+    @IBOutlet weak var weightTextField: UITextField!
+    
+    var delegate : ActiveExerciseTargetSetDelegate?
     var setBorderColor : CGColor?
     var setBackgroundColor : CGColor?
-    var thisSet : ExerciseSet? {
+    
+    var exerciseSet : ExerciseSet? {
         didSet {
             updateView()
         }
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setTextField.text = ""
@@ -46,9 +48,9 @@ class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
         self.weightTextField.layer.borderWidth = 2.0
         self.weightTextField.layer.borderColor = self.setBorderColor
         self.weightTextField.layer.backgroundColor = self.setBackgroundColor
-        let setStr = String(self.thisSet!.set! + 1)
-        let weightStr = String(self.thisSet!.weight!)
-        let repsStr = String(self.thisSet!.reps!)
+        let setStr = String(self.exerciseSet!.set! + 1)
+        let weightStr = String(self.exerciseSet!.weight!)
+        let repsStr = String(self.exerciseSet!.reps!)
         self.setTextField.text = setStr
         self.weightTextField.text = weightStr
         self.repLabel.text = repsStr
@@ -56,6 +58,7 @@ class ExeriseTargetSetCollectionViewCell: UICollectionViewCell {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate?.promptExerciseSetMenu(cell: self)
+        delegate?.addExerciseLog(forSet: self.exerciseSet!.set!)
     }
+    
 }

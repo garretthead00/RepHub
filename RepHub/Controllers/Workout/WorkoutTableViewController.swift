@@ -36,14 +36,12 @@ class WorkoutTableViewController: UITableViewController {
             self.tableView.isEditing = false
             self.navigationItem.rightBarButtonItem?.title = "Edit"
             self.saveWorkout()
-        
         }
         else
         {
             self.tableView.isEditing = true
             self.navigationItem.rightBarButtonItem?.title = "Save"
             self.tableView.reloadData()
-            
         }
     }
     
@@ -79,7 +77,6 @@ class WorkoutTableViewController: UITableViewController {
                     if err != nil {
                         return
                     }
-                    
                 })
             }
         }
@@ -97,7 +94,6 @@ class WorkoutTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutControlsTableViewCell", for: indexPath) as! WorkoutControlsTableViewCell
@@ -123,17 +119,12 @@ class WorkoutTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 {
-            return 64
-        }
-        else if indexPath.row == 1 {
-            return self.tableView.isEditing ? 44 : 0
-        }
+        if indexPath.row == 0 { return 64 }
+        else if indexPath.row == 1 { return self.tableView.isEditing ? 44 : 0 }
         else if self.exercises[indexPath.row-2].targets != nil, let count = self.exercises[indexPath.row-2].targets?.count, count > 0 {
             return calculateRowHeight(count: count)
-        } else {
-            return calculateRowHeight(count: 1)
         }
+        else { return calculateRowHeight(count: 1) }
     }
     
     private func calculateRowHeight(count : Int) -> CGFloat {
@@ -167,7 +158,6 @@ class WorkoutTableViewController: UITableViewController {
         let moveExercise = self.exercises[sourceIndexPath.row-2]
         exercises.remove(at: sourceIndexPath.row-2)
         exercises.insert(moveExercise, at: destinationIndexPath.row-2)
-        
     }
 
     // Override to support editing the table view.
@@ -208,8 +198,10 @@ class WorkoutTableViewController: UITableViewController {
             exercisesTVC.workoutId = self.workoutId
         }
         else if segue.identifier == "StartWorkout" {
-            let activeWorkoutTVC = segue.destination as! ActiveWorkoutTableViewController
+            let activeWorkoutTVC = segue.destination as! ActiveWorkoutViewController
             activeWorkoutTVC.workoutId = self.workoutId
+            //activeWorkoutTVC.workout = self.workout
+            
         }
     }
 
@@ -253,15 +245,12 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
                     self.tableView.reloadData()
                 })
             })
-    
-    
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
                 // cancel alertcontroller
             })
     
             removeAction.setValue(UIColor.red, forKey: "titleTextColor")
             cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
-
             alert.addAction(addAction)
             alert.addAction(removeAction)
             alert.addAction(cancelAction)
@@ -380,8 +369,6 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
         
         self.present(alert, animated: true)
     }
-    
-    
 }
 
 extension WorkoutTableViewController : UIPickerViewDelegate, UIPickerViewDataSource {
@@ -406,6 +393,4 @@ extension WorkoutTableViewController : WorkoutControlsDelegate {
         print("startWorkout")
         performSegue(withIdentifier: "StartWorkout", sender: nil)
     }
-    
-    
 }

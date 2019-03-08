@@ -12,9 +12,10 @@ class WorkoutExercise {
     
     var id : String?
     var exerciseId : String?
-    var breakTime : String?
+    var breakTime : Int?
     var targets : [ExerciseTarget]?
     var atIndex : Int?
+    var logs : [ExerciseLog]?
     
 }
 
@@ -24,9 +25,10 @@ extension WorkoutExercise {
         let workoutExercise = WorkoutExercise()
         workoutExercise.id = key
         workoutExercise.exerciseId = data["exerciseId"] as? String
-        workoutExercise.breakTime = data["breakTime"] as? String
+        workoutExercise.breakTime = data["break"] as? Int
         workoutExercise.atIndex = data["atIndex"] as? Int
         workoutExercise.targets = [ExerciseTarget]()
+        workoutExercise.logs = [ExerciseLog]()
         return workoutExercise
     }
 }

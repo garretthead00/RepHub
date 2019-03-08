@@ -33,4 +33,17 @@ class WorkoutLogsAPI {
         })
     }
     
+    func createNewWorkoutLog(withId id: String, workoutDurationSeconds: Double, totalReps: Int, totalDistance: Double, totalSteps: Int, energyBurned: Double, totalWork: Double, completion: @escaping(Bool) -> Void) {
+        WORKOUT_LOGS_DB_REF.child(id).setValue(["duration": workoutDurationSeconds, "totalReps": totalReps, "totalWork": totalWork, "totalSteps": totalSteps, "totalCalories": energyBurned, "totalDistance" : totalDistance], withCompletionBlock: {
+            error, ref in
+            if error != nil {
+                ProgressHUD.showError(error!.localizedDescription)
+                return
+            }
+            completion(true)
+            
+        })
+        
+    }
+    
 }
