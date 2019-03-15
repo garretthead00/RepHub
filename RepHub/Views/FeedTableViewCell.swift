@@ -132,6 +132,8 @@ class FeedTableViewCell: UITableViewCell {
         let usernameLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.usernameLabel_TouchUpInside))
         usernameLabel.addGestureRecognizer(usernameLabelTapGesture)
         usernameLabel.isUserInteractionEnabled = true
+        
+        
     }
     
     @objc private func usernameLabel_TouchUpInside() {

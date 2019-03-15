@@ -159,7 +159,7 @@
 		68F9C0FC216131E6000799C4 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9C0FB216131E6000799C4 /* ActiveWorkout.swift */; };
 		68F9C0FE21613218000799C4 /* WorkoutInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9C0FD21613218000799C4 /* WorkoutInterval.swift */; };
 		68FB8F312232157D00A7A5B1 /* ExerciseSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8F302232157D00A7A5B1 /* ExerciseSet.swift */; };
-		F73361BADE2D604E1C4172A6 /* Pods_RepHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDB771E96A8C3773D5738C /* Pods_RepHub.framework */; };
+		F73361BADE2D604E1C4172A6 /* Pods_RepHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDB771E96A8C3773D5738C /* Pods_RepHub.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
