@@ -11,7 +11,7 @@ import UIKit
 protocol ExerciseTargetsCellDelegate {
     func promptExerciseSetMenu(cell: ExerciseTargetsCell, set: Int)
     func setBreak(withId id: String)
-    func setTarget(withId id: String)
+    func addSet(withId id: String, set: Int)
 }
 
 
@@ -31,11 +31,6 @@ class ExerciseTargetsCell: UITableViewCell {
     var backgroundColors = [UIColor(red: 0.97, green: 0.45, blue: 0.45, alpha: 1.0).cgColor, UIColor(red:1.00, green:0.80, blue:0.00, alpha:1.0).cgColor, UIColor(red:1.00, green:0.58, blue:0.00, alpha:1.0).cgColor, UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0).cgColor]
     
     var exercise : WorkoutExercise? {
-        didSet {
-            self.collectionView.reloadData()
-        }
-    }
-    var targets : [ExerciseTarget]? {
         didSet {
             self.collectionView.reloadData()
         }
@@ -61,7 +56,7 @@ class ExerciseTargetsCell: UITableViewCell {
 extension ExerciseTargetsCell : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.exercise?.targets != nil, let count = self.exercise?.targets!.count, count > 0 {
-            return count
+            return count + 1
         }
         return 1
         
@@ -69,18 +64,20 @@ extension ExerciseTargetsCell : UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExerciseTargetSetCell", for: indexPath) as! ExeriseTargetSetCollectionViewCell
-        if self.exercise!.targets != nil, let count = self.exercise!.targets?.count, count > 0 {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExerciseTargetSetCell", for: indexPath) as! ExeriseTargetSetCollectionViewCell
+        if self.exercise!.targets != nil, let count = self.exercise!.targets?.count, count > 0, indexPath.row < count {
             cell.thisSet = ExerciseSet.init(set: indexPath.row , weight: self.exercise!.targets![indexPath.row].weight!, reps: self.exercise!.targets![indexPath.row].reps!, score: 0.0)
-            cell.setBorderColor = self.borderColors[indexPath.row]
-            cell.setBackgroundColor = self.backgroundColors[indexPath.row]
-        } else {
-            cell.setBorderColor = UIColor.darkGray.cgColor
-            cell.setBackgroundColor = UIColor.lightGray.cgColor
-            cell.thisSet = ExerciseSet.init(set: 0, weight: 0, reps: 0, score: 0.0)
         }
+        else {
+            cell.thisSet = ExerciseSet.init(set: 0 , weight: 0.0, reps: 0, score: 0.0)
+            cell.setTextField.text = ""
+            cell.repLabel.text = "#"
+            cell.weightTextField.text = "+"
+        }
+
         cell.delegate = self
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -89,6 +86,7 @@ extension ExerciseTargetsCell : UICollectionViewDataSource, UICollectionViewDele
         if self.exercise != nil {
             headerView.exerciseName = self.exerciseName
             headerView.workoutExerciseId = self.exercise?.id
+            headerView.breakTime = self.exercise?.breakTime
         }
         return headerView
     }
@@ -110,24 +108,41 @@ extension ExerciseTargetsCell : UICollectionViewDelegateFlowLayout {
 }
 
 extension ExerciseTargetsCell : ExerciseTargetSetDelegate {
+
+    func editSet(cell: ExeriseTargetSetCollectionViewCell) {
+        if let index = self.collectionView.indexPath(for: cell) {
+            delegate?.promptExerciseSetMenu(cell: self, set: index.row)
+        }
+    }
+    
+    func addSet() {
+        
+        if let id = self.exercise?.id {
+            print("add set--- withId: \(id)")
+            if let set = self.exercise?.targets?.count {
+                print("add set--- set: \(set)")
+                delegate?.addSet(withId: id, set: set)
+            }
+        }
+    }
+    
     func promptExerciseSetMenu(cell: ExeriseTargetSetCollectionViewCell) {
         if let index = self.collectionView.indexPath(for: cell) {
             delegate?.promptExerciseSetMenu(cell: self, set: index.row)
         }
-        
     }
+    
+    
     
 
 }
+
 
 extension ExerciseTargetsCell : WorkoutExerciseDelegate {
     func setBreak(withId id: String) {
         self.delegate?.setBreak(withId: id)
     }
     
-    func setTarget(withId id: String) {
-        self.delegate?.setTarget(withId: id)
-    }
     
     
     

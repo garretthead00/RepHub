@@ -11,28 +11,60 @@ import UIKit
 class CreateWorkoutViewController: UIViewController {
 
  
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var tableview: UITableView!
     var exercises = [Exercise]()
     var exercisesForWorkout = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.cancelButton.addTarget(self, action: #selector(cancelCreateWorkout), for: .touchUpInside)
-        self.saveButton.addTarget(self, action: #selector(saveWorkout), for: .touchUpInside)
         self.tableview.dataSource = self
         self.tableview.delegate = self
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
     }
-
-    @objc private func saveWorkout(){
-
+    
+    @IBAction func saveButton_TouchUpInside(_ sender: Any) {
+        
         let index = IndexPath(row: 0, section: 0)
         let cell = tableview.cellForRow(at: index) as! CreateWorkoutDetailsTableViewCell
-        let description = cell.workoutDescriptionTextView.text
-        let newWorkoutRef = API.Workout.WORKOUT_DB_REF.childByAutoId()
         if let name = cell.workoutNameTextField.text, !name.isEmpty {
-            // Create a new workout
+            let description = cell.workoutDescriptionTextView.text
+            self.createWorkout(name: name, description: description!, exercises: self.exercises)
+            dismiss(animated: true, completion: nil)
+        }
+        
+        
+    }
+    @IBAction func cancelButton_TouchUpInside(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    
+    
+    private func loadExercises() {
+        for id in self.exercisesForWorkout {
+            API.Exercise.observeExercise(withId: id, completion: {
+                exercise in
+                self.exercises.append(exercise)
+                //print("exercises: \(self.exercises)")
+                self.tableview.reloadData()
+            })
+        }
+    }
+    
+    private func createWorkout(name: String, description: String, exercises : [Exercise]){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let newWorkoutRef = API.Workout.WORKOUT_DB_REF.childByAutoId()
+        let newUserWorkoutRef = API.UserWorkouts.USER_WORKOUTS_DB_REF.child(currentUser.uid).child(newWorkoutRef.key)
+        newUserWorkoutRef.setValue(true, withCompletionBlock: {
+            error, ref in
+            if error != nil {
+                ProgressHUD.showError(error!.localizedDescription)
+                return
+            }
+            
             newWorkoutRef.setValue(["name" : name, "description" : description], withCompletionBlock: {
                 error, ref in
                 if error != nil {
@@ -40,7 +72,7 @@ class CreateWorkoutViewController: UIViewController {
                     return
                 }
                 print("saved workout!")
-
+                
                 // Create the workout-exercises then add the id to the newWorkout.exercises list
                 for index in 0 ..< self.exercises.count {
                     let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(newWorkoutRef.key).child("exercises").childByAutoId()
@@ -55,39 +87,9 @@ class CreateWorkoutViewController: UIViewController {
                 
             })
             
-            // Create a new user-workout
-            guard let currentUser = API.RepHubUser.CURRENT_USER else {
-                return
-            }
-            let newUserWorkoutRef = API.UserWorkouts.USER_WORKOUTS_DB_REF.child(currentUser.uid).child(newWorkoutRef.key)
-            newUserWorkoutRef.setValue(true, withCompletionBlock: {
-                error, ref in
-                if error != nil {
-                    ProgressHUD.showError(error!.localizedDescription)
-                    return
-                }
-                print("saved user-workout!")
-
-            })
-        } else {
-            ProgressHUD.showError("Name missing!")
-        }
-    }
-    
-    @objc private func cancelCreateWorkout(){
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
-    private func loadExercises() {
-        for id in self.exercisesForWorkout {
-            API.Exercise.observeExercise(withId: id, completion: {
-                exercise in
-                self.exercises.append(exercise)
-                print("exercises: \(self.exercises)")
-                self.tableview.reloadData()
-            })
-        }
+            
+        })
+        
     }
     
     // MARK: - Navigation
@@ -96,7 +98,7 @@ class CreateWorkoutViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddExercise" {
             let destinationNavigationController = segue.destination as! UINavigationController
-            let exercisesTVC = destinationNavigationController.topViewController as! ExerciseTypesForWorkoutTableViewController
+            let exercisesTVC = destinationNavigationController.topViewController as! CreateWorkout_ExerciseTypesCollectionViewController
             exercisesTVC.delegate = self
         }
     }
@@ -116,6 +118,11 @@ extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetails", for: indexPath) as! CreateWorkoutDetailsTableViewCell
+            cell.workoutNameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [
+                .foregroundColor: UIColor.lightGray,
+                .font: UIFont.init(name: "Chalkduster", size: 18.0)!
+                
+                ])
             cell.workoutDescriptionTextView.placeholder = "Description"
             return cell
         } else if indexPath.row == 1 {
@@ -147,15 +154,27 @@ extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegat
         }
     }
 }
-
-
-
-extension CreateWorkoutViewController : CreateWorkout_ExerciseTypesForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String] {
-        self.exercisesForWorkout.removeAll()
-        self.exercisesForWorkout.append(contentsOf: exercisesToBeAdded)
-        print("---createWorkout: \(self.exercisesForWorkout)")
-        self.loadExercises()
-        return self.exercisesForWorkout
+extension CreateWorkoutViewController : CreateWorkoutExerciseTypesDelegate {
+    func addExercises(exercises: [Exercise]) {
+        print("added exercises")
+        self.exercises.append(contentsOf: exercises)
+        self.tableview.reloadData()
     }
+    
+    
 }
+
+
+
+//extension CreateWorkoutViewController : CreateWorkout_ExerciseTypesForWorkoutDelegate {
+//    func addExercises(exercises: [String]) {
+//
+//        for exercise in exercises {
+//            self.exercisesForWorkout.append(exercise)
+//        }
+//        print("----CreateWorkout   Loaded new exercises to the new workout")
+//        print("\(self.exercisesForWorkout)")
+//        //self.loadExercises()
+//    }
+//    
+//}

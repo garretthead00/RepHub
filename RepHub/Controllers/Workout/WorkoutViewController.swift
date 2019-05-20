@@ -31,7 +31,7 @@ class WorkoutViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
         self.loadWorkout()
         self.editControlsStackView.isHidden = true
-          print("Hello World!!")
+
 
     }
 
@@ -50,7 +50,7 @@ class WorkoutViewController: UIViewController {
                 })
             })
         })
-        print("Hello World!!")
+
     }
     
     private func loadExercises() {
@@ -312,12 +312,14 @@ extension WorkoutViewController : UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension WorkoutViewController : CreateWorkout_ExerciseTypesForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String] {
+    func addExercises(exercises: [String]) {
         self.exercisesForWorkout.removeAll()
-        self.exercisesForWorkout.append(contentsOf: exercisesToBeAdded)
+        self.exercisesForWorkout.append(contentsOf: exercises)
         self.loadNewExercises()
-        return self.exercisesForWorkout
+        //return self.exercisesForWorkout
     }
+    
+
 }
 
 

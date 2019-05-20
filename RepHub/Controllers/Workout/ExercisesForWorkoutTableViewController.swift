@@ -8,12 +8,16 @@
 
 import UIKit
 
-protocol MuscleGroup_ExercisesForWorkoutDelegate {
-    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String])
-}
+//protocol MuscleGroup_ExercisesForWorkoutDelegate {
+//    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String])
+//}
+//
+//protocol ExercisesInWorkoutDelegate {
+//    func addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: [String])
+//}
 
-protocol ExercisesInWorkoutDelegate {
-    func addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: [String])
+protocol ExercisesForWorkoutDelegate {
+    func addExercises(exercises: [String])
 }
 
 enum exercisesForWorkoutSearchBarItems: String {
@@ -34,8 +38,9 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
     var muscleGroup : String!
     private var isSearching: Bool = false
     private var searchBar = UISearchBar()
-    var muscleGroupDelegate : MuscleGroup_ExercisesForWorkoutDelegate!
-    var exercisesInWorkoutDelegate : ExercisesInWorkoutDelegate!
+    var delegate : ExercisesForWorkoutDelegate?
+//    var muscleGroupDelegate : MuscleGroup_ExercisesForWorkoutDelegate!
+//    var exercisesInWorkoutDelegate : ExercisesInWorkoutDelegate!
     
     var exercisesInWorkout : [String]?
     
@@ -58,30 +63,33 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
     }
     
     private func loadExercises() {
-        API.Exercise.observeExercises(completion: {
-            exercise in
-            self.exercises.append(exercise)
-            self.exercises = self.exercises.filter { $0.exerciseType == self.exerciseType && $0.muscleGroup == self.muscleGroup}
-            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue }
-            self.tableView.reloadData()
-        })
+//        API.Exercise.observeExercises(completion: {
+//            exercise in
+//            self.exercises.append(exercise)
+//            self.exercises = self.exercises.filter { $0.exerciseType == self.exerciseType && $0.muscleGroup == self.muscleGroup}
+//            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue }
+//            self.tableView.reloadData()
+//        })
     }
     
     @objc private func doneButton_TouchUpInside(){
         print("done touched")
-        let i = navigationController?.viewControllers.index(of: self)
-    
-        if let parentVC = self.navigationController?.viewControllers[i!-1] {
-            print("has parent \(parentVC)")
-            if parentVC.isKind(of: MuscleGroupsForWorkoutTableViewController.self){
-                print("parentVC is MuscleGroup")
-                self.muscleGroupDelegate?.addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: self.exercisesInWorkout!)
-            } else if parentVC.isKind(of: ExerciseTypesForWorkoutTableViewController.self) {
-                print("parentVC is ExerciseTypes")
-                self.exercisesInWorkoutDelegate?.addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: self.exercisesInWorkout!)
-                
-            }
-        }
+        
+        self.delegate!.addExercises(exercises: self.exercisesInWorkout!)
+        
+//        let i = navigationController?.viewControllers.index(of: self)
+//
+//        if let parentVC = self.navigationController?.viewControllers[i!-1] {
+//            print("has parent \(parentVC)")
+//            if parentVC.isKind(of: MuscleGroupsForWorkoutTableViewController.self){
+//                print("parentVC is MuscleGroup")
+//                self.muscleGroupDelegate?.addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: self.exercisesInWorkout!)
+//            } else if parentVC.isKind(of: ExerciseTypesForWorkoutTableViewController.self) {
+//                print("parentVC is ExerciseTypes")
+//                self.exercisesInWorkoutDelegate?.addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: self.exercisesInWorkout!)
+//
+//            }
+//        }
        self.navigationController?.popViewController(animated: true)
     }
     
@@ -113,30 +121,9 @@ class ExercisesForWorkoutTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Exercise", for: indexPath) as! ExercisesForWorkoutTableViewCell
         exercisesToDisplay = self.isSearching ? self.filteredExercises : self.exercisesForSelectedModality
         cell.exercise = self.exercisesForSelectedModality[indexPath.row]
+        cell.delegate = self
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath as IndexPath) as! ExercisesForWorkoutTableViewCell
-        if let id = cell.exercise?.id {
-            print("---id: \(id)")
-            if self.exercisesInWorkout != nil {
-                self.exercisesInWorkout?.append(id)
-                print("---exercisesForWorkout: \(self.exercisesInWorkout)")
-            }
-        }
-  
-    }
-
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath as IndexPath) as! ExercisesForWorkoutTableViewCell
-        if let id = cell.exercise?.id {
-            print("---id: \(id)")
-            self.exercisesInWorkout = self.exercisesInWorkout!.filter({ $0 != id})
-            print("---exercisesForWorkout: \(self.exercisesInWorkout)")
-        }
-    }
-
 
 }
 
@@ -174,3 +161,17 @@ extension ExercisesForWorkoutTableViewController : UISearchBarDelegate {
         }
     }
 }
+
+extension ExercisesForWorkoutTableViewController : ExerciseForWorkoutCellDelegate {
+    func addExercise(id: String) {
+        print("--ExercisesForWorkout:  addExerciseWithId: \(id)")
+        self.exercisesInWorkout?.append(id)
+    }
+    
+    func removeExercise(id: String) {
+        print("--ExercisesForWorkout:  removeExerciseWithId: \(id)")
+        self.exercisesInWorkout = self.exercisesInWorkout!.filter({ $0 != id })
+    }
+    
+}
+

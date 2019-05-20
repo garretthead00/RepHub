@@ -20,7 +20,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Q5-Dp-Cbu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GBc-ji-usv">
                                     <size key="itemSize" width="129" height="127"/>
                                     <size key="headerReferenceSize" width="50" height="282"/>
@@ -269,9 +269,9 @@
                     <navigationItem key="navigationItem" id="hFA-Rn-Xin">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="DtI-Ox-0Sp">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FwZ-mS-LZO">
-                                <rect key="frame" x="329" y="7" width="30" height="30"/>
+                                <rect key="frame" x="203" y="0.0" width="156" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="menu"/>
+                                <state key="normal" image="circledMenuFilled"/>
                                 <connections>
                                     <action selector="menu_TouchUpInside:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Nrq-L3-Bk6"/>
                                 </connections>
@@ -427,12 +427,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="sFS-Ed-eKV">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="sFS-Ed-eKV">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="205"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlannerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Kfd-Vu-f3g">
-                                    <rect key="frame" x="127.5" y="42.5" width="120" height="120"/>
+                                    <rect key="frame" x="127.5" y="-42" width="120" height="120"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="120" id="Bqx-Kh-NPE"/>
                                         <constraint firstAttribute="height" constant="120" id="mOZ-3z-z6s"/>
@@ -444,7 +444,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynX-GA-i5P">
-                                    <rect key="frame" x="128" y="170.5" width="119" height="8.5"/>
+                                    <rect key="frame" x="128" y="86" width="119" height="29"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="Change Profile Pic">
                                         <color key="titleColor" red="0.52457164329999995" green="0.52203748080000001" blue="0.52710580579999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -891,13 +891,13 @@
     <resources>
         <image name="LockerIcon" width="25" height="25"/>
         <image name="PlannerIcon" width="18" height="18"/>
-        <image name="menu" width="22.5" height="22.5"/>
+        <image name="circledMenuFilled" width="154.28572082519531" height="154.28572082519531"/>
         <image name="star_filled_green" width="180" height="180"/>
         <image name="stats" width="37.5" height="37.5"/>
         <image name="tagged" width="37.5" height="37.5"/>
         <image name="user2x" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="INd-Di-Mum"/>
+        <segue reference="kuZ-aE-6sp"/>
     </inferredMetricsTieBreakers>
 </document>

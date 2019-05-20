@@ -32,14 +32,14 @@ class ExerciseViewController: UIViewController {
         })
     }
     private func updateView(){
-        self.nameLabel.text = self.exercise?.name
-        self.musclegroupLabel.text = self.exercise?.muscleGroup
-        self.forceLabel.text = self.exercise?.force
-        self.modalityLabel.text = self.exercise?.modality
-        self.jointLabel.text = self.exercise?.joint
-        self.regionLabel.text = self.exercise?.region
-        self.sectionLabel.text = self.exercise?.section
-        
+//        self.nameLabel.text = self.exercise?.name
+//        self.musclegroupLabel.text = self.exercise?.muscleGroup
+//        self.forceLabel.text = self.exercise?.force
+//        self.modalityLabel.text = self.exercise?.modality
+//        self.jointLabel.text = self.exercise?.joint
+//        self.regionLabel.text = self.exercise?.region
+//        self.sectionLabel.text = self.exercise?.section
+//        
     }
 
     /*

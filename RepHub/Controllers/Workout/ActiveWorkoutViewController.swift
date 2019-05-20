@@ -333,7 +333,11 @@ extension ActiveWorkoutViewController : ActiveWorkoutExerciseTargetsDelegate {
             if row > 0 {
                 let breakTime = self.breakInSeconds[row - 1]
                 print("break set to \(breakTime) for id: \(id)")
-                API.WorkoutExercises.setBreak(workoutId: self.workoutId!, workoutExerciseId: id, breakTime: breakTime)
+                API.WorkoutExercises.setBreak(workoutId: self.workoutId!, workoutExerciseId: id, breakTime: breakTime, onSuccess: {
+                    _ in
+                 
+                    
+                })
             }
         }))
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)

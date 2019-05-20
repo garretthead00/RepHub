@@ -39,13 +39,13 @@ class ExercisesTableViewController: UITableViewController {
     }
     
     private func loadExercises() {
-        API.Exercise.observeExercises(completion: {
-            exercise in
-            self.exercises.append(exercise)
-            self.exercises = self.exercises.filter { $0.exerciseType == self.exerciseType && $0.muscleGroup == self.muscleGroup}
-            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue }
-            self.tableView.reloadData()
-        })
+//        API.Exercise.observeExercises(completion: {
+//            exercise in
+//            self.exercises.append(exercise)
+//            self.exercises = self.exercises.filter { $0.exerciseType == self.exerciseType && $0.muscleGroup == self.muscleGroup}
+//            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue }
+//            self.tableView.reloadData()
+//        })
     }
 
     // Create the searchbar in code

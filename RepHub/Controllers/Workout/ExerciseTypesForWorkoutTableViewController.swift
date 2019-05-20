@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CreateWorkout_ExerciseTypesForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String]
+    func addExercises(exercises: [String])
 }
 
 class ExerciseTypesForWorkoutTableViewController: UITableViewController {
@@ -30,10 +30,13 @@ class ExerciseTypesForWorkoutTableViewController: UITableViewController {
     }
     
     @objc private func doneButton_TouchUpInside(){
-        for (index, exercise) in self.exercisesInWorkout.enumerated() {
-            API.WorkoutExercises.addWorkoutExercise(workoutId: self.workoutId!, workoutExerciseId: exercise, atIndex: self.nextIndex! + index)
-        }
-        dismiss(animated: true, completion: nil)
+//        for (index, exercise) in self.exercisesInWorkout.enumerated() {
+//            API.WorkoutExercises.addWorkoutExercise(workoutId: self.workoutId!, workoutExerciseId: exercise, atIndex: self.nextIndex! + index)
+//        }
+        //self.addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: self.exercisesInWorkout)
+        
+        self.delegate.addExercises(exercises: self.exercisesInWorkout)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -67,7 +70,7 @@ class ExerciseTypesForWorkoutTableViewController: UITableViewController {
             let exerciseType = sender as! String
             exercisesTVC.exerciseType = exerciseType
             exercisesTVC.exercisesInWorkout = self.exercisesInWorkout
-            exercisesTVC.exercisesInWorkoutDelegate = self
+            //exercisesTVC.delegate = self as! ExercisesForWorkoutDelegate
         } else if segue.identifier == "MuscleGroupsForWorkout" {
             let muscleGroupsTVC = segue.destination as! MuscleGroupsForWorkoutTableViewController
             let exerciseType = sender as! String
@@ -81,23 +84,30 @@ class ExerciseTypesForWorkoutTableViewController: UITableViewController {
 
 }
 
-extension ExerciseTypesForWorkoutTableViewController : ExerciseTypes_MuscleGroupsForWorkoutDelegate {
-    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String]) {
-        self.exercisesInWorkout = exercisesToBeAdded
-        print("exercisesInWorkout from MuscleGroupsTVC: \(self.exercisesInWorkout)")
+//extension ExerciseTypesForWorkoutTableViewController : ExerciseTypes_MuscleGroupsForWorkoutDelegate {
+//    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String]) {
+//        self.exercisesInWorkout = exercisesToBeAdded
+//        print("exercisesInWorkout from MuscleGroupsTVC: \(self.exercisesInWorkout)")
+//        self.delegate.addExercisesForWorkout(exercisesToBeAdded: self.exercisesInWorkout)
+//    }
+//
+//
+//
+//}
+
+extension ExerciseTypesForWorkoutTableViewController : MuscleGroupsForWorkoutDelegate {
+    func addExercises(exercises: [String]) {
+        self.exercisesInWorkout = exercises
+        print("exercisesInWorkout from ExercisesTVc: \(self.exercisesInWorkout)")
+        //self.delegate.addExercisesForWorkout(exercisesToBeAdded: self.exercisesInWorkout)
+        self.addExercises(exercises: self.exercisesInWorkout)
     }
-    
-    
-    
 }
 
-extension ExerciseTypesForWorkoutTableViewController : ExercisesInWorkoutDelegate {
-    func addExercisesForWorkoutFromExercisesTVC(exercisesToBeAdded: [String]) {
-        self.exercisesInWorkout = exercisesToBeAdded
-        print("exercisesInWorkout from ExercisesTVc: \(self.exercisesInWorkout)")
-    }
-    
-
-    
-
+extension ExerciseTypesForWorkoutTableViewController : ExercisesForWorkoutDelegate {
+//    func addExercises(exercises: [String]) {
+//        self.exercisesInWorkout = exercises
+//        print("exercisesInWorkout from ExercisesTVc: \(self.exercisesInWorkout)")
+//        self.delegate.addExercisesForWorkout(exercisesToBeAdded: self.exercisesInWorkout)
+//    }
 }

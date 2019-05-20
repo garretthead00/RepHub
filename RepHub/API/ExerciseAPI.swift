@@ -22,6 +22,17 @@ class ExerciseAPI {
         })
     }
     
+    
+    func observeExercises(ofType: String, completion: @escaping(Exercise) -> Void) {
+        EXERCISE_DB_REF.queryOrdered(byChild: "exerciseType").queryEqual(toValue: ofType).observe(.childAdded, with: {
+            snapshot in
+            if let data = snapshot.value as? [String : Any] {
+                let exercise = Exercise.transformExercise(data: data, key: snapshot.key)
+                completion(exercise)
+            }
+        })
+    }
+    
     func observeExercise(withId id: String, completion: @escaping(Exercise) -> Void) {
         EXERCISE_DB_REF.child(id).observeSingleEvent(of: .value, with: {
             snapshot in

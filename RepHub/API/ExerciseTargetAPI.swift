@@ -17,7 +17,7 @@ class ExerciseTargetAPI {
             snapshot in
             if let data = snapshot.value as? [String : Any] {
                 let exerciseTarget = ExerciseTarget.transformExerciseTarget(data: data, key: snapshot.key)
-                print("exerciseTarget: \(exerciseTarget)")
+                //print("exerciseTarget: \(exerciseTarget)")
                 completion(exerciseTarget)
             }
         })

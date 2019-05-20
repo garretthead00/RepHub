@@ -271,7 +271,7 @@ extension HydrateTVC {
     }
     
     private func getPickerIndex(withValue: String) -> Int {
-        return self.timePickerSelections.index(of: withValue)!
+        return self.timePickerSelections.firstIndex(of: withValue)!
     }
 }
 

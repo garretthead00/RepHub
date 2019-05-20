@@ -36,6 +36,7 @@ class WorkoutDetailsTableViewCell: UITableViewCell {
     
     
     @IBAction func updateName(_ sender: Any) {
+        print("changing workoutName")
         self.workout.name = self.workoutNameTextField.text
     }
     

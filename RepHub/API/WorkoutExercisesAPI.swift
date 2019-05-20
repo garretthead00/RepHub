@@ -40,10 +40,20 @@ class WorkoutExercisesAPI {
         newExerciseRef.setValue(["atIndex": atIndex, "exerciseId":workoutExerciseId])
     }
     
-    func setBreak(workoutId id: String, workoutExerciseId: String, breakTime: Int) {
+    func setBreak(workoutId id: String, workoutExerciseId: String, breakTime: Int, onSuccess: @escaping(Bool) -> Void) {
         let workoutExerciseRef = WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(workoutExerciseId)
         workoutExerciseRef.updateChildValues(["break": breakTime])
+        workoutExerciseRef.updateChildValues(["break": breakTime], withCompletionBlock: {
+            err, ref in
+            if err != nil {
+                onSuccess(false)
+            }
+            onSuccess(true)
+            
+        })
     }
+    
+    
     
     func setORM(workoutId id: String, workoutExerciseId: String, ORM: Int) {
         let workoutExerciseRef = WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(workoutExerciseId)

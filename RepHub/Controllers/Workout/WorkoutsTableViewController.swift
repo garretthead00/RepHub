@@ -17,8 +17,15 @@ class WorkoutsTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(addWorkout))
         self.loadWorkouts()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("workouts willAppear")
+        
+    }
+    
     private func loadWorkouts(){
+        self.workouts.removeAll()
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
@@ -99,6 +106,7 @@ class WorkoutsTableViewController: UITableViewController {
             workoutTVC.workoutId = self.workouts[index].id
             workoutTVC.workout = self.workouts[index]//workout
         }
+        
     }
  
 

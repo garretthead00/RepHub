@@ -16,7 +16,6 @@ class WorkoutTableViewController: UITableViewController {
     var workoutId : String?
     var workout : Workout? {
         didSet {
-            self.navigationItem.title = self.workout!.name
             self.refreshController()
         }
     }
@@ -29,6 +28,9 @@ class WorkoutTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
         self.tableView.allowsSelectionDuringEditing = true
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
 
     @objc func showEditing(sender: UIBarButtonItem){
@@ -70,15 +72,27 @@ class WorkoutTableViewController: UITableViewController {
     }
     
     private func saveWorkout(){
-        if let id = self.workout?.id{
-            for (index, exercise) in self.exercises.enumerated() {
-                API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(exercise.id!).updateChildValues(["atIndex": index], withCompletionBlock: {
-                    err, ref in
-                    if err != nil {
-                        return
-                    }
-                })
-            }
+        if let id = self.workout?.id {
+            API.Workout.WORKOUT_DB_REF.child(id).updateChildValues(["name": self.workout!.name!,"description": self.workout!.description!], withCompletionBlock: {
+                err, ref in
+                if err != nil {
+                    return
+                }
+                print("saved")
+                
+                var i = 0
+                for exercise in self.exercises {
+                    print("exercise: \(exercise.id) index: \(i)")
+                    API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(exercise.id!).updateChildValues(["atIndex": i], withCompletionBlock: {
+                        err, ref in
+                        if err != nil {
+                            return
+                        }
+                    })
+                    i += 1
+                }
+                
+            })
         }
     }
     
@@ -98,9 +112,26 @@ class WorkoutTableViewController: UITableViewController {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutControlsTableViewCell", for: indexPath) as! WorkoutControlsTableViewCell
             cell.delegate = self
+            
+            if let name = self.workout?.name, !name.isEmpty {
+                cell.nameTextField.text = self.workout?.name
+            }
+            if let desc = self.workout?.description, !desc.isEmpty {
+                 cell.descriptionTextView.text = desc
+            }
+            
+            if self.tableView.isEditing {
+                cell.nameTextField.isEnabled = true
+                cell.descriptionTextView.isEditable = true
+            } else {
+                cell.nameTextField.isEnabled = false
+                cell.descriptionTextView.isEditable = false
+            }
+            
+            
             return cell
         } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddExerciseCell", for: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddExerciseCell", for: indexPath)
             if self.tableView.isEditing {
                 cell.isHidden = false
             } else {
@@ -119,10 +150,10 @@ class WorkoutTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 { return 64 }
+        if indexPath.row == 0 { return 236 }
         else if indexPath.row == 1 { return self.tableView.isEditing ? 44 : 0 }
         else if self.exercises[indexPath.row-2].targets != nil, let count = self.exercises[indexPath.row-2].targets?.count, count > 0 {
-            return calculateRowHeight(count: count)
+            return calculateRowHeight(count: count + 1)
         }
         else { return calculateRowHeight(count: 1) }
     }
@@ -147,61 +178,74 @@ class WorkoutTableViewController: UITableViewController {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row == 0 ? false : true
+        return indexPath.row <= 1 ? false : true
     }
  
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row == 0 ? false : true
+        return indexPath.row <= 1 ? false : true
     }
     
+    
+    
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let moveExercise = self.exercises[sourceIndexPath.row-2]
-        exercises.remove(at: sourceIndexPath.row-2)
-        exercises.insert(moveExercise, at: destinationIndexPath.row-2)
+        var moveFrom = sourceIndexPath.row
+        var moveTo = destinationIndexPath.row
+
+        if moveFrom >= 2, moveTo >= 2 {
+            moveFrom -= 2
+            moveTo -= 2
+            let moveExerciseName = self.exerciseNames[moveFrom]
+            let moveExercise = self.exercises[moveFrom]
+            self.exerciseNames.remove(at: moveFrom)
+            self.exerciseNames.insert(moveExerciseName, at: moveTo)
+            self.exercises.remove(at: moveFrom)
+            self.exercises.insert(moveExercise, at: moveTo)
+        }
+        
     }
+    
+    
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        var row = indexPath.row
+        row -= 2
         if editingStyle == .delete {
-           let exerciseId = self.exercises[indexPath.row].id!
-            API.WorkoutExercises.removeWorkoutExercise(workoutId: self.workoutId!, workoutExerciseId:  exerciseId, onSuccess: {
+            
+            let exerciseId = self.exercises[row].id!
+            let name = self.exerciseNames[row]
+            API.WorkoutExercises.removeWorkoutExercise(workoutId: self.workout!.id!, workoutExerciseId:  exerciseId, onSuccess: {
                 result in
+//                print("exercise removed")
                 if result {
                     API.ExerciseTarget.removeAllTargets(withWorkoutExerciseId: exerciseId, onSuccess: {
                         result in
                         if result {
-                            self.exercises.remove(at: indexPath.row)
+                            self.exercises.remove(at: row)
+                            self.exerciseNames.remove(at: row)
                             self.tableView.deleteRows(at: [indexPath], with: .fade)
                         }
                     })
                 }
             })
         } else if editingStyle == .insert {
-        }    
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRow")
-        if indexPath.row == 0 {
-            print("add exercise")
-            performSegue(withIdentifier: "AddExercise", sender: nil)
-        } else {
-            print("selected exercise")
+//            print("----WokroutTVC -- inserted tvcell")
         }
     }
+        
+
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddExercise" {
             let destinationNavigationController = segue.destination as! UINavigationController
-            let exercisesTVC = destinationNavigationController.topViewController as! ExerciseTypesForWorkoutTableViewController
-            exercisesTVC.nextIndex = self.exercises.count
-            exercisesTVC.workoutId = self.workoutId
+            let exercisesTVC = destinationNavigationController.topViewController as! CreateWorkout_ExerciseTypesCollectionViewController
+            exercisesTVC.delegate = self as CreateWorkoutExerciseTypesDelegate
         }
         else if segue.identifier == "StartWorkout" {
             let activeWorkoutTVC = segue.destination as! ActiveWorkoutViewController
             activeWorkoutTVC.workoutId = self.workoutId
-            //activeWorkoutTVC.workout = self.workout
-            
         }
     }
 
@@ -210,6 +254,31 @@ class WorkoutTableViewController: UITableViewController {
 
 
 extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
+    func addSet(withId id: String, set: Int) {
+        let alert = UIAlertController(title: "Input new set target", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "reps"
+            textField.keyboardType = .decimalPad
+        })
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "weight (lbs)"
+            textField.keyboardType = .decimalPad
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
+            if let reps = alert.textFields?[0].text, reps.count > 0, let weight = alert.textFields?[1].text, weight.count > 0 {
+                let repsVal = Int(reps)
+                let weightVal = Double(weight)
+                API.ExerciseTarget.addTarget(withWorkoutExerciseId: id, set: set, reps: repsVal!, weight: weightVal!)
+            }
+        }))
+        
+        self.present(alert, animated: true)
+    }
+    
+    
     func promptExerciseSetMenu(cell: ExerciseTargetsCell, set: Int) {
         if let index = self.tableView.indexPath(for: cell) {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -233,10 +302,6 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
                 alert.addAction(editAction)
             }
 
-            let addAction = UIAlertAction(title: "Add Set", style: .default, handler: { action in
-                let newSet = self.exercises[index.row-2].targets!.count > 0 ? self.exercises[index.row-2].targets!.count : 1
-                self.addTarget(workoutExerciseId: self.exercises[index.row-2].id! ,set: newSet)
-            })
             let removeAction = UIAlertAction(title: "Remove Set", style: .default, handler: { action in
                 let target = self.exercises[index.row-2].targets![set]
                 self.removeTarget(withWorkoutExerciseId: self.exercises[index.row-2].id!, target: target, completion: {
@@ -251,7 +316,6 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
     
             removeAction.setValue(UIColor.red, forKey: "titleTextColor")
             cancelAction.setValue(UIColor.darkGray, forKey: "titleTextColor")
-            alert.addAction(addAction)
             alert.addAction(removeAction)
             alert.addAction(cancelAction)
             present(alert, animated: true)
@@ -335,7 +399,13 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
             if row > 0 {
                 let breakTime = self.breakInSeconds[row - 1]
                 print("break set to \(breakTime) for id: \(id)")
-                API.WorkoutExercises.setBreak(workoutId: (self.workout?.id)!, workoutExerciseId: id, breakTime: breakTime)
+                API.WorkoutExercises.setBreak(workoutId: self.workout!.id!, workoutExerciseId: id, breakTime: breakTime, onSuccess: {
+                    _ in
+                    let updateExercise = self.exercises.first(where: { $0.id == id })
+                    updateExercise?.breakTime = breakTime
+                    self.tableView.reloadData()
+                })
+                
             }
             
             
@@ -350,25 +420,6 @@ extension WorkoutTableViewController : ExerciseTargetsCellDelegate {
         
     }
     
-    func setTarget(withId id: String){
-        print("set target with id \(id)")
-        let alert = UIAlertController(title: "Set ORM", message: nil, preferredStyle: .alert)
-        
-        alert.addTextField(configurationHandler: { textField in
-            textField.placeholder = "weight (lbs)"
-            textField.keyboardType = .decimalPad
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
-            if let weight = alert.textFields?[0].text, weight.count > 0, let weightINT = Int(weight) {
-                print("ORM set at \(weight) for id: \(id)")
-                API.WorkoutExercises.setORM(workoutId: (self.workout?.id)!, workoutExerciseId: id, ORM: weightINT)
-            }
-        }))
-        
-        self.present(alert, animated: true)
-    }
 }
 
 extension WorkoutTableViewController : UIPickerViewDelegate, UIPickerViewDataSource {
@@ -388,9 +439,38 @@ extension WorkoutTableViewController : UIPickerViewDelegate, UIPickerViewDataSou
     
 }
 
+extension WorkoutTableViewController : CreateWorkoutExerciseTypesDelegate {
+    func addExercises(exercises: [Exercise]) {
+        print("addExercises")
+        // Create the workout-exercises then add the id to the newWorkout.exercises list
+        for index in 0 ..< exercises.count {
+            let setIndex = self.exercises.count + index
+            let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(self.workout!.id!).child("exercises").childByAutoId()
+            newExerciseForWorkoutRef.setValue(["exerciseId": exercises[index].id!, "atIndex": setIndex], withCompletionBlock: {
+                error, ref in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+            
+            })
+        }
+    }
+}
+
 extension WorkoutTableViewController : WorkoutControlsDelegate {
+    func updateDescription(description: String) {
+        self.workout?.description = description
+    }
+    
+    func updateName(name: String) {
+        self.workout?.name = name
+    }
+    
     func startWorkout() {
         print("startWorkout")
         performSegue(withIdentifier: "StartWorkout", sender: nil)
     }
 }
+
+
