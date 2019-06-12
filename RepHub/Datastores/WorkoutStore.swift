@@ -62,7 +62,7 @@ class WorkoutStore {
         healthStore.save(stepCountForIntervalSample, withCompletion: { (success, error) -> Void in
             if success {
                 // handle success
-                ProgressHUD.showSuccess("Steps saved to HealthKit")
+                //ProgressHUD.showSuccess("Steps saved to HealthKit")
             } else {
                 // handle error
                 ProgressHUD.showError("Steps NOT saved to HealthKit")
@@ -83,7 +83,7 @@ class WorkoutStore {
         healthStore.save(distanceForIntervalSample, withCompletion: { (success, error) -> Void in
             if success {
                 // handle success
-                ProgressHUD.showSuccess("distance saved to HealthKit")
+                //ProgressHUD.showSuccess("distance saved to HealthKit")
             } else {
                 // handle error
                 ProgressHUD.showError("distance NOT saved to HealthKit")
@@ -143,42 +143,6 @@ class WorkoutStore {
 
         return samples
     }
-//
-//    class func loadPrancerciseWorkouts(completion: @escaping (([HKWorkout]?, Error?) -> Swift.Void)){
-//
-//        //1. Get all workouts with the "Other" activity type.
-//        let workoutPredicate = HKQuery.predicateForWorkouts(with: .other)
-//
-//        //2. Get all workouts that only came from this app.
-//        let sourcePredicate = HKQuery.predicateForObjects(from: HKSource.default())
-//
-//        //3. Combine the predicates into a single predicate.
-//        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [workoutPredicate,
-//                                                                           sourcePredicate])
-//
-//        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
-//                                              ascending: true)
-//
-//        let query = HKSampleQuery(sampleType: HKObjectType.workoutType(),
-//                                  predicate: compound,
-//                                  limit: 0,
-//                                  sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-//
-//                                    DispatchQueue.main.async {
-//
-//                                        //4. Cast the samples as HKWorkout
-//                                        guard let samples = samples as? [HKWorkout],
-//                                            error == nil else {
-//                                                completion(nil, error)
-//                                                return
-//                                        }
-//
-//                                        completion(samples, nil)
-//                                    }
-//        }
-//
-//        HKHealthStore().execute(query)
-//    }
 }
 
 

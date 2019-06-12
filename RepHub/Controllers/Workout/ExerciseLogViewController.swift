@@ -177,8 +177,8 @@ extension ExerciseLogViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Log", for: indexPath)
-        let reps = String(describing: self.exerciseLogs[indexPath.row].reps!)
-        let weight = String(describing: self.exerciseLogs[indexPath.row].weight!)
+        let reps = String(describing: self.exerciseLogs[indexPath.row].value!)
+        let weight = String(describing: self.exerciseLogs[indexPath.row].weightLB!)
         cell.textLabel?.text = "\(reps) x \(weight)"
         return cell
     }

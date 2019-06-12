@@ -12,9 +12,10 @@ import FirebaseDatabase
 class WorkoutAPI {
     
     var WORKOUT_DB_REF = Database.database().reference().child("workouts")
+    var WORKOUT_EXERCISES_DB_REF = Database.database().reference().child("workout-exercises")
     
-    func observeWorkouts(completion: @escaping(Workout) -> Void) {
-        WORKOUT_DB_REF.observe(.childAdded, with: { snapshot in
+    func observeUserWorkouts(withId id: String, completion: @escaping(Workout) -> Void) {
+        WORKOUT_DB_REF.child(id).observe(.childAdded, with: { snapshot in
             if let data = snapshot.value as? [String : Any] {
                 let workout = Workout.transformWorkout(data: data, key: snapshot.key)
                 completion(workout)
@@ -47,4 +48,15 @@ class WorkoutAPI {
         })
     }
     
+    func observerExercisesForWorkout(withId id: String, completion: @escaping(WorkoutExercise) -> Void) {
+        WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").queryOrdered(byChild: "atIndex").observe(.childAdded, with: {
+            snapshot in
+            if let data = snapshot.value as? [String: Any] {
+                let exercise = WorkoutExercise.transformWorkoutExercise(data: data, key: snapshot.key)
+                completion(exercise)
+            }
+        })
+    }
+    
+
 }

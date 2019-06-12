@@ -30,13 +30,10 @@ class WorkoutsTableViewController: UITableViewController {
             return
         }
         let currentUserId = currentUser.uid
-        API.UserWorkouts.USER_WORKOUTS_DB_REF.child(currentUserId).observe(.childAdded, with: {
-            snapshot in
-            API.Workout.observeWorkout(withId: snapshot.key, completion: {
-                workout in
-                self.workouts.append(workout)
-                self.tableView.reloadData()
-            })
+        API.Workout.observeUserWorkouts(withId: currentUserId, completion: {
+            workout in
+            self.workouts.append(workout)
+            self.tableView.reloadData()
         })
     }
 
@@ -50,16 +47,12 @@ class WorkoutsTableViewController: UITableViewController {
             return
         }
         let currentUserId = currentUser.uid
-        API.UserWorkouts.USER_WORKOUTS_DB_REF.child(currentUserId).child(self.workouts[indexPath.row].id!).removeValue(completionBlock: {
+        API.Workout.WORKOUT_DB_REF.child(currentUserId).child(self.workouts[indexPath.row].id!).removeValue(completionBlock: {
             error, ref in
             API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(self.workouts[indexPath.row].id!).removeValue(completionBlock: {
                 error, ref in
-                API.Workout.WORKOUT_DB_REF.child(self.workouts[indexPath.row].id!).removeValue(completionBlock: {
-                    error, ref in
                     self.workouts.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
-                })
-                
             })
         })
     }
@@ -83,7 +76,6 @@ class WorkoutsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let id = self.workouts[indexPath.row].id {
-            //performSegue(withIdentifier: "Workout", sender: id)
             performSegue(withIdentifier: "Workout", sender: indexPath.row)
         }
     }
@@ -105,9 +97,18 @@ class WorkoutsTableViewController: UITableViewController {
             let index = sender as! Int
             workoutTVC.workoutId = self.workouts[index].id
             workoutTVC.workout = self.workouts[index]//workout
+            workoutTVC.delegate = self
         }
         
     }
  
 
+}
+
+extension WorkoutsTableViewController : WorkoutDelegate {
+    func refreshWorkouts() {
+        self.loadWorkouts()
+    }
+    
+    
 }

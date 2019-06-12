@@ -61,7 +61,6 @@ class WorkoutExerciseCollectionReusableView: UICollectionReusableView {
             self.setBreakButton.addTarget(self, action: #selector(self.setBreak), for: .touchUpInside)
         }
         
-        
     }
     
     @objc private func setBreak() {

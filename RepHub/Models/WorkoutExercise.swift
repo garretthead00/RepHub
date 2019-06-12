@@ -11,11 +11,18 @@ import Foundation
 class WorkoutExercise {
     
     var id : String?
-    var exerciseId : String?
-    var breakTime : Int?
-    var targets : [ExerciseTarget]?
     var atIndex : Int?
+    var exerciseId : String?
+    var name : String?
+    var breakTime : Int?
+    var sets : Int?
+    var target : Int?
+    var metricUnit : String?
+    var metricType: String?
     var logs : [ExerciseLog]?
+    
+    // Will be removing
+    var targets : [ExerciseTarget]?
     
 }
 
@@ -25,10 +32,16 @@ extension WorkoutExercise {
         let workoutExercise = WorkoutExercise()
         workoutExercise.id = key
         workoutExercise.exerciseId = data["exerciseId"] as? String
-        workoutExercise.breakTime = data["break"] as? Int
+        workoutExercise.breakTime = data["breakTime"] as? Int
         workoutExercise.atIndex = data["atIndex"] as? Int
+        workoutExercise.target = data["target"] as? Int
+        workoutExercise.sets = data["sets"] as? Int
+        workoutExercise.metricUnit = data["metricUnit"] as? String
+        workoutExercise.metricType = ""
+        workoutExercise.name = ""
         workoutExercise.targets = [ExerciseTarget]()
         workoutExercise.logs = [ExerciseLog]()
+
         return workoutExercise
     }
 }

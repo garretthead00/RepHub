@@ -16,9 +16,7 @@ class Exercise {
     var modality: String?
     var muscleGroup: [String]?
     var exerciseType: String?
-    var targetSets: Int?
-    var targetReps: Int?
-    var breakTime: String?
+    var metricType: String?
     
 }
 
@@ -32,6 +30,7 @@ extension Exercise {
         exercise.muscleGroup = data["muscleGroup"] as? [String]
         exercise.modality = data["modality"] as? String
         exercise.exerciseType = data["exerciseType"] as? String
+        exercise.metricType = data["metricType"] as? String
         return exercise
     }
     

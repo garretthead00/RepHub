@@ -94,7 +94,7 @@ class PostSettingsTableViewController: UITableViewController {
                 } else if row == 1 {
                     cell = captionCell
                     captionTextView.text = ""
-                    captionTextView.placeholder = "Caption"
+                    //captionTextView.placeholder = "Caption"
                 } else {
                     cell = locationCell
                     

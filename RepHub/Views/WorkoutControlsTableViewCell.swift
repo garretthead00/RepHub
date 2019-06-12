@@ -19,12 +19,20 @@ class WorkoutControlsTableViewCell: UITableViewCell {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var startWorkoutButton: UIButton!
     var delegate : WorkoutControlsDelegate?
+    var placeholderLabel : UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         descriptionTextView.delegate = self
-
+        placeholderLabel = UILabel()
+        placeholderLabel.text = "Description"
+        placeholderLabel.font = descriptionTextView.font
+        placeholderLabel.sizeToFit()
+        descriptionTextView.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (descriptionTextView.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !descriptionTextView.text.isEmpty
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,11 +47,9 @@ class WorkoutControlsTableViewCell: UITableViewCell {
     @IBAction func nameTextField_TextChanged(_ sender: Any) {
         if let name = self.nameTextField.text {
             print("nameTextField_TextChanged")
-            //delegate?.updateName(name: name)
+            delegate?.updateName(name: name)
         }
     }
-    
-  
     
 }
 
@@ -51,6 +57,13 @@ extension WorkoutControlsTableViewCell : UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         print("textViewDidEndEditing")
-        //delegate?.updateDescription(description: textView.text)
+        if let desc = self.descriptionTextView.text {
+            print("descriptionTextView_TextChanged")
+            delegate?.updateDescription(description: desc)
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
     }
 }

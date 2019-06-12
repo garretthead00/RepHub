@@ -25,11 +25,8 @@ class WorkoutSession {
     private (set) var steps: Int!
     private (set) var distance: Double!
     private (set) var totalEnergyBurned: Double!
-    
     var state: WorkoutSessionState = .notStarted
-    
     var intervals = [WorkoutInterval]()
-    
     var motionTracker = WorkoutMotionTracker()
     var calorieTracker = WorkoutCalorieTracker()
     
@@ -42,8 +39,16 @@ class WorkoutSession {
     func end() {
         motionTracker.stopUpdating()
         endDate = Date()
-        steps = self.motionTracker.totalSteps
-        distance = self.motionTracker.totalDistance
+        if let totalSteps = self.motionTracker.totalSteps {
+            steps = totalSteps
+        } else {
+            steps = 0
+        }
+        if let totalDistance = self.motionTracker.totalDistance {
+            distance = totalDistance
+        } else {
+            distance = 0
+        }
         addNewInterval()
         state = .finished
     }

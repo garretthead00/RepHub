@@ -1,57 +1,133 @@
 //
-//  CreateWorkoutViewController.swift
-//  RepHub
+//  CreateWorkoutTableViewController.swift
+//  FirebaseAuth
 //
-//  Created by Garrett Head on 8/16/18.
-//  Copyright © 2018 Garrett Head. All rights reserved.
+//  Created by Garrett Head on 5/25/19.
 //
 
 import UIKit
 
-class CreateWorkoutViewController: UIViewController {
 
- 
-    @IBOutlet weak var tableview: UITableView!
-    private var workoutName = ""
-    private var workoutDescription = ""
+
+class CreateWorkoutTableViewController: UITableViewController {
+    
+    
+    var workoutName = ""
+    var workoutDescription = ""
     var exercises = [WorkoutExercise]()
-    var exercisesForWorkout = [String]()
-    var targets : [Int: String] = [:]
-    var breaks = [String]()
+    
+    private var selectedBreak = 0
     private let breakOptions = ["Set", "15 seconds", "30 seconds", "45 seconds", "1 minute", "1.5 minutes", "2 minutes", "2.5 minutes", "3 minutes", "5 minutes", "10 minutes", "15 minutes"]
     private let distanceOptions = ["--", "m","yd","mi","km"]
     private let timeOptions = ["--", "s","min","hr"]
     private let breakInSeconds = [15, 30, 45, 60, 90, 120, 150, 180, 300, 600, 900]
-    private var selectedBreak = 0
     private var targetAlertOption = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableview.dataSource = self
-        self.tableview.delegate = self
-        navigationController?.navigationBar.prefersLargeTitles = false
-        
+
     }
+
+    @IBAction func cancelButton_TouchUpInside(_ sender: Any) {
+       self.dismiss(animated: true, completion: nil)
+    }
+    
     
     @IBAction func saveButton_TouchUpInside(_ sender: Any) {
         print("saveButton_TouchUpInside...")
-        let cell = self.tableview.cellForRow(at: IndexPath(row: 0, section: 0)) as! CreateWorkoutDetailsTableViewCell
-         if let name = cell.workoutNameTextField.text, !name.isEmpty {
-            if let description = cell.workoutDescriptionTextView.text, !description.isEmpty {
+        if !self.workoutName.isEmpty {
+            if !self.workoutDescription.isEmpty {
                 print("createWorkout...")
-                print("name: \(name)")
-                print("desc: \(description)")
-                self.createWorkout(name: name, description: description)
+                print("name: \(self.workoutName)")
+                print("desc: \(self.workoutDescription)")
+                self.createWorkout(name: self.workoutName, description: self.workoutDescription)
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
-    @IBAction func cancelButton_TouchUpInside(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    
+    
+    
+    
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.exercises.count + 2
+    }
 
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetails", for: indexPath) as! CreateWorkoutDetailsTableViewCell
+            cell.delegate = self
+            return cell
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddExercise", for: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Exercise", for: indexPath) as! Workout_ExerciseTableViewCell
+            let index = indexPath.row - 2
+            cell.exercise = self.exercises[index]
+            if let sets = self.exercises[index].sets, sets > 0 , let target = self.exercises[index].target, target > 0 {
+                if let unit = self.exercises[index].metricUnit {
+                    if unit != "Repitition" {
+                        cell.targetString = "\(sets) x \(target) \(unit)"
+                    }
+                    else {
+                        cell.targetString = "\(sets) x \(target)"
+                        
+                    }
+                }
+                
+            }
+            if let breakTime = self.exercises[indexPath.row - 2].breakTime, breakTime > 0 {
+                cell.breakString = "\(breakTime)"
+            }
+            cell.delegate = self
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 250
+        }
+        else if indexPath.row == 1 {
+            return 44
+        }
+        else {
+            return 76
+        }
+    }
+
+    
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.exercises.remove(at: indexPath.row - 2)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+ 
+
+    
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddExercise" {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let exercisesTVC = destinationNavigationController.topViewController as! CreateWorkout_ExerciseTypesCollectionViewController
+            exercisesTVC.delegate = self
+        }
+    }
+ 
+    
+    
+    
     private func createWorkout(name: String, description: String){
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
@@ -88,83 +164,11 @@ class CreateWorkoutViewController: UIViewController {
         })
     }
     
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "AddExercise" {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            let exercisesTVC = destinationNavigationController.topViewController as! CreateWorkout_ExerciseTypesCollectionViewController
-            exercisesTVC.delegate = self
-        }
-    }
+
 }
 
-extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.exercises.count + 2
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetails", for: indexPath) as! CreateWorkoutDetailsTableViewCell
-            cell.delegate = self
-            //cell.workoutDescriptionTextView.placeholder = "Description"
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddExercise", for: indexPath)
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Exercise", for: indexPath) as! Workout_ExerciseTableViewCell
-            let index = indexPath.row - 2
-            cell.exercise = self.exercises[index]
-            if let sets = self.exercises[index].sets, sets > 0 , let target = self.exercises[index].target, target > 0 {
-                if let unit = self.exercises[index].metricUnit {
-                    if unit != "Repitition" {
-                        cell.targetString = "\(sets) x \(target) \(unit)"
-                    }
-                    else {
-                        cell.targetString = "\(sets) x \(target)"
-                        
-                    }
-                }
-                
-            }
-            if let breakTime = self.exercises[indexPath.row - 2].breakTime, breakTime > 0 {
-                 cell.breakString = "\(breakTime)"
-            }
-            cell.delegate = self
-            return cell
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 250
-        }
-        else if indexPath.row == 1 {
-            return 44
-        }
-        else {
-            return 76
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.exercises.remove(at: indexPath.row - 2)
-            self.tableview.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-}
-
-extension CreateWorkoutViewController : WorkoutExerciseTypesDelegate {
+extension CreateWorkoutTableViewController : WorkoutExerciseTypesDelegate {
     func addExercises(exercises: [Exercise]) {
         print("added exercises")
         for exercise in exercises {
@@ -177,7 +181,7 @@ extension CreateWorkoutViewController : WorkoutExerciseTypesDelegate {
             newWorkoutExercise.metricType = exercise.metricType
             newWorkoutExercise.metricUnit = ""
             self.exercises.append(newWorkoutExercise)
-            self.tableview.reloadData()
+            self.tableView.reloadData()
         }
         
     }
@@ -185,10 +189,10 @@ extension CreateWorkoutViewController : WorkoutExerciseTypesDelegate {
     
 }
 
-extension CreateWorkoutViewController : Workout_ExerciseDelegate {
+extension CreateWorkoutTableViewController : Workout_ExerciseDelegate {
     
     func setTarget(cell: Workout_ExerciseTableViewCell) {
-        if let index = self.tableview.indexPath(for: cell)?.row {
+        if let index = self.tableView.indexPath(for: cell)?.row {
             let exerciseIndex = index - 2
             targetAlertOption = self.exercises[exerciseIndex].metricType!
             print("setting Target at index")
@@ -209,7 +213,7 @@ extension CreateWorkoutViewController : Workout_ExerciseDelegate {
     
     func setBreak(cell: Workout_ExerciseTableViewCell) {
         print("setting Break")
-        if let index = self.tableview.indexPath(for: cell)?.row  {
+        if let index = self.tableView.indexPath(for: cell)?.row  {
             targetAlertOption = "Break"
             let title = "Set Break"
             let message = "Set the break time between sets.\n\n\n\n\n";
@@ -228,7 +232,7 @@ extension CreateWorkoutViewController : Workout_ExerciseDelegate {
                     print("break set to \(breakTime)")
                     let idx = index - 2
                     self.exercises[idx].breakTime = breakTime
-                    self.tableview.reloadData()
+                    self.tableView.reloadData()
                 }
             }))
             
@@ -258,7 +262,7 @@ extension CreateWorkoutViewController : Workout_ExerciseDelegate {
                 self.exercises[exerciseIndex].sets = setVal!
                 self.exercises[exerciseIndex].target = targetVal!
                 self.exercises[exerciseIndex].metricUnit = "Repitition"
-                self.tableview.reloadData()
+                self.tableView.reloadData()
             }
         }))
         
@@ -294,7 +298,7 @@ extension CreateWorkoutViewController : Workout_ExerciseDelegate {
                     self.exercises[exerciseIndex].sets = setVal!
                     self.exercises[exerciseIndex].target = targetVal!
                     self.exercises[exerciseIndex].metricUnit = distanceSelection
-                    self.tableview.reloadData()
+                    self.tableView.reloadData()
                 }
             }
             
@@ -333,7 +337,7 @@ extension CreateWorkoutViewController : Workout_ExerciseDelegate {
                     self.exercises[exerciseIndex].sets = setVal!
                     self.exercises[exerciseIndex].target = targetVal
                     self.exercises[exerciseIndex].metricUnit = timeVal
-                    self.tableview.reloadData()
+                    self.tableView.reloadData()
                 }
             }
             
@@ -349,7 +353,7 @@ extension CreateWorkoutViewController : Workout_ExerciseDelegate {
     
 }
 
-extension CreateWorkoutViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+extension CreateWorkoutTableViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var values = Array(0...60)
@@ -404,16 +408,18 @@ extension CreateWorkoutViewController : UIPickerViewDelegate, UIPickerViewDataSo
     
 }
 
-extension CreateWorkoutViewController : CreateWorkoutDetailsDelegate {
+extension CreateWorkoutTableViewController : CreateWorkoutDetailsDelegate {
     func updateName(name: String) {
         print("giving name: \(name)")
         self.workoutName = name
     }
-    
+
     func updateDescription(description: String) {
         print("giving description: \(description)")
         self.workoutDescription = description
-        self.tableview.reloadData()
+        //self.tableview.reloadData()
     }
-    
+
 }
+
+

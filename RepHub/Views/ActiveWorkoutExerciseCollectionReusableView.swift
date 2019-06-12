@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ActiveWorkoutExerciseDelegate {
-    func startBreak() -> Int
+    func startBreak(countdown: Int)
 }
 
 class ActiveWorkoutExerciseCollectionReusableView: UICollectionReusableView {
@@ -30,7 +30,7 @@ class ActiveWorkoutExerciseCollectionReusableView: UICollectionReusableView {
         }
     }
     var workoutExerciseId : String?
-    var timer = Timer()
+
     var isTimerRunning = false
     
     override func awakeFromNib() {
@@ -55,36 +55,12 @@ class ActiveWorkoutExerciseCollectionReusableView: UICollectionReusableView {
     }
     
     @objc private func startBreak() {
-        print("trying a break")
         if let count = countdown, count > 0 {
-            runTimer()
+            // Has a set breaktime. Run the break clock.
+            self.delegate?.startBreak(countdown: count)
         } else {
-            
-            var count = 0
-            count = (self.delegate?.startBreak())!
-            print("count set to \(count)")
-            print("running timer")
-            self.countdown = count
-            self.runTimer()
-            
-        }
-
-    }
-    
-
-    
-    private func runTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-    }
-    
-    @objc private func updateTimer(){
-        if var count = self.countdown, count > 0 {
-            count = count - 1
-            self.countdown = count
-            self.countdownLabel.text = "\(count)"
-        } else {
-            timer.invalidate()
-            self.countdownLabel.text = "0"
+            // NO set breaktime. Run break clock with count = 0. (Prompts break selector from the controller.)
+            self.delegate?.startBreak(countdown: 0)
         }
     }
     
