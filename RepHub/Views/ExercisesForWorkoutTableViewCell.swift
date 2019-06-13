@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol ExerciseForWorkoutCellDelegate {
+    func addExercise(id: String)
+    func removeExercise(id:String)
+}
+
 class ExercisesForWorkoutTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    var delegate : ExerciseCellDelegate?
+    var delegate : ExerciseForWorkoutCellDelegate?
     var exercise : Exercise? {
         didSet {
             updateView()
@@ -30,6 +35,21 @@ class ExercisesForWorkoutTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.accessoryType = selected ? .checkmark : .none
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let id = exercise?.id {
+            if self.accessoryType == .checkmark {
+                print("remove exercise with id: \(id)")
+                self.accessoryType = .none
+                delegate?.removeExercise(id: id)
+            } else {
+                print("add exercise with id: \(id)")
+                self.accessoryType = .checkmark
+                delegate?.addExercise(id: id)
+                
+            }
+        }
     }
 
 }

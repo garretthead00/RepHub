@@ -11,7 +11,7 @@ import HealthKit
 
 class PlannerTableViewController: UITableViewController {
     
-    private var modules = ["Bio", "Schedule", "Workouts", "Exercises", "Meals", "Hydrate", "Journal"]
+    private var modules = ["Bio", "Schedule", "Workouts", "Exercises", "Meals", "Hydrate", "Activity"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,29 +49,22 @@ class PlannerTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if section == 0 { return modules.count } else { return 1 }
+        return modules.count
         
     }
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 1 ? "Recent Activity" : ""
-    }
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: self.modules[indexPath.row], for: indexPath)
             cell.textLabel?.text = self.modules[indexPath.row]
             return cell
 
-        } else {
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "RecentActivity", for: indexPath) as! PlannerRecentActivityTableViewCell
-            return cell
-        }
         
     }
     

@@ -2,94 +2,82 @@
 //  ActivityTableViewController.swift
 //  RepHub
 //
-//  Created by Garrett Head on 7/7/18.
-//  Copyright © 2018 Garrett Head. All rights reserved.
+//  Created by Garrett Head on 2/5/19.
+//  Copyright © 2019 Garrett Head. All rights reserved.
 //
 
 import UIKit
 
 class ActivityTableViewController: UITableViewController {
 
-    private var notifications = [Notification]()
-    private var users = [RepHubUser]()
+    
+    var items = ["caloriesBurned", "exerciseMinutes", "distance", "steps", "caloriesConsumed", "hydration", "sleep"]//,"caffeine", "sugar", "protein", "fats", "weight"]
+    var colors = [UIColor(red:1.00, green:0.23, blue:0.19, alpha:1.0),UIColor(red:0.11, green:0.83, blue:1.00, alpha:1.0),UIColor(red:0.00, green:0.55, blue:0.80, alpha:1.0),UIColor(red:0.35, green:0.78, blue:0.98, alpha:1.0),UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0),UIColor(red:0.00, green:0.55, blue:0.80, alpha:1.0),UIColor(red:0.84, green:0.43, blue:0.99, alpha:1.0)]
+    var values = ["487","45","3.4","2743","739","46","6.5"]
+    var textColors = [UIColor(red:0.99, green:0.16, blue:0.10, alpha:1.0),UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0),UIColor(red:0.13, green:0.26, blue:0.65, alpha:1.0),UIColor(red:0.12, green:0.39, blue:0.93, alpha:1.0),UIColor(red:0.01, green:0.70, blue:0.12, alpha:1.0),UIColor(red:0.13, green:0.26, blue:0.65, alpha:1.0),UIColor(red:0.52, green:0.16, blue:0.75, alpha:1.0)]
+    var icons = ["energyBurned","exerciseMinutes","distance","steps","meals","hydrate","sleep"]
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNotifications()
-    }
-    
-    private func loadNotifications(){
-        guard let currentUser = API.RepHubUser.CURRENT_USER else {
-            return
-        }
-        API.Notification.observeNotification(withId: currentUser.uid, completion: {
-            notification in
-            guard let uid = notification.from else {
-                return
-            }
-            self.fetchUser(uid: uid, completed: {
-                self.notifications.insert(notification, at: 0)
-                self.tableView.reloadData()
-            })
-        })
-    }
-    
-    private func fetchUser(uid : String, completed: @escaping() -> Void ){
-        API.RepHubUser.observeUser(withId: uid, completion: {
-            user in
-            self.users.insert(user, at: 0)
-            completed()
-        })
+        print("----ACTIVITY TVC -----")
     }
 
     // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.notifications.count
+        return 2
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Activity", for: indexPath) as! ActivityTableViewCell
-        let user = self.users[indexPath.row]
-        let notification = self.notifications[indexPath.row]
-        cell.user = user
-        cell.notification = notification
-        cell.delegate = self
-        return cell
+  
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeeklyViewCell", for: indexPath) as! WeeklyViewCell
+             print("--WeeklyViewCell")
+            cell.items = self.items
+            cell.colors = self.colors
+            cell.values = self.values
+            cell.textColors = self.textColors
+            cell.icons = self.icons
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DailyViewCell", for: indexPath) as! DailyViewCell
+             print("--DailyViewCell")
+            cell.items = self.items
+            cell.colors = self.colors
+            cell.values = self.values
+            cell.textColors = self.textColors
+            cell.icons = self.icons
+            return cell
+        }
+    }
+ 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (indexPath.row % 2 > 0) ? calculateRowHeight(row: indexPath.row) : 248
     }
     
-    // MARK: Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailPost" {
-            let detailVC = segue.destination as! DetailPostTableViewController
-            let postId = sender as! String
-            detailVC.postId = postId
-        }
-        if segue.identifier == "ViewLocker" {
-            let profileVC = segue.destination as! UserLockerViewController
-            let userId = sender  as! String
-            profileVC.userId = userId
-        }
-        if segue.identifier == "Comments" {
-            let commentVC = segue.destination as! CommentViewController
-            let postId = sender  as! String
-            commentVC.postId = postId
-        }
+    private func calculateRowHeight(row : Int) -> CGFloat {
+        let totalItem: CGFloat = CGFloat(self.items.count)
+        let totalCellInARow: CGFloat = 2
+        let cellHeight: CGFloat = 132
+        
+        let collViewTopOffset: CGFloat = 10
+        let collViewBottomOffset: CGFloat = 10
+        
+        let minLineSpacing: CGFloat = 5
+        
+        // calculations
+        let totalRow = ceil(totalItem / totalCellInARow)
+        let totalTopBottomOffset = collViewTopOffset + collViewBottomOffset
+        let totalSpacing = CGFloat(totalRow - 1) * minLineSpacing   // total line space in UICollectionView is (totalRow - 1)
+        return (cellHeight * totalRow) + totalTopBottomOffset + totalSpacing
     }
 
-}
-
-extension ActivityTableViewController : ActivityCellDelegate{
-    func goToDetailPostTVC(postId: String) {
-        performSegue(withIdentifier: "DetailPost", sender: postId)
-    }
-    
-    func goToUserLockerVC(userId: String) {
-        performSegue(withIdentifier: "ViewLocker", sender: userId)
-    }
-    
-    func goToCommentVC(postId: String) {
-        performSegue(withIdentifier: "Comments", sender: postId)
-    }
     
 }

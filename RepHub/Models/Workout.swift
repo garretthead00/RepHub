@@ -15,6 +15,7 @@ struct Workout {
     var id : String?
     var name : String?
     var description : String?
+    var exercises :  Dictionary<String, Any?>?
 }
 
 extension Workout {
@@ -23,6 +24,7 @@ extension Workout {
         workout.id = key
         workout.name = data["name"] as? String
         workout.description = data["description"] as? String
+        workout.exercises = data["exercises"] as? Dictionary<String, Any?>
         return workout
     }
 }

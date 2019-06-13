@@ -13,7 +13,7 @@ class SidePanelViewController: UIViewController {
     
    
     
-    private var menuOptions = ["Activity","Messenger","Stats","Following","Followers","Settings"]
+    private var menuOptions = ["Notifications","Messenger","Stats","Following","Followers","Settings"]
 
     
     override func viewDidLoad() {

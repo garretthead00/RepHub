@@ -51,7 +51,7 @@ class WorkoutMotionTracker {
             
             DispatchQueue.main.async {
                 self?.totalSteps = pedometerData.numberOfSteps.intValue
-                self?.totalDistance = self!.miles(meters: pedometerData.distance!.doubleValue)//?.stringValue
+                self?.totalDistance = self!.miles(meters: pedometerData.distance!.doubleValue)
                 self?.flightsAscended = pedometerData.floorsAscended?.stringValue
                 let totalStepsStr = pedometerData.numberOfSteps.stringValue
                 let distanceStr = pedometerData.distance!.stringValue

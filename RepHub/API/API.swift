@@ -29,9 +29,9 @@ struct API {
     static var ExerciseLog = ExerciseLogAPI()
     static var WorkoutLog = WorkoutLogsAPI()
     static var UserWorkoutLogs = UserWorkoutLogsAPI()
-    static var WourkoutJournal = WorkoutJournalAPI()
-    static var UserJournalEntries = UserJournalEntriesAPI()
     static var Block = BlockAPI()
     static var Report = ReportAPI()
     static var Mute = MuteAPI()
+    static var ExerciseTarget = ExerciseTargetAPI()
+    static var WorkoutExerciseLogs = WorkoutExerciseLogsAPI()
 }
