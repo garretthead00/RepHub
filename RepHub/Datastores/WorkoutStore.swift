@@ -15,7 +15,7 @@ class WorkoutStore {
         //1. Setup the Calorie Quantity for total energy burned
         let calorieQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: workout.totalEnergyBurned)
         
-        //2. Build the workout using data from your Prancercise workout
+        //2. Build the workout using data from your workout
         let hkWorkout = HKWorkout(activityType: .other, start: workout.start, end: workout.end, duration: workout.duration, totalEnergyBurned: calorieQuantity, totalDistance: nil, device: HKDevice.local(), metadata: nil)
         
 
