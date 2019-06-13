@@ -161,7 +161,7 @@ class HydrateTVC: UITableViewController {
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecentLogs", for: indexPath) as! HydrateLogTableViewCell
             let log = self.hydrationLogs[indexPath.row]
-            cell.log = log
+            //cell.log = log
             return cell
         }
     }

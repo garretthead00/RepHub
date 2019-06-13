@@ -509,7 +509,7 @@ extension WorkoutTableViewController : Workout_ExerciseDelegate {
         
         alert.addAction(confirmAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 248.0)
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 248.0)
         alert.view.addConstraint(height)
         self.present(alert, animated: true)
     }
