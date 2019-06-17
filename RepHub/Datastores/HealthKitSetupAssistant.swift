@@ -16,7 +16,48 @@ class HealthKitSetupAssistant {
         case dataTypeNotAvailable
     }
     
-    class func authorizeHealthKit(completion: @escaping (Bool, Error?) -> Swift.Void) {
+    class func authorizeNutritionData(completion: @escaping (Bool, Error?) -> Void) {
+        // Check to see if HealthKit Is Available on this device
+        guard HKHealthStore.isHealthDataAvailable() else {
+            completion(false, HealthkitSetupError.notAvailableOnDevice)
+            return
+        }
+        guard let water = HKObjectType.quantityType(forIdentifier: .dietaryWater),
+        let energyConsumed = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed),
+        let carbohyrdates = HKObjectType.quantityType(forIdentifier: .dietaryCarbohydrates),
+        let protein = HKObjectType.quantityType(forIdentifier: .dietaryProtein),
+        let fat = HKObjectType.quantityType(forIdentifier: .dietaryFatTotal),
+        let sugar = HKObjectType.quantityType(forIdentifier: .dietarySugar),
+        let caffeine = HKObjectType.quantityType(forIdentifier: .dietaryCaffeine) else {
+                completion(false, HealthkitSetupError.dataTypeNotAvailable)
+                return
+        }
+        // Prepare a list of types you want HealthKit to read and write
+        let healthKitTypesToWrite: Set<HKSampleType> = [water,
+                                                        energyConsumed,
+                                                        carbohyrdates,
+                                                        protein,
+                                                        fat,
+                                                        sugar,
+                                                        caffeine]
+        
+        let healthKitTypesToRead: Set<HKObjectType> = [water,
+                                                       energyConsumed,
+                                                       carbohyrdates,
+                                                       protein,
+                                                       fat,
+                                                       sugar,
+                                                       caffeine]
+        
+        // Request Authorization
+        HKHealthStore().requestAuthorization(toShare: healthKitTypesToWrite,
+                                             read: healthKitTypesToRead) { (success, error) in
+                                                completion(success, error)
+        }
+    }
+    
+    
+    class func authorizeHealthKit(completion: @escaping (Bool, Error?) -> Void) {
         
         // Check to see if HealthKit Is Available on this device
         guard HKHealthStore.isHealthDataAvailable() else {
@@ -34,7 +75,6 @@ class HealthKitSetupAssistant {
             let activeEnergy = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned),
             let steps = HKObjectType.quantityType(forIdentifier: .stepCount),
             let distance = HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning) else {
-                
             completion(false, HealthkitSetupError.dataTypeNotAvailable)
             return
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HealthKit
 
 var drinkPickerSelections = ["Select a Drink", "Water", "Sports Drink", "Juice", "Coffee","Tea", "Beer", "Wine", "Milk", "Shake", "Soda"]
 
@@ -17,18 +18,87 @@ class HydrateTableViewController: UITableViewController {
     var target : Int = 0
     var score : Int = 0
     var total : Int = 0
-    var drinkLogs : [String] = ["Water","Milk","Coffee","Coffee","Tea","Beer", "Wine", "Soda"]
-    var logQuantities : [Int] = [12,8,8,8,12,12,6,8]
+    var drinkLogs : [String] = []//["Water","Milk","Coffee","Coffee","Tea","Beer", "Wine", "Soda"]
+    var logQuantities : [Int] = []
     var reminderFrequency : Int = 0
     
     private var reminderPicker : UIPickerView!
-
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.calculateData()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Drink", style: .plain, target: self, action: #selector(goToDrinkMenu))
+        self.authorizeHealthKit()
+    }
+    
+    @objc private func goToDrinkMenu(){
+        self.performSegue(withIdentifier: "DrinkMenu", sender: nil)
+    }
+    
+    private func loadHydrationSettings(){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
+        API.Hydrate.observeHydrateSettings(withId: currentUserId, completion: {
+            settings in
+            if let hydrateTarget = settings.target {
+                self.target = hydrateTarget
+            }
+            if let frequency = settings.frequency {
+                self.reminderFrequency = frequency
+            }
+            self.calculateData()
+        })
+    }
+    
+    private func authorizeHealthKit() {
+        
+        HealthKitSetupAssistant.authorizeNutritionData {
+            (authorized, error) in
+            
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                return
+            }
+            
+            print("HealthKit Successfully Authorized.")
+            self.loadHydrationSettings()
+            self.fetchHydrationLogs()
+        }
+    }
+    
+    
+    private func fetchHydrationLogs(){
+        NutritionStore.fetchHydrationLogs(completion: {
+            (samples, error) in
+            guard let samples = samples else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            for sample in samples {
+                let quantityInFluidOunces = sample.quantity.doubleValue(for: HKUnit.fluidOunceUS())
+                let quantityInt = Int(quantityInFluidOunces)
+                self.drinkLogs.append("Water")
+                self.logQuantities.append(quantityInt)
+                self.calculateData()
+            }
+
+        })
+    }
+    
+    private func refreshController(){
+        self.score = 0
+        self.total = 0
+        self.drinkLogs = []
+        self.logQuantities = []
+         self.fetchHydrationLogs()
     }
     
     private func calculateData(){
@@ -56,7 +126,17 @@ class HydrateTableViewController: UITableViewController {
         self.setReminder()
     }
     
-    
+
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+//     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "DrinkMenu" {
+//            let drinkCVC = segue.destination as! DrinkMenuCollectionViewController
+//        }
+//
+//     }
+ 
 
     // MARK: - Table view data source
 
@@ -77,16 +157,14 @@ class HydrateTableViewController: UITableViewController {
         if row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrateStatusCell", for: indexPath) as! HydrateStatusTableViewCell
             cell.date = self.date
-            cell.targetStr = "\(total) / \(target) oz"
+            cell.targetStr = "\(total) / \(self.target) oz"
             cell.score = self.score
-            print("date: \(date) target: \(target) score: \(score)")
             cell.alarmOn = self.reminderFrequency > 0 ? true : false
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogCell", for: indexPath) as! HydrateLogTableViewCell
             cell.name = self.drinkLogs[row - 1]
             cell.quantity = self.logQuantities[row - 1]
-            print("drink: \(self.drinkLogs[row - 1]) quantity: \(self.logQuantities[row - 1])")
             return cell
         }
         
@@ -103,7 +181,7 @@ class HydrateTableViewController: UITableViewController {
     
     private func setTarget(){
         // Establish the AlertController
-        let alertController = UIAlertController(title: "New Hydration Log", message: "\n", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Hydration Goal (fl oz)", message: "\n", preferredStyle: .alert)
         alertController.isModalInPopover = true
         alertController.addTextField(configurationHandler: {
             (textField) in
@@ -113,8 +191,9 @@ class HydrateTableViewController: UITableViewController {
         let confirmAction = UIAlertAction(title: "Add", style: UIAlertAction.Style.default, handler: ({
             (_) in
             if let field = alertController.textFields![0] as? UITextField {
-                if field.text != "", let intText = Int(field.text!) {
-                    self.target = intText
+                if field.text != "", let targetINT = Int(field.text!) {
+                    self.target = targetINT
+                    API.Hydrate.updateHydrationTarget(withValue: targetINT)
                     self.calculateData()
                     
                 }
@@ -142,6 +221,7 @@ class HydrateTableViewController: UITableViewController {
             (_) in
             let frequencySelectionRow = self.reminderPicker.selectedRow(inComponent: 0)
             self.reminderFrequency = frequencySelectionRow
+            API.Hydrate.updateHydrationReminder(withValue: frequencySelectionRow)
             self.tableView.reloadData()
         }))
         
@@ -152,6 +232,21 @@ class HydrateTableViewController: UITableViewController {
         alert.view.addConstraint(height)
         self.present(alert, animated: true, completion: nil)
     }
+    
+
+    
+    private func saveToHealthKit(value: Int) {
+        NutritionStore.save(value: value, completion: {
+            (success, error) in
+            if success {
+                print("saved to HealthKit!")
+            } else {
+                print("NOT saved to HealthKit!")
+            }
+        })
+    }
+    
+    
 
 }
 

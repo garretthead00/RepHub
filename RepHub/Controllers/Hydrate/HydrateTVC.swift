@@ -60,17 +60,17 @@ class HydrateTVC: UITableViewController {
                 dailyTotal = dailyTotal + log.oz!
             }
         }
-        API.Hydrate.updateDailyIntake(withValue: dailyTotal, onSuccess: {
-            guard let currentUser = API.RepHubUser.CURRENT_USER else {
-                return
-            }
-            let currentUserId = currentUser.uid
-            API.Hydrate.observeHydrateDailies(withId: currentUserId, completion: {
-                dailies in
-                self.hydrationDailies = dailies
-                self.tableView.reloadData()
-            })
-        })
+//        API.Hydrate.updateDailyIntake(withValue: dailyTotal, onSuccess: {
+//            guard let currentUser = API.RepHubUser.CURRENT_USER else {
+//                return
+//            }
+//            let currentUserId = currentUser.uid
+//            API.Hydrate.observeHydrateDailies(withId: currentUserId, completion: {
+//                dailies in
+//                self.hydrationDailies = dailies
+//                self.tableView.reloadData()
+//            })
+//        })
     }
     
     private func loadHydrationLogs() {
@@ -95,17 +95,17 @@ class HydrateTVC: UITableViewController {
             
                 self.hydrationLogs.insert(log, at: 0)
                 self.tableView.reloadData()
-                API.Hydrate.updateDailyIntake(withValue: dailyTotal, onSuccess: {
-                    guard let currentUser = API.RepHubUser.CURRENT_USER else {
-                        return
-                    }
-                    let currentUserId = currentUser.uid
-                    API.Hydrate.observeHydrateDailies(withId: currentUserId, completion: {
-                        dailies in
-                        self.hydrationDailies = dailies
-                        self.tableView.reloadData()
-                    })
-                })
+//                API.Hydrate.updateDailyIntake(withValue: dailyTotal, onSuccess: {
+//                    guard let currentUser = API.RepHubUser.CURRENT_USER else {
+//                        return
+//                    }
+//                    let currentUserId = currentUser.uid
+//                    API.Hydrate.observeHydrateDailies(withId: currentUserId, completion: {
+//                        dailies in
+//                        self.hydrationDailies = dailies
+//                        self.tableView.reloadData()
+//                    })
+//                })
             })
         })
 
