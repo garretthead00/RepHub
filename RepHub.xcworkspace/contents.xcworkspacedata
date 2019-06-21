@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/Garrett/Documents/Workspace/RepHub/iOS/RepHub/RepHub/Datastores/NutritionStore.swift">
-   </FileRef>
-   <FileRef
       location = "group:RepHub.xcodeproj">
    </FileRef>
    <FileRef

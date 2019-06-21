@@ -7,7 +7,67 @@
 
 import HealthKit
 
+
+var nutritionDataTypeCollection : [String:HKQuantityType] = [
+    "Calcium":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCalcium)!,
+    "Carbohydrate":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCarbohydrates)!,
+    "Cholesterol":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCholesterol)!,
+    "Energy":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed)!,
+    "Fiber":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryFiber)!,
+    "Folate":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryFolate)!,
+    "Iron":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryIron)!,
+    "Monounsaturated Fat":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryFatMonounsaturated)!,
+    "Polyunsaturated Fat":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryFatPolyunsaturated)!,
+    "Potassium":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryPotassium)!,
+    "Protein":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryProtein)!,
+    "Saturated Fat":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryFatSaturated)!,
+    "Sodium":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietarySodium)!,
+    "Sugars":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietarySugar)!,
+    "Thiamin":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryThiamin)!,
+    "Vitamin A":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryVitaminA)!,
+    "Vitamin C":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryVitaminC)!,
+    "Vitamin D":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryVitaminD)!,
+    "Water":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater)!,
+    "Caffeine":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCaffeine)!
+]
+
+
 class NutritionStore {
+    
+
+    class func saveDrink(drink: Drink, nutrients: [Nutrient]) {
+        let healthStore = HKHealthStore()
+        var samples : [HKQuantitySample] = []
+        for nutrient in nutrients {
+            print("nutrientName: \(nutrient.name)")
+            
+            if let name = nutrient.name, let sampleType = nutritionDataTypeCollection[name] {
+                print("yep! nutrientName: \(nutrient.name)")
+                var unit : HKUnit?
+                if name == "Energy" {
+                    unit = HKUnit(from: .kilocalorie)
+                } else {
+                    unit = HKUnit(from: .gram)
+                }
+                let quantity = HKQuantity(unit: unit!, doubleValue: Double(nutrient.value!))
+                let sample = HKQuantitySample(type: sampleType, quantity: quantity, start: NSDate() as Date, end: Date())
+                healthStore.save(sample, withCompletion: { (success, error) -> Void in
+                    if success {
+                        // handle success
+                        ProgressHUD.showSuccess("Water saved to HealthKit")
+                    } else {
+                        // handle error
+                        ProgressHUD.showError("Water NOT saved to HealthKit")
+                    }
+                })
+            }
+        }
+
+        
+    }
+    
+
+    
     
     /**
         FETCHING DATA
