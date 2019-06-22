@@ -33,13 +33,14 @@ let sectionDictionary : [String:String] = [
     "Caffeine":"Other"
 ]
 
-
-
-
-
 class DrinkNutritionTableViewController: UITableViewController {
 
-    var drink : Drink?
+    var drink : Drink? {
+        didSet {
+            self.loadNutritionFacts()
+        }
+        
+    }
     var nutrients : [Nutrient] = []
     var groupedNutrients : [String : [Nutrient]] = [:]
     var nutrientGroupName = ["","Macronutrients","Vitamins","Minerals","Other"]
@@ -47,9 +48,7 @@ class DrinkNutritionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.loadNutritionFacts()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
-
     }
     
     @objc private func addTapped(){
@@ -66,7 +65,7 @@ class DrinkNutritionTableViewController: UITableViewController {
         
         let confirmAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: ({
             (_) in
-            if let field = alertController.textFields![0] as? UITextField {
+            if let field = alertController.textFields?[0] {
                 if field.text != "", let quantity = Double(field.text!) {
                     let nutritionWeight = quantity / self.drink!.householdServingSize!
                    
@@ -93,14 +92,16 @@ class DrinkNutritionTableViewController: UITableViewController {
             let idStr = String(id)
             API.Nutrient.observeNutrition(withId: idStr, completion: {
                 nutrient in
+                
                 self.nutrients.append(nutrient)
-                self.groupNutrients()
+                self.groupNutrients(nutrients: self.nutrients)
             })
+      
         }
     }
     
-    private func groupNutrients(){
-        self.groupedNutrients = Dictionary(grouping: self.nutrients, by: {
+    private func groupNutrients(nutrients: [Nutrient]){
+        self.groupedNutrients = Dictionary(grouping: nutrients, by: {
             element in
             return sectionDictionary[element.name!]!
         })
@@ -141,23 +142,21 @@ class DrinkNutritionTableViewController: UITableViewController {
                 if let date = drink.dateAvailable {
                     cell.nutritionFactsMessage = "**Nutrition Facts provided by \(date)"
                 }
-                print("hey!")
+                
                 if let hhServingSize = drink.householdServingSize, let hhUnit = drink.householdServingSizeUnit, let servingSize = drink.servingSize, let unit = drink.servingSizeUnit {
                      cell.servingSize = "Amount per \(hhServingSize) \(hhUnit) (\(servingSize) \(unit))"
                 }
-                
-                
-               
             }
             return cell
 
         } else {
-            let nutrientGroup = self.nutrientGroupName[section]
-            let nutrient = self.groupedNutrients[nutrientGroup]![row]//self.nutrients[indexPath.row-1]
             let cell = tableView.dequeueReusableCell(withIdentifier: "Nutrient", for: indexPath)
-            if let name = nutrient.name, let value = nutrient.value, let unit = nutrient.unit {
-                cell.textLabel?.text = name
-                cell.detailTextLabel?.text = "\(value) \(unit)"
+            let nutrientGroup = self.nutrientGroupName[section]
+            if let nutrient = self.groupedNutrients[nutrientGroup]?[row] {
+                if let name = nutrient.name, let value = nutrient.value, let unit = nutrient.unit {
+                    cell.textLabel?.text = name
+                    cell.detailTextLabel?.text = "\(value) \(unit)"
+                }
             } else {
                 cell.textLabel?.text = ""
                 cell.detailTextLabel?.text = ""

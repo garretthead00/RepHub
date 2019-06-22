@@ -17,7 +17,7 @@ class UserExerciseLogsAPI {
         guard let currentuser = API.RepHubUser.CURRENT_USER else {
             return
         }
-        var newExerciseLogRef = USER_EXERCISE_LOGS_DB_REF.child(currentuser.uid).child(id).childByAutoId()
+        let newExerciseLogRef = USER_EXERCISE_LOGS_DB_REF.child(currentuser.uid).child(id).childByAutoId()
         let timestamp = NSDate().timeIntervalSince1970
         newExerciseLogRef.setValue(timestamp, withCompletionBlock: {
             err, ref in

@@ -24,7 +24,6 @@ class MuscleGroupsForWorkoutTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.exerciseType
-        print("MusclegroupTVC exercisesInWorkout \(self.exercisesInWorkout)")
     }
     
     

@@ -31,42 +31,38 @@ var nutritionDataTypeCollection : [String:HKQuantityType] = [
     "Caffeine":HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCaffeine)!
 ]
 
+var nutritionUnitCollection : [String:HKUnit] = [
+    "g" : HKUnit(from: .gram),
+    "mcg" : HKUnit.gramUnit(with: .micro),
+    "kcal" : HKUnit(from: .kilocalorie),
+    "mg" : HKUnit.gramUnit(with: .milli)
+]
+
 
 class NutritionStore {
     
-
+    /**
+        SAVING DATA
+    **/
     class func saveDrink(drink: Drink, nutrients: [Nutrient]) {
         let healthStore = HKHealthStore()
-        var samples : [HKQuantitySample] = []
+        var samples : [HKSample] = []
         for nutrient in nutrients {
-            print("nutrientName: \(nutrient.name)")
-            
             if let name = nutrient.name, let sampleType = nutritionDataTypeCollection[name] {
-                print("yep! nutrientName: \(nutrient.name)")
-                var unit : HKUnit?
-                if name == "Energy" {
-                    unit = HKUnit(from: .kilocalorie)
-                } else {
-                    unit = HKUnit(from: .gram)
-                }
+                let unit = nutritionUnitCollection[nutrient.unit!]
                 let quantity = HKQuantity(unit: unit!, doubleValue: Double(nutrient.value!))
                 let sample = HKQuantitySample(type: sampleType, quantity: quantity, start: NSDate() as Date, end: Date())
-                healthStore.save(sample, withCompletion: { (success, error) -> Void in
-                    if success {
-                        // handle success
-                        ProgressHUD.showSuccess("Water saved to HealthKit")
-                    } else {
-                        // handle error
-                        ProgressHUD.showError("Water NOT saved to HealthKit")
-                    }
-                })
+                samples.append(sample)
             }
         }
-
-        
+        healthStore.save(samples, withCompletion: { (success, error) -> Void in
+            if success {
+                ProgressHUD.showSuccess("Saved to HealthKit!")
+            } else {
+                ProgressHUD.showError("Could not save to HealthKit!")
+            }
+        })
     }
-    
-
     
     
     /**
@@ -95,109 +91,5 @@ class NutritionStore {
         }
         healthStore.execute(sampleQuery)
     }
-    
-    
-    /**
-        SAVING DATA
-     **/
-    class func save(value: Int, completion: @escaping ((Bool, Error?) -> Void)) {
-        let healthStore = HKHealthStore()
-        guard let sampleType = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater) else {
-            print("*** Unable to create a dietaryWater type ***")
-            fatalError("*** Unable to create a dietaryWater type ***")
-            
-        }
-        let quantity = HKQuantity(unit: HKUnit.fluidOunceUS(), doubleValue: Double(value))
-        let sample = HKQuantitySample(type: sampleType, quantity: quantity, start: NSDate() as Date, end: Date())
-        healthStore.save(sample, withCompletion: { (success, error) -> Void in
-            if success {
-                // handle success
-                ProgressHUD.showSuccess("Water saved to HealthKit")
-            } else {
-                // handle error
-                ProgressHUD.showError("Water NOT saved to HealthKit")
-            }
-        })
-    }
-    
-    class func saveCoffeeSample(value: Int, completion: @escaping ((Bool, Error?) -> Void)) {
-        let healthStore = HKHealthStore()
-        guard let waterSampleType = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater) else {
-            print("*** Unable to create a dietaryWater type ***")
-            fatalError("*** Unable to create a dietaryWater type ***")
-            
-        }
-        guard let coffeeSampleType = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCaffeine) else {
-            print("*** Unable to create a dietaryWater type ***")
-            fatalError("*** Unable to create a dietaryWater type ***")
-            
-        }
-        let caffeineContent = 11.875 * Double(value)
-        let waterQuantity = HKQuantity(unit: HKUnit.fluidOunceUS(), doubleValue: Double(value))
-        let caffeineQuantity = HKQuantity(unit: HKUnit.gramUnit(with: .milli), doubleValue: caffeineContent)
-        let waterSample = HKQuantitySample(type: waterSampleType, quantity: waterQuantity, start: NSDate() as Date, end: Date())
-        let coffeeSample = HKQuantitySample(type: coffeeSampleType, quantity: caffeineQuantity, start: NSDate() as Date, end: Date())
-        
-        healthStore.save(waterSample, withCompletion: { (success, error) -> Void in
-            if success {
-                healthStore.save(coffeeSample, withCompletion: { (success, error) -> Void in
-                    if success {
-                        // handle success
-                        ProgressHUD.showSuccess("Coffee saved to HealthKit")
-                    } else {
-                        // handle error
-                        ProgressHUD.showError("Coffee NOT saved to HealthKit")
-                    }
-                })
-            } else {
-                // handle error
-                ProgressHUD.showError("Coffee NOT saved to HealthKit")
-            }
-        })
-        
-
-    }
-    
-    class func saveTeaSample(value: Int, completion: @escaping ((Bool, Error?) -> Void)) {
-        let healthStore = HKHealthStore()
-        guard let waterSampleType = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater) else {
-            print("*** Unable to create a dietaryWater type ***")
-            fatalError("*** Unable to create a dietaryWater type ***")
-            
-        }
-        guard let teaSampleType = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryCaffeine) else {
-            print("*** Unable to create a dietaryWater type ***")
-            fatalError("*** Unable to create a dietaryWater type ***")
-            
-        }
-        let caffeineContent = 3.25 * Double(value)
-        let waterQuantity = HKQuantity(unit: HKUnit.fluidOunceUS(), doubleValue: Double(value))
-        let caffeineQuantity = HKQuantity(unit: HKUnit.gramUnit(with: .milli), doubleValue: caffeineContent)
-        let waterSample = HKQuantitySample(type: waterSampleType, quantity: waterQuantity, start: NSDate() as Date, end: Date())
-        let teaSample = HKQuantitySample(type: teaSampleType, quantity: caffeineQuantity, start: NSDate() as Date, end: Date())
-        
-        healthStore.save(waterSample, withCompletion: { (success, error) -> Void in
-            if success {
-                healthStore.save(teaSample, withCompletion: { (success, error) -> Void in
-                    if success {
-                        // handle success
-                        ProgressHUD.showSuccess("Tea saved to HealthKit")
-                    } else {
-                        // handle error
-                        ProgressHUD.showError("Tea NOT saved to HealthKit")
-                    }
-                })
-            } else {
-                // handle error
-                ProgressHUD.showError("Tea NOT saved to HealthKit")
-            }
-        })
-        
-        
-    }
-    
-    
-
-    
 }
 

@@ -203,8 +203,6 @@ class FeedTableViewCell: UITableViewCell {
                 API.Post.removeSaved(withPostId: id, completion: {
                     post in
                     self.post?.isSaved = post.isSaved
-                    print("self.post.isSaved: \(self.post?.isSaved) --- post.isSaved: \(post.isSaved)")
-                    //self.updateSaved(post: self.post!)
                     self.post = post
                     self.updateView()
                 })
@@ -215,8 +213,6 @@ class FeedTableViewCell: UITableViewCell {
                 API.Post.savePost(withPostId: id, completion: {
                     post in
                     self.post?.isSaved = post.isSaved
-                    print("self.post.isSaved: \(self.post?.isSaved) --- post.isSaved: \(post.isSaved)")
-                    //self.updateSaved(post: self.post!)
                     self.post = post
                     self.updateView()
                 })

@@ -18,14 +18,6 @@ class DrinkMenuCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
 
     
@@ -87,81 +79,7 @@ extension DrinkMenuCollectionViewController : UICollectionViewDelegateFlowLayout
 
 extension DrinkMenuCollectionViewController : DrinkDelegate {
     func selectedDrink(drink: String) {
-        print("selected drink: \(drink)")
-        //addLog(drink: drink)
         self.performSegue(withIdentifier: "Drinks", sender: drink)
     }
-    
-    
-    private func addLog(drink: String){
-        // Establish the AlertController
-        let alertController = UIAlertController(title: drink, message: "\n", preferredStyle: .alert)
-        alertController.isModalInPopover = true
-        alertController.addTextField(configurationHandler: {
-            (textField) in
-            textField.placeholder = "oz"
-        })
-
-        let confirmAction = UIAlertAction(title: "Add", style: UIAlertAction.Style.default, handler: ({
-            (_) in
-            if let field = alertController.textFields![0] as? UITextField {
-                if field.text != "", let quantityINT = Int(field.text!) {
-                    
-                    if drink == "Coffee" {
-                       self.saveCoffeeSample(value: quantityINT)
-                    } else if drink == "Tea" {
-                        self.saveTeaSample(value: quantityINT)
-                    } else {
-                       self.saveToHealthKit(value: quantityINT)
-                    }
-                    
-                    
-
-                }
-            }
-        }))
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-
-        // present the alert into view
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
 }
 
-extension DrinkMenuCollectionViewController {
-    private func saveToHealthKit(value: Int) {
-        NutritionStore.save(value: value, completion: {
-            (success, error) in
-            if success {
-                print("saved to HealthKit!")
-            } else {
-                print("NOT saved to HealthKit!")
-            }
-        })
-    }
-    
-    private func saveCoffeeSample(value: Int){
-        NutritionStore.saveCoffeeSample(value: value, completion: {
-            (success, error) in
-            if success {
-                print("saved to HealthKit!")
-            } else {
-                print("NOT saved to HealthKit!")
-            }
-        })
-    }
-    
-    private func saveTeaSample(value: Int){
-        NutritionStore.saveTeaSample(value: value, completion: {
-            (success, error) in
-            if success {
-                print("saved to HealthKit!")
-            } else {
-                print("NOT saved to HealthKit!")
-            }
-        })
-    }
-}

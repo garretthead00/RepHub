@@ -190,7 +190,7 @@ class HydrateTableViewController: UITableViewController {
         
         let confirmAction = UIAlertAction(title: "Add", style: UIAlertAction.Style.default, handler: ({
             (_) in
-            if let field = alertController.textFields![0] as? UITextField {
+            if let field = alertController.textFields?[0]{
                 if field.text != "", let targetINT = Int(field.text!) {
                     self.target = targetINT
                     API.Hydrate.updateHydrationTarget(withValue: targetINT)
@@ -232,20 +232,6 @@ class HydrateTableViewController: UITableViewController {
         alert.view.addConstraint(height)
         self.present(alert, animated: true, completion: nil)
     }
-    
-
-    
-    private func saveToHealthKit(value: Int) {
-        NutritionStore.save(value: value, completion: {
-            (success, error) in
-            if success {
-                print("saved to HealthKit!")
-            } else {
-                print("NOT saved to HealthKit!")
-            }
-        })
-    }
-    
     
 
 }

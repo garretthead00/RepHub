@@ -21,27 +21,15 @@ class WorkoutStore {
 
         //3. Save your workout to HealthKit
         let healthStore = HKHealthStore()
-        let samples = self.samples(for: workout)
         print("saving Workout")
         healthStore.save(hkWorkout) { (success, error) in
-            print("--healthstore success: \(success)")
-            print("--healthstore error: \(error)")
             guard error == nil else {
+                print("--healthstore error: \(error)")
                 completion(false, error)
                 return
             }
+            print("--healthstore success: \(success)")
             completion(true, nil)
-//            print("--healthstore adding samples")
-//            healthStore.add(samples, to: hkWorkout, completion: { (samples, error) in
-//                print("--healthstore adding samples success: \(success)")
-//                print("--healthstore adding samples error: \(error)")
-//                guard error == nil else {
-//                    completion(false, error)
-//                    return
-//                }
-//                completion(true, nil)
-//
-//            })
         }
 
     }

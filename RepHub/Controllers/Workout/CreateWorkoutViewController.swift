@@ -56,7 +56,6 @@ class CreateWorkoutViewController: UIViewController {
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
-        print("saving workout...")
         let newWorkoutRef = API.Workout.WORKOUT_DB_REF.child(currentUser.uid).childByAutoId()
         newWorkoutRef.setValue(["name" : name, "description" : description], withCompletionBlock: {
             error, ref in
@@ -64,17 +63,8 @@ class CreateWorkoutViewController: UIViewController {
                 ProgressHUD.showError(error!.localizedDescription)
                 return
             }
-            print("saved workout!")
-            print("saving \(self.exercises.count) exercises")
             // Create the workout-exercises then add the id to the newWorkout.exercises list
             for (index, exercise) in self.exercises.enumerated() {
-                print("im in!")
-                print("exerciseId: \(self.exercises[index].exerciseId!),")
-                print("atIndex: \(index),")
-                print("sets: \(self.exercises[index].sets!),")
-                print("target: \(self.exercises[index].target!),")
-                print("breakTime: \(self.exercises[index].breakTime!),")
-                print("metricUnit: \(self.exercises[index].metricUnit)")
                 let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(newWorkoutRef.key).child("exercises").childByAutoId()
                 newExerciseForWorkoutRef.setValue(["exerciseId": self.exercises[index].exerciseId!, "atIndex": index, "sets": self.exercises[index].sets!, "target": self.exercises[index].target!, "breakTime": self.exercises[index].breakTime!, "metricUnit": self.exercises[index].metricUnit], withCompletionBlock: {
                     error, ref in
