@@ -99,6 +99,7 @@
 		6862F23321794B3700D65448 /* WorkoutMotionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862F23221794B3700D65448 /* WorkoutMotionTracker.swift */; };
 		68678F6921F0223600E56D70 /* BlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68678F6821F0223600E56D70 /* BlockAPI.swift */; };
 		686D93C4206F32BF00E4AA20 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D93C3206F32BF00E4AA20 /* MuscleGroup.swift */; };
+		686E742022BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686E741F22BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift */; };
 		686F38E520EAE18500502636 /* DetailPostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F38E420EAE18500502636 /* DetailPostTableViewController.swift */; };
 		686F38E720ED3D7800502636 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F38E620ED3D7800502636 /* FilterViewController.swift */; };
 		686F38E920ED425400502636 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F38E820ED425400502636 /* FilterCollectionViewCell.swift */; };
@@ -281,6 +282,7 @@
 		6862F23221794B3700D65448 /* WorkoutMotionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutMotionTracker.swift; sourceTree = "<group>"; };
 		68678F6821F0223600E56D70 /* BlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAPI.swift; sourceTree = "<group>"; };
 		686D93C3206F32BF00E4AA20 /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
+		686E741F22BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		686F38E420EAE18500502636 /* DetailPostTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostTableViewController.swift; sourceTree = "<group>"; };
 		686F38E620ED3D7800502636 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		686F38E820ED425400502636 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				68E987D92107CB970022150A /* HydrateDailyTableViewCell.swift */,
+				686E741F22BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift */,
 				68E987D32106838D0022150A /* HydrateLogTableViewCell.swift */,
 				685FB92E22B2EC0E0046924A /* HydrateStatusTableViewCell.swift */,
 				68E987DB2107CC050022150A /* HydrateReminderTableViewCell.swift */,
@@ -877,6 +880,7 @@
 				6815FCBD2155D22100E26732 /* BioTableViewController.swift in Sources */,
 				68FB234322BC178900D6153C /* DrinkAPI.swift in Sources */,
 				684CF32520DB2A060009357B /* PostAPI.swift in Sources */,
+				686E742022BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift in Sources */,
 				682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */,
 				684A28C9212704E500F00CA8 /* ExerciseTypesForWorkoutTableViewCell.swift in Sources */,
 				68E987CC21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift in Sources */,
