@@ -22,21 +22,53 @@ class DrinkNutritionTableViewController: UITableViewController {
     }
     
     @objc private func addTapped(){
-        NutritionStore.saveDrink(drink: self.drink!, nutrients: self.nutrients)
+        self.addLog()
+    }
+    
+    
+    
+    
+    
+    private func addLog(){
+        
+        let alertController = UIAlertController(title: self.drink!.name!, message: "\n", preferredStyle: .alert)
+        alertController.isModalInPopover = true
+        alertController.addTextField(configurationHandler: {
+            (textField) in
+            textField.placeholder = self.drink!.householdServingSizeUnit!
+        })
+        
+        let confirmAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: ({
+            (_) in
+            if let field = alertController.textFields![0] as? UITextField {
+                if field.text != "", let quantity = Double(field.text!) {
+                    let nutritionWeight = quantity / self.drink!.householdServingSize!
+                    for nutrient in self.nutrients {
+                        nutrient.value = nutrient.value! * nutritionWeight
+                    }
+                    NutritionStore.saveDrink(drink: self.drink!, nutrients: self.nutrients)
+                    
+                }
+            }
+        }))
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        // present the alert into view
+        self.present(alertController, animated: true, completion: nil)
     }
     
     
     private func loadNutritionFacts(){
-        if let drink = self.drink {
-            print("drinkId: \(drink.ndb_no!)")
-            
-                API.Nutrient.observeNutrition(withId: String(drink.ndb_no!), completion: {
-                    nutrient in
-                    print("nutrient returned :\(nutrient.name)")
-                    self.nutrients.append(nutrient)
-                    self.tableView.reloadData()
-                })
-
+        if let drink = self.drink, let id = drink.ndb_no {
+            let idStr = String(id)
+            API.Nutrient.observeNutrition(withId: idStr, completion: {
+                nutrient in
+                self.nutrients.append(nutrient)
+                self.tableView.reloadData()
+            })
         }
     }
 

@@ -65,7 +65,7 @@ class HealthKitSetupAssistant {
                                                         vitaminC,
                                                         vitaminD,
                                                         water,
-                                                        caffeine,]
+                                                        caffeine]
         
         let healthKitTypesToRead: Set<HKObjectType> = [calcium,
                                                        carbohydrate,
@@ -86,7 +86,7 @@ class HealthKitSetupAssistant {
                                                        vitaminC,
                                                        vitaminD,
                                                        water,
-                                                       caffeine,]
+                                                       caffeine]
         
         // Request Authorization
         HKHealthStore().requestAuthorization(toShare: healthKitTypesToWrite,

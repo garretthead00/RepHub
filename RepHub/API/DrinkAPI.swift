@@ -14,8 +14,6 @@ import FirebaseAuth
 class DrinkAPI {
 
     var DRINK_DB_REF = Database.database().reference().child("drinks")
-
-    
     func observerDrinks(drinkType:String, completion: @escaping(Drink) -> Void){
         DRINK_DB_REF.child(drinkType).observe(.childAdded, with: {
             snapshot in
@@ -24,7 +22,6 @@ class DrinkAPI {
                 completion(drink)
             }
         })
-        
     }
     
 
