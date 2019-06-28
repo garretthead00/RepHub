@@ -30,7 +30,6 @@
 		68261F48220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */; };
 		68261F4F220F366C00D3978C /* ExerciseTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F4E220F366C00D3978C /* ExerciseTarget.swift */; };
 		68261F51220F38BA00D3978C /* ExerciseTargetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68261F50220F38B900D3978C /* ExerciseTargetAPI.swift */; };
-		682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682678C420C0AB5200AE620C /* HydrateTVC.swift */; };
 		682CA29320E837510006552D /* MyPostsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29220E837510006552D /* MyPostsAPI.swift */; };
 		682CA29520E858B10006552D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682CA29420E858B10006552D /* SettingTableViewController.swift */; };
 		683096A72145A71A009AFB83 /* ExerciseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683096A62145A71A009AFB83 /* ExerciseLog.swift */; };
@@ -210,7 +209,6 @@
 		68261F47220D1C7400D3978C /* WorkoutExerciseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExerciseCollectionReusableView.swift; sourceTree = "<group>"; };
 		68261F4E220F366C00D3978C /* ExerciseTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTarget.swift; sourceTree = "<group>"; };
 		68261F50220F38B900D3978C /* ExerciseTargetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTargetAPI.swift; sourceTree = "<group>"; };
-		682678C420C0AB5200AE620C /* HydrateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateTVC.swift; sourceTree = "<group>"; };
 		682CA29220E837510006552D /* MyPostsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsAPI.swift; sourceTree = "<group>"; };
 		682CA29420E858B10006552D /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		683096A62145A71A009AFB83 /* ExerciseLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLog.swift; sourceTree = "<group>"; };
@@ -460,7 +458,6 @@
 			children = (
 				68FB234622BC19D000D6153C /* DrinksTableViewController.swift */,
 				68FB234822BC21B800D6153C /* DrinkNutritionTableViewController.swift */,
-				682678C420C0AB5200AE620C /* HydrateTVC.swift */,
 				685FB92A22B2EBA90046924A /* HydrateTableViewController.swift */,
 				685FB93222B66FB10046924A /* DrinkMenuCollectionViewController.swift */,
 				685FB93422B683820046924A /* DrinkCollectionViewCell.swift */,
@@ -881,7 +878,6 @@
 				68FB234322BC178900D6153C /* DrinkAPI.swift in Sources */,
 				684CF32520DB2A060009357B /* PostAPI.swift in Sources */,
 				686E742022BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift in Sources */,
-				682678C520C0AB5200AE620C /* HydrateTVC.swift in Sources */,
 				684A28C9212704E500F00CA8 /* ExerciseTypesForWorkoutTableViewCell.swift in Sources */,
 				68E987CC21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift in Sources */,
 				68261F3E220A8F4C00D3978C /* ActivityTableViewController.swift in Sources */,

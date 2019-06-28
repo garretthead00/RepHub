@@ -44,7 +44,7 @@ class NutritionStore {
     /**
         SAVING DATA
     **/
-    class func saveDrink(drink: Drink, nutrients: [Nutrient]) {
+    class func saveDrink(nutrients: [Nutrient]) {
         let healthStore = HKHealthStore()
         var samples : [HKSample] = []
         for nutrient in nutrients {

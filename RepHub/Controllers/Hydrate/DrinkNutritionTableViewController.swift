@@ -55,7 +55,6 @@ class DrinkNutritionTableViewController: UITableViewController {
         self.addLog()
     }
     private func addLog(){
-        
         let alertController = UIAlertController(title: self.drink!.name!, message: "\n", preferredStyle: .alert)
         alertController.isModalInPopover = true
         alertController.addTextField(configurationHandler: {
@@ -67,13 +66,20 @@ class DrinkNutritionTableViewController: UITableViewController {
             (_) in
             if let field = alertController.textFields?[0] {
                 if field.text != "", let quantity = Double(field.text!) {
-                    let nutritionWeight = quantity / self.drink!.householdServingSize!
-                   
-                    for nutrient in self.nutrients {
-                        nutrient.value = nutrient.value! * nutritionWeight
+                    if let drink = self.drink {
+                        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+                            return
+                        }
+                        let currentUserId = currentUser.uid
+                        let nutritionWeight = quantity / drink.householdServingSize!
+                        drink.householdServingSize = quantity
+                        drink.servingSize = drink.servingSize! * nutritionWeight
+                        for nutrient in self.nutrients {
+                            nutrient.value = nutrient.value! * nutritionWeight
+                        }
+                        NutritionStore.saveDrink(nutrients: self.nutrients)
+                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: self.drink!)
                     }
-                    NutritionStore.saveDrink(drink: self.drink!, nutrients: self.nutrients)
-                    
                 }
             }
         }))

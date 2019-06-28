@@ -11,10 +11,14 @@ import Foundation
 class HydrateLog {
     
     var id : String?
-    var oz : Double?
-    var type : String?
-    var timeStamp : Int?
-    
+    var servingSize : Double?
+    var servingSizeUnit : String?
+    var householdServingSize : Double?
+    var householdServingSizeUnit : String?
+    var timeStamp : Double?
+    var drinkId : Int?
+    var drinkName : String?
+    var drinkType : String?
 }
 
 extension HydrateLog {
@@ -22,9 +26,14 @@ extension HydrateLog {
     static func transformHydrateLog(data: [String: Any], key: String) -> HydrateLog {
         let log = HydrateLog()
         log.id = key
-        log.oz = data["oz"] as? Double
-        log.type = data["type"] as? String
-        log.timeStamp = data["timestamp"] as? Int
+        log.servingSize = data["servingSize"] as? Double
+        log.drinkId = data["drinkId"] as? Int
+        log.servingSizeUnit = data["servingSizeUOM"] as? String
+        log.householdServingSize = data["householdServingSize"] as? Double
+        log.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
+        log.timeStamp = data["timestamp"] as? Double
+        log.drinkName = ""
+        log.drinkType = ""
         return log
     }
 }

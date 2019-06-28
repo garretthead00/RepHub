@@ -24,6 +24,16 @@ class HydrateLogTableViewCell: UITableViewCell {
             self.updateView()
         }
     }
+    var type : String? {
+        didSet {
+            self.updateView()
+        }
+    }
+    var unit : String? {
+        didSet {
+            self.updateView()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,15 +42,16 @@ class HydrateLogTableViewCell: UITableViewCell {
     }
     
     private func updateView(){
-        if let logName = self.name {
-            self.nameLabel.text = logName
-            self.drinkImageView.image = UIImage(named: logName)
+        if let name = self.name {
+            self.nameLabel.text = name
         }
-        if let logQuantity = self.quantity {
-            self.quantityLabel.text = "\(logQuantity) oz"
+        if let quantity = self.quantity, let unit = self.unit {
+            self.quantityLabel.text = "\(quantity) \(unit)"
+        }
+        if let type = self.type {
+           self.drinkImageView.image = UIImage(named: type)
         }
         
-       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

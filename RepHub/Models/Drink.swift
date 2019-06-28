@@ -18,6 +18,7 @@ class Drink {
     var servingSizeUnit : String?
     var householdServingSize : Double?
     var householdServingSizeUnit : String?
+    var type : String?
     
 }
 
@@ -33,6 +34,7 @@ extension Drink {
         drink.householdServingSize = data["householdServingSize"] as? Double
         drink.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
         drink.manufacturer = ""
+        drink.type = data["Category"] as? String
         return drink
     }
     

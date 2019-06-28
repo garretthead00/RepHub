@@ -18,8 +18,12 @@ class HydrateAPI {
     var HYDRATE_LOGS_DB_REF = Database.database().reference().child("hydrate-logs")
     var USER_HYDRATE_LOGS_DB_REF = Database.database().reference().child("user-hydrate-logs")
     func observeHydrateLogs(withId id: String, completion: @escaping(HydrateLog) -> Void){
-        let query = HYDRATE_LOGS_DB_REF.child(id).queryOrdered(byChild: "timeStamp").queryLimited(toFirst: 25)
-        query.observeSingleEvent(of: .value, with: {
+        let date = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
+        let ref = HYDRATE_LOGS_DB_REF.child(id)
+        ref.child("timestamp").queryStarting(atValue: todayAtMidnight)
+        ref.observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
                 let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
@@ -32,6 +36,21 @@ class HydrateAPI {
         USER_HYDRATE_LOGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).removeValue()
         HYDRATE_LOGS_DB_REF.child(id).removeValue()
         onSuccess()
+    }
+    
+    func saveHyrdationLog(withUserId id: String, drink: Drink) {
+        let newRef = HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
+        let timestamp = NSDate().timeIntervalSince1970
+        if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
+            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit], withCompletionBlock: {
+                error, ref in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+            })
+        }
+        
     }
     
 

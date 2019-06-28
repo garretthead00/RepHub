@@ -17,10 +17,11 @@ class HydrateTableViewController: UITableViewController {
     var date : String = "6/13/2019"
     var target : Int = 0
     var score : Int = 0
-    var total : Int = 0
+    var total : Double = 0.0
     var drinkLogs : [String] = []//["Water","Milk","Coffee","Coffee","Tea","Beer", "Wine", "Soda"]
-    var logQuantities : [Int] = []
+    var logQuantities : [Double] = []
     var reminderFrequency : Int = 0
+    var hydrateLogs : [HydrateLog] = []
     
     private var reminderPicker : UIPickerView!
     
@@ -33,6 +34,26 @@ class HydrateTableViewController: UITableViewController {
     @objc private func goToDrinkMenu(){
         self.performSegue(withIdentifier: "DrinkMenu", sender: nil)
     }
+    
+    private func authorizeHealthKit() {
+        HealthKitSetupAssistant.authorizeNutritionData {
+            (authorized, error) in
+            
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                return
+            }
+            print("HealthKit Successfully Authorized.")
+            self.loadHydrationSettings()
+            self.fetchHydrationLogs()
+        }
+    }
+    
     
     private func loadHydrationSettings(){
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
@@ -51,46 +72,25 @@ class HydrateTableViewController: UITableViewController {
         })
     }
     
-    private func authorizeHealthKit() {
-        
-        HealthKitSetupAssistant.authorizeNutritionData {
-            (authorized, error) in
-            
-            guard authorized else {
-                let baseMessage = "HealthKit Authorization Failed"
-                if let error = error {
-                    print("\(baseMessage). Reason: \(error.localizedDescription)")
-                } else {
-                    print(baseMessage)
-                }
-                return
-            }
-            
-            print("HealthKit Successfully Authorized.")
-            self.loadHydrationSettings()
-            self.fetchHydrationLogs()
-        }
-    }
-    
-    
     private func fetchHydrationLogs(){
-        NutritionStore.fetchHydrationLogs(completion: {
-            (samples, error) in
-            guard let samples = samples else {
-                if let error = error {
-                    print(error)
-                }
-                return
-            }
-            for sample in samples {
-                let quantityInFluidOunces = sample.quantity.doubleValue(for: HKUnit.fluidOunceUS())
-                let quantityInt = Int(quantityInFluidOunces)
-                self.drinkLogs.append("Water")
-                self.logQuantities.append(quantityInt)
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
+        API.Hydrate.observeHydrateLogs(withId: currentUserId) {
+            log in
+            API.Drink.observeDrink(withId: String(log.drinkId!), completion: {
+                drink in
+                log.drinkName = drink.name!
+                log.drinkType = drink.type!
+                self.hydrateLogs.append(log)
+                self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timeStamp! > $1.timeStamp!})
                 self.calculateData()
-            }
+            })
+            
+            
+        }
 
-        })
     }
     
     private func refreshController(){
@@ -102,9 +102,9 @@ class HydrateTableViewController: UITableViewController {
     }
     
     private func calculateData(){
-        self.total = 0
-        for quantity in self.logQuantities {
-            self.total += quantity
+        self.total = 0.0
+        for logs in self.hydrateLogs {
+            self.total += logs.householdServingSize!
         }
         if self.target > 0 {
             let scoreINT = Int((Double(self.total) / Double(self.target)) * 100)
@@ -147,7 +147,7 @@ class HydrateTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.drinkLogs.count + 1
+        return self.hydrateLogs.count + 1
     }
 
     
@@ -163,8 +163,14 @@ class HydrateTableViewController: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogCell", for: indexPath) as! HydrateLogTableViewCell
-            cell.name = self.drinkLogs[row - 1]
-            cell.quantity = self.logQuantities[row - 1]
+            print("displaying row with name: \(self.hydrateLogs[row-1].drinkName!)")
+            print("val: \(self.hydrateLogs[row-1].householdServingSize!)")
+            print("type: \(self.hydrateLogs[row-1].drinkType!)")
+            print("unit: \(self.hydrateLogs[row-1].householdServingSizeUnit!)")
+            cell.name = self.hydrateLogs[row-1].drinkName!
+            cell.quantity = Int(self.hydrateLogs[row-1].householdServingSize!)
+            cell.type = self.hydrateLogs[row-1].drinkType!
+            cell.unit = self.hydrateLogs[row-1].householdServingSizeUnit!
             return cell
         }
         
