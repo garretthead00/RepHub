@@ -31,9 +31,18 @@ class HydrateAPI {
     }
     
     func removeHydrationLog(withLogId id: String, onSuccess: @escaping() -> Void) {
-        USER_HYDRATE_LOGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).removeValue()
-        HYDRATE_LOGS_DB_REF.child(id).removeValue()
-        onSuccess()
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
+        HYDRATE_LOGS_DB_REF.child(currentUserId).child(id).removeValue(completionBlock: {
+            err, ref in
+            if err != nil {
+                ProgressHUD.showError("Could not remove log!")
+                return
+            }
+            onSuccess()
+        })
     }
     
     func saveHyrdationLog(withUserId id: String, drink: Drink) {
@@ -49,6 +58,8 @@ class HydrateAPI {
             })
         }
     }
+    
+    
     
 
     /* HYDRATION SETTINGS */

@@ -27,7 +27,18 @@ class HydrateTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Drink", style: .plain, target: self, action: #selector(goToDrinkMenu))
+        
+        
+
+        
+        let image = UIImage(named: "drinkMenu") as UIImage?
+        let button   = UIButton(type: UIButton.ButtonType.custom) as UIButton
+        button.frame = CGRect(x: 16, y: 100, width: 48, height: 48)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(goToDrinkMenu), for:.touchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button) //UIBarButtonItem(title: "Drink", style: .plain, target: self, action: #selector(goToDrinkMenu))
+        
         self.authorizeHealthKit()
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -35,6 +46,7 @@ class HydrateTableViewController: UITableViewController {
         dateFormatter.dateFormat = "M/dd/yyyy"
         self.date = dateFormatter.string(from: Date())
     }
+    
     
     @objc private func goToDrinkMenu(){
         self.performSegue(withIdentifier: "DrinkMenu", sender: nil)
@@ -132,17 +144,6 @@ class HydrateTableViewController: UITableViewController {
     }
     
 
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-//     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "DrinkMenu" {
-//            let drinkCVC = segue.destination as! DrinkMenuCollectionViewController
-//        }
-//
-//     }
- 
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -188,6 +189,32 @@ class HydrateTableViewController: UITableViewController {
         return height
         
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row == 0 ? false : true
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            let row = indexPath.row - 1
+            
+            if let id = self.hydrateLogs[row].id {
+                API.Hydrate.removeHydrationLog(withLogId: id, onSuccess: {
+                    self.hydrateLogs.remove(at: row)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.calculateData()
+                    
+                })
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row > 0 {
+            performSegue(withIdentifier: "Results", sender: self.hydrateLogs[indexPath.row-1])
+        }
+    }
+    
  
     
     private func setTarget(){
@@ -242,6 +269,14 @@ class HydrateTableViewController: UITableViewController {
         let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 168.0)
         alert.view.addConstraint(height)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Results" {
+            let drinkResultsTVC = segue.destination as! DrinkResultsTableViewController
+            let log = sender as! HydrateLog
+            drinkResultsTVC.log = log
+        }
     }
     
 
