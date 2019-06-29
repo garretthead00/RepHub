@@ -33,7 +33,7 @@ let sectionDictionary : [String:String] = [
     "Caffeine":"Other"
 ]
 
-class DrinkNutritionTableViewController: UITableViewController {
+class DrinkTableViewController: UITableViewController {
 
     var drink : Drink? {
         didSet {
@@ -48,7 +48,7 @@ class DrinkNutritionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Drink", style: .plain, target: self, action: #selector(addTapped))
     }
     
     @objc private func addTapped(){
@@ -113,6 +113,8 @@ class DrinkNutritionTableViewController: UITableViewController {
         })
         self.tableView.reloadData()
     }
+    
+    
 
     // MARK: - Table view data source
 
@@ -145,8 +147,8 @@ class DrinkNutritionTableViewController: UITableViewController {
                 if let name = drink.name {
                     cell.name = name
                 }
-                if let date = drink.dateAvailable {
-                    cell.nutritionFactsMessage = "**Nutrition Facts provided by \(date)"
+                if let date = drink.dateAvailable, let manufacturer = drink.manufacturer {
+                    cell.nutritionFactsMessage = "**Nutrition Facts provided by \(manufacturer) \(date)"
                 }
                 
                 if let hhServingSize = drink.householdServingSize, let hhUnit = drink.householdServingSizeUnit, let servingSize = drink.servingSize, let unit = drink.servingSizeUnit {

@@ -33,7 +33,7 @@ extension Drink {
         drink.servingSizeUnit = data["servingSizeUOM"] as? String
         drink.householdServingSize = data["householdServingSize"] as? Double
         drink.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
-        drink.manufacturer = ""
+        drink.manufacturer = data["manufacturer"] as? String
         drink.type = data["Category"] as? String
         return drink
     }

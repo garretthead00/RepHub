@@ -21,9 +21,7 @@ class HydrateAPI {
         let date = Date()
         let cal = Calendar(identifier: .gregorian)
         let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
-        let ref = HYDRATE_LOGS_DB_REF.child(id)
-        ref.child("timestamp").queryStarting(atValue: todayAtMidnight)
-        ref.observe(.childAdded, with: {
+        HYDRATE_LOGS_DB_REF.child(id).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
                 let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
@@ -50,7 +48,6 @@ class HydrateAPI {
                 }
             })
         }
-        
     }
     
 

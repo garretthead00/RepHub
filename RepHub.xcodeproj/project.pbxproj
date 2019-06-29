@@ -178,7 +178,7 @@
 		68FB234322BC178900D6153C /* DrinkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234222BC178900D6153C /* DrinkAPI.swift */; };
 		68FB234522BC183A00D6153C /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234422BC183A00D6153C /* Drink.swift */; };
 		68FB234722BC19D000D6153C /* DrinksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234622BC19D000D6153C /* DrinksTableViewController.swift */; };
-		68FB234922BC21B800D6153C /* DrinkNutritionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234822BC21B800D6153C /* DrinkNutritionTableViewController.swift */; };
+		68FB234922BC21B800D6153C /* DrinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234822BC21B800D6153C /* DrinkTableViewController.swift */; };
 		68FB234B22BC220200D6153C /* NutrientAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234A22BC220200D6153C /* NutrientAPI.swift */; };
 		68FB234D22BC228300D6153C /* Nutrient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB234C22BC228300D6153C /* Nutrient.swift */; };
 		68FB8F312232157D00A7A5B1 /* ExerciseSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8F302232157D00A7A5B1 /* ExerciseSet.swift */; };
@@ -362,7 +362,7 @@
 		68FB234222BC178900D6153C /* DrinkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkAPI.swift; sourceTree = "<group>"; };
 		68FB234422BC183A00D6153C /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
 		68FB234622BC19D000D6153C /* DrinksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksTableViewController.swift; sourceTree = "<group>"; };
-		68FB234822BC21B800D6153C /* DrinkNutritionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkNutritionTableViewController.swift; sourceTree = "<group>"; };
+		68FB234822BC21B800D6153C /* DrinkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkTableViewController.swift; sourceTree = "<group>"; };
 		68FB234A22BC220200D6153C /* NutrientAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientAPI.swift; sourceTree = "<group>"; };
 		68FB234C22BC228300D6153C /* Nutrient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrient.swift; sourceTree = "<group>"; };
 		68FB8F302232157D00A7A5B1 /* ExerciseSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSet.swift; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				68FB234622BC19D000D6153C /* DrinksTableViewController.swift */,
-				68FB234822BC21B800D6153C /* DrinkNutritionTableViewController.swift */,
+				68FB234822BC21B800D6153C /* DrinkTableViewController.swift */,
 				685FB92A22B2EBA90046924A /* HydrateTableViewController.swift */,
 				685FB93222B66FB10046924A /* DrinkMenuCollectionViewController.swift */,
 				685FB93422B683820046924A /* DrinkCollectionViewCell.swift */,
@@ -1021,7 +1021,7 @@
 				683480722208C8880024EA66 /* ExerciseTargetsCell.swift in Sources */,
 				68FB234722BC19D000D6153C /* DrinksTableViewController.swift in Sources */,
 				68F9C0F821612CA3000799C4 /* WorkoutStore.swift in Sources */,
-				68FB234922BC21B800D6153C /* DrinkNutritionTableViewController.swift in Sources */,
+				68FB234922BC21B800D6153C /* DrinkTableViewController.swift in Sources */,
 				684A28D121270ADE00F00CA8 /* CreateWorkoutViewController.swift in Sources */,
 				68D08D8821095C2000912F70 /* HydrateDailies.swift in Sources */,
 			);

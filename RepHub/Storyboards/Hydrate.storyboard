@@ -382,10 +382,10 @@
             </objects>
             <point key="canvasLocation" x="3045.5999999999999" y="2823.2383808095956"/>
         </scene>
-        <!--Drink Nutrition Table View Controller-->
+        <!--Drink Table View Controller-->
         <scene sceneID="fHv-l8-z7H">
             <objects>
-                <tableViewController id="At9-gA-zTJ" customClass="DrinkNutritionTableViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="At9-gA-zTJ" customClass="DrinkTableViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="y2w-YX-X9f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

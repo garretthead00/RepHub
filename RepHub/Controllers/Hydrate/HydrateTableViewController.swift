@@ -14,7 +14,7 @@ var drinkPickerSelections = ["Select a Drink", "Water", "Sports Drink", "Juice",
 class HydrateTableViewController: UITableViewController {
 
     
-    var date : String = "6/13/2019"
+    var date : String = ""
     var target : Int = 0
     var score : Int = 0
     var total : Double = 0.0
@@ -29,6 +29,11 @@ class HydrateTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Drink", style: .plain, target: self, action: #selector(goToDrinkMenu))
         self.authorizeHealthKit()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "M/dd/yyyy"
+        self.date = dateFormatter.string(from: Date())
     }
     
     @objc private func goToDrinkMenu(){

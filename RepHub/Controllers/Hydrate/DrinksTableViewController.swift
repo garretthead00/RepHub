@@ -66,7 +66,7 @@ class DrinksTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Nutrition" {
-            let nutritionTVC = segue.destination as! DrinkNutritionTableViewController
+            let nutritionTVC = segue.destination as! DrinkTableViewController
             let drink = sender as! Drink
             print("sender: \(drink.name)  \(drink.ndb_no)")
             nutritionTVC.drink = drink
