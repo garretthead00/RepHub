@@ -24,7 +24,7 @@ class UserExerciseLogsAPI {
             if err != nil {
                 return
             }
-            completion(newExerciseLogRef.key)
+            completion(newExerciseLogRef.key!)
         })
         
     }

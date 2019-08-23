@@ -18,11 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HydrateStatusCell" rowHeight="273" id="lOt-qO-lwF" customClass="HydrateStatusTableViewCell" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="273"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HydrateStatusCell" rowHeight="408" id="lOt-qO-lwF" customClass="HydrateStatusTableViewCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="408"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lOt-qO-lwF" id="f2r-aw-pnw">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="272.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="407.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6/12/2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dv8-PN-Icw">
@@ -31,14 +31,8 @@
                                             <color key="textColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32 / 64 oz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4o-wH-qX0">
-                                            <rect key="frame" x="16" y="43" width="343" height="18"/>
-                                            <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="14"/>
-                                            <color key="textColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZL-Aw-aRy">
-                                            <rect key="frame" x="335" y="238" width="24" height="24"/>
+                                            <rect key="frame" x="335" y="375.5" width="24" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="2Ye-Sv-98Z"/>
                                                 <constraint firstAttribute="width" constant="24" id="gqq-Ev-9Lw"/>
@@ -48,14 +42,8 @@
                                                 <action selector="reminderButton_TouchUpInside:" destination="m6e-TW-rxL" eventType="touchUpInside" id="a0b-M8-RgG"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50 %" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4E-uO-Up8">
-                                            <rect key="frame" x="16" y="125" width="343" height="73"/>
-                                            <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="64"/>
-                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xue-z6-8ef">
-                                            <rect key="frame" x="299" y="238" width="24" height="24"/>
+                                            <rect key="frame" x="299" y="375.5" width="24" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="24" id="Uma-Bt-NM6"/>
                                                 <constraint firstAttribute="height" constant="24" id="h1m-Za-tnG"/>
@@ -65,34 +53,38 @@
                                                 <action selector="targetButton_TouchUpInside:" destination="m6e-TW-rxL" eventType="touchUpInside" id="eI4-P2-EDi"/>
                                             </connections>
                                         </button>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gnY-ZA-uzV" customClass="PieChartView" customModule="Charts">
+                                            <rect key="frame" x="16" y="39.5" width="343" height="328"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="328" id="i5K-Nn-4rs"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="dv8-PN-Icw" firstAttribute="top" secondItem="f2r-aw-pnw" secondAttribute="topMargin" id="1MX-Uj-tzd"/>
                                         <constraint firstItem="OZL-Aw-aRy" firstAttribute="leading" secondItem="xue-z6-8ef" secondAttribute="trailing" constant="12" id="2Wa-uG-0jk"/>
-                                        <constraint firstItem="OZL-Aw-aRy" firstAttribute="bottom" secondItem="f2r-aw-pnw" secondAttribute="bottomMargin" id="99h-kF-NJ9"/>
-                                        <constraint firstItem="xue-z6-8ef" firstAttribute="bottom" secondItem="f2r-aw-pnw" secondAttribute="bottomMargin" id="Nlb-GD-Eto"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="G4E-uO-Up8" secondAttribute="bottom" constant="64" id="VCx-Gc-m50"/>
+                                        <constraint firstAttribute="bottom" secondItem="xue-z6-8ef" secondAttribute="bottom" constant="8" id="TGF-2a-xna"/>
                                         <constraint firstItem="dv8-PN-Icw" firstAttribute="leading" secondItem="f2r-aw-pnw" secondAttribute="leadingMargin" id="ViH-za-4IY"/>
-                                        <constraint firstItem="G4E-uO-Up8" firstAttribute="top" secondItem="i4o-wH-qX0" secondAttribute="bottom" constant="64" id="bEt-4J-yUB"/>
-                                        <constraint firstItem="i4o-wH-qX0" firstAttribute="trailing" secondItem="f2r-aw-pnw" secondAttribute="trailingMargin" id="bsX-y9-clK"/>
+                                        <constraint firstItem="xue-z6-8ef" firstAttribute="centerY" secondItem="OZL-Aw-aRy" secondAttribute="centerY" id="W9m-SB-DdM"/>
+                                        <constraint firstItem="gnY-ZA-uzV" firstAttribute="leading" secondItem="f2r-aw-pnw" secondAttribute="leadingMargin" id="aRf-ZH-Fut"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="dv8-PN-Icw" secondAttribute="trailing" id="dtB-TX-N6d"/>
-                                        <constraint firstItem="i4o-wH-qX0" firstAttribute="leading" secondItem="f2r-aw-pnw" secondAttribute="leadingMargin" id="rWN-TU-zdK"/>
+                                        <constraint firstItem="gnY-ZA-uzV" firstAttribute="top" secondItem="dv8-PN-Icw" secondAttribute="bottom" constant="8" id="iMf-xu-HCL"/>
+                                        <constraint firstAttribute="bottom" secondItem="OZL-Aw-aRy" secondAttribute="bottom" constant="8" id="muz-nL-dSP"/>
+                                        <constraint firstItem="gnY-ZA-uzV" firstAttribute="trailing" secondItem="f2r-aw-pnw" secondAttribute="trailingMargin" id="orh-t5-stL"/>
                                         <constraint firstItem="OZL-Aw-aRy" firstAttribute="trailing" secondItem="f2r-aw-pnw" secondAttribute="trailingMargin" id="sEg-31-aSk"/>
-                                        <constraint firstItem="G4E-uO-Up8" firstAttribute="leading" secondItem="f2r-aw-pnw" secondAttribute="leadingMargin" id="teS-0Q-JHY"/>
-                                        <constraint firstItem="G4E-uO-Up8" firstAttribute="trailing" secondItem="f2r-aw-pnw" secondAttribute="trailingMargin" id="w1r-It-5jV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dateLabel" destination="dv8-PN-Icw" id="d6e-7z-SeC"/>
+                                    <outlet property="pieChart" destination="gnY-ZA-uzV" id="Eq9-rB-ek5"/>
                                     <outlet property="reminderButton" destination="OZL-Aw-aRy" id="sMH-hR-eh8"/>
-                                    <outlet property="scoreLabel" destination="G4E-uO-Up8" id="IG3-7P-c3b"/>
                                     <outlet property="targetButton" destination="xue-z6-8ef" id="qkd-HV-bjo"/>
-                                    <outlet property="targetLabel" destination="i4o-wH-qX0" id="svd-Vo-h2C"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HydrationLogCell" rowHeight="66" id="dSq-1A-It3" customClass="HydrateLogTableViewCell" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="301" width="375" height="66"/>
+                                <rect key="frame" x="0.0" y="436" width="375" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dSq-1A-It3" id="bv9-xg-H5H">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>

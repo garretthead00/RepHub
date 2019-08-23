@@ -68,7 +68,7 @@ class HelperService {
     static private func postToDatabase(photoUrl : String, videoUrl: String? = nil, ratio: CGFloat, caption: String, isCommentsDisabled: Bool, onSuccess: @escaping() -> Void) {
 
         let newPostId = API.Post.POSTS_DB_REF.childByAutoId().key
-        let newPostReference = API.Post.POSTS_DB_REF.child(newPostId)
+        let newPostReference = API.Post.POSTS_DB_REF.child(newPostId!)
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
@@ -103,18 +103,18 @@ class HelperService {
                 ProgressHUD.showError(error!.localizedDescription)
                 return
             }
-            API.Feed.FEED_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(newPostId).setValue(["timestamp": timestamp])
+            API.Feed.FEED_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(newPostId!).setValue(["timestamp": timestamp])
             API.Follow.FOLLOWERS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
                 snapshot in
                 let snapshotArr = snapshot.children.allObjects as! [DataSnapshot]
                 snapshotArr.forEach({ child in
-                    API.Feed.FEED_DB_REF.child(child.key).child(newPostId).setValue(["timestamp": timestamp])
+                    API.Feed.FEED_DB_REF.child(child.key).child(newPostId!).setValue(["timestamp": timestamp])
                     let newNotificationId = API.Notification.NOTIFICATION_DB_REF.child(child.key).childByAutoId().key
-                    let newNotificationReference = API.Notification.NOTIFICATION_DB_REF.child(child.key).child(newNotificationId)
+                    let newNotificationReference = API.Notification.NOTIFICATION_DB_REF.child(child.key).child(newNotificationId!)
                     newNotificationReference.setValue(["from": API.RepHubUser.CURRENT_USER!.uid, "type": "feed", "objectId":newPostId, "timestamp": timestamp])
                 })
             })
-            let userpostRef = API.UserPosts.USER_POSTS_DB_REF.child(currentUserId).child(newPostId)
+            let userpostRef = API.UserPosts.USER_POSTS_DB_REF.child(currentUserId).child(newPostId!)
             userpostRef.setValue(["timestamp": timestamp], withCompletionBlock: { (error, ref) in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)

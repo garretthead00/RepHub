@@ -162,10 +162,12 @@ class HydrateTableViewController: UITableViewController {
         let row = indexPath.row
         if row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrateStatusCell", for: indexPath) as! HydrateStatusTableViewCell
+            let remaining = (Double(self.target) - self.total) > 0.0 ? (Double(self.target) - self.total) : 0.0
             cell.date = self.date
-            cell.targetStr = "\(total) / \(self.target) oz"
-            cell.score = self.score
+            cell.total = self.total
+            cell.remaining = remaining
             cell.alarmOn = self.reminderFrequency > 0 ? true : false
+            cell.score = self.score
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogCell", for: indexPath) as! HydrateLogTableViewCell
@@ -184,7 +186,7 @@ class HydrateTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height : CGFloat!
-        if indexPath.row == 0 { height = 273 }
+        if indexPath.row == 0 { height = 408 }
         else { height = 66 }
         return height
         

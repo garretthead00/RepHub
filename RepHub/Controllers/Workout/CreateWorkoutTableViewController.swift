@@ -151,7 +151,7 @@ class CreateWorkoutTableViewController: UITableViewController {
                 print("target: \(self.exercises[index].target!),")
                 print("breakTime: \(self.exercises[index].breakTime!),")
                 print("metricUnit: \(self.exercises[index].metricUnit)")
-                let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(newWorkoutRef.key).child("exercises").childByAutoId()
+                let newExerciseForWorkoutRef = API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(newWorkoutRef.key!).child("exercises").childByAutoId()
                 newExerciseForWorkoutRef.setValue(["exerciseId": self.exercises[index].exerciseId!, "atIndex": index, "sets": self.exercises[index].sets!, "target": self.exercises[index].target!, "breakTime": self.exercises[index].breakTime!, "metricUnit": self.exercises[index].metricUnit], withCompletionBlock: {
                     error, ref in
                     if error != nil {

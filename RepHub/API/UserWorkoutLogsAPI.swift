@@ -21,7 +21,7 @@ class UserWorkoutLogsAPI {
             if err != nil {
                 ProgressHUD.showError(err?.localizedDescription)
             }
-            completion(newRef.key)
+            completion(newRef.key!)
         })
     }
     

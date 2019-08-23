@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icons8-cutlery-96-2.png",
+      "filename" : "meals.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "meals2x.png",
       "scale" : "2x"
     },
     {

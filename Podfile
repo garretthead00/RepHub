@@ -11,4 +11,5 @@ target 'RepHub' do
   pod 'SDWebImage/WebP'
   pod 'KILabel'
   pod 'ImagePicker'
+  pod 'Charts' # Pods for Charts
 end

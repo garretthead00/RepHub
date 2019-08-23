@@ -4,7 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Charts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Firebase.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseAnalytics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseAuth.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseAuthInterop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -19,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseInstanceID.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseStorage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,7 +54,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
+		<key>GoogleAppMeasurement.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleUtilities.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
