@@ -8,7 +8,7 @@ target 'RepHub' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
-  pod 'SDWebImage/WebP'
+  pod 'SDWebImage'
   pod 'KILabel'
   pod 'ImagePicker'
   pod 'Charts' # Pods for Charts

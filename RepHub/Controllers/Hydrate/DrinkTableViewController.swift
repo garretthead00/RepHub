@@ -83,10 +83,10 @@ class DrinkTableViewController: UITableViewController {
     }
     
     private func groupNutrients(nutrients: [Nutrient]){
-        self.groupedNutrients = Dictionary(grouping: nutrients, by: {
-            element in
-            return sectionDictionary[element.name!]!
-        })
+//        self.groupedNutrients = Dictionary(grouping: nutrients, by: {
+//            element in
+//            return nutritionDictionary[element.name!]!
+//        })
         self.tableView.reloadData()
     }
     
