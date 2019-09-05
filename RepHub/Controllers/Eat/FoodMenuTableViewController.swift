@@ -62,7 +62,7 @@ class FoodMenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "Food", sender: nil)
+        self.performSegue(withIdentifier: self.menuItems[indexPath.row], sender: nil)
     }
 
     /*

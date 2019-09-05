@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Shake.png",
+      "filename" : "shake.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "shake2x.png",
       "scale" : "2x"
     },
     {

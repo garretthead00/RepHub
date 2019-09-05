@@ -1,24 +1,22 @@
 //
-//  FoodGroupCollectionViewController.swift
+//  DrinkGroupCollectionViewController.swift
 //  RepHub
 //
-//  Created by Garrett Head on 8/28/19.
+//  Created by Garrett Head on 9/5/19.
 //  Copyright © 2019 Garrett Head. All rights reserved.
 //
 
 import UIKit
 
 
+class DrinkGroupCollectionViewController: UICollectionViewController {
 
-class FoodGroupCollectionViewController: UICollectionViewController {
-
-    
-    private var foodGroups : [String] = ["Protein", "Veg", "Fruit", "Dairy", "Grains", "Fats", "Sweets"]
+    private var drinkGroups : [String] = ["Water", "Coffee", "Tea", "Milk", "Juice", "Shake", "Sports Drink", "Soda", "Beer", "Wine"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Food Groups"
+        self.navigationItem.title = "Drinks"
     }
 
     /*
@@ -39,20 +37,19 @@ class FoodGroupCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.foodGroups.count
+        return self.drinkGroups.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FoodGroup", for: indexPath) as! FoodGroupCollectionViewCell
-        cell.group = self.foodGroups[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DrinkGroup", for: indexPath) as! DrinkGroupCollectionViewCell
+        cell.group = self.drinkGroups[indexPath.row]
         return cell
     }
 
 
-
 }
 
-extension FoodGroupCollectionViewController : UICollectionViewDelegateFlowLayout {
+extension DrinkGroupCollectionViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (self.collectionView.frame.size.width / 2) - 14, height: 128.0)
     }
