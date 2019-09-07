@@ -20,13 +20,13 @@ class DrinksTableViewController: UITableViewController {
     }
 
     private func loadDrinks(){
-        if let type = self.drinkType {
-            API.Drink.observerDrinks(drinkType: type, completion: {
-                drink in
-                self.drinks.append(drink)
-                self.tableView.reloadData()
-            })
-        }
+//        if let type = self.drinkType {
+//            API.Drink.observerDrinks(drinkType: type, completion: {
+//                drink in
+//                self.drinks.append(drink)
+//                self.tableView.reloadData()
+//            })
+//        }
     }
     
     

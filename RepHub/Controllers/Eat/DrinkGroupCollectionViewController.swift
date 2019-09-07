@@ -45,6 +45,18 @@ class DrinkGroupCollectionViewController: UICollectionViewController {
         cell.group = self.drinkGroups[indexPath.row]
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "DrinkMenu", sender: self.drinkGroups[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DrinkMenu" {
+            let drinkListTVC = segue.destination as! Eat_DrinkListTableViewController
+            let drinkType = sender as! String
+            drinkListTVC.drinkType = drinkType
+        }
+    }
 
 
 }

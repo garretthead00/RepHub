@@ -40,3 +40,14 @@ extension Drink {
     
     
 }
+
+extension Drink {
+    static func transformDrinkByType(data: [String: Any], key: String) -> Drink {
+        let drink = Drink()
+        drink.name = data["Name"] as? String
+        drink.ndb_no = data["ID"] as? Int
+        drink.manufacturer = data["Manufacturer"] as? String
+        drink.type = data["Sub Category 1"] as? String
+        return drink
+    }
+}

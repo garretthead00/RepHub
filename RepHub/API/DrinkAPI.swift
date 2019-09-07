@@ -14,11 +14,11 @@ import FirebaseAuth
 class DrinkAPI {
 
     var DRINKS_BY_TYPE_DB_REF = Database.database().reference().child("drinksByType")
-    func observerDrinks(drinkType:String, completion: @escaping(Drink) -> Void){
+    func observeDrinks(byType drinkType:String, completion: @escaping(Drink) -> Void){
         DRINKS_BY_TYPE_DB_REF.child(drinkType).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String:Any] {
-                let drink = Drink.transformDrink(data: data, key: snapshot.key)
+                let drink = Drink.transformDrinkByType(data: data, key: snapshot.key)
                 completion(drink)
             }
         })
