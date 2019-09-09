@@ -36,4 +36,5 @@ struct API {
     static var WorkoutExerciseLogs = WorkoutExerciseLogsAPI()
     static var Drink = DrinkAPI()
     static var Nutrient = NutrientAPI()
+    static var Food = FoodAPI()
 }

@@ -11,12 +11,13 @@ import UIKit
 
 class DrinkGroupCollectionViewController: UICollectionViewController {
 
-    private var drinkGroups : [String] = ["Water", "Coffee", "Tea", "Milk", "Juice", "Shake", "Sports Drink", "Soda", "Beer", "Wine"]
+    private var drinkGroups : [String] = ["Water", "Coffee", "Tea", "Milk", "Juice", "Fruit", "Shake", "Sports Drink", "Energy", "Soda", "Beer", "Wine","Liquor"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Drinks"
+
     }
 
     /*

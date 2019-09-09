@@ -47,6 +47,18 @@ class FoodGroupCollectionViewController: UICollectionViewController {
         cell.group = self.foodGroups[indexPath.row]
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "FoodMenu", sender: self.foodGroups[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FoodMenu" {
+            let foodMenuTVC = segue.destination as! FoodListTableViewController
+            let foodGroup = sender as! String
+            foodMenuTVC.foodGroup = foodGroup
+        }
+    }
 
 
 
