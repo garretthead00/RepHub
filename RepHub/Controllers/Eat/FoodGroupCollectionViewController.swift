@@ -13,7 +13,7 @@ import UIKit
 class FoodGroupCollectionViewController: UICollectionViewController {
 
     
-    private var foodGroups : [String] = ["Protein", "Veg", "Fruit", "Dairy", "Grains", "Fats", "Sweets"]
+    private var foodGroups : [String] = ["Protein", "Vegetables", "Fruit", "Dairy", "Grains", "Fats", "Sweets"]
     
     
     override func viewDidLoad() {

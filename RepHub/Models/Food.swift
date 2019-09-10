@@ -1,5 +1,5 @@
 //
-//  Food.swift
+//  FoodTypes.swift
 //  RepHub
 //
 //  Created by Garrett Head on 9/8/19.
@@ -8,27 +8,19 @@
 
 import Foundation
 
-class Food {
 
-    var name : String?
-    var ndb_no : Int?
-    var manufacturer : String?
-    var dateAvailable : String?
-    var servingSize : Double?
-    var servingSizeUnit : String?
-    var householdServingSize : Double?
-    var householdServingSizeUnit : String?
-    var type : String?
-    
-}
+struct Food {
 
-extension Food {
-    static func transformFoodByType(data: [String: Any], key: String) -> Food {
-        let food = Food()
-        food.name = data["Name"] as? String
-        food.ndb_no = data["ID"] as? Int
-        food.manufacturer = data["Manufacturer"] as? String
-        food.type = data["Sub Category 1"] as? String
-        return food
+    func foodTypes(byGroup: String) -> [String] {
+        switch byGroup {
+        case "Fruit" : return ["Berries", "Citrus", "Tropical", "Drupes", "Melons", "Pomes"]
+        case "Vegetables" : return ["Flower","Fruit","Gourds And Squashes","Leafy Greens","Legumes","Bulb And Stem","Podded","Root And Tuberous"]
+        case "Fats" : return ["Butter","Dressing","Oil","Shortening"]
+        case "Dairy" : return ["Cheese", "Cream", "Milk", "Sherbert", "Yogurt"]
+        case "Protein" : return ["Meat","Eggs","Poultry","Fish","Crustaceans","Mollusks","Beans","Nuts","Seeds","Veggie","Meatless"]
+        default : return []
+        }
     }
 }
+
+

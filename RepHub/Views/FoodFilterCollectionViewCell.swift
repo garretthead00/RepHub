@@ -20,6 +20,9 @@ class FoodFilterCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.filterLabel.text = ""
+        self.layer.borderColor = UIColor.darkGray.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 8
     }
     
     private func updateView() {

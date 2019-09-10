@@ -10,7 +10,7 @@ import UIKit
 
 class FoodListTableViewController: UITableViewController {
 
-    private let foodTypesByGroup = FoodTypesByGroup()
+    private let foodTypesByGroup = Food()
    
     
     var foodGroup : String? {
@@ -25,8 +25,8 @@ class FoodListTableViewController: UITableViewController {
         }
     }
     
-    var foods = [Food]()
-    var foodsByType = [String : [Food]]()
+    var foods = [FoodItem]()
+    var foodsByType = [String : [FoodItem]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +78,9 @@ class FoodListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FoodFilter", for: indexPath)
-            cell.textLabel?.text = self.filters?.joined(separator: ", ")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FoodFilter", for: indexPath) as! FoodFilterTableViewCell
+            //cell.textLabel?.text = self.filters?.joined(separator: ", ")
+            cell.filters = self.filters!
             return cell
         } else {
             let key = Array(self.foodsByType)[indexPath.section-1].key
@@ -96,6 +97,15 @@ class FoodListTableViewController: UITableViewController {
             return key
         } else {
             return ""
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.section == 0 {
+            return 64
+        }  else {
+            return 44
         }
     }
 

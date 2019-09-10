@@ -101,7 +101,6 @@ class ComplexExercisesTableViewController: UITableViewController {
             cell.textLabel?.text = self.filteredExercises[exerciseIndex].name
             return cell
         } else if (self.muscleGroups!.count == 0 && self.modalities!.count > 0) || (self.muscleGroups!.count > 0 && self.modalities!.count == 0) {
-            
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ModalityFilterCell", for: indexPath) as! ExerciseModalityFilterTableViewCell
                 cell.modalities = self.modalities
@@ -115,7 +114,6 @@ class ComplexExercisesTableViewController: UITableViewController {
                 return cell
             }
         } else {
-            
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MuscleGroupFilterCell", for: indexPath) as! ExerciseMuscleGroupFilterTableViewCell
                 cell.muscleGroups = self.muscleGroups
@@ -148,7 +146,6 @@ class ComplexExercisesTableViewController: UITableViewController {
         } else {
             return indexPath.row <= 1 ? 72 : 44
         }
-        
     }
 
 }

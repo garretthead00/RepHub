@@ -419,7 +419,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FoodFilter" rowHeight="116" id="hhN-h4-V4h">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FoodFilter" rowHeight="116" id="hhN-h4-V4h" customClass="FoodFilterTableViewCell" customModule="RepHub" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="116"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hhN-h4-V4h" id="gye-Gi-Qr9">
@@ -428,8 +428,8 @@
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3WI-fT-e2y">
                                             <rect key="frame" x="16" y="11" width="343" height="94"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Onn-Cl-6xv">
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Onn-Cl-6xv">
                                                 <size key="itemSize" width="112" height="44"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -437,21 +437,26 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FoodFilter" id="SpI-fd-P8m" customClass="FoodFilterCollectionViewCell" customModule="RepHub" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="112" height="44"/>
+                                                    <rect key="frame" x="0.0" y="25" width="112" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="112" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kj3-wx-eXK">
-                                                                <rect key="frame" x="35" y="12" width="42" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kj3-wx-eXK">
+                                                                <rect key="frame" x="16" y="13.666666666666664" width="80" height="17"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                     </view>
+                                                    <constraints>
+                                                        <constraint firstItem="kj3-wx-eXK" firstAttribute="centerX" secondItem="SpI-fd-P8m" secondAttribute="centerX" id="5KF-YP-kxf"/>
+                                                        <constraint firstItem="kj3-wx-eXK" firstAttribute="leading" secondItem="SpI-fd-P8m" secondAttribute="leadingMargin" id="GeD-Wq-uLk"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="kj3-wx-eXK" secondAttribute="trailing" id="Jt9-9x-OWp"/>
+                                                        <constraint firstItem="kj3-wx-eXK" firstAttribute="centerY" secondItem="SpI-fd-P8m" secondAttribute="centerY" id="hsr-wH-fsj"/>
+                                                    </constraints>
                                                     <connections>
                                                         <outlet property="filterLabel" destination="kj3-wx-eXK" id="Q5F-t1-UY7"/>
                                                     </connections>
@@ -467,6 +472,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="filterCollectionView" destination="3WI-fT-e2y" id="j32-Zq-TQf"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FoodItem" textLabel="Rwf-We-tGc" style="IBUITableViewCellStyleDefault" id="Wc2-5Y-MCa">
                                 <rect key="frame" x="0.0" y="144" width="375" height="44"/>
