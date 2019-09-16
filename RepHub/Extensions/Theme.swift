@@ -17,6 +17,6 @@ extension UIColor {
         static var salmon: UIColor { return UIColor(red: 255.0/255.0, green: 114.0/255.0, blue: 110.0/255.0, alpha: 1.0) }
         static var sky: UIColor { return UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 1.0) }
         static var aqua: UIColor { return UIColor(red: 0.0, green: 150.0/255.0, blue: 255.0/255.0, alpha: 1.0) }
-        
+        static var lavender: UIColor { return UIColor(red: 215.0/255.0, green: 131.0/255.0, blue: 255.0/255.0, alpha: 1.0) }
     }
 }
