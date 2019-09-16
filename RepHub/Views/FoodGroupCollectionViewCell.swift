@@ -31,8 +31,12 @@ class FoodGroupCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateView() {
-        self.groupImageView.image = UIImage(named: self.group!)!
-        self.groupLabel.text = self.group!
+        print("group: \(self.group)")
+        if let group = self.group {
+            self.groupImageView.image = UIImage(named: group)!
+            self.groupLabel.text = group
+        }
+        
     }
     
 }

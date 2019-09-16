@@ -18,7 +18,7 @@ class EatTableViewController: UITableViewController {
     private var fats = 24.0
     private var protein = 36.0
     private var carbs = 40.0
-    private var nutrition = Nutrition()
+   // private var nutrition = Nutrition()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +41,8 @@ class EatTableViewController: UITableViewController {
         
         if section <= 2 {
             return 1
-        } else if section == 3 {
-            return 1
         } else {
-            return nutrition.nutritionDictionary[self.controllerSections[section]]!.count
+            return 1
         }
     }
     
@@ -69,14 +67,10 @@ class EatTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Macros", for: indexPath) as! EatMacrosTableViewCell
             cell.macrosSet = ["fats": self.fats, "carbs": self.carbs, "protein":self.protein]
             return cell
-        } else if indexPath.section == 3 {
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Monitor", for: indexPath)
+            cell.textLabel?.text = "Nutrient"
             return cell
-        } else  {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Nutrients", for: indexPath) as! EatNutrientTableViewCell
-            cell.nutrientSet = [nutrition.nutritionDictionary[self.controllerSections[indexPath.section]]![indexPath.row] : "0 mg"]
-            return cell
-           
         }
         
         

@@ -62,7 +62,11 @@ class FoodMenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: self.menuItems[indexPath.row], sender: nil)
+        if indexPath.section == 0 {
+            print("seguing to \(self.menuItems[indexPath.row])")
+             self.performSegue(withIdentifier: self.menuItems[indexPath.row], sender: nil)
+        }
+       
     }
 
     /*

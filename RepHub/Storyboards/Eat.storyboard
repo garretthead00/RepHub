@@ -147,73 +147,23 @@
                                     <outlet property="macrosPieChart" destination="BL5-gi-01f" id="BGk-iM-dbv"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Monitor" id="usI-Jr-W9p" customClass="EatNutrientTableViewCell" customModule="RepHub" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Monitor" textLabel="gVY-wg-inR" style="IBUITableViewCellStyleDefault" id="usI-Jr-W9p" customClass="EatNutrientTableViewCell" customModule="RepHub" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="560" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="usI-Jr-W9p" id="511-LH-rF3">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Vitamin A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tr7-b8-YMe">
-                                            <rect key="frame" x="16" y="11.333333333333336" width="296" height="21"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gVY-wg-inR">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 mg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-zn-wSd">
-                                            <rect key="frame" x="320" y="13.333333333333336" width="39" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="yEh-zn-wSd" firstAttribute="leading" secondItem="Tr7-b8-YMe" secondAttribute="trailing" constant="8" id="2Ux-Py-l5O"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="yEh-zn-wSd" secondAttribute="trailing" id="6a1-E6-dQ8"/>
-                                        <constraint firstItem="Tr7-b8-YMe" firstAttribute="leading" secondItem="511-LH-rF3" secondAttribute="leadingMargin" id="Bo4-TY-6oG"/>
-                                        <constraint firstItem="Tr7-b8-YMe" firstAttribute="centerY" secondItem="511-LH-rF3" secondAttribute="centerY" id="daa-I4-tJg"/>
-                                        <constraint firstItem="yEh-zn-wSd" firstAttribute="centerY" secondItem="Tr7-b8-YMe" secondAttribute="centerY" id="xJU-WX-DCs"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="nutrientLabel" destination="Tr7-b8-YMe" id="EqM-H8-Yw2"/>
-                                    <outlet property="valueLabel" destination="yEh-zn-wSd" id="UNl-NS-ejv"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutrients" id="GW5-8m-UyF" customClass="EatNutrientTableViewCell" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="604" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GW5-8m-UyF" id="yR8-GP-50e">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Vitamin A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQp-wy-x6j">
-                                            <rect key="frame" x="16" y="11.333333333333336" width="296" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 mg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aD-3m-Vos">
-                                            <rect key="frame" x="320" y="13.333333333333336" width="39" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="7aD-3m-Vos" firstAttribute="leading" secondItem="iQp-wy-x6j" secondAttribute="trailing" constant="8" id="E0X-eR-T6P"/>
-                                        <constraint firstItem="iQp-wy-x6j" firstAttribute="leading" secondItem="yR8-GP-50e" secondAttribute="leadingMargin" id="jaJ-hp-iDN"/>
-                                        <constraint firstItem="7aD-3m-Vos" firstAttribute="centerY" secondItem="iQp-wy-x6j" secondAttribute="centerY" id="npn-MK-s4b"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="7aD-3m-Vos" secondAttribute="trailing" id="wGX-5d-zGz"/>
-                                        <constraint firstItem="iQp-wy-x6j" firstAttribute="centerY" secondItem="yR8-GP-50e" secondAttribute="centerY" id="zzr-e3-BnD"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="nutrientLabel" destination="iQp-wy-x6j" id="0O0-f6-Eh5"/>
-                                    <outlet property="valueLabel" destination="7aD-3m-Vos" id="l7f-bV-lxg"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

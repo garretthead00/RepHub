@@ -69,8 +69,6 @@ NS_SWIFT_NAME(Storage)
  */
 + (instancetype)storageForApp:(FIRApp *)app URL:(NSString *)url NS_SWIFT_NAME(storage(app:url:));
 
-- (instancetype)init NS_UNAVAILABLE;
-
 /**
  * The Firebase App associated with this Firebase Storage instance.
  */
