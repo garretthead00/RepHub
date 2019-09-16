@@ -12,9 +12,10 @@ import FirebaseDatabase
 class WorkoutAPI {
     
     var WORKOUT_DB_REF = Database.database().reference().child("workouts")
+    var WORKOUT_EXERCISES_DB_REF = Database.database().reference().child("workout-exercises")
     
-    func observeWorkouts(completion: @escaping(Workout) -> Void) {
-        WORKOUT_DB_REF.observe(.childAdded, with: { snapshot in
+    func observeUserWorkouts(withId id: String, completion: @escaping(Workout) -> Void) {
+        WORKOUT_DB_REF.child(id).observe(.childAdded, with: { snapshot in
             if let data = snapshot.value as? [String : Any] {
                 let workout = Workout.transformWorkout(data: data, key: snapshot.key)
                 completion(workout)
@@ -23,10 +24,8 @@ class WorkoutAPI {
     }
     
     func observeWorkout(withId id: String, completion: @escaping(Workout) -> Void) {
-        print("workoutAPI --observeWorkout(id)")
         WORKOUT_DB_REF.child(id).observeSingleEvent(of: .value, with: {
         snapshot in
-            print("workoutAPI --found snapshot")
             if let data = snapshot.value as? [String: Any] {
                 //Pass songArray to the completion handler on the main thread.
                 DispatchQueue.main.async() {
@@ -40,18 +39,24 @@ class WorkoutAPI {
     }
     
     func getWorkoutNames(withId id: String, completion: @escaping([String : String]) -> Void){
-        print("workoutAPI --observeWorkout(id)")
         WORKOUT_DB_REF.child(id).observeSingleEvent(of: .value, with: {
             snapshot in
-            print("workoutAPI --found snapshot")
-            
             if let data = snapshot.value as? [String: Any] {
-                
                 let workout = Workout.transformWorkout(data: data, key: snapshot.key)
-                
                 completion([id: workout.name!])
             }
         })
     }
     
+    func observerExercisesForWorkout(withId id: String, completion: @escaping(WorkoutExercise) -> Void) {
+        WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").queryOrdered(byChild: "atIndex").observe(.childAdded, with: {
+            snapshot in
+            if let data = snapshot.value as? [String: Any] {
+                let exercise = WorkoutExercise.transformWorkoutExercise(data: data, key: snapshot.key)
+                completion(exercise)
+            }
+        })
+    }
+    
+
 }

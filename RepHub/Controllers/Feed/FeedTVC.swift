@@ -82,6 +82,9 @@ class FeedTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Post", for: indexPath) as! FeedTableViewCell
+        cell.backgroundView = UIView(backgroundColor: .white)
+        cell.backgroundView?.addSeparator()
+        
         let post = self.posts[indexPath.row]
         let user = self.users[indexPath.row]
         cell.post = post
@@ -123,6 +126,22 @@ class FeedTVC: UITableViewController {
 
 }
 
+private extension UIView {
+    convenience init(backgroundColor: UIColor) {
+        self.init()
+        self.backgroundColor = backgroundColor
+    }
+    
+    func addSeparator() {
+        let separatorHeight: CGFloat = 16
+        let frame = CGRect(x: 0, y: bounds.height - separatorHeight, width: bounds.width, height: separatorHeight)
+        let separator = UIView(frame: frame)
+        separator.backgroundColor = UIColor.darkText
+        separator.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        
+        addSubview(separator)
+    }
+}
 
 
 extension FeedTVC : FeedCellDelegate {

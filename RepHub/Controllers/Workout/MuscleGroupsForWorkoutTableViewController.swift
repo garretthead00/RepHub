@@ -8,16 +8,19 @@
 
 import UIKit
 
-protocol ExerciseTypes_MuscleGroupsForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String]
+protocol MuscleGroupsForWorkoutDelegate {
+    func addExercises(exercises: [String])
 }
+
+
 
 class MuscleGroupsForWorkoutTableViewController: UITableViewController {
 
     let muscleGroups = ["Abdominals", "Chest", "Biceps", "Legs", "Lower Back", "Shoulders", "Triceps", "Back", "Calves"]
     var exerciseType : String!
-    var exercisesForWorkout = [String]()
-    var delegate : ExerciseTypes_MuscleGroupsForWorkoutDelegate!
+    var delegate : MuscleGroupsForWorkoutDelegate!
+    var exercisesInWorkout : [String]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.exerciseType
@@ -58,16 +61,32 @@ class MuscleGroupsForWorkoutTableViewController: UITableViewController {
             let muscleGroup = senderArr[1]
             exercisesTVC.exerciseType = exerciseType
             exercisesTVC.muscleGroup = muscleGroup
+            //exercisesTVC.muscleGroupDelegate = self
             exercisesTVC.delegate = self
+            exercisesTVC.exercisesInWorkout = self.exercisesInWorkout
         }
     }
     
 }
 
-extension MuscleGroupsForWorkoutTableViewController : MuscleGroup_ExercisesForWorkoutDelegate {
-    func addExercisesForWorkout(exercisesToBeAdded: [String]) -> [String] {
-        self.exercisesForWorkout = delegate.addExercisesForWorkout(exercisesToBeAdded: exercisesToBeAdded)
-        return self.exercisesForWorkout
+extension MuscleGroupsForWorkoutTableViewController : ExercisesForWorkoutDelegate {
+    func addExercises(exercises: [String]) {
+        delegate.addExercises(exercises: exercises)
+        self.dismiss(animated: true, completion: nil)
     }
     
+    
+    
 }
+
+
+//extension MuscleGroupsForWorkoutTableViewController : MuscleGroup_ExercisesForWorkoutDelegate {
+//    func addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: [String]) {
+//        self.exercisesInWorkout = exercisesToBeAdded
+//        delegate.addExercisesForWorkoutFromMuscleGroupsTVC(exercisesToBeAdded: exercisesToBeAdded)
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//
+//
+//
+//}

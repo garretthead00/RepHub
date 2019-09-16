@@ -24,7 +24,7 @@ class ReportAPI {
             USER_REPORTS_DB_REF.child(id).updateChildValues(["dateLastReported": timestamp])
             
             
-            USER_REPORTS_DB_REF.child(id).child("reports").child(newReportRef.key).setValue(true)
+            USER_REPORTS_DB_REF.child(id).child("reports").child(newReportRef.key!).setValue(true)
         }
         
     }
@@ -34,7 +34,7 @@ class ReportAPI {
             let timestamp = Int(Date().timeIntervalSince1970)
             newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": userId, "postId": id])
             USER_REPORTS_DB_REF.child(userId).updateChildValues(["dateLastReported": timestamp])
-            USER_REPORTS_DB_REF.child(userId).child("post-reports").child(newReportRef.key).setValue(true)
+            USER_REPORTS_DB_REF.child(userId).child("post-reports").child(newReportRef.key!).setValue(true)
         }
     }
     func reportComment(withId id: String, userId: String, comment: String){
@@ -43,7 +43,7 @@ class ReportAPI {
             let timestamp = Int(Date().timeIntervalSince1970)
             newReportRef.setValue(["comment": comment, "timestamp": timestamp, "reportedByUserId": currentUser.uid, "reportedUserId": userId, "commentId": id])
             USER_REPORTS_DB_REF.child(userId).updateChildValues(["dateLastReported": timestamp])
-            USER_REPORTS_DB_REF.child(userId).child("comment-reports").child(newReportRef.key).setValue(true)
+            USER_REPORTS_DB_REF.child(userId).child("comment-reports").child(newReportRef.key!).setValue(true)
         }
     }
     

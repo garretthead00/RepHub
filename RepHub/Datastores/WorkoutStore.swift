@@ -15,33 +15,21 @@ class WorkoutStore {
         //1. Setup the Calorie Quantity for total energy burned
         let calorieQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: workout.totalEnergyBurned)
         
-        //2. Build the workout using data from your Prancercise workout
+        //2. Build the workout using data from your workout
         let hkWorkout = HKWorkout(activityType: .other, start: workout.start, end: workout.end, duration: workout.duration, totalEnergyBurned: calorieQuantity, totalDistance: nil, device: HKDevice.local(), metadata: nil)
         
 
         //3. Save your workout to HealthKit
         let healthStore = HKHealthStore()
-        let samples = self.samples(for: workout)
         print("saving Workout")
         healthStore.save(hkWorkout) { (success, error) in
-            print("--healthstore success: \(success)")
-            print("--healthstore error: \(error)")
             guard error == nil else {
+                print("--healthstore error: \(error)")
                 completion(false, error)
                 return
             }
+            print("--healthstore success: \(success)")
             completion(true, nil)
-//            print("--healthstore adding samples")
-//            healthStore.add(samples, to: hkWorkout, completion: { (samples, error) in
-//                print("--healthstore adding samples success: \(success)")
-//                print("--healthstore adding samples error: \(error)")
-//                guard error == nil else {
-//                    completion(false, error)
-//                    return
-//                }
-//                completion(true, nil)
-//
-//            })
         }
 
     }
@@ -62,7 +50,7 @@ class WorkoutStore {
         healthStore.save(stepCountForIntervalSample, withCompletion: { (success, error) -> Void in
             if success {
                 // handle success
-                ProgressHUD.showSuccess("Steps saved to HealthKit")
+                //ProgressHUD.showSuccess("Steps saved to HealthKit")
             } else {
                 // handle error
                 ProgressHUD.showError("Steps NOT saved to HealthKit")
@@ -83,7 +71,7 @@ class WorkoutStore {
         healthStore.save(distanceForIntervalSample, withCompletion: { (success, error) -> Void in
             if success {
                 // handle success
-                ProgressHUD.showSuccess("distance saved to HealthKit")
+                //ProgressHUD.showSuccess("distance saved to HealthKit")
             } else {
                 // handle error
                 ProgressHUD.showError("distance NOT saved to HealthKit")
@@ -143,42 +131,6 @@ class WorkoutStore {
 
         return samples
     }
-//
-//    class func loadPrancerciseWorkouts(completion: @escaping (([HKWorkout]?, Error?) -> Swift.Void)){
-//
-//        //1. Get all workouts with the "Other" activity type.
-//        let workoutPredicate = HKQuery.predicateForWorkouts(with: .other)
-//
-//        //2. Get all workouts that only came from this app.
-//        let sourcePredicate = HKQuery.predicateForObjects(from: HKSource.default())
-//
-//        //3. Combine the predicates into a single predicate.
-//        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [workoutPredicate,
-//                                                                           sourcePredicate])
-//
-//        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
-//                                              ascending: true)
-//
-//        let query = HKSampleQuery(sampleType: HKObjectType.workoutType(),
-//                                  predicate: compound,
-//                                  limit: 0,
-//                                  sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-//
-//                                    DispatchQueue.main.async {
-//
-//                                        //4. Cast the samples as HKWorkout
-//                                        guard let samples = samples as? [HKWorkout],
-//                                            error == nil else {
-//                                                completion(nil, error)
-//                                                return
-//                                        }
-//
-//                                        completion(samples, nil)
-//                                    }
-//        }
-//
-//        HKHealthStore().execute(query)
-//    }
 }
 
 

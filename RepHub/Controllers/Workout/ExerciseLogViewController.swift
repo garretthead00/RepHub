@@ -76,13 +76,13 @@ class ExerciseLogViewController: UIViewController {
         let currentUserId = currentUser.uid
         API.UserExerciseLogs.USER_EXERCISE_LOGS_DB_REF.child(currentUserId).observe(.childAdded, with: {
             snapshot in
-            API.ExerciseLog.obeserveExerciseLogs(withId: snapshot.key , completion: {
-                log in
-                if log.exerciseId == self.exerciseId! {
-                    self.exerciseLogs.insert(log, at: 0)
-                    self.tableview.reloadData()
-                }
-            })
+//            API.ExerciseLog.obeserveExerciseLogs(withId: snapshot.key , completion: {
+//                log in
+////                if log.exerciseId == self.exerciseId! {
+////                    self.exerciseLogs.insert(log, at: 0)
+////                    self.tableview.reloadData()
+////                }
+//            })
         })
     }
     
@@ -119,7 +119,7 @@ class ExerciseLogViewController: UIViewController {
                     ProgressHUD.showError(error!.localizedDescription)
                     return
                 }
-                API.UserExerciseLogs.USER_EXERCISE_LOGS_DB_REF.child(currentUserId).child(newExerciseLogRef.key).setValue(true, withCompletionBlock: {
+                API.UserExerciseLogs.USER_EXERCISE_LOGS_DB_REF.child(currentUserId).child(newExerciseLogRef.key!).setValue(true, withCompletionBlock: {
                     error, ref in
                     if error != nil {
                         ProgressHUD.showError(error!.localizedDescription)
@@ -177,8 +177,8 @@ extension ExerciseLogViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Log", for: indexPath)
-        let reps = String(describing: self.exerciseLogs[indexPath.row].reps!)
-        let weight = String(describing: self.exerciseLogs[indexPath.row].weightLBS!)
+        let reps = String(describing: self.exerciseLogs[indexPath.row].value!)
+        let weight = String(describing: self.exerciseLogs[indexPath.row].weightLB!)
         cell.textLabel?.text = "\(reps) x \(weight)"
         return cell
     }

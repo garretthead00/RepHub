@@ -132,6 +132,8 @@ class FeedTableViewCell: UITableViewCell {
         let usernameLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.usernameLabel_TouchUpInside))
         usernameLabel.addGestureRecognizer(usernameLabelTapGesture)
         usernameLabel.isUserInteractionEnabled = true
+        
+        
     }
     
     @objc private func usernameLabel_TouchUpInside() {
@@ -201,8 +203,6 @@ class FeedTableViewCell: UITableViewCell {
                 API.Post.removeSaved(withPostId: id, completion: {
                     post in
                     self.post?.isSaved = post.isSaved
-                    print("self.post.isSaved: \(self.post?.isSaved) --- post.isSaved: \(post.isSaved)")
-                    //self.updateSaved(post: self.post!)
                     self.post = post
                     self.updateView()
                 })
@@ -213,8 +213,6 @@ class FeedTableViewCell: UITableViewCell {
                 API.Post.savePost(withPostId: id, completion: {
                     post in
                     self.post?.isSaved = post.isSaved
-                    print("self.post.isSaved: \(self.post?.isSaved) --- post.isSaved: \(post.isSaved)")
-                    //self.updateSaved(post: self.post!)
                     self.post = post
                     self.updateView()
                 })

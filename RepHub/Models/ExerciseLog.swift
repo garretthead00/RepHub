@@ -11,14 +11,14 @@ import Foundation
 class ExerciseLog {
     
     var id : String?
-    var exerciseId: String?
-    var timestamp : Int?
-    var reps : Int?
-    var weightLBS : Double?
+    var value : Int?
+    var weightLB : Double?
     var weightKG : Double?
-    var distanceKM : Double?
-    var distanceMI : Double?
-    var timeElapsed : Int?
+    var set : Int?
+    var workoutExerciseId: String?
+    var metricUnit: String?
+    var score: Double?
+    
 }
 
 extension ExerciseLog {
@@ -26,14 +26,12 @@ extension ExerciseLog {
     static func transformExerciseLog(data: [String: Any], key: String) -> ExerciseLog {
         let log = ExerciseLog()
         log.id = key
-        log.exerciseId = data["exerciseId"] as? String
-        log.timestamp = data["timestamp"] as? Int
-        log.reps = data["reps"] as? Int
-        log.weightKG = data["weightKG"] as? Double
-        log.weightLBS = data["weightLBS"] as? Double
-        log.distanceKM = data["distanceKM"] as? Double
-        log.distanceMI = data["distanceMI"] as? Double
-        log.timeElapsed = data["time-elapsed"] as? Int
+        log.set = data["set"] as? Int
+        log.value = data["value"] as? Int
+        log.weightLB = data["weightLB"] as? Double
+        log.metricUnit = data["metricUnit"] as? String
+        log.workoutExerciseId = data["workoutExerciseId"] as? String
+        log.score = 0.0
         return log
     }
 }

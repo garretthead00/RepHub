@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol WorkoutDetailsDelegate {
+    func updateName(name: String)
+    func updateDescription(description: String)
+}
+
 class WorkoutDetailsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var workoutNameTextField: UITextField!
     @IBOutlet weak var workoutDescriptionTextView: UITextView!
-    
-    var workout : Workout! {
+    var delegate : WorkoutDetailsDelegate?
+    var workout : Workout? {
         didSet {
             updateView()
         }
@@ -25,6 +30,8 @@ class WorkoutDetailsTableViewCell: UITableViewCell {
         workoutDescriptionTextView.layer.cornerRadius = 5.0
         workoutDescriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
         workoutDescriptionTextView.layer.borderWidth = 0.5;
+        workoutNameTextField.attributedPlaceholder = NSAttributedString(string: "Name",
+                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
     }
     
@@ -36,7 +43,9 @@ class WorkoutDetailsTableViewCell: UITableViewCell {
     
     
     @IBAction func updateName(_ sender: Any) {
-        self.workout.name = self.workoutNameTextField.text
+        print("changing workoutName...")
+        self.workout?.name = self.workoutNameTextField.text
+        delegate?.updateName(name: self.workout!.name!)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -60,7 +69,9 @@ class WorkoutDetailsTableViewCell: UITableViewCell {
 
 extension WorkoutDetailsTableViewCell : UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        self.workout.description = self.workoutDescriptionTextView.text
+        print("changing description...")
+        self.workout?.description = self.workoutDescriptionTextView.text
+        delegate?.updateDescription(description: self.workout!.description!)
         
     }
 }

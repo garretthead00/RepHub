@@ -10,9 +10,8 @@ import Foundation
 
 class HydrateSettings {
     
-    var interval : String?
+    var target : Int?
     var frequency : Int?
-    var isReminderEnabled : Bool?
     
 }
 
@@ -21,8 +20,7 @@ extension HydrateSettings {
     static func transformHydrateSettings(data: [String: Any]) -> HydrateSettings {
         let settings = HydrateSettings()
         settings.frequency = data["reminderFrequency"] as? Int
-        settings.interval = data["reminderInterval"] as? String
-        settings.isReminderEnabled = data["isReminderEnabled"] as? Bool
+        settings.target = data["target"] as? Int
         return settings
     }
 }

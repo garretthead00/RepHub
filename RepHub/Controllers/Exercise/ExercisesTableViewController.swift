@@ -12,6 +12,8 @@ enum searchBarItems: String {
     case freeWeight = "Free Weight"
     case machine = "Machine"
     case cable = "Cable"
+    
+    static let allValues = [freeWeight, machine, cable]
 }
 
 
@@ -37,13 +39,13 @@ class ExercisesTableViewController: UITableViewController {
     }
     
     private func loadExercises() {
-        API.Exercise.observeExercises(completion: {
-            exercise in
-            self.exercises.append(exercise)
-            self.exercises = self.exercises.filter { $0.exerciseType == self.exerciseType && $0.muscleGroup == self.muscleGroup}
-            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue }
-            self.tableView.reloadData()
-        })
+//        API.Exercise.observeExercises(completion: {
+//            exercise in
+//            self.exercises.append(exercise)
+//            self.exercises = self.exercises.filter { $0.exerciseType == self.exerciseType && $0.muscleGroup == self.muscleGroup}
+//            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue }
+//            self.tableView.reloadData()
+//        })
     }
 
     // Create the searchbar in code
@@ -97,18 +99,16 @@ extension ExercisesTableViewController : UISearchBarDelegate {
     // Filters the exercise list when the user selects a scope button.
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         self.exercisesForSelectedModality.removeAll()
-        switch (selectedScope){
-        case searchBarItems.freeWeight.hashValue:
-            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.freeWeight.rawValue}
+        switch (exercisesForWorkoutSearchBarItems.allValues[selectedScope]){
+        case exercisesForWorkoutSearchBarItems.freeWeight:
+            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.freeWeight.rawValue}
             self.tableView.reloadData()
-        case searchBarItems.machine.hashValue:
-            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.machine.rawValue}
+        case exercisesForWorkoutSearchBarItems.machine:
+            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.machine.rawValue}
             self.tableView.reloadData()
-        case searchBarItems.cable.hashValue:
-            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == searchBarItems.cable.rawValue}
+        case exercisesForWorkoutSearchBarItems.cable:
+            self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.cable.rawValue}
             self.tableView.reloadData()
-        default:
-            print("no modality filter selected")
         }
     }
     

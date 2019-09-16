@@ -12,16 +12,11 @@ class Exercise {
     
     var id: String?
     var name: String?
-    var force: String?
-    var joint : String?
-    var modality : String?
-    var muscleGroup: String?
-    var region: String?
-    var section : String?
+    var description: String?
+    var modality: String?
+    var muscleGroup: [String]?
     var exerciseType: String?
-    var targetSets: Int?
-    var targetReps: Int?
-    var breakTime: String?
+    var metricType: String?
     
 }
 
@@ -31,13 +26,11 @@ extension Exercise {
         let exercise = Exercise()
         exercise.id = key
         exercise.name = data["name"] as? String
-        exercise.muscleGroup = data["muscle group"] as? String
-        exercise.force = data["force"] as? String
-        exercise.region = data["region"] as? String
-        exercise.section = data["section"] as? String
-        exercise.joint = data["joint"] as? String
+        exercise.description = data["description"] as? String
+        exercise.muscleGroup = data["muscleGroup"] as? [String]
         exercise.modality = data["modality"] as? String
-        exercise.exerciseType = data["exercise type"] as? String
+        exercise.exerciseType = data["exerciseType"] as? String
+        exercise.metricType = data["metricType"] as? String
         return exercise
     }
     

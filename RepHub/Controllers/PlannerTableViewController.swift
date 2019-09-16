@@ -11,7 +11,7 @@ import HealthKit
 
 class PlannerTableViewController: UITableViewController {
     
-    private var modules = ["Bio", "Schedule", "Workouts", "Exercises", "Meals", "Hydrate", "Journal", "Activity"]
+    private var modules = ["Bio", "Schedule", "Workouts", "Exercises", "Meals", "Hydrate", "Activity"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
