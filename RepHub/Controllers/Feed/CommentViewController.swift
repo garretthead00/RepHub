@@ -111,7 +111,7 @@ class CommentViewController: UIViewController {
     @IBAction func sendComment(_ sender: Any) {
         let commentsReference = API.Comment.COMMENT_DB_REF
         let newCommentId = commentsReference.childByAutoId().key
-        let newCommentReference = commentsReference.child(newCommentId)
+        let newCommentReference = commentsReference.child(newCommentId!)
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
             return
         }
@@ -130,7 +130,7 @@ class CommentViewController: UIViewController {
                     newHashTagRef.updateChildValues([self.postId:true])
                 }
             }
-            let postCommentsReference = API.PostComments.POST_COMMENT_DB_REF.child(self.postId).child(newCommentId)
+            let postCommentsReference = API.PostComments.POST_COMMENT_DB_REF.child(self.postId).child(newCommentId!)
             postCommentsReference.setValue(true, withCompletionBlock: { (error, ref) in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)
@@ -140,7 +140,7 @@ class CommentViewController: UIViewController {
                     if post.uid! != API.RepHubUser.CURRENT_USER!.uid {
                         let timestamp = NSNumber(value: Int(Date().timeIntervalSince1970))
                         let newNotificationId = API.Notification.NOTIFICATION_DB_REF.child(post.uid!).childByAutoId().key
-                        let newNotificationReference = API.Notification.NOTIFICATION_DB_REF.child(post.uid!).child(newNotificationId)
+                        let newNotificationReference = API.Notification.NOTIFICATION_DB_REF.child(post.uid!).child(newNotificationId!)
                         newNotificationReference.setValue(["from": API.RepHubUser.CURRENT_USER!.uid, "objectId": self.postId!, "type": "comment", "timestamp": timestamp])
                     }
                     

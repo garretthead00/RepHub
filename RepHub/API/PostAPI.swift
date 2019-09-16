@@ -122,7 +122,7 @@ class PostAPI {
         }
         SAVED_DB_REF.child(currentuser.uid).child(id).setValue(true, withCompletionBlock: {
             error, ref in
-            self.POSTS_DB_REF.child(ref.key).child("saved").child(currentuser.uid).setValue(true, withCompletionBlock: {
+            self.POSTS_DB_REF.child(ref.key!).child("saved").child(currentuser.uid).setValue(true, withCompletionBlock: {
                 error, ref in
                 self.observePost(withId: id, completion: {
                     post in
@@ -142,7 +142,7 @@ class PostAPI {
         
         SAVED_DB_REF.child(currentuser.uid).child(id).removeValue(completionBlock: {
             err, ref in
-            self.POSTS_DB_REF.child(ref.key).child("saved").child(currentuser.uid).removeValue(completionBlock: {
+            self.POSTS_DB_REF.child(ref.key!).child("saved").child(currentuser.uid).removeValue(completionBlock: {
                 error, ref in
                 print("post ref: \(ref)")
                 self.observePost(withId: id, completion: {

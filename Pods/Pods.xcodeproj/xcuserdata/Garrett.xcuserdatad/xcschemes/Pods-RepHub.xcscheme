@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5AAEC61774188A1A7F93ADD651FB81F7"
+               BlueprintIdentifier = "1EE82ED243E5E46E0BC340C91A88B785"
                BuildableName = "Pods_RepHub.framework"
                BlueprintName = "Pods-RepHub"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5AAEC61774188A1A7F93ADD651FB81F7"
+            BlueprintIdentifier = "1EE82ED243E5E46E0BC340C91A88B785"
             BuildableName = "Pods_RepHub.framework"
             BlueprintName = "Pods-RepHub"
             ReferencedContainer = "container:Pods.xcodeproj">

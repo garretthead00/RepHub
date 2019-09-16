@@ -246,6 +246,7 @@ class WorkoutTableViewController: UITableViewController {
                         if result {
                             self.exercises.remove(at: row)
                             self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        
                         }
                     })
                 }

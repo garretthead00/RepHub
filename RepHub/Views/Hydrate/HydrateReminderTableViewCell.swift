@@ -39,16 +39,16 @@ class HydrateReminderTableViewCell: UITableViewCell {
     }
 
     private func updateView(){
-        let frequencyString = String(describing: settings?.frequency ?? 0)
-        self.reminderLabel.text = "Every \(frequencyString) \(settings?.interval ?? "")"
-        if let isOn = self.settings?.isReminderEnabled {
-            self.enableReminderSwitch.isOn = isOn
-        }
+//        let frequencyString = String(describing: settings?.frequency ?? 0)
+//        self.reminderLabel.text = "Every \(frequencyString) \(settings?.interval ?? "")"
+//        if let isOn = self.settings?.isReminderEnabled {
+//            self.enableReminderSwitch.isOn = isOn
+//        }
     }
     @objc func switchChanged(_ sender : UISwitch!){
         print("table row switch Changed \(sender.tag)")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
-        API.Hydrate.updateHydrationReminder(withValue: sender.isOn)
+        //API.Hydrate.updateHydrationReminder(withValue: sender.isOn)
     }
 
 }

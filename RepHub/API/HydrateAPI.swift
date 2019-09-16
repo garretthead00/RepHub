@@ -12,22 +12,81 @@ import FirebaseDatabase
 class HydrateAPI {
     
     var HYDRATE_DB_REF = Database.database().reference().child("hydrate")
+    
+    
+    /* HYDRATION LOGS */
     var HYDRATE_LOGS_DB_REF = Database.database().reference().child("hydrate-logs")
     var USER_HYDRATE_LOGS_DB_REF = Database.database().reference().child("user-hydrate-logs")
-    var HYDRATE_SETTINGS_DB_REF = Database.database().reference().child("user-hydrate-settings")
-    
-    // listens to all events on the HydrateLog location of the database.
     func observeHydrateLogs(withId id: String, completion: @escaping(HydrateLog) -> Void){
-        let query = HYDRATE_LOGS_DB_REF.child(id).queryOrdered(byChild: "timeStamp").queryLimited(toFirst: 25)
-        query.observeSingleEvent(of: .value, with: {
+        let date = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
+        HYDRATE_LOGS_DB_REF.child(id).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
                 let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
                 completion(log)
             }
         })
-        
     }
+    
+    func removeHydrationLog(withLogId id: String, onSuccess: @escaping() -> Void) {
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
+        HYDRATE_LOGS_DB_REF.child(currentUserId).child(id).removeValue(completionBlock: {
+            err, ref in
+            if err != nil {
+                ProgressHUD.showError("Could not remove log!")
+                return
+            }
+            onSuccess()
+        })
+    }
+    
+    func saveHyrdationLog(withUserId id: String, drink: Drink) {
+        let newRef = HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
+        let timestamp = NSDate().timeIntervalSince1970
+        if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
+            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit], withCompletionBlock: {
+                error, ref in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+            })
+        }
+    }
+    
+    
+    
+
+    /* HYDRATION SETTINGS */
+    var HYDRATE_SETTINGS_DB_REF = Database.database().reference().child("user-hydrate-settings")
+    func observeHydrateSettings(withId id: String, completion: @escaping(HydrateSettings) -> Void){
+        HYDRATE_SETTINGS_DB_REF.child(id).observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let data = snapshot.value as? [String: Any] {
+                let settings = HydrateSettings.transformHydrateSettings(data: data)
+                completion(settings)
+            }
+        })
+    }
+    
+    // Updates the isReminderEnabled value in Firebase
+    func updateHydrationReminder(withValue value: Int) {
+        HYDRATE_SETTINGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).updateChildValues(["reminderFrequency" : value])
+    }
+    
+    func updateHydrationTarget(withValue value: Int){
+        HYDRATE_SETTINGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).updateChildValues(["target" : value])
+    }
+
+    
+
+    
+    
     
     func observeHydrateDailies(withId id: String, completion: @escaping(HydrateDailies) -> Void){
         HYDRATE_DB_REF.child(id).observeSingleEvent(of: .value, with: {
@@ -39,32 +98,7 @@ class HydrateAPI {
         })
     }
     
-    func observeHydrateSettings(withId id: String, completion: @escaping(HydrateSettings) -> Void){
-        HYDRATE_SETTINGS_DB_REF.child(id).observeSingleEvent(of: .value, with: {
-            snapshot in
-            if let data = snapshot.value as? [String: Any] {
-                let settings = HydrateSettings.transformHydrateSettings(data: data)
-                completion(settings)
-            }
-        })
-    }
     
-    func removeHydrationLog(withLogId id: String, onSuccess: @escaping() -> Void) {
-        USER_HYDRATE_LOGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).child(id).removeValue()
-        HYDRATE_LOGS_DB_REF.child(id).removeValue()
-        onSuccess()
-    }
-    
-    // Updates the isReminderEnabled value in Firebase
-    func updateHydrationReminder(withValue value: Bool) {
-        HYDRATE_SETTINGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).updateChildValues(["isReminderEnabled" : value])
-    }
-
-    // Calculates the current daily intake and returns the value to the controller
-    func updateDailyIntake(withValue value: Double, onSuccess: @escaping() -> Void) {
-        HYDRATE_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).updateChildValues(["intake": value])
-        onSuccess()
-    }
     
 }
 

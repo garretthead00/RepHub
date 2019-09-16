@@ -7,34 +7,121 @@
 //
 
 import UIKit
+import HealthKit
 
 var drinkPickerSelections = ["Select a Drink", "Water", "Sports Drink", "Juice", "Coffee","Tea", "Beer", "Wine", "Milk", "Shake", "Soda"]
 
 class HydrateTableViewController: UITableViewController {
 
     
-    var date : String = "6/13/2019"
+    var date : String = ""
     var target : Int = 0
     var score : Int = 0
-    var total : Int = 0
-    var drinkLogs : [String] = ["Water","Milk","Coffee","Coffee","Tea","Beer", "Wine", "Soda"]
-    var logQuantities : [Int] = [12,8,8,8,12,12,6,8]
+    var total : Double = 0.0
+    var drinkLogs : [String] = []//["Water","Milk","Coffee","Coffee","Tea","Beer", "Wine", "Soda"]
+    var logQuantities : [Double] = []
     var reminderFrequency : Int = 0
+    var hydrateLogs : [HydrateLog] = []
     
     private var reminderPicker : UIPickerView!
-
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.calculateData()
+        
+        
+
+        
+        let image = UIImage(named: "drinkMenu") as UIImage?
+        let button   = UIButton(type: UIButton.ButtonType.custom) as UIButton
+        button.frame = CGRect(x: 16, y: 100, width: 48, height: 48)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(goToDrinkMenu), for:.touchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button) //UIBarButtonItem(title: "Drink", style: .plain, target: self, action: #selector(goToDrinkMenu))
+        
+        self.authorizeHealthKit()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "M/dd/yyyy"
+        self.date = dateFormatter.string(from: Date())
+    }
+    
+    
+    @objc private func goToDrinkMenu(){
+        self.performSegue(withIdentifier: "DrinkMenu", sender: nil)
+    }
+    
+    private func authorizeHealthKit() {
+        HealthKitSetupAssistant.authorizeNutritionData {
+            (authorized, error) in
+            
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                return
+            }
+            print("HealthKit Successfully Authorized.")
+            self.loadHydrationSettings()
+            self.fetchHydrationLogs()
+        }
+    }
+    
+    
+    private func loadHydrationSettings(){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
+        API.Hydrate.observeHydrateSettings(withId: currentUserId, completion: {
+            settings in
+            if let hydrateTarget = settings.target {
+                self.target = hydrateTarget
+            }
+            if let frequency = settings.frequency {
+                self.reminderFrequency = frequency
+            }
+            self.calculateData()
+        })
+    }
+    
+    private func fetchHydrationLogs(){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
+        API.Hydrate.observeHydrateLogs(withId: currentUserId) {
+            log in
+            API.Drink.observeDrink(withId: String(log.drinkId!), completion: {
+                drink in
+                log.drinkName = drink.name!
+                log.drinkType = drink.type!
+                self.hydrateLogs.append(log)
+                self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timeStamp! > $1.timeStamp!})
+                self.calculateData()
+            })
+            
+            
+        }
+
+    }
+    
+    private func refreshController(){
+        self.score = 0
+        self.total = 0
+        self.drinkLogs = []
+        self.logQuantities = []
+         self.fetchHydrationLogs()
     }
     
     private func calculateData(){
-        self.total = 0
-        for quantity in self.logQuantities {
-            self.total += quantity
+        self.total = 0.0
+        for logs in self.hydrateLogs {
+            self.total += logs.householdServingSize!
         }
         if self.target > 0 {
             let scoreINT = Int((Double(self.total) / Double(self.target)) * 100)
@@ -56,7 +143,6 @@ class HydrateTableViewController: UITableViewController {
         self.setReminder()
     }
     
-    
 
     // MARK: - Table view data source
 
@@ -67,7 +153,7 @@ class HydrateTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.drinkLogs.count + 1
+        return self.hydrateLogs.count + 1
     }
 
     
@@ -76,17 +162,23 @@ class HydrateTableViewController: UITableViewController {
         let row = indexPath.row
         if row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrateStatusCell", for: indexPath) as! HydrateStatusTableViewCell
+            let remaining = (Double(self.target) - self.total) > 0.0 ? (Double(self.target) - self.total) : 0.0
             cell.date = self.date
-            cell.targetStr = "\(total) / \(target) oz"
-            cell.score = self.score
-            print("date: \(date) target: \(target) score: \(score)")
+            cell.total = self.total
+            cell.remaining = remaining
             cell.alarmOn = self.reminderFrequency > 0 ? true : false
+            cell.score = self.score
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogCell", for: indexPath) as! HydrateLogTableViewCell
-            cell.name = self.drinkLogs[row - 1]
-            cell.quantity = self.logQuantities[row - 1]
-            print("drink: \(self.drinkLogs[row - 1]) quantity: \(self.logQuantities[row - 1])")
+            print("displaying row with name: \(self.hydrateLogs[row-1].drinkName!)")
+            print("val: \(self.hydrateLogs[row-1].householdServingSize!)")
+            print("type: \(self.hydrateLogs[row-1].drinkType!)")
+            print("unit: \(self.hydrateLogs[row-1].householdServingSizeUnit!)")
+            cell.name = self.hydrateLogs[row-1].drinkName!
+            cell.quantity = Int(self.hydrateLogs[row-1].householdServingSize!)
+            cell.type = self.hydrateLogs[row-1].drinkType!
+            cell.unit = self.hydrateLogs[row-1].householdServingSizeUnit!
             return cell
         }
         
@@ -94,16 +186,42 @@ class HydrateTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height : CGFloat!
-        if indexPath.row == 0 { height = 273 }
+        if indexPath.row == 0 { height = 408 }
         else { height = 66 }
         return height
         
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row == 0 ? false : true
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            let row = indexPath.row - 1
+            
+            if let id = self.hydrateLogs[row].id {
+                API.Hydrate.removeHydrationLog(withLogId: id, onSuccess: {
+                    self.hydrateLogs.remove(at: row)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.calculateData()
+                    
+                })
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row > 0 {
+            performSegue(withIdentifier: "Results", sender: self.hydrateLogs[indexPath.row-1])
+        }
+    }
+    
  
     
     private func setTarget(){
         // Establish the AlertController
-        let alertController = UIAlertController(title: "New Hydration Log", message: "\n", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Hydration Goal (fl oz)", message: "\n", preferredStyle: .alert)
         alertController.isModalInPopover = true
         alertController.addTextField(configurationHandler: {
             (textField) in
@@ -112,9 +230,10 @@ class HydrateTableViewController: UITableViewController {
         
         let confirmAction = UIAlertAction(title: "Add", style: UIAlertAction.Style.default, handler: ({
             (_) in
-            if let field = alertController.textFields![0] as? UITextField {
-                if field.text != "", let intText = Int(field.text!) {
-                    self.target = intText
+            if let field = alertController.textFields?[0]{
+                if field.text != "", let targetINT = Int(field.text!) {
+                    self.target = targetINT
+                    API.Hydrate.updateHydrationTarget(withValue: targetINT)
                     self.calculateData()
                     
                 }
@@ -142,6 +261,7 @@ class HydrateTableViewController: UITableViewController {
             (_) in
             let frequencySelectionRow = self.reminderPicker.selectedRow(inComponent: 0)
             self.reminderFrequency = frequencySelectionRow
+            API.Hydrate.updateHydrationReminder(withValue: frequencySelectionRow)
             self.tableView.reloadData()
         }))
         
@@ -152,6 +272,15 @@ class HydrateTableViewController: UITableViewController {
         alert.view.addConstraint(height)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Results" {
+            let drinkResultsTVC = segue.destination as! DrinkResultsTableViewController
+            let log = sender as! HydrateLog
+            drinkResultsTVC.log = log
+        }
+    }
+    
 
 }
 

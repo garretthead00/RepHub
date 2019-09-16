@@ -109,8 +109,6 @@ extension ExercisesTableViewController : UISearchBarDelegate {
         case exercisesForWorkoutSearchBarItems.cable:
             self.exercisesForSelectedModality = self.exercises.filter { $0.modality == exercisesForWorkoutSearchBarItems.cable.rawValue}
             self.tableView.reloadData()
-        default:
-            print("no modality filter selected \(selectedScope)")
         }
     }
     

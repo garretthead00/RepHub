@@ -119,7 +119,7 @@ class ExerciseLogViewController: UIViewController {
                     ProgressHUD.showError(error!.localizedDescription)
                     return
                 }
-                API.UserExerciseLogs.USER_EXERCISE_LOGS_DB_REF.child(currentUserId).child(newExerciseLogRef.key).setValue(true, withCompletionBlock: {
+                API.UserExerciseLogs.USER_EXERCISE_LOGS_DB_REF.child(currentUserId).child(newExerciseLogRef.key!).setValue(true, withCompletionBlock: {
                     error, ref in
                     if error != nil {
                         ProgressHUD.showError(error!.localizedDescription)

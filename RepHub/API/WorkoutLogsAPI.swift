@@ -43,7 +43,7 @@ class WorkoutLogsAPI {
                 ProgressHUD.showError(error!.localizedDescription)
                 return
             }
-            completion(newRef.key)
+            completion(newRef.key!)
             
         })
         

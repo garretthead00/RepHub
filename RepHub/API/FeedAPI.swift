@@ -25,7 +25,7 @@ class FeedAPI {
             snapshot in
             let items = snapshot.children.allObjects as! [DataSnapshot]
             let myGroup = DispatchGroup()
-            for (index, item) in items.enumerated() {
+            for (_, item) in items.enumerated() {
                 myGroup.enter()
                 API.Post.observePost(withId: item.key, completion: {
                     post in
@@ -57,7 +57,7 @@ class FeedAPI {
             let items = snapshot.children.allObjects as! [DataSnapshot]
             let myGroup = DispatchGroup()
             var results : [(post: Post, user: RepHubUser)] = []
-            for (index, item) in items.enumerated() {
+            for (_, item) in items.enumerated() {
                 myGroup.enter()
                 API.Post.observePost(withId: item.key, completion: {
                     post in
