@@ -60,6 +60,12 @@
 		683E759E23300BC1009A00B5 /* LifeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E759D23300BC1009A00B5 /* LifeData.swift */; };
 		683E75A023300CD0009A00B5 /* LifeRingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E759F23300CD0009A00B5 /* LifeRingCollectionViewCell.swift */; };
 		683E75A223300CDD009A00B5 /* LifeDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75A123300CDD009A00B5 /* LifeDataCollectionViewCell.swift */; };
+		683E75A523317620009A00B5 /* LifeRingChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75A423317620009A00B5 /* LifeRingChart.swift */; };
+		683E75A823338CE1009A00B5 /* ExerciseActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75A723338CE1009A00B5 /* ExerciseActivityTableViewController.swift */; };
+		683E75AA23338F4D009A00B5 /* CalorieMonitorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75A923338F4D009A00B5 /* CalorieMonitorTableViewCell.swift */; };
+		683E75AC23338FD5009A00B5 /* CalorieTrackerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75AB23338FD5009A00B5 /* CalorieTrackerTableViewCell.swift */; };
+		683E75AE23339030009A00B5 /* NoWorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75AD23339030009A00B5 /* NoWorkoutTableViewCell.swift */; };
+		683E75B0233390F2009A00B5 /* DailyActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E75AF233390F2009A00B5 /* DailyActivityTableViewCell.swift */; };
 		6841E5B2212E4E5000D17B87 /* UserExerciseLogsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841E5B1212E4E5000D17B87 /* UserExerciseLogsAPI.swift */; };
 		6841E5B4212E4E5B00D17B87 /* ExerciseLogsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841E5B3212E4E5B00D17B87 /* ExerciseLogsAPI.swift */; };
 		68459ED020D225F500CB2176 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68459ECD20D225F400CB2176 /* ProgressHUD.bundle */; };
@@ -147,7 +153,7 @@
 		688EE25D20CC2FBA007EE071 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE25C20CC2FBA007EE071 /* Launch.storyboard */; };
 		688EE26320CC34F0007EE071 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE26220CC34F0007EE071 /* Feed.storyboard */; };
 		688EE26820CC355E007EE071 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE26720CC355E007EE071 /* Camera.storyboard */; };
-		688EE26F20CC5B5D007EE071 /* Planner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE26E20CC5B5D007EE071 /* Planner.storyboard */; };
+		688EE26F20CC5B5D007EE071 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE26E20CC5B5D007EE071 /* Activity.storyboard */; };
 		688EE27120CC5B76007EE071 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE27020CC5B75007EE071 /* Search.storyboard */; };
 		688EE27320CC5B7B007EE071 /* Locker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688EE27220CC5B7B007EE071 /* Locker.storyboard */; };
 		688F54F62321C9E500C35BB0 /* MealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688F54F52321C9E500C35BB0 /* MealsTableViewController.swift */; };
@@ -269,6 +275,12 @@
 		683E759D23300BC1009A00B5 /* LifeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeData.swift; sourceTree = "<group>"; };
 		683E759F23300CD0009A00B5 /* LifeRingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeRingCollectionViewCell.swift; sourceTree = "<group>"; };
 		683E75A123300CDD009A00B5 /* LifeDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDataCollectionViewCell.swift; sourceTree = "<group>"; };
+		683E75A423317620009A00B5 /* LifeRingChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeRingChart.swift; sourceTree = "<group>"; };
+		683E75A723338CE1009A00B5 /* ExerciseActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseActivityTableViewController.swift; sourceTree = "<group>"; };
+		683E75A923338F4D009A00B5 /* CalorieMonitorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieMonitorTableViewCell.swift; sourceTree = "<group>"; };
+		683E75AB23338FD5009A00B5 /* CalorieTrackerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackerTableViewCell.swift; sourceTree = "<group>"; };
+		683E75AD23339030009A00B5 /* NoWorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		683E75AF233390F2009A00B5 /* DailyActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyActivityTableViewCell.swift; sourceTree = "<group>"; };
 		6841E5B1212E4E5000D17B87 /* UserExerciseLogsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExerciseLogsAPI.swift; sourceTree = "<group>"; };
 		6841E5B3212E4E5B00D17B87 /* ExerciseLogsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogsAPI.swift; sourceTree = "<group>"; };
 		68459ECC20D225F300CB2176 /* RepHub-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RepHub-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -358,7 +370,7 @@
 		688EE25C20CC2FBA007EE071 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		688EE26220CC34F0007EE071 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		688EE26720CC355E007EE071 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
-		688EE26E20CC5B5D007EE071 /* Planner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Planner.storyboard; sourceTree = "<group>"; };
+		688EE26E20CC5B5D007EE071 /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
 		688EE27020CC5B75007EE071 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		688EE27220CC5B7B007EE071 /* Locker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Locker.storyboard; sourceTree = "<group>"; };
 		688F54F52321C9E500C35BB0 /* MealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTableViewController.swift; sourceTree = "<group>"; };
@@ -479,10 +491,22 @@
 		683E75A323300CE3009A00B5 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				683E75A923338F4D009A00B5 /* CalorieMonitorTableViewCell.swift */,
+				683E75AB23338FD5009A00B5 /* CalorieTrackerTableViewCell.swift */,
+				683E75AD23339030009A00B5 /* NoWorkoutTableViewCell.swift */,
+				683E75AF233390F2009A00B5 /* DailyActivityTableViewCell.swift */,
 				683E759F23300CD0009A00B5 /* LifeRingCollectionViewCell.swift */,
 				683E75A123300CDD009A00B5 /* LifeDataCollectionViewCell.swift */,
 			);
 			path = Activity;
+			sourceTree = "<group>";
+		};
+		683E75A62331762A009A00B5 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				683E75A423317620009A00B5 /* LifeRingChart.swift */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 		684A28CA21270A6000F00CA8 /* Workout */ = {
@@ -707,6 +731,7 @@
 		688E3CE820D6C4EA0032B35F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				683E75A723338CE1009A00B5 /* ExerciseActivityTableViewController.swift */,
 				683E759B23300B0D009A00B5 /* ActivityCollectionViewController.swift */,
 				68261F3D220A8F4C00D3978C /* ActivityTableViewController.swift */,
 				6815FCBC2155D22100E26732 /* BioTableViewController.swift */,
@@ -756,7 +781,7 @@
 			children = (
 				688EE25C20CC2FBA007EE071 /* Launch.storyboard */,
 				68B3EC53202FD57800A894CF /* Main.storyboard */,
-				688EE26E20CC5B5D007EE071 /* Planner.storyboard */,
+				688EE26E20CC5B5D007EE071 /* Activity.storyboard */,
 				681B3B18230C8E580064CE39 /* Eat.storyboard */,
 				684A28C0212659F400F00CA8 /* Workout.storyboard */,
 				689CAAAA2123904400BC2975 /* Exercise.storyboard */,
@@ -792,23 +817,24 @@
 		68B3EC4C202FD57800A894CF /* RepHub */ = {
 			isa = PBXGroup;
 			children = (
+				68459ECD20D225F400CB2176 /* ProgressHUD.bundle */,
 				68930447214EB0A800C9AB1F /* RepHub.entitlements */,
-				684CF32820DB334E0009357B /* API */,
-				688E3CE920D6C5740032B35F /* Services */,
-				688E3CE820D6C4EA0032B35F /* Controllers */,
-				688E3CE720D6C4970032B35F /* Views */,
-				688C0B312205FD84001F7B25 /* Extensions */,
-				688E3CE620D6AF730032B35F /* Models */,
-				688EE25E20CC2FD6007EE071 /* Storyboards */,
-				6815FCB221552B7E00E26732 /* Config.swift */,
-				6875AFB121EEB920008F3E95 /* Datastores */,
+				68459ECF20D225F500CB2176 /* ProgressHUD.h */,
+				68459ECC20D225F300CB2176 /* RepHub-Bridging-Header.h */,
+				68459ECE20D225F400CB2176 /* ProgressHUD.m */,
 				68379C7D20D21D870079FD56 /* GoogleService-Info.plist */,
 				68379C7620D219A60079FD56 /* Info.plist */,
-				68459ECD20D225F400CB2176 /* ProgressHUD.bundle */,
-				68459ECF20D225F500CB2176 /* ProgressHUD.h */,
-				68459ECE20D225F400CB2176 /* ProgressHUD.m */,
+				6815FCB221552B7E00E26732 /* Config.swift */,
+				684CF32820DB334E0009357B /* API */,
+				688E3CE820D6C4EA0032B35F /* Controllers */,
+				6875AFB121EEB920008F3E95 /* Datastores */,
+				688C0B312205FD84001F7B25 /* Extensions */,
+				683E75A62331762A009A00B5 /* Library */,
+				688E3CE620D6AF730032B35F /* Models */,
+				688E3CE920D6C5740032B35F /* Services */,
+				688EE25E20CC2FD6007EE071 /* Storyboards */,
 				687562302048EFE000DDD09D /* Supporting Files */,
-				68459ECC20D225F300CB2176 /* RepHub-Bridging-Header.h */,
+				688E3CE720D6C4970032B35F /* Views */,
 			);
 			path = RepHub;
 			sourceTree = "<group>";
@@ -910,7 +936,7 @@
 				68459ED020D225F500CB2176 /* ProgressHUD.bundle in Resources */,
 				6833EE35211A4DD80018DAA2 /* Hydrate.storyboard in Resources */,
 				688EE25D20CC2FBA007EE071 /* Launch.storyboard in Resources */,
-				688EE26F20CC5B5D007EE071 /* Planner.storyboard in Resources */,
+				688EE26F20CC5B5D007EE071 /* Activity.storyboard in Resources */,
 				688EE27120CC5B76007EE071 /* Search.storyboard in Resources */,
 				68B3EC57202FD57800A894CF /* Assets.xcassets in Resources */,
 				688EE27320CC5B7B007EE071 /* Locker.storyboard in Resources */,
@@ -1012,9 +1038,11 @@
 				688F54FA2321D0F800C35BB0 /* DrinkGroupCollectionViewCell.swift in Sources */,
 				685B111820F0FE6800EE2DA4 /* NotificationsTableViewController.swift in Sources */,
 				689CAAA52123793C00BC2975 /* ExerciseTypesTableViewCell.swift in Sources */,
+				683E75AA23338F4D009A00B5 /* CalorieMonitorTableViewCell.swift in Sources */,
 				68261F40220A928C00D3978C /* WeeklyViewCell.swift in Sources */,
 				688E3CDD20D337960032B35F /* FeedTVC.swift in Sources */,
 				6841E5B4212E4E5B00D17B87 /* ExerciseLogsAPI.swift in Sources */,
+				683E75AE23339030009A00B5 /* NoWorkoutTableViewCell.swift in Sources */,
 				689CAAB32123A0F300BC2975 /* Workout.swift in Sources */,
 				689A07F8228F4D3800B7BD07 /* CreateWorkout_ExerciseTypeCollectionViewCell.swift in Sources */,
 				688C0B2C2203CC50001F7B25 /* ImagePickerViewController.swift in Sources */,
@@ -1037,12 +1065,14 @@
 				684CF32C20DB36040009357B /* CommentAPI.swift in Sources */,
 				683480742208D6890024EA66 /* WorkoutTableViewController.swift in Sources */,
 				685FB92F22B2EC0E0046924A /* HydrateStatusTableViewCell.swift in Sources */,
+				683E75B0233390F2009A00B5 /* DailyActivityTableViewCell.swift in Sources */,
 				689A07F0228CD66400B7BD07 /* ExerciseMuscleGroupFilterTableViewCell.swift in Sources */,
 				689A07F6228F478200B7BD07 /* CreateWorkout_ExercisesTableViewController.swift in Sources */,
 				68476FD522C7AF590051D6A1 /* DrinkResultsTableViewController.swift in Sources */,
 				683E759C23300B0D009A00B5 /* ActivityCollectionViewController.swift in Sources */,
 				684CB62A2149EE9D0065EB5F /* WorkoutLogsAPI.swift in Sources */,
 				689A07FA228F529000B7BD07 /* CreateWorkout_ExerciseTableViewCell.swift in Sources */,
+				683E75AC23338FD5009A00B5 /* CalorieTrackerTableViewCell.swift in Sources */,
 				6815848620EF0272007CE53A /* HashTagViewController.swift in Sources */,
 				683E75A223300CDD009A00B5 /* LifeDataCollectionViewCell.swift in Sources */,
 				688E3CE520D6AF690032B35F /* RepHubUser.swift in Sources */,
@@ -1122,6 +1152,7 @@
 				68C1DEC321E40D3D005048C6 /* SidePanelViewController.swift in Sources */,
 				686F38E920ED425400502636 /* FilterCollectionViewCell.swift in Sources */,
 				68AF9ECA20E1A47300EA8D36 /* FollowAPI.swift in Sources */,
+				683E75A523317620009A00B5 /* LifeRingChart.swift in Sources */,
 				685B111C20F102C000EE2DA4 /* Notification.swift in Sources */,
 				685C3AE121EB762000DFCF7F /* SavedViewController.swift in Sources */,
 				68F9C0FA2161303D000799C4 /* WorkoutSession.swift in Sources */,
@@ -1151,6 +1182,7 @@
 				68FB234722BC19D000D6153C /* DrinksTableViewController.swift in Sources */,
 				68F9C0F821612CA3000799C4 /* WorkoutStore.swift in Sources */,
 				68FB234922BC21B800D6153C /* DrinkTableViewController.swift in Sources */,
+				683E75A823338CE1009A00B5 /* ExerciseActivityTableViewController.swift in Sources */,
 				684A28D121270ADE00F00CA8 /* CreateWorkoutViewController.swift in Sources */,
 				68D08D8821095C2000912F70 /* HydrateDailies.swift in Sources */,
 			);

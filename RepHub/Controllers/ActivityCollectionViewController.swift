@@ -31,10 +31,10 @@ class ActivityCollectionViewController: UICollectionViewController {
     
     private func loadLifeData(){
         
-        self.mindData = LifeData(value: lifeValues[3], target: lifeTargets[3], color: lifeColors[3], data: LifeTypes.mind, icon: UIImage(named:lifeLabels[3])!)
-        self.exerciseData = LifeData(value: lifeValues[0], target: lifeTargets[0], color: lifeColors[0], data: LifeTypes.exercise, icon: UIImage(named:lifeLabels[0])!)
-        self.eatData = LifeData(value: lifeValues[2], target: lifeTargets[2], color: lifeColors[2], data: LifeTypes.eat, icon: UIImage(named:lifeLabels[2])!)
-        self.waterData = LifeData(value: lifeValues[1], target: lifeTargets[1], color: lifeColors[1], data: LifeTypes.water, icon: UIImage(named:lifeLabels[1])!)
+        self.mindData = LifeData(value: lifeValues[3], target: lifeTargets[3], color: lifeColors[3], data: LifeTypes.mind, icon: UIImage(named:lifeLabels[3])!, label: LifeTypes.mind.rawValue)
+        self.exerciseData = LifeData(value: lifeValues[0], target: lifeTargets[0], color: lifeColors[0], data: LifeTypes.exercise, icon: UIImage(named:lifeLabels[0])!, label: LifeTypes.exercise.rawValue)
+        self.eatData = LifeData(value: lifeValues[2], target: lifeTargets[2], color: lifeColors[2], data: LifeTypes.eat, icon: UIImage(named:lifeLabels[2])!, label: LifeTypes.eat.rawValue)
+        self.waterData = LifeData(value: lifeValues[1], target: lifeTargets[1], color: lifeColors[1], data: LifeTypes.water, icon: UIImage(named:lifeLabels[1])!, label: LifeTypes.water.rawValue)
         
         self.lifeData = [self.mindData!,self.exerciseData!, self.eatData!, self.waterData!]
         
@@ -66,6 +66,7 @@ class ActivityCollectionViewController: UICollectionViewController {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeRing", for: indexPath) as! LifeRingCollectionViewCell
             cell.lifeData = self.lifeData![indexPath.row]
+            cell.delegate = self
 
             return cell
         } else {
@@ -76,6 +77,8 @@ class ActivityCollectionViewController: UICollectionViewController {
         }
         
     }
+    
+
 
     // MARK: UICollectionViewDelegate
 
@@ -139,5 +142,15 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
+    
+}
+
+extension ActivityCollectionViewController : LifeRingDelegate {
+    func segue(identifier: String) {
+        self.performSegue(withIdentifier: identifier, sender: nil)
+    }
+    
+    
+    
     
 }

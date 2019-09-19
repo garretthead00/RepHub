@@ -42,7 +42,7 @@ struct LifeData {
         
     }
     
-    init(value: Double, target: Double, color: UIColor, data: LifeTypes, icon: UIImage) {
+    init(value: Double, target: Double, color: UIColor, data: LifeTypes, icon: UIImage, label: String) {
         self.value = value
         self.target = target
         self.remainingFromTarget = target - value
@@ -50,7 +50,7 @@ struct LifeData {
         self.color = color
         self.data = data
         self.icon = icon
-        //self.label =
+        self.label = label
         
     }
     

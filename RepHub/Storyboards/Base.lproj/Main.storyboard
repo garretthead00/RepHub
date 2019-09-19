@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,10 +30,10 @@
             </objects>
             <point key="canvasLocation" x="-3748" y="-555"/>
         </scene>
-        <!--NavigationPlanner-->
+        <!--NavigationActivity-->
         <scene sceneID="BWf-rt-MiF">
             <objects>
-                <viewControllerPlaceholder storyboardName="Planner" referencedIdentifier="NavigationPlanner" id="uE1-kB-u4E" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Activity" referencedIdentifier="NavigationActivity" id="uE1-kB-u4E" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="i0S-JY-rGS"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCQ-cN-LgM" userLabel="First Responder" sceneMemberID="firstResponder"/>

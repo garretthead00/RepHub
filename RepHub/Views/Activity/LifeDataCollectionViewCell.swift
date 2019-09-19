@@ -24,15 +24,18 @@ class LifeDataCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.valueLabel.text = "..."
         //self.layer.borderColor = UIColor.red.cgColor
-        self.layer.borderWidth = 1
+        self.layer.borderWidth = 2
         self.layer.cornerRadius = 8
     }
     
     
     private func updateView(){
           print("printing life data")
-        self.layer.backgroundColor = self.lifeData?.color?.withAlphaComponent(0.5).cgColor
+        //self.layer.backgroundColor = self.lifeData?.color?.withAlphaComponent(0.5).cgColor
+        self.layer.borderColor = self.lifeData?.color?.withAlphaComponent(0.5).cgColor
+        self.titleLabel.textColor = self.lifeData?.color
+        self.valueLabel.textColor = self.lifeData?.color
         self.titleLabel.text = self.lifeData?.label
-        self.valueLabel.text = "\(self.lifeData?.value)/\(self.lifeData?.target) ..."
+        self.valueLabel.text = "\(self.lifeData!.value)/\(self.lifeData!.target) ..."
     }
 }
