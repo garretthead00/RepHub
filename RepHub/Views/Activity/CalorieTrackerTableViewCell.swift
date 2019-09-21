@@ -68,6 +68,7 @@ class CalorieTrackerTableViewCell: UITableViewCell {
         chartDataSet.drawValuesEnabled = false
         chartDataSet.valueColors = [UIColor.Theme.salmon]
         chartDataSet.colors = [UIColor.Theme.salmon]
+        chartDataSet.axisDependency = .left
         self.barChart.data = chartData        
         
     }

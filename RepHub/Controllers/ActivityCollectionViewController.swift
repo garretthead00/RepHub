@@ -11,13 +11,9 @@ import UIKit
 
 class ActivityCollectionViewController: UICollectionViewController {
 
-    var mindData : LifeData?
-    var exerciseData : LifeData?
-    var eatData : LifeData?
-    var waterData : LifeData?
-    
-    var lifeData : [LifeData]? {
+    var activity : [Activity]? {
         didSet {
+            print("got activity")
             self.collectionView.reloadData()
         }
     }
@@ -26,19 +22,17 @@ class ActivityCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         print("ActivityCtrl ViewDidLoad")
         super.viewDidLoad()
-        self.loadLifeData()
+        self.loadActivity()
     }
     
-    private func loadLifeData(){
-        
-        self.mindData = LifeData(value: lifeValues[3], target: lifeTargets[3], color: lifeColors[3], data: LifeTypes.mind, icon: UIImage(named:lifeLabels[3])!, label: LifeTypes.mind.rawValue)
-        self.exerciseData = LifeData(value: lifeValues[0], target: lifeTargets[0], color: lifeColors[0], data: LifeTypes.exercise, icon: UIImage(named:lifeLabels[0])!, label: LifeTypes.exercise.rawValue)
-        self.eatData = LifeData(value: lifeValues[2], target: lifeTargets[2], color: lifeColors[2], data: LifeTypes.eat, icon: UIImage(named:lifeLabels[2])!, label: LifeTypes.eat.rawValue)
-        self.waterData = LifeData(value: lifeValues[1], target: lifeTargets[1], color: lifeColors[1], data: LifeTypes.water, icon: UIImage(named:lifeLabels[1])!, label: LifeTypes.water.rawValue)
-        
-        self.lifeData = [self.mindData!,self.exerciseData!, self.eatData!, self.waterData!]
-        
+    private func loadActivity(){
+        let mind = Activity.mind(MindActivityData(dailyTotal: 23.0, target: 30))
+        let exercise = Activity.exercise(ExerciseActivityData(dailyTotal: 532.0, target: 720.0))
+        let eat = Activity.eat(EatActivityData(dailyTotal: 757.0, target: 1750.0))
+        let hydrate = Activity.hydrate(HydrateActivityData(dailyTotal: 54.0, target: 64.0))
+        self.activity = [mind, exercise, eat, hydrate]
     }
+
 
     /*
     // MARK: - Navigation
@@ -53,63 +47,30 @@ class ActivityCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 2
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return self.activity!.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let activityData : ActivityData? = ActivityData(activity: self.activity![indexPath.row])
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeRing", for: indexPath) as! LifeRingCollectionViewCell
-            cell.lifeData = self.lifeData![indexPath.row]
+            cell.activityData = activityData
             cell.delegate = self
 
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeData", for: indexPath) as! LifeDataCollectionViewCell
-            cell.lifeData = self.lifeData![indexPath.row]
-
+            cell.activityData = activityData
             return cell
         }
         
     }
-    
-
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }
 

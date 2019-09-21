@@ -13,7 +13,7 @@ class DailyActivityTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var dataSet : ExerciseActivityData? {
+    var dataSet : ActivityData? {
         didSet {
             self.updateView()
         }
@@ -33,11 +33,11 @@ class DailyActivityTableViewCell: UITableViewCell {
     
     private func updateView(){
         if let dataSet = self.dataSet {
-            self.titleLabel.text = dataSet.title
+            self.titleLabel.text = dataSet.label
             if dataSet.unit != nil {
-                self.valueLabel.text = "\(Int(dataSet.value)) \(dataSet.unit!)"
+                self.valueLabel.text = "\(Int(dataSet.dailyTotal)) \(dataSet.unit!)"
             } else {
-                self.valueLabel.text = "\(Int(dataSet.value))"
+                self.valueLabel.text = "\(Int(dataSet.dailyTotal))"
             }
             
         }

@@ -179,6 +179,8 @@
 		68A54EF2229999D2001AE006 /* CreateWorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A54EF1229999D2001AE006 /* CreateWorkoutTableViewController.swift */; };
 		68AADC9D22C7E2EE007AFDCC /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68AADC9C22C7E2EE007AFDCC /* Charts.framework */; };
 		68AD90CE206AC8C500BC6D97 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AD90CD206AC8C500BC6D97 /* ExerciseType.swift */; };
+		68AE61ED2336612D005A0456 /* EatActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE61EC2336612D005A0456 /* EatActivityTableViewController.swift */; };
+		68AE61EF233664C2005A0456 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE61EE233664C2005A0456 /* ActivityData.swift */; };
 		68AF9ECA20E1A47300EA8D36 /* FollowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AF9EC920E1A47300EA8D36 /* FollowAPI.swift */; };
 		68AF9ECC20E31D8B00EA8D36 /* FeedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AF9ECB20E31D8B00EA8D36 /* FeedAPI.swift */; };
 		68B3EC4E202FD57800A894CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B3EC4D202FD57800A894CF /* AppDelegate.swift */; };
@@ -397,6 +399,8 @@
 		68A54EF1229999D2001AE006 /* CreateWorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutTableViewController.swift; sourceTree = "<group>"; };
 		68AADC9C22C7E2EE007AFDCC /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68AD90CD206AC8C500BC6D97 /* ExerciseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseType.swift; sourceTree = "<group>"; };
+		68AE61EC2336612D005A0456 /* EatActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatActivityTableViewController.swift; sourceTree = "<group>"; };
+		68AE61EE233664C2005A0456 /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityData.swift; sourceTree = "<group>"; };
 		68AF9EC920E1A47300EA8D36 /* FollowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowAPI.swift; sourceTree = "<group>"; };
 		68AF9ECB20E31D8B00EA8D36 /* FeedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAPI.swift; sourceTree = "<group>"; };
 		68B3EC4A202FD57800A894CF /* RepHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -648,6 +652,7 @@
 		688E3CE620D6AF730032B35F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				68AE61EE233664C2005A0456 /* ActivityData.swift */,
 				68F9C0FB216131E6000799C4 /* ActiveWorkout.swift */,
 				6885873D20D9CD4100DAC4A3 /* Comment.swift */,
 				683E759D23300BC1009A00B5 /* LifeData.swift */,
@@ -732,6 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				683E75A723338CE1009A00B5 /* ExerciseActivityTableViewController.swift */,
+				68AE61EC2336612D005A0456 /* EatActivityTableViewController.swift */,
 				683E759B23300B0D009A00B5 /* ActivityCollectionViewController.swift */,
 				68261F3D220A8F4C00D3978C /* ActivityTableViewController.swift */,
 				6815FCBC2155D22100E26732 /* BioTableViewController.swift */,
@@ -1091,6 +1097,7 @@
 				681B3B1E230E22140064CE39 /* EatMealsTableViewCell.swift in Sources */,
 				68B3EC52202FD57800A894CF /* LockerViewController.swift in Sources */,
 				689A07F4228F38F100B7BD07 /* CreateWorkout_ExerciseTypesCollectionViewController.swift in Sources */,
+				68AE61EF233664C2005A0456 /* ActivityData.swift in Sources */,
 				68AD90CE206AC8C500BC6D97 /* ExerciseType.swift in Sources */,
 				688EE25920CB44CB007EE071 /* LoginViewController.swift in Sources */,
 				6849860A20E71B1B00853A39 /* UserLockerViewController.swift in Sources */,
@@ -1145,6 +1152,7 @@
 				68A54EEA229302F1001AE006 /* Workout_ExerciseTableViewCell.swift in Sources */,
 				6854021A22622C4F0020396A /* ExerciseTypesCollectionViewController.swift in Sources */,
 				689CAAB12123A07B00BC2975 /* WorkoutAPI.swift in Sources */,
+				68AE61ED2336612D005A0456 /* EatActivityTableViewController.swift in Sources */,
 				685C3ADF21EB6FE700DFCF7F /* FollowingViewController.swift in Sources */,
 				683480702208C4710024EA66 /* ExeriseTargetSetCollectionViewCell.swift in Sources */,
 				684A28E1212747BC00F00CA8 /* WorkoutDetailsTableViewCell.swift in Sources */,
@@ -1262,7 +1270,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_OUTPUT_FORMAT = binary;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1317,7 +1325,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_OUTPUT_FORMAT = binary;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1336,7 +1344,7 @@
 				DEVELOPMENT_TEAM = WVLJ6K5F9U;
 				INFOPLIST_FILE = RepHub/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1360,7 +1368,7 @@
 				DEVELOPMENT_TEAM = WVLJ6K5F9U;
 				INFOPLIST_FILE = RepHub/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

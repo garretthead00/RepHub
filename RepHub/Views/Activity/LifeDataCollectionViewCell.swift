@@ -13,29 +13,26 @@ class LifeDataCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var lifeData : LifeData? {
+
+    var activityData : ActivityData?{
         didSet {
             self.updateView()
         }
     }
-    
     override func awakeFromNib() {
-        print("lifeDataAwake")
         self.titleLabel.text = ""
         self.valueLabel.text = "..."
-        //self.layer.borderColor = UIColor.red.cgColor
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 8
     }
+
     
     
     private func updateView(){
-          print("printing life data")
-        //self.layer.backgroundColor = self.lifeData?.color?.withAlphaComponent(0.5).cgColor
-        self.layer.borderColor = self.lifeData?.color?.withAlphaComponent(0.5).cgColor
-        self.titleLabel.textColor = self.lifeData?.color
-        self.valueLabel.textColor = self.lifeData?.color
-        self.titleLabel.text = self.lifeData?.label
-        self.valueLabel.text = "\(self.lifeData!.value)/\(self.lifeData!.target) ..."
+        self.layer.borderColor = self.activityData?.color.withAlphaComponent(0.5).cgColor
+        self.titleLabel.textColor = self.activityData?.color
+        self.valueLabel.textColor = self.activityData?.color
+        self.titleLabel.text = self.activityData?.label
+        self.valueLabel.text = "\(self.activityData!.dailyTotal)/\(self.activityData!.target) ..."
     }
 }
