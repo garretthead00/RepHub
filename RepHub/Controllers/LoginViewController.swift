@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         let defaults = UserDefaults.standard
         let hasViewedWalkthrough = defaults.bool(forKey: "hasViewedWalkthrough")
         if !hasViewedWalkthrough {
