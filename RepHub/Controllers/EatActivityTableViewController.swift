@@ -20,6 +20,11 @@ class EatActivityTableViewController: UITableViewController {
     var dailyActivity : [ActivityData] = []
     
     
+    var activityData : ActivityData? {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
