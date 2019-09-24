@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// MARK: - Global Theme
 extension UIColor {
     struct Theme {
         //rgb(255, 114, 110);
@@ -23,6 +25,16 @@ extension UIColor {
 
 }
 
+extension UIImage {
+    struct Theme {
+
+    }
+}
+
+
+
+
+//  MARK: - Activity Theme
 extension UIColor.Theme {
     struct Activity {
         static var mind : UIColor { return UIColor(red: 215.0/255.0, green: 131.0/255.0, blue: 255.0/255.0, alpha: 1.0) }
@@ -32,3 +44,13 @@ extension UIColor.Theme {
     }
 }
 
+
+
+extension UIImage.Theme {
+    struct Activity {
+        static var mind : UIImage { return UIImage(named: ActivityName.mind.rawValue)!}
+        static var exercise : UIImage { return UIImage(named: ActivityName.exercise.rawValue)!}
+        static var eat : UIImage { return UIImage(named: ActivityName.eat.rawValue)!}
+        static var hydrate : UIImage { return UIImage(named: ActivityName.hydrate.rawValue)!}
+    }
+}

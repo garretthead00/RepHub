@@ -14,33 +14,11 @@ class CalorieTrackerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var barChart: BarChartView!
     
-    var calorieDataEntries = [
-        BarChartDataEntry(x: 0.0, y: 0.0),
-        BarChartDataEntry(x: 1.0, y: 0.0),
-        BarChartDataEntry(x: 2.0, y: 0.0),
-        BarChartDataEntry(x: 3.0, y: 0.0),
-        BarChartDataEntry(x: 4.0, y: 0.0),
-        BarChartDataEntry(x: 5.0, y: 0.0),
-        BarChartDataEntry(x: 6.0, y: 25.0),
-        BarChartDataEntry(x: 7.0, y: 55.0),
-        BarChartDataEntry(x: 8.0, y: 32.0),
-        BarChartDataEntry(x: 9.0, y: 72.0),
-        BarChartDataEntry(x: 10.0, y: 56.0),
-        BarChartDataEntry(x: 11.0, y: 43.0),
-        BarChartDataEntry(x: 12.0, y: 45.0),
-        BarChartDataEntry(x: 13.0, y: 36.0),
-        BarChartDataEntry(x: 14.0, y: 12.0),
-        BarChartDataEntry(x: 15.0, y: 12.0),
-        BarChartDataEntry(x: 16.0, y: 42.0),
-        BarChartDataEntry(x: 17.0, y: 51.0),
-        BarChartDataEntry(x: 18.0, y: 37.0),
-        BarChartDataEntry(x: 19.0, y: 0.0),
-        BarChartDataEntry(x: 20.0, y: 0.0),
-        BarChartDataEntry(x: 21.0, y: 0.0),
-        BarChartDataEntry(x: 22.0, y: 0.0),
-        BarChartDataEntry(x: 23.0, y: 0.0),
-        BarChartDataEntry(x: 24.0, y: 0.0)
-    ]
+    var activity : Activity? {
+        didSet {
+            self.setChartData()
+        }
+    }
     
     var calorieData : [BarChartDataEntry]? {
         didSet {
@@ -52,7 +30,7 @@ class CalorieTrackerTableViewCell: UITableViewCell {
         super.awakeFromNib()
         print("calorie tracker awake")
         self.setupChart()
-        self.calorieData = self.calorieDataEntries
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -61,13 +39,24 @@ class CalorieTrackerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    private func setChartData() {
+        var data : [BarChartDataEntry] = []
+        for (index, element) in self.activity!.logs!.enumerated(){
+            let x = Double(index)
+            let entry = BarChartDataEntry(x: x, y: element)
+            data.append(entry)
+        }
+        self.calorieData = data
+        
+    }
+    
     private func updateView(){
         
-        let chartDataSet = BarChartDataSet(entries: self.calorieDataEntries, label: nil)
+        let chartDataSet = BarChartDataSet(entries: self.calorieData, label: nil)
         let chartData = BarChartData(dataSet: chartDataSet)
         chartDataSet.drawValuesEnabled = false
-        chartDataSet.valueColors = [UIColor.Theme.salmon]
-        chartDataSet.colors = [UIColor.Theme.salmon]
+        chartDataSet.valueColors = [self.activity!.color!]
+        chartDataSet.colors = [self.activity!.color!]
         chartDataSet.axisDependency = .left
         self.barChart.data = chartData        
         

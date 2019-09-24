@@ -9,78 +9,6 @@
 import Foundation
 
 
-struct ActivityData {
-    var label : String
-    var dailyTotal : Double
-    var target : Double
-    var unit : String?
-    var icon : UIImage
-    var color : UIColor
-    var activityType : Activity?
-    var percentComplete : Double? {
-        return dailyTotal / target * 100
-    }
-    var percentRemaining : Double? {
-        if let complete = self.percentComplete {
-            let remaining = 100 - complete
-            return remaining <= 0.0 ? 0.0 : remaining
-        }
-        return 0.0
-    }
-    
-    init(label: String, dailyTotal : Double, target: Double, icon: UIImage, color: UIColor){
-        self.label = label
-        self.dailyTotal = dailyTotal
-        self.target = target
-        self.icon = icon
-        self.color = color
-        
-    }
-    init(label: String, dailyTotal : Double, target: Double, icon: UIImage, color: UIColor, unit: String) {
-        self.label = label
-        self.dailyTotal = dailyTotal
-        self.target = target
-        self.icon = icon
-        self.color = color
-        self.unit = unit
-    }
-    
-    init(activity: Activity){
-        switch activity {
-            case .mind(let mind):
-                self.label = mind.label
-                self.dailyTotal = mind.dailyTotal
-                self.target = mind.target
-                self.icon = mind.icon
-                self.color = mind.color
-                self.activityType = activity
-            case .exercise(let exercise):
-                self.label = exercise.label
-                self.dailyTotal = exercise.dailyTotal
-                self.target = exercise.target
-                self.icon = exercise.icon
-                self.color = exercise.color
-                self.activityType = activity
-            case .eat(let eat):
-                self.label = eat.label
-                self.dailyTotal = eat.dailyTotal
-                self.target = eat.target
-                self.icon = eat.icon
-                self.color = eat.color
-                self.activityType = activity
-            case .hydrate(let hydrate):
-                self.label = hydrate.label
-                self.dailyTotal = hydrate.dailyTotal
-                self.target = hydrate.target
-                self.icon = hydrate.icon
-                self.color = hydrate.color
-                self.activityType = activity
-        }
-        
-        
-    }
-}
-
 enum ActivityName : String {
     case mind = "Mind"
     case exercise = "Exercise"
@@ -135,6 +63,59 @@ enum Activity {
         }
     }
     
+    var logs : [Double]? {
+        switch self {
+            case .mind(let mind):
+                return mind.logs
+            case .exercise(let exercise):
+                 return exercise.logs
+            case .eat(let eat):
+                return eat.logs
+            case .hydrate(let hydrate):
+                return hydrate.logs
+        }
+    }
+    
+    var dailyTotal : Double? {
+        switch self {
+            case .mind(let mind):
+                return mind.dailyTotal
+            case .exercise(let exercise):
+                 return exercise.dailyTotal
+            case .eat(let eat):
+                return eat.dailyTotal
+            case .hydrate(let hydrate):
+                return hydrate.dailyTotal
+        }
+    }
+    
+    var target : Double? {
+        switch self {
+            case .mind(let mind):
+                return mind.target
+            case .exercise(let exercise):
+                 return exercise.target
+            case .eat(let eat):
+                return eat.target
+            case .hydrate(let hydrate):
+                return hydrate.target
+        }
+    }
+    
+    var unit : String? {
+        switch self {
+            case .mind(let mind):
+                return mind.unit
+            case .exercise(let exercise):
+                 return exercise.unit
+            case .eat(let eat):
+                return eat.unit
+            case .hydrate(let hydrate):
+                return hydrate.unit
+        }
+    }
+
+    
     var percentComplete : Double? {
         switch self {
             case .mind(let mind):
@@ -184,22 +165,12 @@ enum Activity {
 }
 
 
+
 struct MindActivityData {
-    var label : String = "Mind"
     var dailyTotal : Double
     var target : Double
     var unit : String = "minute"
     var engUnit : UnitDuration = .minutes
-    var icon : UIImage = UIImage(named: "Mind")!
-    var color : UIColor = UIColor.Theme.lavender
-
-    
-    init(dailyTotal: Double, target : Double){
-        self.dailyTotal = dailyTotal
-        self.target = target
-        self.logs = []
-    }
-    
     var logs : [Double]?
     init(logs : [Double]) {
         self.target = 30.0
@@ -208,81 +179,43 @@ struct MindActivityData {
     }
 }
 
-
-
 struct ExerciseActivityData {
-    var label : String = "Exercise"
     var dailyTotal : Double
     var target : Double
     var unit : String = "Calories"
     var engUnit : UnitEnergy = .calories
-    var icon : UIImage = UIImage(named: "Exercise")!
-    var color : UIColor = UIColor.Theme.salmon
-    
-    init(dailyTotal: Double, target : Double){
-        self.dailyTotal = dailyTotal
-        self.target = target
-        self.logs = []
-    }
-    
     var logs : [Double]?
     init(logs : [Double]) {
         self.target = 730.0
         self.logs = logs
         self.dailyTotal = logs.reduce(0, +)
     }
-    
 }
 
 struct EatActivityData {
-    var label : String = "Eat"
     var dailyTotal : Double
     var target : Double
     var unit : String = "Calories"
     var engUnit : UnitEnergy = .calories
-    var icon : UIImage = UIImage(named: "Eat")!
-    var color : UIColor = UIColor.Theme.seaFoam
-
-    
-    init(dailyTotal: Double, target : Double){
-        self.dailyTotal = dailyTotal
-        self.target = target
-        self.logs = []
-    }
-    
     var logs : [Double]?
     init(logs : [Double]) {
         self.target = 2000.0
         self.logs = logs
         self.dailyTotal = logs.reduce(0, +)
     }
-    
-    
 }
 
 struct HydrateActivityData {
-    var label : String = "Hydrate"
     var dailyTotal : Double
     var target : Double
     var unit : String = "oz"
     var engUnit : UnitVolume = .fluidOunces
-    var icon : UIImage = UIImage(named: "Hydrate")!
-    var color : UIColor = UIColor.Theme.aqua
-
-    
-    init(dailyTotal: Double, target : Double){
-        self.dailyTotal = dailyTotal
-        self.target = target
-        self.logs = []
-    }
-    
     var logs : [Double]?
     init(logs : [Double]) {
         self.target = 64.0
         self.logs = logs
         self.dailyTotal = logs.reduce(0, +)
     }
-    
 }
 
 

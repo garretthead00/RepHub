@@ -23,26 +23,13 @@ class LifeRingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lifeDataLabel: UILabel!
     
     var delegate : LifeRingDelegate?
-
-    
-    var activityData : ActivityData?{
-        didSet {
-            self.updateView()
-        }
-    }
     
     var activity : Activity? {
         didSet {
             self.updateView()
         }
     }
-    
-    var percentComplete : Double?
-    var percentRemaining : Double?
-    var label : String?
-    var icon : UIImage?
-    var color : UIColor?
-    
+
     override func awakeFromNib() {
         print("lifeRignAwake")
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(iconTapped))
@@ -53,40 +40,10 @@ class LifeRingCollectionViewCell: UICollectionViewCell {
 
     
     private func updateView(){
-        
-        print("activity!!! \(self.activity!.label!)")
-        
-        
-        switch self.activity {
-            case .mind(let mind):
-                self.icon = mind.icon
-                self.color = mind.color
-                self.label = mind.label
-            case .exercise(let exercise):
-                self.icon = exercise.icon
-                self.color = exercise.color
-                self.label = exercise.label
-            case .eat(let eat):
-                self.icon = eat.icon
-                self.color = eat.color
-                self.label = eat.label
-            case .hydrate(let hydrate):
-                self.icon = hydrate.icon
-                self.color = hydrate.color
-                self.label = hydrate.label
-            default:
-                self.icon = nil
-                self.color = nil
-                self.label = ""
-        }
-        
-        
-        
-        
 
-        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete!, icon: nil, data: self.label!)
-        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining!, icon: nil, data: self.label!)
-        let colors = [self.color!,self.color!.withAlphaComponent(0.5)]
+        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete!, icon: nil, data: self.activity!.label!)
+        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining!, icon: nil, data: self.activity!.label!)
+        let colors = [self.activity!.color!,self.activity!.color!.withAlphaComponent(0.5)]
         let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
         chartDataSet.sliceSpace = 4.0
         chartDataSet.xValuePosition = .insideSlice
@@ -99,24 +56,22 @@ class LifeRingCollectionViewCell: UICollectionViewCell {
         chartDataSet.colors = colors
         chartDataSet.selectionShift = 0
         let chartData = PieChartData(dataSet: chartDataSet)
-
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.init(name: "Damascus", size: 24.0)!,
-            .foregroundColor: self.color!,
-        ]
-        let str = Int(self.activity!.percentComplete!)
-        let myAttrString = NSAttributedString(string: "\(str)%", attributes: attributes)
-        //self.pieChart.centerAttributedText = myAttrString
-        self.lifeDataLabel.textColor = self.color!
+//        let attributes: [NSAttributedString.Key: Any] = [
+//            .font: UIFont.init(name: "Damascus", size: 24.0)!,
+//            .foregroundColor: self.activity!.color!,
+//        ]
+//        let str = Int(self.activity!.percentComplete!)
+//        let myAttrString = NSAttributedString(string: "\(str)%", attributes: attributes)
+//        self.pieChart.centerAttributedText = myAttrString
+        self.lifeDataLabel.textColor = self.activity!.color!
         self.lifeDataLabel.text = "\(Int(self.activity!.percentComplete!))%"
-        self.iconImageView.image = self.icon!
+        self.iconImageView.image = self.activity!.icon!
         self.pieChart.data = chartData
         
     }
     
     @objc func iconTapped(){
-        delegate?.segue(identifier: self.label!)
+        delegate?.segue(identifier: self.activity!.label!)
     }
     
     
@@ -146,7 +101,7 @@ extension LifeRingCollectionViewCell {
 
 extension LifeRingCollectionViewCell : ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        delegate?.segue(identifier: self.label!)
+        delegate?.segue(identifier: self.activity!.label!)
     }
 }
 

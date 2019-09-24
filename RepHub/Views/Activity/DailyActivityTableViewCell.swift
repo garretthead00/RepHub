@@ -13,11 +13,18 @@ class DailyActivityTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var dataSet : ActivityData? {
+//    var dataSet : ActivityData? {
+//        didSet {
+//            self.updateView()
+//        }
+//    }
+
+    var activity : Activity? {
         didSet {
             self.updateView()
         }
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,15 +39,14 @@ class DailyActivityTableViewCell: UITableViewCell {
 
     
     private func updateView(){
-        if let dataSet = self.dataSet {
-            self.titleLabel.text = dataSet.label
-            if dataSet.unit != nil {
-                self.valueLabel.text = "\(Int(dataSet.dailyTotal)) \(dataSet.unit!)"
-            } else {
-                self.valueLabel.text = "\(Int(dataSet.dailyTotal))"
-            }
-            
+        
+        self.titleLabel.text = self.activity!.label
+        if self.activity!.unit != nil {
+            self.valueLabel.text = "\(Int(self.activity!.dailyTotal!)) \(self.activity!.unit!)"
+        } else {
+            self.valueLabel.text = "\(Int(self.activity!.dailyTotal!))"
         }
+        
         
     }
 }

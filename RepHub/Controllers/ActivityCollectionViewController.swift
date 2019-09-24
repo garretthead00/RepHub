@@ -27,11 +27,6 @@ class ActivityCollectionViewController: UICollectionViewController {
         }
     }
     
-    var activityData : [ActivityData]? {
-        didSet {
-            self.collectionView.reloadData()
-        }
-    }
     
     
     override func viewDidLoad() {
@@ -40,15 +35,10 @@ class ActivityCollectionViewController: UICollectionViewController {
     }
     
     private func loadActivity(){
-//        let mind = Activity.mind(MindActivityData(dailyTotal: 23.0, target: 30))
-//        let exercise = Activity.exercise(ExerciseActivityData(dailyTotal: 532.0, target: 720.0))
-//        let eat = Activity.eat(EatActivityData(dailyTotal: 757.0, target: 1750.0))
-//        let hydrate = Activity.hydrate(HydrateActivityData(dailyTotal: 54.0, target: 64.0))
         self.mindActivity = Activity.mind(MindActivityData(logs: self.mealLogs))
         self.exerciseActivity = Activity.exercise(ExerciseActivityData(logs: self.exerciseLogs))
         self.eatActivity = Activity.eat(EatActivityData(logs: self.eatLogs))
         self.hydrateActivity = Activity.hydrate(HydrateActivityData(logs: self.hydrateLogs))
-        //self.activityData = [ActivityData(activity: self.mindActivity!),ActivityData(activity: self.exerciseActivity!),ActivityData(activity: self.eatActivity!),ActivityData(activity: self.hydrateActivity!)]
         self.activities = [self.mindActivity!, self.exerciseActivity!, self.eatActivity!, self.hydrateActivity!]
         
     }
@@ -58,19 +48,16 @@ class ActivityCollectionViewController: UICollectionViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "Mind" {}
-//        else if segue.identifier == "Exercise" {
-//            let vc = segue.destination as! ExerciseActivityTableViewController
-//            vc.activityData = self.activityData!.filter { $0.label == segue.identifier }.first
-//        }
-//        else if segue.identifier == "Eat" {
-//            let vc = segue.destination as! EatActivityTableViewController
-//            vc.activityData = self.activityData!.filter { $0.label == segue.identifier }.first
-//        }
-//        else if segue.identifier == "Hyrdate" {
-//            let vc = segue.destination as! ExerciseActivityTableViewController
-//            vc.activityData = self.activityData!.filter { $0.label == segue.identifier }.first
-//        }
+        if segue.identifier == "Mind" {}
+        else if segue.identifier == "Exercise" {
+            let vc = segue.destination as! ExerciseActivityTableViewController
+            vc.activity = self.exerciseActivity
+        }
+        else if segue.identifier == "Eat" {
+            let vc = segue.destination as! EatActivityTableViewController
+            vc.activity = self.eatActivity
+        }
+        else if segue.identifier == "Hyrdate" {}
     }
     
 
@@ -89,14 +76,12 @@ class ActivityCollectionViewController: UICollectionViewController {
         
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeRing", for: indexPath) as! LifeRingCollectionViewCell
-//            cell.activityData = self.activityData![indexPath.row]
             cell.activity = self.activities![indexPath.row]
             cell.delegate = self
 
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeData", for: indexPath) as! LifeDataCollectionViewCell
-            //            cell.activityData = self.activityData![indexPath.row]
             cell.activity = self.activities![indexPath.row]
             return cell
         }
