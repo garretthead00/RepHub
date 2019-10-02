@@ -16,11 +16,81 @@ enum ActivityName : String {
     case hydrate = "Hydrate"
 }
 
+struct MindActivityData {
+    var dailyTotal : Double
+    var target : Double
+    var unit : String = "minute"
+    var engUnit : UnitDuration = .minutes
+    var logs : [Double]?
+    
+    // MARK: - HealthKit Properties
+    var mindfulMinutes : Double? = 0.0
+    
+    
+    var dailyActivities : [(String,Double,String)]? {
+        return nil
+    }
+    
+    // MARK: - Initializers
+    init(logs : [Double]) {
+        self.target = 30.0
+        self.logs = logs
+        self.dailyTotal = logs.reduce(0, +)
+    }
+}
 
+
+
+struct EatActivityData {
+    var dailyTotal : Double
+    var target : Double
+    var unit : String = "Calories"
+    var engUnit : UnitEnergy = .calories
+    var logs : [Double]?
+    
+    
+    var dailyActivities : [(String,Double,String)]? {
+        return nil
+    }
+    
+    // MARK: - Initializers
+    init(logs : [Double]) {
+        self.target = 2000.0
+        self.logs = logs
+        self.dailyTotal = logs.reduce(0, +)
+    }
+}
+
+struct HydrateActivityData {
+    var dailyTotal : Double
+    var target : Double
+    var unit : String = "oz"
+    var engUnit : UnitVolume = .fluidOunces
+    var logs : [Double]?
+    
+    // MARK: - HealthKit Properties
+    var waterDrank : Double? = 0.0
+    var totalSugar : Double? = 0.0
+    var totalCaffeine : Double? = 0.0
+    var totalCaloriesConsumed : Double? = 0.0
+    
+    
+    var dailyActivities : [(String,Double,String)]? {
+        return nil
+    }
+    
+    
+    // MARK: - Initializers
+    init(logs : [Double]) {
+        self.target = 64.0
+        self.logs = logs
+        self.dailyTotal = logs.reduce(0, +)
+    }
+}
 
 enum Activity {
     case mind(MindActivityData)
-    case exercise(ExerciseActivityData)
+    case exercise(ExerciseActivity)
     case eat(EatActivityData)
     case hydrate(HydrateActivityData)
     
@@ -114,6 +184,19 @@ enum Activity {
                 return hydrate.unit
         }
     }
+    
+    var dailyActivities : [(String,Double,String)]? {
+        switch self {
+            case .mind(let mind):
+                return mind.dailyActivities
+            case .exercise(var exercise):
+                 return exercise.dailyActivities
+            case .eat(let eat):
+                return eat.dailyActivities
+            case .hydrate(let hydrate):
+                return hydrate.dailyActivities
+        }
+    }
 
     
     var percentComplete : Double? {
@@ -166,57 +249,7 @@ enum Activity {
 
 
 
-struct MindActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "minute"
-    var engUnit : UnitDuration = .minutes
-    var logs : [Double]?
-    init(logs : [Double]) {
-        self.target = 30.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
 
-struct ExerciseActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "Calories"
-    var engUnit : UnitEnergy = .calories
-    var logs : [Double]?
-    init(logs : [Double]) {
-        self.target = 730.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
-
-struct EatActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "Calories"
-    var engUnit : UnitEnergy = .calories
-    var logs : [Double]?
-    init(logs : [Double]) {
-        self.target = 2000.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
-
-struct HydrateActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "oz"
-    var engUnit : UnitVolume = .fluidOunces
-    var logs : [Double]?
-    init(logs : [Double]) {
-        self.target = 64.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
 
 
 

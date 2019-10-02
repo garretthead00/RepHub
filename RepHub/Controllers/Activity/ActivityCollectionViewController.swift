@@ -27,7 +27,7 @@ class ActivityCollectionViewController: UICollectionViewController {
         }
     }
     
-    
+    var activity : Activity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class ActivityCollectionViewController: UICollectionViewController {
     
     private func loadActivity(){
         self.mindActivity = Activity.mind(MindActivityData(logs: self.mealLogs))
-        self.exerciseActivity = Activity.exercise(ExerciseActivityData(logs: self.exerciseLogs))
+        self.exerciseActivity = Activity.exercise(ExerciseActivity(logs: self.exerciseLogs))
         self.eatActivity = Activity.eat(EatActivityData(logs: self.eatLogs))
         self.hydrateActivity = Activity.hydrate(HydrateActivityData(logs: self.hydrateLogs))
         self.activities = [self.mindActivity!, self.exerciseActivity!, self.eatActivity!, self.hydrateActivity!]
