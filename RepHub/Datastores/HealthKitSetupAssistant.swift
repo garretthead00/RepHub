@@ -113,6 +113,7 @@ class HealthKitSetupAssistant {
             let waistCircumfrence = HKObjectType.quantityType(forIdentifier: .waistCircumference),
             let activeEnergy = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned),
             let steps = HKObjectType.quantityType(forIdentifier: .stepCount),
+            let stand = HKObjectType.quantityType(forIdentifier: .appleStandTime),
             let distance = HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning) else {
             completion(false, HealthkitSetupError.dataTypeNotAvailable)
             return
@@ -136,7 +137,9 @@ class HealthKitSetupAssistant {
                                                        leanBodyMass,
                                                        bodyFatPercentage,
                                                        waistCircumfrence,
+                                                       activeEnergy,
                                                        steps,
+                                                       stand,
                                                        distance,
                                                        HKObjectType.workoutType()]
         

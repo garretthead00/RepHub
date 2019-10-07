@@ -37,7 +37,7 @@ class ExerciseActivityTableViewController: UITableViewController {
         } else if section == 1 {
             return 1
         } else {
-            return self.activity!.dailyActivities!.count
+            return self.activity!.data!.count
         }
         
     }
@@ -69,13 +69,13 @@ class ExerciseActivityTableViewController: UITableViewController {
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DailyActivityView", for: indexPath) as! DailyActivityTableViewCell
                             //cell.activity = self.activity
-                cell.activities = self.activity?.dailyActivities![indexPath.row]
+                cell.activities = self.activity?.data![indexPath.row]
                 return cell
             }
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DailyActivityView", for: indexPath) as! DailyActivityTableViewCell
             //cell.activity = self.activity
-            cell.activities = self.activity?.dailyActivities![indexPath.row]
+            cell.activities = self.activity?.data![indexPath.row]
             return cell
         }
         

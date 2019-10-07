@@ -10,37 +10,105 @@ import UIKit
 
 
 class ActivityCollectionViewController: UICollectionViewController {
+    
+    var energyBurnedPerHour : [Int :Double]? = [
+        0 : 0.0,
+        1 : 0.0,
+        2 : 0.0,
+        3 : 0.0,
+        4 : 0.0,
+        5 : 684.2,
+        6 : 906.1,
+        7 : 677.6,
+        8 : 276.6,
+        9 : 574.6,
+        10 : 433.9,
+        11 : 31.8,
+        12 : 659.2,
+        13 : 135.8,
+        14 : 436.4,
+        15 : 278.9,
+        16 : 707.6,
+        17 : 904.8,
+        18 : 711.1,
+        19 : 394.9,
+        20 : 695,
+        21 : 491.3,
+        22 : 0.0,
+        23 : 0.0,
+        24 : 0.0,
+    ]
+    var energyConsumedPerHour : [Int :Double]? = [
+        0 : 0.0,
+        1 : 0.0,
+        2 : 0.0,
+        3 : 0.0,
+        4 : 0.0,
+        5 : 573.5,
+        6 : 724.3,
+        7 : 604.9,
+        8 : 255.9,
+        9 : 954.6,
+        10 : 297.7,
+        11 : 670.8,
+        12 : 538.6,
+        13 : 987.2,
+        14 : 972.1,
+        15 : 583.1,
+        16 : 689.4,
+        17 : 406.1,
+        18 : 729.3,
+        19 : 764.6,
+        20 : 91.6,
+        21 : 517,
+        22 : 0.0,
+        23 : 0.0,
+        24 : 0.0,
+    ]
+    
+    var activities : [Activity] = [
+        Activity.mind(MindActivity()),
+        Activity.exercise(ExerciseActivity()),
+        Activity.eat(EatActivity()),
+        Activity.hydrate(HydrateActivity())
+    ]
+    
 
-    let mealLogs = [0.0,0.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
-    let exerciseLogs = [0.0,0.0,0.0,0.0,0.0,0.0,56.0,23.0,43.0,42.0,36.0,123.0,154.0,34.0,10.0,15.0,23.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
-    let eatLogs = [0.0,0.0,0.0,0.0,0.0,0.0,123.0,0.0,0.0,42.0,0.0,520.0,154.0,0.0,0.0,0.0,230.0,0.0,684.0,0.0,0.0,0.0,0.0,0.0]
-    let hydrateLogs = [0.0,0.0,0.0,0.0,0.0,0.0,12.0,24.0,0.0,8.0,8.0,0.0,0.0,0.0,12.0,0.0,8.0,16.0,0.0,0.0,0.0,0.0,0.0,0.0]
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.authorizeHealthKit()
+
+    }
     
-    var mindActivity : Activity?
-    var exerciseActivity : Activity?
-    var eatActivity : Activity?
-    var hydrateActivity : Activity?
-    
-    var activities : [Activity]? {
-        didSet {
-            self.collectionView.reloadData()
+    private func authorizeHealthKit() {
+        
+        HealthKitSetupAssistant.authorizeHealthKit {
+            (authorized, error) in
+            
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                return
+            }
+            
+            print("HealthKit Successfully Authorized.")
+            self.reloadActivities()
         }
     }
     
-    var activity : Activity?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.loadActivity()
-    }
-    
-    private func loadActivity(){
-        self.mindActivity = Activity.mind(MindActivityData(logs: self.mealLogs))
-        self.exerciseActivity = Activity.exercise(ExerciseActivity(logs: self.exerciseLogs))
-        self.eatActivity = Activity.eat(EatActivityData(logs: self.eatLogs))
-        self.hydrateActivity = Activity.hydrate(HydrateActivityData(logs: self.hydrateLogs))
-        self.activities = [self.mindActivity!, self.exerciseActivity!, self.eatActivity!, self.hydrateActivity!]
-        
+    private func reloadActivities(){
+        self.activities.removeAll()
+        self.activities = [
+            Activity.mind(MindActivity()),
+            Activity.exercise(ExerciseActivity()),
+            Activity.eat(EatActivity()),
+            Activity.hydrate(HydrateActivity())
+        ]
+        self.collectionView.reloadData()
     }
 
 
@@ -51,57 +119,66 @@ class ActivityCollectionViewController: UICollectionViewController {
         if segue.identifier == "Mind" {}
         else if segue.identifier == "Exercise" {
             let vc = segue.destination as! ExerciseActivityTableViewController
-            vc.activity = self.exerciseActivity
+            for activity in self.activities {
+                if case .exercise = activity {
+                    vc.activity = activity
+                }
+            }
         }
         else if segue.identifier == "Eat" {
             let vc = segue.destination as! EatActivityTableViewController
-            vc.activity = self.eatActivity
+            for activity in self.activities {
+                if case .eat = activity {
+                    vc.activity = activity
+                }
+            }
         }
         else if segue.identifier == "Hyrdate" {}
     }
     
 
     // MARK: UICollectionViewDataSource
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.activities!.count
+        return (section == 0) ? 1 : self.activities.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeRing", for: indexPath) as! LifeRingCollectionViewCell
-            cell.activity = self.activities![indexPath.row]
-            cell.delegate = self
-
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnergyBalanceView", for: indexPath) as! EnergyBalanceCollectionViewCell
+            //cell.activity = self.activities[indexPath.row]
+            cell.message = "Hello!"
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeData", for: indexPath) as! LifeDataCollectionViewCell
-            cell.activity = self.activities![indexPath.row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityView", for: indexPath) as! ActivityCollectionViewCell
+            
+            let act = self.activities[indexPath.row]
+            switch act {
+            case .exercise(let exercise):
+                print("Total Steps Ctrl: \(exercise.totalSteps)")
+                print("Total Steps Ctrl: \(exercise.standMinutes)")
+                break
+            default : break
+                
+            }
+            
+            cell.activity = self.activities[indexPath.row]
             return cell
         }
-        
     }
 
 }
 
 extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if indexPath.section == 0 {
-            let padding: CGFloat =  16
-            let collectionViewSize = self.collectionView.frame.size.width - padding
-            return CGSize(width: collectionViewSize/2, height: 132)
-        } else {
-            let padding: CGFloat =  16
-            let collectionViewSize = self.collectionView.frame.size.width - padding
-            return CGSize(width: collectionViewSize, height: 128)
-        }
+        let padding: CGFloat =  16
+        let collectionViewSize = self.collectionView.frame.size.width - padding
+        return CGSize(width: collectionViewSize, height: 154)
+
         
         
     }
@@ -126,8 +203,5 @@ extension ActivityCollectionViewController : LifeRingDelegate {
     func segue(identifier: String) {
         self.performSegue(withIdentifier: identifier, sender: nil)
     }
-    
-    
-    
     
 }

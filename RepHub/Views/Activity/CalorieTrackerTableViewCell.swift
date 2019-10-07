@@ -40,13 +40,7 @@ class CalorieTrackerTableViewCell: UITableViewCell {
     }
 
     private func setChartData() {
-        var data : [BarChartDataEntry] = []
-        for (index, element) in self.activity!.logs!.enumerated(){
-            let x = Double(index)
-            let entry = BarChartDataEntry(x: x, y: element)
-            data.append(entry)
-        }
-        self.calorieData = data
+//
         
     }
     
@@ -55,8 +49,8 @@ class CalorieTrackerTableViewCell: UITableViewCell {
         let chartDataSet = BarChartDataSet(entries: self.calorieData, label: nil)
         let chartData = BarChartData(dataSet: chartDataSet)
         chartDataSet.drawValuesEnabled = false
-        chartDataSet.valueColors = [self.activity!.color!]
-        chartDataSet.colors = [self.activity!.color!]
+        chartDataSet.valueColors = [self.activity!.color]
+        chartDataSet.colors = [self.activity!.color]
         chartDataSet.axisDependency = .left
         self.barChart.data = chartData        
         

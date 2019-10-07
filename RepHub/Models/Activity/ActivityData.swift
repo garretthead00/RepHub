@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 enum ActivityName : String {
     case mind = "Mind"
@@ -16,85 +16,14 @@ enum ActivityName : String {
     case hydrate = "Hydrate"
 }
 
-struct MindActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "minute"
-    var engUnit : UnitDuration = .minutes
-    var logs : [Double]?
-    
-    // MARK: - HealthKit Properties
-    var mindfulMinutes : Double? = 0.0
-    
-    
-    var dailyActivities : [(String,Double,String)]? {
-        return nil
-    }
-    
-    // MARK: - Initializers
-    init(logs : [Double]) {
-        self.target = 30.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
-
-
-
-struct EatActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "Calories"
-    var engUnit : UnitEnergy = .calories
-    var logs : [Double]?
-    
-    
-    var dailyActivities : [(String,Double,String)]? {
-        return nil
-    }
-    
-    // MARK: - Initializers
-    init(logs : [Double]) {
-        self.target = 2000.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
-
-struct HydrateActivityData {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "oz"
-    var engUnit : UnitVolume = .fluidOunces
-    var logs : [Double]?
-    
-    // MARK: - HealthKit Properties
-    var waterDrank : Double? = 0.0
-    var totalSugar : Double? = 0.0
-    var totalCaffeine : Double? = 0.0
-    var totalCaloriesConsumed : Double? = 0.0
-    
-    
-    var dailyActivities : [(String,Double,String)]? {
-        return nil
-    }
-    
-    
-    // MARK: - Initializers
-    init(logs : [Double]) {
-        self.target = 64.0
-        self.logs = logs
-        self.dailyTotal = logs.reduce(0, +)
-    }
-}
 
 enum Activity {
-    case mind(MindActivityData)
+    case mind(MindActivity)
     case exercise(ExerciseActivity)
-    case eat(EatActivityData)
-    case hydrate(HydrateActivityData)
+    case eat(EatActivity)
+    case hydrate(HydrateActivity)
     
-    var label : String? {
+    var label : String {
         switch self {
         case .mind( _):
             return ActivityName.mind.rawValue
@@ -107,42 +36,29 @@ enum Activity {
         }
     }
     
-    var icon : UIImage? {
+    var icon : UIImage {
         switch self {
-        case .mind( _):
-            return UIImage(named: ActivityName.mind.rawValue)
-        case .exercise( _):
-            return UIImage(named: ActivityName.exercise.rawValue)
-        case .eat( _):
-            return UIImage(named: ActivityName.eat.rawValue)
-        case .hydrate( _):
-            return UIImage(named: ActivityName.hydrate.rawValue)
+        case .mind(let mind):
+            return mind.icon
+        case .exercise(let exercise):
+             return exercise.icon
+        case .eat(let eat):
+            return eat.icon
+        case .hydrate(let hydrate):
+            return hydrate.icon
         }
     }
     
-    var color : UIColor? {
+    var color : UIColor {
         switch self {
-        case .mind( _):
-            return UIColor.Theme.Activity.mind
-        case .exercise( _):
-            return UIColor.Theme.Activity.exercise
-        case .eat( _):
-            return UIColor.Theme.Activity.eat
-        case .hydrate( _):
-            return UIColor.Theme.Activity.hydrate
-        }
-    }
-    
-    var logs : [Double]? {
-        switch self {
-            case .mind(let mind):
-                return mind.logs
-            case .exercise(let exercise):
-                 return exercise.logs
-            case .eat(let eat):
-                return eat.logs
-            case .hydrate(let hydrate):
-                return hydrate.logs
+        case .mind(let mind):
+            return mind.color
+        case .exercise(let exercise):
+             return exercise.color
+        case .eat(let eat):
+            return eat.color
+        case .hydrate(let hydrate):
+            return hydrate.color
         }
     }
     
@@ -185,26 +101,27 @@ enum Activity {
         }
     }
     
-    var dailyActivities : [(String,Double,String)]? {
+    
+    
+    var data : [(String,Double, String)]? {
         switch self {
             case .mind(let mind):
-                return mind.dailyActivities
-            case .exercise(var exercise):
-                 return exercise.dailyActivities
+                return mind.data
+            case .exercise(let exercise):
+                return exercise.data
             case .eat(let eat):
-                return eat.dailyActivities
+                return eat.data
             case .hydrate(let hydrate):
-                return hydrate.dailyActivities
+                return hydrate.data
         }
     }
-
     
     var percentComplete : Double? {
         switch self {
             case .mind(let mind):
                 return mind.dailyTotal / mind.target * 100
             case .exercise(let exercise):
-                 return exercise.dailyTotal / exercise.target * 100
+                return exercise.dailyTotal! / exercise.target * 100
             case .eat(let eat):
                 return eat.dailyTotal / eat.target * 100
             case .hydrate(let hydrate):
@@ -245,6 +162,14 @@ enum Activity {
                 }
         }
     }
+    
+    
+}
+
+
+extension Activity {
+
+
 }
 
 

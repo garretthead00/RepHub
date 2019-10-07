@@ -28,10 +28,21 @@ class LifeDataCollectionViewCell: UICollectionViewCell {
 
 
     private func updateView(){
-        self.layer.borderColor = self.activity!.color!.withAlphaComponent(0.5).cgColor
-        self.titleLabel.textColor = self.activity!.color!
-        self.valueLabel.textColor = self.activity!.color!
-        self.titleLabel.text = self.activity!.label!
-        self.valueLabel.text = "\(self.activity!.dailyTotal!)/\(self.activity!.target!) ..."
+        
+        switch self.activity {
+        case .exercise(let exercise):
+            self.layer.borderColor = self.activity!.color.withAlphaComponent(0.5).cgColor
+            self.titleLabel.textColor = self.activity!.color
+            self.valueLabel.textColor = self.activity!.color
+            self.titleLabel.text = self.activity!.label
+            self.valueLabel.text = "\(self.activity!.dailyTotal!)/\(self.activity!.target!) ... with some steps \(exercise.totalSteps)"
+        default:
+            self.layer.borderColor = self.activity!.color.withAlphaComponent(0.5).cgColor
+            self.titleLabel.textColor = self.activity!.color
+            self.valueLabel.textColor = self.activity!.color
+            self.titleLabel.text = self.activity!.label
+            self.valueLabel.text = "\(self.activity!.dailyTotal!)/\(self.activity!.target!) ..."
+        }
+
     }
 }

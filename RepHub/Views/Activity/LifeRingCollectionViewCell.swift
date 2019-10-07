@@ -41,9 +41,9 @@ class LifeRingCollectionViewCell: UICollectionViewCell {
     
     private func updateView(){
 
-        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete!, icon: nil, data: self.activity!.label!)
-        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining!, icon: nil, data: self.activity!.label!)
-        let colors = [self.activity!.color!,self.activity!.color!.withAlphaComponent(0.5)]
+        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete!, icon: nil, data: self.activity!.label)
+        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining!, icon: nil, data: self.activity!.label)
+        let colors = [self.activity!.color,self.activity!.color.withAlphaComponent(0.5)]
         let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
         chartDataSet.sliceSpace = 4.0
         chartDataSet.xValuePosition = .insideSlice
@@ -63,15 +63,15 @@ class LifeRingCollectionViewCell: UICollectionViewCell {
 //        let str = Int(self.activity!.percentComplete!)
 //        let myAttrString = NSAttributedString(string: "\(str)%", attributes: attributes)
 //        self.pieChart.centerAttributedText = myAttrString
-        self.lifeDataLabel.textColor = self.activity!.color!
-        self.lifeDataLabel.text = "\(Int(self.activity!.percentComplete!))%"
-        self.iconImageView.image = self.activity!.icon!
+        self.lifeDataLabel.textColor = self.activity!.color
+        self.lifeDataLabel.text = "\(Int((self.activity!.percentComplete!)))%"
+        self.iconImageView.image = self.activity!.icon
         self.pieChart.data = chartData
         
     }
     
     @objc func iconTapped(){
-        delegate?.segue(identifier: self.activity!.label!)
+        delegate?.segue(identifier: self.activity!.label)
     }
     
     
@@ -101,7 +101,7 @@ extension LifeRingCollectionViewCell {
 
 extension LifeRingCollectionViewCell : ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        delegate?.segue(identifier: self.activity!.label!)
+        delegate?.segue(identifier: self.activity!.label)
     }
 }
 
