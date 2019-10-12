@@ -167,6 +167,7 @@ class ActivityCollectionViewController: UICollectionViewController {
             }
             
             cell.activity = self.activities[indexPath.row]
+            cell.delegate = self
             return cell
         }
     }
@@ -197,9 +198,15 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
         return 8
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section > 0 {
+            self.performSegue(withIdentifier: self.activities[indexPath.row].label, sender: nil)
+        }
+    }
+    
 }
 
-extension ActivityCollectionViewController : LifeRingDelegate {
+extension ActivityCollectionViewController : ActivityDelegate {
     func segue(identifier: String) {
         self.performSegue(withIdentifier: identifier, sender: nil)
     }

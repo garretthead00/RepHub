@@ -9,6 +9,10 @@
 import UIKit
 import Charts
 
+protocol ActivityDelegate {
+    func segue(identifier: String)
+}
+
 class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,6 +24,8 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var itemTwoValueLabel: UILabel!
     @IBOutlet weak var itemThreeTitleLabel: UILabel!
     @IBOutlet weak var itemThreeValueLabel: UILabel!
+    
+    var delegate : ActivityDelegate?
     
     var activity : Activity? {
         didSet {
@@ -89,6 +95,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         self.progressChartView.data = chartData
         
     }
+    
     
 }
 
