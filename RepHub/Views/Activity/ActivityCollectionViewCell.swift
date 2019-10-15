@@ -57,7 +57,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         print("ActivityCollectionViewCell Hey!")
         self.iconImageView.image = self.activity?.icon
         self.titleLabel.text = self.activity?.label
-        self.progressLabel.text = "\(self.activity!.dailyTotal!) / \(self.activity!.target!) \(self.activity!.unit!)"
+        self.progressLabel.text = "\(self.activity!.dailyTotal) / \(self.activity!.target) \(self.activity!.unit)"
         self.itemOneTitleLabel.text = "steps"
         self.itemTwoTitleLabel.text = "exercise"
         self.itemThreeTitleLabel.text = "stand"
@@ -70,8 +70,8 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         
         
         
-        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete!, icon: nil, data: self.activity!.label)
-        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining!, icon: nil, data: self.activity!.label)
+        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete, icon: nil, data: self.activity!.label)
+        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining, icon: nil, data: self.activity!.label)
         let colors = [self.activity!.color,self.activity!.color.withAlphaComponent(0.5)]
         let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
         chartDataSet.sliceSpace = 4.0

@@ -2,40 +2,97 @@
 //  EatActivity.swift
 //  RepHub
 //
-//  Created by Garrett Head on 10/1/19.
+//  Created by Garrett Head on 10/12/19.
 //  Copyright © 2019 Garrett Head. All rights reserved.
 //
 
 import Foundation
 
-
-struct EatActivity {
-    var dailyTotal : Double
-    var target : Double
-    var unit : String = "Calories"
-    var engUnit : UnitEnergy = .calories
-    var icon : UIImage = UIImage.Theme.Activity.eat
-    var color : UIColor = UIColor.Theme.Activity.eat
+class EatActivity : Activity {
+    var label: String
+    var icon: UIImage
+    var color: UIColor
+    var unit: String
+    var dailyTotal: Double
+    var target: Double
+    var percentComplete: Double
+    var percentRemaining: Double
+    var data: [(String, Double, String)] = []
     
-    var dailyActivities : [(String,Double,String)]? {
-        return nil
-    }
+    // MARK: - HealthKit properties
+    var totalEnergyConsumed : Double?
+    var totalProtein : Double?
+    var totalFat : Double?
+    var totalCarbohydrates : Double?
     
-    var data : [(String,Double, String)] {
-        let thisData : [(String,Double, String)] = []
-        return thisData
-    }
-    
-
-}
-
-// MARK: - Initializers
-extension EatActivity {
     
     init() {
-        self.target = 2000.0
-        self.dailyTotal = 1450.0
+        self.label = "Eat"
+        self.icon = UIImage.Theme.Activity.eat
+        self.color = UIColor.Theme.Activity.eat
+        self.unit = "Calories"
+        self.dailyTotal = 720.0
+        self.target = 1600.0
+        self.percentComplete = self.dailyTotal / self.target * 100
+        self.percentRemaining = 100.0 - self.percentComplete
+        self.getHKSamples()
+        //EatActivityStore.getHourlyEnergyConsumedTotal()
     }
-    
+}
 
+extension EatActivity {
+    
+    private func getHKSamples(){
+        // Energy Consumed
+        EatActivityStore.getTodaysEnergyConsumed(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            self.totalEnergyConsumed = result
+            self.data.append(("Energy Consumed", result, "Calories"))
+        }
+        
+        // Protein
+        EatActivityStore.getTodaysProteinConsumed(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            self.totalProtein = result
+            self.data.append(("Protein", result, "Grams"))
+        }
+        
+        // Fat
+        EatActivityStore.getTodaysFatConsumed(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            self.totalFat = result
+            self.data.append(("Fat", result, "Grams"))
+        }
+        
+        // Carbohydrates
+        EatActivityStore.getTodaysCarbohydratesConsumed(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            self.totalCarbohydrates = result
+            self.data.append(("Carbs", result, "Grams"))
+        }
+    }
 }

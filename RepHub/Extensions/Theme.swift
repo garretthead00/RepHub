@@ -48,9 +48,9 @@ extension UIColor.Theme {
 
 extension UIImage.Theme {
     struct Activity {
-        static var mind : UIImage { return UIImage(named: ActivityName.mind.rawValue)!}
-        static var exercise : UIImage { return UIImage(named: ActivityName.exercise.rawValue)!}
-        static var eat : UIImage { return UIImage(named: ActivityName.eat.rawValue)!}
-        static var hydrate : UIImage { return UIImage(named: ActivityName.hydrate.rawValue)!}
+        static var mind : UIImage { return UIImage(named: "Mind")!}
+        static var exercise : UIImage { return UIImage(named: "Exercise")!}
+        static var eat : UIImage { return UIImage(named: "Eat")!}
+        static var hydrate : UIImage { return UIImage(named: "Hydrate")!}
     }
 }
