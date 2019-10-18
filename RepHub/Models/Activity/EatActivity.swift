@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HealthKit
 
 class EatActivity : Activity {
     var label: String
@@ -31,7 +32,7 @@ class EatActivity : Activity {
         self.icon = UIImage.Theme.Activity.eat
         self.color = UIColor.Theme.Activity.eat
         self.unit = "Calories"
-        self.dailyTotal = 720.0
+        self.dailyTotal = 0.0
         self.target = 1600.0
         self.percentComplete = self.dailyTotal / self.target * 100
         self.percentRemaining = 100.0 - self.percentComplete
@@ -53,7 +54,7 @@ extension EatActivity {
                 return
             }
             self.totalEnergyConsumed = result
-            self.data.append(("Energy Consumed", result, "Calories"))
+            self.dailyTotal = result
         }
         
         // Protein
@@ -66,7 +67,7 @@ extension EatActivity {
                 return
             }
             self.totalProtein = result
-            self.data.append(("Protein", result, "Grams"))
+            self.data.append(("Protein", result, HKUnit.gram().unitString))
         }
         
         // Fat
@@ -79,7 +80,7 @@ extension EatActivity {
                 return
             }
             self.totalFat = result
-            self.data.append(("Fat", result, "Grams"))
+            self.data.append(("Fat", result, HKUnit.gram().unitString))
         }
         
         // Carbohydrates
@@ -92,7 +93,7 @@ extension EatActivity {
                 return
             }
             self.totalCarbohydrates = result
-            self.data.append(("Carbs", result, "Grams"))
+            self.data.append(("Carbs", result, HKUnit.gram().unitString))
         }
     }
 }

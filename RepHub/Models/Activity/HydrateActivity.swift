@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HealthKit
 
 class HydrateActivity : Activity {
     var label: String
@@ -29,7 +30,7 @@ class HydrateActivity : Activity {
         self.icon = UIImage.Theme.Activity.hydrate
         self.color = UIColor.Theme.Activity.hydrate
         self.unit = "Ounces"
-        self.dailyTotal = 46.0
+        self.dailyTotal = 0.0
         self.target = 64.0
         self.percentComplete = self.dailyTotal / self.target * 100
         self.percentRemaining = 100.0 - self.percentComplete
@@ -50,7 +51,8 @@ extension HydrateActivity {
                return
            }
            self.totalWaterDrank = result
-           self.data.append(("Water", result, "fl oz"))
+            self.dailyTotal = result
+           self.data.append(("Water", result, "oz"))
         }
 
         // Caffeine
@@ -63,7 +65,7 @@ extension HydrateActivity {
                return
            }
            self.totalCaffeine = result
-           self.data.append(("Caffeine", result, "mg"))
+            self.data.append(("Caffeine", result, HKUnit.gramUnit(with: .milli).unitString))
         }
 
         // Sugar
@@ -76,7 +78,7 @@ extension HydrateActivity {
                return
            }
            self.totalSugar = result
-           self.data.append(("Sugar", result, "g"))
+            self.data.append(("Sugar", result, HKUnit.gram().unitString))
         }
 
     }

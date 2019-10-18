@@ -58,12 +58,6 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         self.iconImageView.image = self.activity?.icon
         self.titleLabel.text = self.activity?.label
         self.progressLabel.text = "\(self.activity!.dailyTotal) / \(self.activity!.target) \(self.activity!.unit)"
-        self.itemOneTitleLabel.text = "steps"
-        self.itemTwoTitleLabel.text = "exercise"
-        self.itemThreeTitleLabel.text = "stand"
-        self.itemOneValueLabel.text = "4,335"
-        self.itemTwoValueLabel.text = "17"
-        self.itemThreeValueLabel.text = "6"
         self.titleLabel.textColor = self.activity?.color
         self.progressLabel.textColor = self.activity?.color
         self.layer.borderColor = self.activity!.color.withAlphaComponent(0.5).cgColor
@@ -85,15 +79,18 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         chartDataSet.colors = colors
         chartDataSet.selectionShift = 0
         let chartData = PieChartData(dataSet: chartDataSet)
-//        let attributes: [NSAttributedString.Key: Any] = [
-//            .font: UIFont.init(name: "Damascus", size: 12.0)!,
-//            .foregroundColor: self.activity!.color,
-//        ]
-//        let str = Int(self.activity!.percentComplete!)
-//        let myAttrString = NSAttributedString(string: "\(str)%", attributes: attributes)
-//        self.progressChartView.centerAttributedText = myAttrString
         self.progressChartView.data = chartData
         
+        if let data = self.activity?.data, data.count > 0 {
+            self.itemOneTitleLabel.text = "\(data[0].0)"
+            self.itemOneValueLabel.text = "\(String(format: "%.0f", data[0].1)) \(data[0].2)"
+            self.itemTwoTitleLabel.text = "\(data[1].0)"
+            self.itemTwoValueLabel.text = "\(String(format: "%.0f", data[1].1)) \(data[1].2)"
+            self.itemThreeTitleLabel.text = "\(data[2].0)"
+            self.itemThreeValueLabel.text = "\(String(format: "%.0f", data[2].1)) \(data[2].2)"
+        }
+
+
     }
     
     

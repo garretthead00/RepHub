@@ -94,7 +94,7 @@ class EatActivityStore {
     
     // Returns an array of total calories consumed per hour for the current day.
     class func getHourlyEnergyConsumedTotal(){ //}(completion: @escaping([Double]?, Error?) -> Void) {
-        guard let energyConsumedQuantityType = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned) else {
+        guard let energyConsumedQuantityType = HKSampleType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
             print("*** Unable to create a energyConsumed type ***")
             fatalError("*** Unable to create a energyConsumed type ***")
         }

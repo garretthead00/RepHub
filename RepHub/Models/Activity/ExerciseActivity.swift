@@ -30,13 +30,14 @@ class ExerciseActivity : Activity {
     var totalCaloriesBurned : Double?
     var standMinutes : Double?
     var totalSteps : Double?
+    var todaysActiveCaloriesBurnedPerHour : [(Date, Double, HKUnit)]?
     
     init() {
         self.label = "Exercise"
         self.icon = UIImage.Theme.Activity.exercise
         self.color = UIColor.Theme.Activity.exercise
         self.unit = "Calories"
-        self.dailyTotal = 367.0
+        self.dailyTotal = 0.0
         self.target = 630.0
         self.percentComplete = self.dailyTotal / self.target * 100
         self.percentRemaining = 100.0 - self.percentComplete
@@ -49,6 +50,22 @@ class ExerciseActivity : Activity {
 extension ExerciseActivity {
     
     private func getHKSamples(){
+
+        // active calories burned
+        ExerciseActivityStore.getTodaysActiveEnergyBurned(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            self.totalActiveCalories = result
+            self.data.append(("Active", result, HKUnit.largeCalorie().unitString))
+            self.dailyTotal = result.truncate(places: 2)
+        }
+        
+        
         // steps
         ExerciseActivityStore.getTodaysSteps(){
             result, error in
@@ -59,7 +76,7 @@ extension ExerciseActivity {
                 return
             }
             self.totalSteps = result
-            self.data.append(("Steps", result, "steps"))
+            self.data.append(("Steps", result, ""))
         }
         
         //stand minutes
@@ -72,11 +89,10 @@ extension ExerciseActivity {
                 return
             }
             self.standMinutes = result
-            self.data.append(("Stand", result, "minutes"))
+            self.data.append(("Stand", result, HKUnit.minute().unitString))
         }
         
-        // active calories burned
-        ExerciseActivityStore.getTodaysActiveEnergyBurned(){
+        ExerciseActivityStore.getHourlyActiveEnergyBurned(){
             result, error in
             guard let result = result else {
                 if let error = error {
@@ -84,8 +100,12 @@ extension ExerciseActivity {
                 }
                 return
             }
-            self.totalActiveCalories = result
-            self.data.append(("Active Calories", result, "Calories"))
+            print("result \(result)")
+            self.todaysActiveCaloriesBurnedPerHour = result
         }
+        
+
     }
+    
+    
 }

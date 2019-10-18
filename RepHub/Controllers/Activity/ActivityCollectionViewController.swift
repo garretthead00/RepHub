@@ -24,7 +24,7 @@ class ActivityCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         self.authorizeHealthKit()
         self.printData()
-        EatActivityStore.getHourlyEnergyConsumedTotal()
+        
 
     }
     
@@ -79,9 +79,6 @@ class ActivityCollectionViewController: UICollectionViewController {
         print("-- caffeine \(hydrateAct.totalCaffeine)")
         print("-- sugar \(hydrateAct.totalSugar)")
     }
-    
-
-
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Charts
 
 class EnergyBalanceCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var label1: UILabel!
-    @IBOutlet weak var label2: UILabel!
+
+    @IBOutlet weak var energyBalanceCombinedChart: CombinedChartView!
     
     var message : String? {
         didSet {
@@ -19,17 +20,35 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
+    var dataSet1 = [123, 154, 164, 134, 122, 111]
+    var dataSet2 = [131, 175, 110, 143, 102, 111]
+    var dataSet3 = [100, 102, 122, 112, 134, 123]
+    var x = ["1", "2", "3", "4", "5", "6"]
+    
     private func updateView(){
-        print("EnergyBalanceCollectionViewCell Hey!")
-        self.label1.text = "oh"
-        self.label2.text = "yeh"
+        
     }
     
     override func awakeFromNib() {
-        self.label1.text = ""
-        self.label2.text = "..."
+        super.awakeFromNib()
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 8
+        self.setupChart()
+
+        
+      
+        
     }
     
+}
+
+extension EnergyBalanceCollectionViewCell {
+    
+    private func setupChart(){
+        self.energyBalanceCombinedChart.noDataText = "No data..."
+        self.energyBalanceCombinedChart.drawBarShadowEnabled = false
+        self.energyBalanceCombinedChart.animate(yAxisDuration: 1.25, easingOption: .easeInBounce)
+        
+    }
 }
