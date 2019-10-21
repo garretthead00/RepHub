@@ -284,14 +284,6 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z2y-mt-ghU" customClass="PieChartView" customModule="Charts">
-                                            <rect key="frame" x="309" y="20" width="42" height="42"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="42" id="UJD-dZ-npp"/>
-                                                <constraint firstAttribute="height" constant="42" id="oiW-Mg-R71"/>
-                                            </constraints>
-                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-5o-dee">
                                             <rect key="frame" x="58.5" y="95.5" width="276" height="45"/>
                                             <subviews>
@@ -348,6 +340,14 @@
                                                 </stackView>
                                             </subviews>
                                         </stackView>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z2y-mt-ghU" customClass="PieChartView" customModule="Charts">
+                                            <rect key="frame" x="309" y="20" width="42" height="42"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="42" id="UJD-dZ-npp"/>
+                                                <constraint firstAttribute="height" constant="42" id="oiW-Mg-R71"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -378,6 +378,65 @@
                                     <outlet property="titleLabel" destination="wbb-wf-QmN" id="l2V-2X-i14"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SimpleActivityView" id="Nhw-Dd-pvD" customClass="SimpleActivityCollectionViewCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="21.5" y="331" width="371" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="371" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Exercise" translatesAutoresizingMaskIntoConstraints="NO" id="LgY-yI-bWt">
+                                            <rect key="frame" x="20" y="20" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="36" id="9tC-5p-IpJ"/>
+                                                <constraint firstAttribute="height" constant="36" id="oHc-us-mwu"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDo-Dt-lFo">
+                                            <rect key="frame" x="68" y="20" width="100" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="UX2-2Y-Llh"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Progess / Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8d1-fj-ibl">
+                                            <rect key="frame" x="68" y="52" width="233" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odb-em-XHf" customClass="PieChartView" customModule="Charts">
+                                            <rect key="frame" x="309" y="20" width="42" height="42"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="42" id="Mph-dX-x7t"/>
+                                                <constraint firstAttribute="width" constant="42" id="pS8-A1-dUu"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </view>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="odb-em-XHf" firstAttribute="top" secondItem="Nhw-Dd-pvD" secondAttribute="topMargin" constant="12" id="2Ol-Ie-hdx"/>
+                                    <constraint firstItem="LgY-yI-bWt" firstAttribute="top" secondItem="Nhw-Dd-pvD" secondAttribute="topMargin" constant="12" id="2V0-UE-YPp"/>
+                                    <constraint firstItem="odb-em-XHf" firstAttribute="leading" secondItem="8d1-fj-ibl" secondAttribute="trailing" constant="8" id="95R-Ne-aRX"/>
+                                    <constraint firstItem="DDo-Dt-lFo" firstAttribute="leading" secondItem="LgY-yI-bWt" secondAttribute="trailing" constant="12" id="Jzo-oE-AlU"/>
+                                    <constraint firstItem="8d1-fj-ibl" firstAttribute="top" secondItem="DDo-Dt-lFo" secondAttribute="bottom" constant="8" id="TKL-vf-Wgq"/>
+                                    <constraint firstItem="DDo-Dt-lFo" firstAttribute="top" secondItem="LgY-yI-bWt" secondAttribute="top" id="f3k-fr-FpK"/>
+                                    <constraint firstItem="LgY-yI-bWt" firstAttribute="leading" secondItem="Nhw-Dd-pvD" secondAttribute="leadingMargin" constant="12" id="hna-Tv-j1W"/>
+                                    <constraint firstItem="8d1-fj-ibl" firstAttribute="leading" secondItem="DDo-Dt-lFo" secondAttribute="leading" id="iwd-sd-xj7"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="odb-em-XHf" secondAttribute="trailing" constant="12" id="n07-Qx-Obk"/>
+                                </constraints>
+                                <size key="customSize" width="371" height="100"/>
+                                <connections>
+                                    <outlet property="iconImageView" destination="LgY-yI-bWt" id="HCc-iE-b9x"/>
+                                    <outlet property="progressChartView" destination="odb-em-XHf" id="I96-sM-UdO"/>
+                                    <outlet property="progressLabel" destination="8d1-fj-ibl" id="Ims-u8-upx"/>
+                                    <outlet property="titleLabel" destination="DDo-Dt-lFo" id="QRT-yg-joC"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
                         <connections>
                             <outlet property="dataSource" destination="j18-ba-HIB" id="9PH-Is-Fph"/>
@@ -394,7 +453,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MJP-Kz-GIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-395.6521739130435" y="342.85714285714283"/>
+            <point key="canvasLocation" x="-411.59420289855075" y="342.85714285714283"/>
         </scene>
         <!--Mind-->
         <scene sceneID="Cqx-xE-uYR">

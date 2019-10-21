@@ -25,7 +25,7 @@ class EatActivity : Activity {
     var totalProtein : Double?
     var totalFat : Double?
     var totalCarbohydrates : Double?
-    
+    var todaysCaloriesConsumedPerHour : [(Date, Double, HKUnit)]?
     
     init() {
         self.label = "Eat"
@@ -94,6 +94,19 @@ extension EatActivity {
             }
             self.totalCarbohydrates = result
             self.data.append(("Carbs", result, HKUnit.gram().unitString))
+        }
+        
+        EatActivityStore.getHourlyEnergyConsumedTotal(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            print("---- Energy Consumed ---)")
+            print("result \(result)")
+            self.todaysCaloriesConsumedPerHour = result
         }
     }
 }

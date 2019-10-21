@@ -9,6 +9,7 @@
 import UIKit
 import Charts
 
+
 class EnergyBalanceCollectionViewCell: UICollectionViewCell {
     
 
@@ -20,14 +21,14 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
-    var dataSet1 = [123, 154, 164, 134, 122, 111]
-    var dataSet2 = [131, 175, 110, 143, 102, 111]
-    var dataSet3 = [100, 102, 122, 112, 134, 123]
-    var x = ["1", "2", "3", "4", "5", "6"]
+    var energyBalanceData : EnergyBalanceDataHandler? {
+        didSet {
+            self.updateView()
+        }
+    }
     
     private func updateView(){
-        
+        self.setChartData()
     }
     
     override func awakeFromNib() {
@@ -36,9 +37,6 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 8
         self.setupChart()
 
-        
-      
-        
     }
     
 }
@@ -46,9 +44,85 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
 extension EnergyBalanceCollectionViewCell {
     
     private func setupChart(){
-        self.energyBalanceCombinedChart.noDataText = "No data..."
+
+        self.energyBalanceCombinedChart.legend.enabled = false
+        self.energyBalanceCombinedChart.chartDescription?.enabled = false
         self.energyBalanceCombinedChart.drawBarShadowEnabled = false
+        self.energyBalanceCombinedChart.highlightFullBarEnabled = false
+        self.energyBalanceCombinedChart.noDataText = "No data..."
         self.energyBalanceCombinedChart.animate(yAxisDuration: 1.25, easingOption: .easeInBounce)
+        self.energyBalanceCombinedChart.xAxis.labelPosition = .bottom
+        self.energyBalanceCombinedChart.xAxis.drawLabelsEnabled = true
+        self.energyBalanceCombinedChart.xAxis.labelTextColor = UIColor.white
+        self.energyBalanceCombinedChart.xAxis.labelCount = 6
+        self.energyBalanceCombinedChart.drawOrder = [
+            DrawOrder.bar.rawValue,
+            DrawOrder.line.rawValue
+        ]
+
+    }
+    
+    private func setChartData() {
+        let data = CombinedChartData()
+        data.lineData = generateLineData()
+        data.barData = generateBarData()
+        self.energyBalanceCombinedChart.xAxis.axisMaximum = data.xMax + 0.25
+        self.energyBalanceCombinedChart.data = data
+    }
+    
+    func generateLineData() -> LineChartData {
+
         
+        print("----ENERGY BALANCE----")
+        if let energyBalance = self.energyBalanceData {
+            let entries = (0..<energyBalance.energyBalance.count).map { (i) -> ChartDataEntry in
+                return ChartDataEntry(x: Double(i) + 0.5, y: energyBalance.energyBalance[i].1)
+            }
+            
+            let set = LineChartDataSet(entries: entries, label: "Line DataSet")
+            set.setColor(UIColor.Theme.sky)
+            set.lineWidth = 2.5
+            set.setCircleColor(UIColor.Theme.sky)
+            set.circleRadius = 5
+            set.circleHoleRadius = 2.5
+            set.fillColor = UIColor.Theme.sky
+            set.mode = .cubicBezier
+            set.drawValuesEnabled = true
+            set.axisDependency = .left
+            set.drawValuesEnabled = false
+            return LineChartData(dataSet: set)
+        }
+         return LineChartData(dataSet: nil)
+
+    }
+    
+    func generateBarData() -> BarChartData {
+
+        if let energyBalance = self.energyBalanceData {
+            let entries = (0..<energyBalance.energyBalance.count).map { (i) -> BarChartDataEntry in
+                return BarChartDataEntry(x: Double(i) + 1, yValues: [energyBalance.energyConsumed[i].1, energyBalance.energyBurned[i].1 * -1])
+            }
+
+            let set = BarChartDataSet(entries: entries, label: "")
+            set.axisDependency = .left
+            set.drawValuesEnabled = false
+            set.stackLabels = ["Consumed", "Burned"]
+            set.colors = [
+                UIColor.Theme.Activity.eat,
+                UIColor.Theme.Activity.exercise
+            ]
+            
+            // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
+            let groupSpace = 0.0
+            let barSpace = 0.4 // x2 dataset
+            let barWidth = 0.6 // x2 dataset
+            
+            // make this BarData object grouped
+            let data = BarChartData(dataSets: [set])
+            data.barWidth = barWidth
+            data.groupBars(fromX: 0, groupSpace: groupSpace, barSpace: barSpace)
+            return data
+        }
+        return BarChartData(dataSets: nil)
     }
 }

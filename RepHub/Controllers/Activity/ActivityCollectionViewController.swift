@@ -19,6 +19,12 @@ class ActivityCollectionViewController: UICollectionViewController {
         HydrateActivity()
     ]
     
+    var energyBalanceDataHandler : EnergyBalanceDataHandler? {
+        didSet{
+            self.collectionView.reloadData()
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +84,18 @@ class ActivityCollectionViewController: UICollectionViewController {
         print("-- water \(hydrateAct.totalWaterDrank)")
         print("-- caffeine \(hydrateAct.totalCaffeine)")
         print("-- sugar \(hydrateAct.totalSugar)")
+        
+        
+        print("-----------")
+
+        print("--consumed")
+        print("\(eatAct.todaysCaloriesConsumedPerHour!)")
+        print("--burned")
+        print("\(exAct.todaysActiveCaloriesBurnedPerHour!)")
+        self.energyBalanceDataHandler = EnergyBalanceDataHandler(energyBurned: exAct.todaysActiveCaloriesBurnedPerHour!, energyConsumed: eatAct.todaysCaloriesConsumedPerHour!)
+        
+        print("energybalance")
+        print("\(self.energyBalanceDataHandler?.energyBalance)")
     }
 
     // MARK: - Navigation
@@ -103,12 +121,23 @@ class ActivityCollectionViewController: UICollectionViewController {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnergyBalanceView", for: indexPath) as! EnergyBalanceCollectionViewCell
             cell.message = "Hello!"
+            cell.energyBalanceData = self.energyBalanceDataHandler
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityView", for: indexPath) as! ActivityCollectionViewCell
-            cell.activity = self.activities[indexPath.row]
-            cell.delegate = self
-            return cell
+            
+            if self.activities[indexPath.row].data.count > 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityView", for: indexPath) as! ActivityCollectionViewCell
+                cell.activity = self.activities[indexPath.row]
+                cell.delegate = self
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimpleActivityView", for: indexPath) as! SimpleActivityCollectionViewCell
+                cell.activity = self.activities[indexPath.row]
+                cell.delegate = self
+                return cell
+            }
+            
+
         }
     }
 
@@ -118,7 +147,15 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat =  16
         let collectionViewSize = self.collectionView.frame.size.width - padding
-        return CGSize(width: collectionViewSize, height: 154)
+        if indexPath.section == 0 && indexPath.row == 0 {
+            return CGSize(width: collectionViewSize, height: 300)
+        } else {
+            if self.activities[indexPath.row].data.count > 0 {
+               return CGSize(width: collectionViewSize, height: 154)
+            } else {
+                return CGSize(width: collectionViewSize, height: 100)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -100,6 +100,7 @@ extension ExerciseActivity {
                 }
                 return
             }
+            print("---- Energy Burned ---)")
             print("result \(result)")
             self.todaysActiveCaloriesBurnedPerHour = result
         }
