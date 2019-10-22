@@ -14,10 +14,10 @@ class ExerciseActivity : Activity {
     var icon: UIImage
     var color: UIColor
     var unit: String
-    var dailyTotal: Double
+    var dailyTotal: Double?
     var target: Double
-    var percentComplete: Double
-    var percentRemaining: Double
+    var percentComplete: Double?
+    var percentRemaining: Double?
     var data: [(String, Double, String)] = []
     
      // MARK: - HealthKit properties
@@ -37,17 +37,25 @@ class ExerciseActivity : Activity {
         self.icon = UIImage.Theme.Activity.exercise
         self.color = UIColor.Theme.Activity.exercise
         self.unit = "Calories"
-        self.dailyTotal = 0.0
         self.target = 630.0
-        self.percentComplete = self.dailyTotal / self.target * 100
-        self.percentRemaining = 100.0 - self.percentComplete
         self.getHKSamples()
+        
     }
+    
+
+   
 }
 
 
 // MARK: - HealthKit data
 extension ExerciseActivity {
+    
+    private func calculateProgress(){
+        let dailyTotal = self.dailyTotal ?? 0.0
+        self.percentComplete = dailyTotal / self.target * 100
+        self.percentRemaining = 100.0 - self.percentComplete!
+    }
+    
     
     private func getHKSamples(){
 
@@ -63,6 +71,7 @@ extension ExerciseActivity {
             self.totalActiveCalories = result
             self.data.append(("Active", result, HKUnit.largeCalorie().unitString))
             self.dailyTotal = result.truncate(places: 2)
+            self.calculateProgress()
         }
         
         

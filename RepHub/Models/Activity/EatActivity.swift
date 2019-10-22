@@ -14,10 +14,10 @@ class EatActivity : Activity {
     var icon: UIImage
     var color: UIColor
     var unit: String
-    var dailyTotal: Double
+    var dailyTotal: Double?
     var target: Double
-    var percentComplete: Double
-    var percentRemaining: Double
+    var percentComplete: Double?
+    var percentRemaining: Double?
     var data: [(String, Double, String)] = []
     
     // MARK: - HealthKit properties
@@ -32,16 +32,19 @@ class EatActivity : Activity {
         self.icon = UIImage.Theme.Activity.eat
         self.color = UIColor.Theme.Activity.eat
         self.unit = "Calories"
-        self.dailyTotal = 0.0
         self.target = 1600.0
-        self.percentComplete = self.dailyTotal / self.target * 100
-        self.percentRemaining = 100.0 - self.percentComplete
         self.getHKSamples()
-        //EatActivityStore.getHourlyEnergyConsumedTotal()
+       
     }
 }
 
 extension EatActivity {
+    
+    private func calculateProgress(){
+        let dailyTotal = self.dailyTotal ?? 0.0
+        self.percentComplete = dailyTotal / self.target * 100
+        self.percentRemaining = 100.0 - self.percentComplete!
+    }
     
     private func getHKSamples(){
         // Energy Consumed
@@ -55,6 +58,7 @@ extension EatActivity {
             }
             self.totalEnergyConsumed = result
             self.dailyTotal = result
+            self.calculateProgress()
         }
         
         // Protein

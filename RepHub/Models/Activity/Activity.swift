@@ -14,9 +14,10 @@ protocol Activity {
     var icon : UIImage { get }
     var color : UIColor { get }
     var unit : String { get }
-    var dailyTotal : Double { get }
+    var dailyTotal : Double? { get }
     var target : Double { get }
-    var percentComplete : Double { get }
-    var percentRemaining : Double { get }
+    var percentComplete : Double? { get }
+    var percentRemaining : Double? { get }
     var data : [(String,Double,String)] { get }
 }
+

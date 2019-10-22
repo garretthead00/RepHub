@@ -43,9 +43,11 @@ class SimpleActivityCollectionViewCell: UICollectionViewCell {
         self.layer.borderColor = self.activity!.color.withAlphaComponent(0.5).cgColor
         
         
+        let percentComplete = self.activity?.percentComplete ?? 0.0
+        let percentRemaining = self.activity?.percentRemaining ?? 0.0
         
-        let pieChartDataEntry = PieChartDataEntry(value: self.activity!.percentComplete, icon: nil, data: self.activity!.label)
-        let remainingPieChartDataEntry = PieChartDataEntry(value: self.activity!.percentRemaining, icon: nil, data: self.activity!.label)
+        let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: self.activity!.label)
+        let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: self.activity!.label)
         let colors = [self.activity!.color,self.activity!.color.withAlphaComponent(0.5)]
         let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
         chartDataSet.sliceSpace = 4.0

@@ -14,10 +14,10 @@ class HydrateActivity : Activity {
     var icon: UIImage
     var color: UIColor
     var unit: String
-    var dailyTotal: Double
+    var dailyTotal: Double?
     var target: Double
-    var percentComplete: Double
-    var percentRemaining: Double
+    var percentComplete: Double?
+    var percentRemaining: Double?
     var data: [(String, Double, String)] = []
     
     // MARK: - HealthKit properties
@@ -30,29 +30,36 @@ class HydrateActivity : Activity {
         self.icon = UIImage.Theme.Activity.hydrate
         self.color = UIColor.Theme.Activity.hydrate
         self.unit = "Ounces"
-        self.dailyTotal = 0.0
         self.target = 64.0
-        self.percentComplete = self.dailyTotal / self.target * 100
-        self.percentRemaining = 100.0 - self.percentComplete
         self.getHKSamples()
+       
     }
 }
 
 extension HydrateActivity {
+    
+    private func calculateProgress(){
+        let dailyTotal = self.dailyTotal ?? 0.0
+        self.percentComplete = dailyTotal / self.target * 100
+        self.percentRemaining = 100.0 - self.percentComplete!
+    }
+    
+    
     private func getHKSamples(){
         
         // Water Drank
         HydrateActivityStore.getTodaysWaterDrank(){
            result, error in
-           guard let result = result else {
+            guard let result = result else {
                if let error = error {
                    print(error)
                }
                return
-           }
-           self.totalWaterDrank = result
+            }
+            self.totalWaterDrank = result
             self.dailyTotal = result
-           self.data.append(("Water", result, "oz"))
+            self.data.append(("Water", result, "oz"))
+            self.calculateProgress()
         }
 
         // Caffeine
