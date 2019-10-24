@@ -22,6 +22,7 @@
 		6815FCBB215599F500E26732 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCBA215599F500E26732 /* HealthKitSetupAssistant.swift */; };
 		6815FCBD2155D22100E26732 /* BioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCBC2155D22100E26732 /* BioTableViewController.swift */; };
 		681604F621EED5BB003030B4 /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681604F521EED5BB003030B4 /* ReportAPI.swift */; };
+		68187412235FA08D005EC5EE /* ActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68187411235FA08D005EC5EE /* ActivityDelegate.swift */; };
 		681B3B17230C8D9E0064CE39 /* Eat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681B3B16230C8D9E0064CE39 /* Eat.storyboard */; };
 		681B3B1B230DEECD0064CE39 /* EatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681B3B1A230DEECD0064CE39 /* EatTableViewController.swift */; };
 		681B3B1E230E22140064CE39 /* EatMealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681B3B1D230E22140064CE39 /* EatMealsTableViewCell.swift */; };
@@ -244,6 +245,7 @@
 		6815FCBA215599F500E26732 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		6815FCBC2155D22100E26732 /* BioTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTableViewController.swift; sourceTree = "<group>"; };
 		681604F521EED5BB003030B4 /* ReportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
+		68187411235FA08D005EC5EE /* ActivityDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDelegate.swift; sourceTree = "<group>"; };
 		681B3B16230C8D9E0064CE39 /* Eat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Eat.storyboard; sourceTree = "<group>"; };
 		681B3B18230C8E580064CE39 /* Eat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Eat.storyboard; sourceTree = "<group>"; };
 		681B3B1A230DEECD0064CE39 /* EatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatTableViewController.swift; sourceTree = "<group>"; };
@@ -476,6 +478,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		68187413235FA093005EC5EE /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				68187411235FA08D005EC5EE /* ActivityDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		681B3B1C230DEED30064CE39 /* Eat */ = {
 			isa = PBXGroup;
 			children = (
@@ -863,6 +873,7 @@
 		68B3EC4C202FD57800A894CF /* RepHub */ = {
 			isa = PBXGroup;
 			children = (
+				68187413235FA093005EC5EE /* Delegates */,
 				68459ECD20D225F400CB2176 /* ProgressHUD.bundle */,
 				68930447214EB0A800C9AB1F /* RepHub.entitlements */,
 				68459ECF20D225F500CB2176 /* ProgressHUD.h */,
@@ -1061,6 +1072,7 @@
 				681B3B1B230DEECD0064CE39 /* EatTableViewController.swift in Sources */,
 				683AB58020E042C9001B3345 /* DiscoverViewController.swift in Sources */,
 				683096A72145A71A009AFB83 /* ExerciseLog.swift in Sources */,
+				68187412235FA08D005EC5EE /* ActivityDelegate.swift in Sources */,
 				68FB234B22BC220200D6153C /* NutrientAPI.swift in Sources */,
 				689CAAAF21239EC200BC2975 /* WorkoutTableViewCell.swift in Sources */,
 				689CAAA92123848300BC2975 /* MuscleGroupTableViewController.swift in Sources */,

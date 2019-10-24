@@ -14,13 +14,7 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
     
 
     @IBOutlet weak var energyBalanceCombinedChart: CombinedChartView!
-    
-    var message : String? {
-        didSet {
-            self.updateView()
-        }
-    }
-    
+
     var energyBalanceData : EnergyBalanceDataHandler? {
         didSet {
             self.updateView()
@@ -28,7 +22,9 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateView(){
-        self.setChartData()
+        if energyBalanceData != nil {
+            self.setChartData()
+        }
     }
     
     override func awakeFromNib() {

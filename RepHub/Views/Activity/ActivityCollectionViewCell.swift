@@ -9,9 +9,6 @@
 import UIKit
 import Charts
 
-protocol ActivityDelegate {
-    func segue(identifier: String)
-}
 
 class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
@@ -26,7 +23,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var itemThreeValueLabel: UILabel!
 
     
-    var delegate : ActivityDelegate?
+    //var delegate : ActivityDelegate?
     
     var activity : Activity? {
         didSet {
@@ -56,47 +53,44 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateView(){
-        print("ActivityCollectionViewCell Hey!")
-        self.iconImageView.image = self.activity?.icon
-        self.titleLabel.text = self.activity?.label
-        self.progressLabel.text = "\(self.activity!.dailyTotal) / \(self.activity!.target) \(self.activity!.unit)"
-        self.titleLabel.textColor = self.activity?.color
-        self.progressLabel.textColor = self.activity?.color
-        self.layer.borderColor = self.activity!.color.withAlphaComponent(0.5).cgColor
         
-        
-        
-        let percentComplete = self.activity?.percentComplete ?? 0.0
-        let percentRemaining = self.activity?.percentRemaining ?? 0.0
-        let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: self.activity!.label)
-        let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: self.activity!.label)
-        let colors = [self.activity!.color,self.activity!.color.withAlphaComponent(0.5)]
-        let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
-        chartDataSet.sliceSpace = 4.0
-        chartDataSet.xValuePosition = .insideSlice
-        chartDataSet.yValuePosition = .insideSlice
-        chartDataSet.drawValuesEnabled = false
-        chartDataSet.useValueColorForLine = false
-        chartDataSet.valueLineColor = UIColor.clear
-        chartDataSet.valueLinePart1Length = -0.2
-        chartDataSet.valueLinePart2Length = -0.1
-        chartDataSet.colors = colors
-        chartDataSet.selectionShift = 0
-        let chartData = PieChartData(dataSet: chartDataSet)
-        self.progressChartView.data = chartData
-         
-        if let data = self.activity?.data, data.count > 0 {
-            self.itemOneTitleLabel.text = "\(data[0].0)"
-            self.itemOneValueLabel.text = "\(String(format: "%.0f", data[0].1)) \(data[0].2)"
-            self.itemTwoTitleLabel.text = "\(data[1].0)"
-            self.itemTwoValueLabel.text = "\(String(format: "%.0f", data[1].1)) \(data[1].2)"
-            self.itemThreeTitleLabel.text = "\(data[2].0)"
-            self.itemThreeValueLabel.text = "\(String(format: "%.0f", data[2].1)) \(data[2].2)"
+        if let activity = self.activity {
+
+            self.iconImageView.image = activity.icon
+            self.titleLabel.text = activity.label
+            self.progressLabel.text = "\(activity.dailyTotal) / \(activity.target) \(activity.unit)"
+            self.titleLabel.textColor = activity.color
+            self.progressLabel.textColor = activity.color
+            self.layer.borderColor = activity.color.withAlphaComponent(0.5).cgColor
+            let percentComplete = activity.percentComplete ?? 0.0
+            let percentRemaining = activity.percentRemaining ?? 0.0
+            let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: activity.label)
+            let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: activity.label)
+            let colors = [activity.color,activity.color.withAlphaComponent(0.5)]
+            let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
+            chartDataSet.sliceSpace = 4.0
+            chartDataSet.xValuePosition = .insideSlice
+            chartDataSet.yValuePosition = .insideSlice
+            chartDataSet.drawValuesEnabled = false
+            chartDataSet.useValueColorForLine = false
+            chartDataSet.valueLineColor = UIColor.clear
+            chartDataSet.valueLinePart1Length = -0.2
+            chartDataSet.valueLinePart2Length = -0.1
+            chartDataSet.colors = colors
+            chartDataSet.selectionShift = 0
+            let chartData = PieChartData(dataSet: chartDataSet)
+            self.progressChartView.data = chartData
+             
+            if activity.data.count > 0 {
+                self.itemOneTitleLabel.text = "\(activity.data[0].0)"
+                self.itemOneValueLabel.text = "\(String(format: "%.0f", activity.data[0].1)) \(activity.data[0].2)"
+                self.itemTwoTitleLabel.text = "\(activity.data[1].0)"
+                self.itemTwoValueLabel.text = "\(String(format: "%.0f", activity.data[1].1)) \(activity.data[1].2)"
+                self.itemThreeTitleLabel.text = "\(activity.data[2].0)"
+                self.itemThreeValueLabel.text = "\(String(format: "%.0f", activity.data[2].1)) \(activity.data[2].2)"
+            }
         }
-
-
     }
-    
     
 }
 

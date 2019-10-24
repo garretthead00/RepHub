@@ -12,12 +12,35 @@ import UIKit
 class ActivityCollectionViewController: UICollectionViewController {
     
     
-    var activities : [Activity] = [
-        MindActivity(),
-        ExerciseActivity(),
-        EatActivity(),
-        HydrateActivity()
-    ]
+    var mindActivity : MindActivity? {
+        didSet {
+            self.manageEnergyBalance()
+        }
+    }
+    var exerciseActivity : ExerciseActivity? {
+        didSet {
+            self.manageEnergyBalance()
+        }
+    }
+    var eatActivity : EatActivity? {
+        didSet {
+            self.manageEnergyBalance()
+        }
+    }
+    var hydrateActivity : HydrateActivity? {
+        didSet {
+            self.manageEnergyBalance()
+        }
+    }
+    
+    
+    var activities : [Activity] = [] {
+        didSet {
+            
+            self.collectionView.reloadData()
+        }
+    }
+        
     
     var energyBalanceDataHandler : EnergyBalanceDataHandler? {
         didSet{
@@ -29,12 +52,13 @@ class ActivityCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.authorizeHealthKit()
-        self.printData()
-        
-
     }
     
     private func authorizeHealthKit() {
+        
+
+        
+        
         HealthKitSetupAssistant.authorizeHealthKit {
             (authorized, error) in
             guard authorized else {
@@ -46,6 +70,7 @@ class ActivityCollectionViewController: UICollectionViewController {
                 }
                 return
             }
+            
             print("HealthKit Successfully Authorized.")
             HealthKitSetupAssistant.authorizeNutritionData {
                 (authorized, error) in
@@ -59,44 +84,46 @@ class ActivityCollectionViewController: UICollectionViewController {
                     return
                 }
                 print("HealthKit Nutrition Successfully Authorized.")
+                self.manageActivity()
                 
             }
+            
         }
+        
+
     }
     
-    private func printData(){
-        let exAct = self.activities[1] as! ExerciseActivity
-        let eatAct = self.activities[2] as! EatActivity
-        let hydrateAct = self.activities[3] as! HydrateActivity
-        let mindAct = self.activities[0] as! MindActivity
-        print("----Mind----")
-        //print("ActivityCtrl: mindfulMinutes \(mindAct.mindfulMinutes)")
-        print("----Exercise----")
-        print("-- totalSteps \(exAct.totalSteps)")
-        print("-- standMinutes \(exAct.standMinutes)")
-        print("-- totalActiveCalories \(exAct.totalActiveCalories)")
-        print("----Eat----")
-        print("-- totalEnergyConsumed \(eatAct.totalEnergyConsumed)")
-        print("-- protein \(eatAct.totalProtein)")
-        print("-- fat \(eatAct.totalFat)")
-        print("-- carbs \(eatAct.totalCarbohydrates)")
-        print("----Hydrate----")
-        print("-- water \(hydrateAct.totalWaterDrank)")
-        print("-- caffeine \(hydrateAct.totalCaffeine)")
-        print("-- sugar \(hydrateAct.totalSugar)")
-        
-        
-        print("-----------")
+    private func manageActivity(){
+        self.mindActivity = MindActivity()
+        self.exerciseActivity = ExerciseActivity()
+        self.eatActivity = EatActivity()
+        self.hydrateActivity = HydrateActivity()
+        if let mind = self.mindActivity, let exercise = self.exerciseActivity, let eat = self.eatActivity, let hydrate = self.hydrateActivity {
+            self.activities.append(mind)
+            self.activities.append(exercise)
+            self.activities.append(eat)
+            self.activities.append(hydrate)
 
-        print("--consumed")
-        print("\(eatAct.todaysCaloriesConsumedPerHour!)")
-        print("--burned")
-        print("\(exAct.todaysActiveCaloriesBurnedPerHour!)")
-        self.energyBalanceDataHandler = EnergyBalanceDataHandler(energyBurned: exAct.todaysActiveCaloriesBurnedPerHour!, energyConsumed: eatAct.todaysCaloriesConsumedPerHour!)
-        
-        print("energybalance")
-        print("\(self.energyBalanceDataHandler?.energyBalance)")
+        }
+
     }
+    
+    
+    private func manageEnergyBalance(){
+        if let exercise = self.exerciseActivity, let eat = self.eatActivity {
+            if let energyBurned = exercise.todaysActiveCaloriesBurnedPerHour, let energyConsumed = eat.todaysCaloriesConsumedPerHour {
+                self.energyBalanceDataHandler = EnergyBalanceDataHandler(energyBurned: energyBurned, energyConsumed: energyConsumed)
+                print("--burned")
+                print("\(energyBurned)")
+                print("--consumed")
+                print("\(energyConsumed)")
+//                print("energybalance")
+//                print("\(self.energyBalanceDataHandler?.energyBalance)")
+            }
+        }
+        
+    }
+    
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -120,7 +147,6 @@ class ActivityCollectionViewController: UICollectionViewController {
         
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnergyBalanceView", for: indexPath) as! EnergyBalanceCollectionViewCell
-            cell.message = "Hello!"
             cell.energyBalanceData = self.energyBalanceDataHandler
             return cell
         } else {
@@ -128,7 +154,7 @@ class ActivityCollectionViewController: UICollectionViewController {
             if self.activities[indexPath.row].data.count > 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityView", for: indexPath) as! ActivityCollectionViewCell
                 cell.activity = self.activities[indexPath.row]
-                cell.delegate = self
+                //cell.delegate = self
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimpleActivityView", for: indexPath) as! SimpleActivityCollectionViewCell
@@ -136,7 +162,6 @@ class ActivityCollectionViewController: UICollectionViewController {
                 cell.delegate = self
                 return cell
             }
-            
 
         }
     }

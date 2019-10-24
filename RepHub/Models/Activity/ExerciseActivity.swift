@@ -50,14 +50,14 @@ class ExerciseActivity : Activity {
 // MARK: - HealthKit data
 extension ExerciseActivity {
     
-    private func calculateProgress(){
+    private func calculateProgress() {
         let dailyTotal = self.dailyTotal ?? 0.0
         self.percentComplete = dailyTotal / self.target * 100
         self.percentRemaining = 100.0 - self.percentComplete!
     }
     
     
-    private func getHKSamples(){
+    private func getHKSamples() {
 
         // active calories burned
         ExerciseActivityStore.getTodaysActiveEnergyBurned(){
