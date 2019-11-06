@@ -23,7 +23,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var itemThreeValueLabel: UILabel!
 
     
-    //var delegate : ActivityDelegate?
+    var delegate : ActivityDelegate?
     
     var activity : Activity? {
         didSet {
@@ -58,7 +58,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
 
             self.iconImageView.image = activity.icon
             self.titleLabel.text = activity.label
-            self.progressLabel.text = "\(activity.dailyTotal) / \(activity.target) \(activity.unit)"
+            self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(activity.target) \(activity.unit)"
             self.titleLabel.textColor = activity.color
             self.progressLabel.textColor = activity.color
             self.layer.borderColor = activity.color.withAlphaComponent(0.5).cgColor

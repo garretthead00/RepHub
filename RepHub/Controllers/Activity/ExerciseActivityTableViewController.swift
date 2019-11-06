@@ -23,7 +23,7 @@ class ExerciseActivityTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("ExerciseActivity Ctrl...")
     }
 
     // MARK: - Table view data source

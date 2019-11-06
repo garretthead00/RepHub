@@ -53,22 +53,24 @@ class HydrateTableViewController: UITableViewController {
     }
     
     private func authorizeHealthKit() {
-        HealthKitSetupAssistant.authorizeNutritionData {
-            (authorized, error) in
-            
-            guard authorized else {
-                let baseMessage = "HealthKit Authorization Failed"
-                if let error = error {
-                    print("\(baseMessage). Reason: \(error.localizedDescription)")
-                } else {
-                    print(baseMessage)
-                }
-                return
-            }
-            print("HealthKit Successfully Authorized.")
-            self.loadHydrationSettings()
-            self.fetchHydrationLogs()
-        }
+        self.loadHydrationSettings()
+        self.fetchHydrationLogs()
+//        HealthKitSetupAssistant.authorizeNutritionData {
+//            (authorized, error) in
+//
+//            guard authorized else {
+//                let baseMessage = "HealthKit Authorization Failed"
+//                if let error = error {
+//                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+//                } else {
+//                    print(baseMessage)
+//                }
+//                return
+//            }
+//            print("HealthKit Successfully Authorized.")
+//            self.loadHydrationSettings()
+//            self.fetchHydrationLogs()
+//        }
     }
     
     

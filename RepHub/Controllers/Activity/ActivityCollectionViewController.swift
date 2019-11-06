@@ -12,57 +12,67 @@ import UIKit
 class ActivityCollectionViewController: UICollectionViewController {
     
     
-    var mindActivity : MindActivity? {
-        didSet {
-            self.manageEnergyBalance()
-        }
-    }
-    var exerciseActivity : ExerciseActivity? {
-        didSet {
-            self.manageEnergyBalance()
-        }
-    }
-    var eatActivity : EatActivity? {
-        didSet {
-            self.manageEnergyBalance()
-        }
-    }
-    var hydrateActivity : HydrateActivity? {
-        didSet {
-            self.manageEnergyBalance()
-        }
-    }
+    let activityView = UIActivityIndicatorView(style: .whiteLarge)
     
-    
-    var activities : [Activity] = [] {
-        didSet {
-            
-            self.collectionView.reloadData()
-        }
-    }
-        
-    
-    var energyBalanceDataHandler : EnergyBalanceDataHandler? {
-        didSet{
-            self.collectionView.reloadData()
-        }
-    }
-    
+    var activities = [Activity]()
+    var energyBurned = [(Date, Double, String)]()
+    var energyConsumed = [(Date, Double, String)]()
+    var energyBalance = [(Date, Double, String)]()
+
 
     override func viewDidLoad() {
+        print("ActivityCtrl viewDidLoad")
         super.viewDidLoad()
+        
+        self.view.addSubview(activityView)
+        activityView.hidesWhenStopped = true
+        activityView.center = self.view.center
+        activityView.startAnimating()
+        
+        print("ActivityCtrl Authenticatine HealthKit")
         self.authorizeHealthKit()
     }
     
-    private func authorizeHealthKit() {
+    override func viewDidAppear(_ animated: Bool) {
+
+       super.viewDidAppear(animated)
+
+//        let fadeView:UIView = UIView()
+//        fadeView.frame = self.view.frame
+//        fadeView.backgroundColor = UIColor.white
+//        fadeView.alpha = 0.4
+//
+//        self.view.addSubview(fadeView)
+
+//        self.view.addSubview(activityView)
+//        activityView.hidesWhenStopped = true
+//        activityView.center = self.view.center
+//        activityView.startAnimating()
+        
+ 
         
 
-        
-        
+//       DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+//        fetchPosts()
+//       }
+//
+//       DispatchQueue.main.async {
+//        UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+//            self.collectionView?.reloadData()
+//            self.collectionView?.alpha = 1
+//            fadeView.removeFromSuperview()
+//            self.activityView.stopAnimating()
+//        }, completion: nil)
+//     }
+    }
+    
+    
+    
+    private func authorizeHealthKit() {
         HealthKitSetupAssistant.authorizeHealthKit {
             (authorized, error) in
             guard authorized else {
-                let baseMessage = "HealthKit Authorization Failed"
+                let baseMessage = "--HealthKit Authorization Failed"
                 if let error = error {
                     print("\(baseMessage). Reason: \(error.localizedDescription)")
                 } else {
@@ -70,59 +80,65 @@ class ActivityCollectionViewController: UICollectionViewController {
                 }
                 return
             }
-            
-            print("HealthKit Successfully Authorized.")
-            HealthKitSetupAssistant.authorizeNutritionData {
-                (authorized, error) in
-                guard authorized else {
-                    let baseMessage = "HealthKit Nutrition Authorization Failed"
-                    if let error = error {
-                        print("\(baseMessage). Reason: \(error.localizedDescription)")
-                    } else {
-                        print(baseMessage)
-                    }
-                    return
-                }
-                print("HealthKit Nutrition Successfully Authorized.")
-                self.manageActivity()
-                
-            }
-            
+            print("--HealthKit Successfully Authorized.")
+            self.manageActivity()
         }
         
 
     }
     
     private func manageActivity(){
-        self.mindActivity = MindActivity()
-        self.exerciseActivity = ExerciseActivity()
-        self.eatActivity = EatActivity()
-        self.hydrateActivity = HydrateActivity()
-        if let mind = self.mindActivity, let exercise = self.exerciseActivity, let eat = self.eatActivity, let hydrate = self.hydrateActivity {
-            self.activities.append(mind)
-            self.activities.append(exercise)
-            self.activities.append(eat)
-            self.activities.append(hydrate)
-
-        }
-
-    }
-    
-    
-    private func manageEnergyBalance(){
-        if let exercise = self.exerciseActivity, let eat = self.eatActivity {
-            if let energyBurned = exercise.todaysActiveCaloriesBurnedPerHour, let energyConsumed = eat.todaysCaloriesConsumedPerHour {
-                self.energyBalanceDataHandler = EnergyBalanceDataHandler(energyBurned: energyBurned, energyConsumed: energyConsumed)
-                print("--burned")
-                print("\(energyBurned)")
-                print("--consumed")
-                print("\(energyConsumed)")
-//                print("energybalance")
-//                print("\(self.energyBalanceDataHandler?.energyBalance)")
+        print("ActivityCtrl Load Activity")
+        self.activities = [
+            MindActivity(),
+            ExerciseActivity(),
+            EatActivity(),
+            HydrateActivity()
+        ]
+        
+        print("--- get EnergyBurned")
+        ExerciseActivityStore.getHourlyActiveEnergyBurned(){
+            result, error in
+            guard let result = result else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            self.energyBurned = result
+            print("--- get EnergyConsumed")
+            EatActivityStore.getHourlyEnergyConsumedTotal(){
+                result, error in
+                guard let result = result else {
+                    if let error = error {
+                        print(error)
+                    }
+                    return
+                }
+                self.energyConsumed = result
+                print("--- get EnergyBalance")
+                self.calculateEnergyBalance()
+                self.collectionView.reloadData()
+                self.activityView.stopAnimating()
             }
         }
         
+        
+        
     }
+    
+    private func calculateEnergyBalance(){
+
+        var balanceArray : [(Date, Double, String)] = []
+        for i in 0 ..< self.energyBurned.count {
+            let difference = self.energyConsumed[i].1 - self.energyBurned[i].1
+            balanceArray.append((self.energyBurned[i].0, difference, self.energyBurned[i].2))
+        }
+        self.energyBalance = balanceArray
+        self.collectionView.reloadData()
+    }
+    
+
     
 
     // MARK: - Navigation
@@ -140,30 +156,38 @@ class ActivityCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (section == 0) ? 1 : self.activities.count
+        return (section == 0) ? 1 : activities.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnergyBalanceView", for: indexPath) as! EnergyBalanceCollectionViewCell
-            cell.energyBalanceData = self.energyBalanceDataHandler
-            return cell
-        } else {
-            
-            if self.activities[indexPath.row].data.count > 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityView", for: indexPath) as! ActivityCollectionViewCell
-                cell.activity = self.activities[indexPath.row]
-                //cell.delegate = self
+            if indexPath.section == 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnergyBalanceView", for: indexPath) as! EnergyBalanceCollectionViewCell
+                if self.energyBalance.count > 0, self.energyConsumed.count > 0, self.energyBurned.count > 0 {
+                    cell.energyBurned = self.energyBurned
+                    cell.energyConsumed = self.energyConsumed
+                    cell.energyBalance = self.energyBalance
+                }
+                
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimpleActivityView", for: indexPath) as! SimpleActivityCollectionViewCell
-                cell.activity = self.activities[indexPath.row]
-                cell.delegate = self
-                return cell
-            }
+                
+                if self.activities[indexPath.row].data.count > 0 {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityView", for: indexPath) as! ActivityCollectionViewCell
+                    cell.activity = activities[indexPath.row]
+                    cell.delegate = self
+                    return cell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimpleActivityView", for: indexPath) as! SimpleActivityCollectionViewCell
+                    cell.activity = self.activities[indexPath.row]
+                    cell.delegate = self
+                    return cell
+                }
 
-        }
+            }
+        
+        
+
     }
 
 }
@@ -175,11 +199,14 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
         if indexPath.section == 0 && indexPath.row == 0 {
             return CGSize(width: collectionViewSize, height: 300)
         } else {
+            
             if self.activities[indexPath.row].data.count > 0 {
                return CGSize(width: collectionViewSize, height: 154)
             } else {
                 return CGSize(width: collectionViewSize, height: 100)
             }
+            
+
         }
     }
     
@@ -196,8 +223,12 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
         if indexPath.section > 0 {
+       
             self.performSegue(withIdentifier: self.activities[indexPath.row].label, sender: nil)
+            
+            
         }
     }
     

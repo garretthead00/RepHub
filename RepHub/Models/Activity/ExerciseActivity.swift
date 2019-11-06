@@ -101,18 +101,18 @@ extension ExerciseActivity {
             self.data.append(("Stand", result, HKUnit.minute().unitString))
         }
         
-        ExerciseActivityStore.getHourlyActiveEnergyBurned(){
-            result, error in
-            guard let result = result else {
-                if let error = error {
-                    print(error)
-                }
-                return
-            }
-            print("---- Energy Burned ---)")
-            print("result \(result)")
-            self.todaysActiveCaloriesBurnedPerHour = result
-        }
+//        ExerciseActivityStore.getHourlyActiveEnergyBurned(){
+//            result, error in
+//            guard let result = result else {
+//                if let error = error {
+//                    print(error)
+//                }
+//                return
+//            }
+//            print("---- Energy Burned ---)")
+//            print("result \(result)")
+//            self.todaysActiveCaloriesBurnedPerHour = result
+//        }
         
 
     }

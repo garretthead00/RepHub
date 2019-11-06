@@ -100,17 +100,17 @@ extension EatActivity {
             self.data.append(("Carbs", result, HKUnit.gram().unitString))
         }
         
-        EatActivityStore.getHourlyEnergyConsumedTotal(){
-            result, error in
-            guard let result = result else {
-                if let error = error {
-                    print(error)
-                }
-                return
-            }
-            print("---- Energy Consumed ---)")
-            print("result \(result)")
-            self.todaysCaloriesConsumedPerHour = result
-        }
+//        EatActivityStore.getHourlyEnergyConsumedTotal(){
+//            result, error in
+//            guard let result = result else {
+//                if let error = error {
+//                    print(error)
+//                }
+//                return
+//            }
+//            print("---- Energy Consumed ---)")
+//            print("result \(result)")
+//            self.todaysCaloriesConsumedPerHour = result
+//        }
     }
 }

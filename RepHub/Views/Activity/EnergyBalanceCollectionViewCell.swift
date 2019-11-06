@@ -15,16 +15,26 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var energyBalanceCombinedChart: CombinedChartView!
 
-    var energyBalanceData : EnergyBalanceDataHandler? {
+    
+    var energyBurned : [(Date, Double, String)]? {
+        didSet {
+            self.updateView()
+        }
+    }
+    var energyConsumed : [(Date, Double, String)]? {
+        didSet {
+            self.updateView()
+        }
+    }
+    
+    var energyBalance : [(Date, Double, String)]? {
         didSet {
             self.updateView()
         }
     }
     
     private func updateView(){
-        if energyBalanceData != nil {
-            self.setChartData()
-        }
+        self.setChartData()
     }
     
     override func awakeFromNib() {
@@ -68,11 +78,11 @@ extension EnergyBalanceCollectionViewCell {
     
     func generateLineData() -> LineChartData {
 
-        
-        print("----ENERGY BALANCE----")
-        if let energyBalance = self.energyBalanceData {
-            let entries = (0..<energyBalance.energyBalance.count).map { (i) -> ChartDataEntry in
-                return ChartDataEntry(x: Double(i) + 0.5, y: energyBalance.energyBalance[i].1)
+    
+        if let energyBalance = self.energyBalance {
+            let entries = (0..<energyBalance.count).map { (i) -> ChartDataEntry in
+                
+                return ChartDataEntry(x: Double(i) + 0.5, y: energyBalance[i].1)
             }
             
             let set = LineChartDataSet(entries: entries, label: "Line DataSet")
@@ -93,10 +103,10 @@ extension EnergyBalanceCollectionViewCell {
     }
     
     func generateBarData() -> BarChartData {
-
-        if let energyBalance = self.energyBalanceData {
-            let entries = (0..<energyBalance.energyBalance.count).map { (i) -> BarChartDataEntry in
-                return BarChartDataEntry(x: Double(i) + 1, yValues: [energyBalance.energyConsumed[i].1, energyBalance.energyBurned[i].1 * -1])
+        
+        if let energyConsumed = self.energyConsumed, let energyBurned = self.energyBurned, energyConsumed.count > 0, energyConsumed.count > 0 {
+            let entries = (0..<energyConsumed.count).map { (i) -> BarChartDataEntry in
+                return BarChartDataEntry(x: Double(i) + 1, yValues: [energyConsumed[i].1, energyBurned[i].1 * -1])
             }
 
             let set = BarChartDataSet(entries: entries, label: "")

@@ -76,7 +76,7 @@ class ExerciseActivityStore {
     }
     
     // Returns an array of total calories burned per hour for the current day.
-    class func getHourlyActiveEnergyBurned(completion: @escaping([(Date,Double,HKUnit)]?, Error?) -> Void) {
+    class func getHourlyActiveEnergyBurned(completion: @escaping([(Date,Double,String)]?, Error?) -> Void) {
         guard let energyBurnedQuantityType = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned) else {
             print("*** Unable to create a energyBurned type ***")
             fatalError("*** Unable to create a energyBurned type ***")
@@ -86,7 +86,7 @@ class ExerciseActivityStore {
         calendar.timeZone = .current
         var interval = DateComponents()
         interval.hour = 1
-        var data : [(Date, Double, HKUnit)] = []
+        var data : [(Date, Double, String)] = []
         let startDate = calendar.startOfDay(for: Date())
         let endDate = calendar.date(byAdding: .hour, value: 23, to: startDate)
         let formatter = DateFormatter()
@@ -106,7 +106,7 @@ class ExerciseActivityStore {
                 results.enumerateStatistics(from: startDate, to: endDate!, with: {
                     (result, stop) in
                     let value = result.sumQuantity()?.doubleValue(for: HKUnit.largeCalorie()) ?? 0
-                    data.append((result.startDate, value, HKUnit.largeCalorie()))
+                    data.append((result.startDate, value, HKUnit.largeCalorie().unitString))
                 })
                 completion(data, nil)
             }
