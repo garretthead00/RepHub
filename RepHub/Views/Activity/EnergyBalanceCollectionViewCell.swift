@@ -81,16 +81,15 @@ extension EnergyBalanceCollectionViewCell {
     
         if let energyBalance = self.energyBalance {
             let entries = (0..<energyBalance.count).map { (i) -> ChartDataEntry in
-                
                 return ChartDataEntry(x: Double(i) + 0.5, y: energyBalance[i].1)
             }
             
             let set = LineChartDataSet(entries: entries, label: "Line DataSet")
             set.setColor(UIColor.Theme.sky)
-            set.lineWidth = 2.5
+            set.lineWidth = 1.5
             set.setCircleColor(UIColor.Theme.sky)
-            set.circleRadius = 5
-            set.circleHoleRadius = 2.5
+            set.circleRadius = 2.5
+            set.circleHoleRadius = 1.5
             set.fillColor = UIColor.Theme.sky
             set.mode = .cubicBezier
             set.drawValuesEnabled = true
@@ -106,7 +105,7 @@ extension EnergyBalanceCollectionViewCell {
         
         if let energyConsumed = self.energyConsumed, let energyBurned = self.energyBurned, energyConsumed.count > 0, energyConsumed.count > 0 {
             let entries = (0..<energyConsumed.count).map { (i) -> BarChartDataEntry in
-                return BarChartDataEntry(x: Double(i) + 1, yValues: [energyConsumed[i].1, energyBurned[i].1 * -1])
+                return BarChartDataEntry(x: Double(i) + 0.5, yValues: [energyConsumed[i].1, energyBurned[i].1 * -1])
             }
 
             let set = BarChartDataSet(entries: entries, label: "")
@@ -119,14 +118,14 @@ extension EnergyBalanceCollectionViewCell {
             ]
             
             // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
-            let groupSpace = 0.0
-            let barSpace = 0.4 // x2 dataset
+            //let groupSpace = 0.0
+            //let barSpace = 0.4 // x2 dataset
             let barWidth = 0.6 // x2 dataset
             
             // make this BarData object grouped
             let data = BarChartData(dataSets: [set])
             data.barWidth = barWidth
-            data.groupBars(fromX: 0, groupSpace: groupSpace, barSpace: barSpace)
+           // data.groupBars(fromX: 0, groupSpace: groupSpace, barSpace: barSpace)
             return data
         }
         return BarChartData(dataSets: nil)
