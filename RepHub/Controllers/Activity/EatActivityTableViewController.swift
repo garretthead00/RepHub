@@ -66,15 +66,6 @@ class EatActivityTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DailyActivityView", for: indexPath) as! DailyActivityTableViewCell
             cell.activity = self.activity
             return cell
-//            if indexPath.row == 0 {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "Meals", for: indexPath) as! NoWorkoutTableViewCell
-//                return cell
-//            }
-//            else {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "DailyActivityView", for: indexPath) as! DailyActivityTableViewCell
-//                cell.dataSet = self.eatActivity[indexPath.row-1]
-//                return cell
-//            }
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DailyActivityView", for: indexPath) as! DailyActivityTableViewCell
             cell.activity = self.activity

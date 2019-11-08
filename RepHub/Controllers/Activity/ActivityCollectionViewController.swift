@@ -148,7 +148,10 @@ class ActivityCollectionViewController: UICollectionViewController {
             let destination = segue.destination as! ExerciseActivityTableViewController
             destination.activity = self.activities[1]
         }
-        else if segue.identifier == "Eat" {}
+        else if segue.identifier == "Eat" {
+            let destination = segue.destination as! EatActivityTableViewController
+            destination.activity = self.activities[2]
+        }
         else if segue.identifier == "Hyrdate" {}
     }
     
