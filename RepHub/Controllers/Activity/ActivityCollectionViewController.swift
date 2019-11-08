@@ -144,7 +144,10 @@ class ActivityCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Mind" {}
-        else if segue.identifier == "Exercise" {}
+        else if segue.identifier == "Exercise" {
+            let destination = segue.destination as! ExerciseActivityTableViewController
+            destination.activity = self.activities[1]
+        }
         else if segue.identifier == "Eat" {}
         else if segue.identifier == "Hyrdate" {}
     }

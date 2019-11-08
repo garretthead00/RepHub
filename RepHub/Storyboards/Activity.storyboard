@@ -446,9 +446,9 @@
                     <navigationItem key="navigationItem" title="Activity" id="Kpb-cQ-GHU"/>
                     <connections>
                         <segue destination="uLI-73-69m" kind="show" identifier="Mind" id="dlA-8K-0zs"/>
-                        <segue destination="2kF-Wq-0u5" kind="show" identifier="Exercise" id="XmD-AI-HAd"/>
                         <segue destination="Aro-9J-23u" kind="show" identifier="Hydrate" id="Thy-Gy-9jT"/>
                         <segue destination="T0W-9s-bho" kind="show" identifier="Eat" id="viA-bR-33n"/>
+                        <segue destination="pj3-0u-M3y" kind="show" identifier="Exercise" id="S1C-cV-fxp"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MJP-Kz-GIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -475,7 +475,7 @@
             <objects>
                 <tableViewController title="Exercise" id="pj3-0u-M3y" customClass="ExerciseActivityTableViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="U2c-49-6Md">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -667,10 +667,11 @@
                             <outlet property="delegate" destination="pj3-0u-M3y" id="e9e-pY-XFX"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="DBm-om-R6T"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qg8-75-XLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2449" y="605"/>
+            <point key="canvasLocation" x="1635" y="605"/>
         </scene>
         <!--Bio-->
         <scene sceneID="8Kz-c9-8n4">
@@ -1214,22 +1215,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80P-3M-ds4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1741" y="1385"/>
-        </scene>
-        <!--Exercise-->
-        <scene sceneID="iX4-IZ-nVc">
-            <objects>
-                <viewController title="Exercise" id="2kF-Wq-0u5" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uKu-8o-9er">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="Ndr-se-wS0"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Exercise" id="Pwl-ot-u3h"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8tt-Di-MuH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="745" y="605"/>
         </scene>
         <!--Eat-->
         <scene sceneID="aWo-Ed-75d">
