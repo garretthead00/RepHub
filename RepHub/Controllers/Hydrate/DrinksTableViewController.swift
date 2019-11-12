@@ -20,13 +20,13 @@ class DrinksTableViewController: UITableViewController {
     }
 
     private func loadDrinks(){
-//        if let type = self.drinkType {
-//            API.Drink.observerDrinks(drinkType: type, completion: {
-//                drink in
-//                self.drinks.append(drink)
-//                self.tableView.reloadData()
-//            })
-//        }
+        if let type = self.drinkType {
+            API.Drink.observeDrinks(byType: type, completion: {
+                drink in
+                self.drinks.append(drink)
+                self.tableView.reloadData()
+            })
+        }
     }
     
     
@@ -66,10 +66,11 @@ class DrinksTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Nutrition" {
-            let nutritionTVC = segue.destination as! DrinkTableViewController
+            let drinkTVC = segue.destination as! DrinkTableViewController
             let drink = sender as! Drink
             print("sender: \(drink.name)  \(drink.ndb_no)")
-            nutritionTVC.drink = drink
+            drinkTVC.drink = drink
+            drinkTVC.drinkType = self.drinkType
         }
     }
  

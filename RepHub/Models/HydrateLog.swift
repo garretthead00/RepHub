@@ -32,8 +32,8 @@ extension HydrateLog {
         log.householdServingSize = data["householdServingSize"] as? Double
         log.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
         log.timeStamp = data["timestamp"] as? Double
-        log.drinkName = ""
-        log.drinkType = ""
+        log.drinkName = data["name"] as? String
+        log.drinkType = data["type"] as? String
         return log
     }
 }

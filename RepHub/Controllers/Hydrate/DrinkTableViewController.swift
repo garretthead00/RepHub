@@ -16,6 +16,9 @@ class DrinkTableViewController: UITableViewController {
         }
         
     }
+    
+    var drinkType : String?
+    
     var nutrients : [Nutrient] = []
     var groupedNutrients : [String : [Nutrient]] = [:]
     var nutrientGroupName = ["","Macronutrients","Vitamins","Minerals","Other"]
@@ -34,7 +37,7 @@ class DrinkTableViewController: UITableViewController {
         alertController.isModalInPopover = true
         alertController.addTextField(configurationHandler: {
             (textField) in
-            textField.placeholder = self.drink!.householdServingSizeUnit!
+            textField.placeholder = "fl oz" //self.drink!.householdServingSizeUnit!
         })
         
         let confirmAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: ({
@@ -46,15 +49,19 @@ class DrinkTableViewController: UITableViewController {
                             return
                         }
                         let currentUserId = currentUser.uid
-                        let nutritionWeight = quantity / drink.householdServingSize!
+                        //let nutritionWeight = quantity / drink.householdServingSize!
                         drink.householdServingSize = quantity
-                        drink.servingSize = drink.servingSize! * nutritionWeight
-                        for nutrient in self.nutrients {
-                            nutrient.value = nutrient.value! * nutritionWeight
-                            nutrient.value = nutrient.value!.truncate(places: 2)
+                        drink.servingSize = quantity//drink.servingSize! * nutritionWeight
+//                        for nutrient in self.nutrients {
+//                            nutrient.value = nutrient.value! * nutritionWeight
+//                            nutrient.value = nutrient.value!.truncate(places: 2)
+//                        }
+//                        NutritionStore.saveDrink(nutrients: self.nutrients)
+                       // API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: self.drink!)
+                        
+                        if let type = self.drinkType, let drink = self.drink {
+                            API.Hydrate.saveHydrationLog(ofDrinkType: type, userId: currentUserId, drink: drink)
                         }
-                        NutritionStore.saveDrink(nutrients: self.nutrients)
-                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: self.drink!)
                     }
                 }
             }

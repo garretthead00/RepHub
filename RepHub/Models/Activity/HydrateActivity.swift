@@ -9,7 +9,7 @@
 import Foundation
 import HealthKit
 
-class HydrateActivity : Activity {
+struct HydrateActivity : Activity {
     var label: String
     var icon: UIImage
     var color: UIColor
@@ -31,62 +31,90 @@ class HydrateActivity : Activity {
         self.color = UIColor.Theme.Activity.hydrate
         self.unit = "Ounces"
         self.target = 64.0
-        self.getHKSamples()
+        //self.getHKSamples()
        
     }
 }
 
 extension HydrateActivity {
     
-    private func calculateProgress(){
-        let dailyTotal = self.dailyTotal ?? 0.0
-        self.percentComplete = dailyTotal / self.target * 100
-        self.percentRemaining = 100.0 - self.percentComplete!
-    }
-    
-    
-    private func getHKSamples(){
+    init(logs: [Double]){
+        self.label = "Hydrate"
+        self.icon = UIImage.Theme.Activity.hydrate
+        self.color = UIColor.Theme.Activity.hydrate
+        self.unit = "Ounces"
+        self.target = 64.0
         
-        // Water Drank
-        HydrateActivityStore.getTodaysWaterDrank(){
-           result, error in
-            guard let result = result else {
-               if let error = error {
-                   print(error)
-               }
-               return
-            }
-            self.totalWaterDrank = result
-            self.dailyTotal = result
-            self.data.append(("Water", result, "oz"))
-            self.calculateProgress()
-        }
-
-        // Caffeine
-        HydrateActivityStore.getTodaysCaffeine(){
-           result, error in
-           guard let result = result else {
-               if let error = error {
-                   print(error)
-               }
-               return
-           }
-           self.totalCaffeine = result
-            self.data.append(("Caffeine", result, HKUnit.gramUnit(with: .milli).unitString))
-        }
-
-        // Sugar
-        HydrateActivityStore.getTodaysSugar(){
-           result, error in
-           guard let result = result else {
-               if let error = error {
-                   print(error)
-               }
-               return
-           }
-           self.totalSugar = result
-            self.data.append(("Sugar", result, HKUnit.gram().unitString))
-        }
-
+        // calculated totals
+        self.totalWaterDrank = 0.0
+        self.totalCaffeine = 0.0
+        self.totalSugar = 0.0
+        
+        self.dailyTotal = logs.reduce(0, +)
+        
+        self.percentComplete = self.dailyTotal! / self.target * 100
+        self.percentRemaining = 100.0 - self.percentComplete!
+        
+        
+        self.data.append(("Water", self.totalWaterDrank!, HKUnit.fluidOunceUS().unitString))
+        self.data.append(("Caffeine", self.totalCaffeine!, HKUnit.gramUnit(with: .milli).unitString))
+        self.data.append(("Sugar", self.totalSugar!, HKUnit.gram().unitString))
+        
+        
+        
     }
+    
+//    private func calculateProgress(){
+//        print("water calculateProgress!")
+//        let dailyTotal = self.dailyTotal ?? 0.0
+//        self.percentComplete = dailyTotal / self.target * 100
+//        self.percentRemaining = 100.0 - self.percentComplete!
+//    }
+    
+    
+//    private func getHKSamples(){
+//
+//        // Water Drank
+//        HydrateActivityStore.getTodaysWaterDrank(){
+//           result, error in
+//            guard let result = result else {
+//               if let error = error {
+//                   print(error)
+//               }
+//               return
+//            }
+//            print("water drank! \(result)")
+//            self.totalWaterDrank = result
+//            self.dailyTotal = result
+//            self.data.append(("Water", result, HKUnit.fluidOunceUS().unitString))
+//            //self.calculateProgress()
+//        }
+//
+//        // Caffeine
+//        HydrateActivityStore.getTodaysCaffeine(){
+//           result, error in
+//           guard let result = result else {
+//               if let error = error {
+//                   print(error)
+//               }
+//               return
+//           }
+//           self.totalCaffeine = result
+//            self.data.append(("Caffeine", result, HKUnit.gramUnit(with: .milli).unitString))
+//        }
+//
+//        // Sugar
+//        HydrateActivityStore.getTodaysSugar(){
+//           result, error in
+//           guard let result = result else {
+//               if let error = error {
+//                   print(error)
+//               }
+//               return
+//           }
+//           self.totalSugar = result
+//            self.data.append(("Sugar", result, HKUnit.gram().unitString))
+//        }
+//
+//    }
 }

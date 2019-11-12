@@ -23,7 +23,13 @@ class CalorieMonitorTableViewCell: UITableViewCell {
     
     var calorieEntries : [PieChartDataEntry]? {
         didSet{
-            updateView()
+            self.updateView()
+        }
+    }
+    
+    var dailyTotal : Double? {
+        didSet {
+            self.setChartData()
         }
     }
     
@@ -41,20 +47,30 @@ class CalorieMonitorTableViewCell: UITableViewCell {
     }
     
     private func setChartData() {
-        let percentComplete = PieChartDataEntry(value: self.activity!.percentComplete!)
-        let percentremaining = PieChartDataEntry(value: self.activity!.percentRemaining!)
-        self.calorieEntries = [percentComplete, percentremaining]
+        
+        if let activity = self.activity {
+            print("---CalorieMonitor: activity.dailyTotal \(activity.dailyTotal!)")
+            let percentComplete = PieChartDataEntry(value: activity.percentComplete ?? 0)
+            let percentremaining = PieChartDataEntry(value: activity.percentRemaining ?? 0)
+            self.calorieEntries = [percentComplete, percentremaining]
+        }
+
     }
     
     private func updateView(){
-        self.label.text = "\(self.activity!.dailyTotal ?? 0) / \(self.activity!.target) \(self.activity!.unit)"
-        let chartDataSet = PieChartDataSet(entries: self.calorieEntries, label: nil)
-        let chartData = PieChartData(dataSet: chartDataSet)
-        chartDataSet.colors = [self.activity!.color, self.activity!.color.withAlphaComponent(0.5)]
-        chartDataSet.sliceSpace = 2.0
-        chartDataSet.drawValuesEnabled = false
-        self.pieChart.data = chartData
-        chartDataSet.selectionShift = 0
+        
+        if let activity = self.activity {
+            self.label.text = "\(activity.dailyTotal!) / \(activity.target) \(activity.unit)"
+            let chartDataSet = PieChartDataSet(entries: self.calorieEntries, label: nil)
+            let chartData = PieChartData(dataSet: chartDataSet)
+            chartDataSet.colors = [activity.color, activity.color.withAlphaComponent(0.5)]
+            chartDataSet.sliceSpace = 2.0
+            chartDataSet.drawValuesEnabled = false
+            self.pieChart.data = chartData
+            chartDataSet.selectionShift = 0
+        }
+        
+
     }
 
 }

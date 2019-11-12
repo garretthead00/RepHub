@@ -49,7 +49,23 @@ class HydrateAPI {
         let newRef = HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
         let timestamp = NSDate().timeIntervalSince1970
         if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
-            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit], withCompletionBlock: {
+            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit, "name": drink.name], withCompletionBlock: {
+                error, ref in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+            })
+        }
+    }
+    
+    func saveHydrationLog(ofDrinkType type: String, userId: String, drink: Drink){
+        let newRef = HYDRATE_LOGS_DB_REF.child(userId).childByAutoId()
+        let timestamp = NSDate().timeIntervalSince1970
+        
+        
+        if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let householdServingSize = drink.householdServingSize {
+            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": "fl oz", "householdServingSize": householdServingSize, "householdServingSizeUOM" : "fl oz", "type": type], withCompletionBlock: {
                 error, ref in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)

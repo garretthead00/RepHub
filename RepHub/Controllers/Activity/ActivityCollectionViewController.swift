@@ -152,7 +152,10 @@ class ActivityCollectionViewController: UICollectionViewController {
             let destination = segue.destination as! EatActivityTableViewController
             destination.activity = self.activities[2]
         }
-        else if segue.identifier == "Hyrdate" {}
+        else if segue.identifier == "Hydrate" {
+            let destination = segue.destination as! HydrateActivityTableViewController
+            destination.activity = self.activities[3]
+        }
     }
     
 

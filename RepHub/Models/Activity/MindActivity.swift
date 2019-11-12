@@ -9,11 +9,11 @@
 import Foundation
 
 class MindActivity : Activity {
+    var dailyTotal: Double?
     var label: String
     var icon: UIImage
     var color: UIColor
     var unit: String
-    var dailyTotal: Double?
     var target: Double
     var percentComplete: Double?
     var percentRemaining: Double?
@@ -25,6 +25,7 @@ class MindActivity : Activity {
         self.color = UIColor.Theme.Activity.mind
         self.unit = "Minutes"
         self.target = 30.0
+        self.dailyTotal = 0.0
         self.calculateProgress()
     }
 }

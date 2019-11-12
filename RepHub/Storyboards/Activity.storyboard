@@ -446,9 +446,9 @@
                     <navigationItem key="navigationItem" title="Activity" id="Kpb-cQ-GHU"/>
                     <connections>
                         <segue destination="uLI-73-69m" kind="show" identifier="Mind" id="dlA-8K-0zs"/>
-                        <segue destination="Aro-9J-23u" kind="show" identifier="Hydrate" id="Thy-Gy-9jT"/>
                         <segue destination="pj3-0u-M3y" kind="show" identifier="Exercise" id="S1C-cV-fxp"/>
                         <segue destination="aw2-dk-9yK" kind="show" identifier="Eat" id="U2R-Io-BVk"/>
+                        <segue destination="pJ4-of-wUa" kind="show" identifier="Hydrate" id="Zyk-7T-lJv"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MJP-Kz-GIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1035,10 +1035,12 @@
         <!--Hydrate-->
         <scene sceneID="luH-l6-Is0">
             <objects>
-                <viewControllerPlaceholder storyboardName="Hydrate" id="l7P-dS-qTt" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Hydrate" id="l7P-dS-qTt" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="urq-bf-y2y"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XK3-19-kSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-394" y="1073"/>
+            <point key="canvasLocation" x="25" y="1185"/>
         </scene>
         <!--Eat-->
         <scene sceneID="jYd-jz-rOF">
@@ -1216,25 +1218,178 @@
             </objects>
             <point key="canvasLocation" x="687" y="1006"/>
         </scene>
-        <!--Hydrate-->
-        <scene sceneID="ePE-ca-ivL">
+        <!--Hydrate Activity Table View Controller-->
+        <scene sceneID="qTg-8p-toS">
             <objects>
-                <viewController title="Hydrate" id="Aro-9J-23u" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LEp-nW-Vpy">
+                <tableViewController id="pJ4-of-wUa" customClass="HydrateActivityTableViewController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RVm-i8-gip">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="brT-71-qwn"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Hydrate" id="BjB-po-WUj"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N3a-yE-R8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgressView" rowHeight="64" id="yu2-hd-k4R" customClass="CalorieMonitorTableViewCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yu2-hd-k4R" id="SgX-pV-dtq">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIB-u2-lGb" customClass="PieChartView" customModule="Charts">
+                                            <rect key="frame" x="20" y="8" width="48" height="48"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="48" id="GeQ-KB-aNt"/>
+                                                <constraint firstAttribute="height" constant="48" id="QsP-Fi-Q5r"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/0 calories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLR-oJ-mwd">
+                                            <rect key="frame" x="76" y="21" width="318" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="MLR-oJ-mwd" firstAttribute="trailing" secondItem="SgX-pV-dtq" secondAttribute="trailingMargin" id="5iD-2I-JaL"/>
+                                        <constraint firstItem="MLR-oJ-mwd" firstAttribute="centerY" secondItem="WIB-u2-lGb" secondAttribute="centerY" id="CFL-Jw-adx"/>
+                                        <constraint firstItem="WIB-u2-lGb" firstAttribute="centerY" secondItem="SgX-pV-dtq" secondAttribute="centerY" id="Tba-fn-lr7"/>
+                                        <constraint firstItem="WIB-u2-lGb" firstAttribute="leading" secondItem="SgX-pV-dtq" secondAttribute="leadingMargin" id="XKR-L7-FSm"/>
+                                        <constraint firstItem="MLR-oJ-mwd" firstAttribute="leading" secondItem="WIB-u2-lGb" secondAttribute="trailing" constant="8" id="gT8-DQ-YEv"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="label" destination="MLR-oJ-mwd" id="uVF-9C-oKq"/>
+                                    <outlet property="pieChart" destination="WIB-u2-lGb" id="oFi-Wx-uJJ"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChartView" rowHeight="259" id="CpC-iN-DYo" customClass="HydrateChartTableViewCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="414" height="259"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CpC-iN-DYo" id="X7c-2H-DmW">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="259"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uy8-WY-7KG" customClass="PieChartView" customModule="Charts">
+                                            <rect key="frame" x="20" y="11" width="374" height="237"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uy8-WY-7KG" firstAttribute="top" secondItem="X7c-2H-DmW" secondAttribute="top" constant="11" id="6Ej-Kw-jdS"/>
+                                        <constraint firstAttribute="trailing" secondItem="uy8-WY-7KG" secondAttribute="trailing" constant="20" id="Cby-gE-1gs"/>
+                                        <constraint firstAttribute="bottom" secondItem="uy8-WY-7KG" secondAttribute="bottom" constant="11" id="R7t-Qt-KQY"/>
+                                        <constraint firstItem="uy8-WY-7KG" firstAttribute="centerX" secondItem="X7c-2H-DmW" secondAttribute="centerX" id="i4r-Df-gAS"/>
+                                        <constraint firstItem="uy8-WY-7KG" firstAttribute="centerY" secondItem="X7c-2H-DmW" secondAttribute="centerY" id="wBA-HT-wSd"/>
+                                        <constraint firstItem="uy8-WY-7KG" firstAttribute="leading" secondItem="X7c-2H-DmW" secondAttribute="leading" constant="20" id="zeb-uo-01z"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="pieChart" destination="uy8-WY-7KG" id="g87-Vf-dDw"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DailyActivityView" rowHeight="44" id="FIJ-iZ-fwG" customClass="DailyActivityTableViewCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="351" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FIJ-iZ-fwG" id="dtA-Gm-e96">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLx-y3-I89">
+                                            <rect key="frame" x="20" y="12" width="346" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4X0-ZP-eqs">
+                                            <rect key="frame" x="379" y="12" width="15" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="4X0-ZP-eqs" firstAttribute="centerY" secondItem="zLx-y3-I89" secondAttribute="centerY" id="5tR-QB-kXi"/>
+                                        <constraint firstItem="zLx-y3-I89" firstAttribute="centerY" secondItem="dtA-Gm-e96" secondAttribute="centerY" id="q4x-4i-ntS"/>
+                                        <constraint firstItem="4X0-ZP-eqs" firstAttribute="leading" secondItem="zLx-y3-I89" secondAttribute="trailing" constant="13" id="uGM-bG-u0S"/>
+                                        <constraint firstItem="zLx-y3-I89" firstAttribute="leading" secondItem="dtA-Gm-e96" secondAttribute="leadingMargin" id="w1F-3e-zr6"/>
+                                        <constraint firstItem="4X0-ZP-eqs" firstAttribute="trailing" secondItem="dtA-Gm-e96" secondAttribute="trailingMargin" id="yLw-HX-PHD"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="titleLabel" destination="zLx-y3-I89" id="O0Y-Pa-xjV"/>
+                                    <outlet property="valueLabel" destination="4X0-ZP-eqs" id="9Vw-LF-EjB"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HydrationLogView" rowHeight="66" id="iHf-zr-TkY" customClass="HydrateLogTableViewCell" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="395" width="414" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iHf-zr-TkY" id="yVz-PF-nt4">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wine" translatesAutoresizingMaskIntoConstraints="NO" id="vNn-TZ-hFc">
+                                            <rect key="frame" x="20" y="12" width="42" height="42"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="42" id="GZQ-D3-a9k"/>
+                                                <constraint firstAttribute="width" constant="42" id="abM-4k-YEY"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPd-kI-417">
+                                            <rect key="frame" x="70" y="23" width="232" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12oz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVe-7v-4Df">
+                                            <rect key="frame" x="310" y="24.5" width="84" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="84" id="dnT-zp-IGN"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="mVe-7v-4Df" firstAttribute="trailing" secondItem="yVz-PF-nt4" secondAttribute="trailingMargin" id="At4-aw-8Ma"/>
+                                        <constraint firstItem="vNn-TZ-hFc" firstAttribute="top" secondItem="yVz-PF-nt4" secondAttribute="top" constant="12" id="HlB-U1-eB7"/>
+                                        <constraint firstItem="RPd-kI-417" firstAttribute="leading" secondItem="vNn-TZ-hFc" secondAttribute="trailing" constant="8" id="MPE-YM-RUw"/>
+                                        <constraint firstItem="mVe-7v-4Df" firstAttribute="centerY" secondItem="vNn-TZ-hFc" secondAttribute="centerY" id="Nve-8M-ETQ"/>
+                                        <constraint firstItem="RPd-kI-417" firstAttribute="centerY" secondItem="vNn-TZ-hFc" secondAttribute="centerY" id="XJt-Dt-9ke"/>
+                                        <constraint firstItem="mVe-7v-4Df" firstAttribute="leading" secondItem="RPd-kI-417" secondAttribute="trailing" constant="8" id="Zmo-n3-1Tn"/>
+                                        <constraint firstAttribute="bottom" secondItem="vNn-TZ-hFc" secondAttribute="bottom" constant="12" id="mRl-UC-1J6"/>
+                                        <constraint firstItem="vNn-TZ-hFc" firstAttribute="leading" secondItem="yVz-PF-nt4" secondAttribute="leadingMargin" id="rkE-qW-zeJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="drinkImageView" destination="vNn-TZ-hFc" id="v9h-U8-7Ue"/>
+                                    <outlet property="nameLabel" destination="RPd-kI-417" id="jUD-fv-IX2"/>
+                                    <outlet property="quantityLabel" destination="mVe-7v-4Df" id="yHz-jm-YOJ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pJ4-of-wUa" id="oDv-VT-GdK"/>
+                            <outlet property="delegate" destination="pJ4-of-wUa" id="PDF-QK-CdD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="HLP-hD-hXX"/>
+                    <connections>
+                        <segue destination="l7P-dS-qTt" kind="show" identifier="Drinks" id="Qwo-Bp-whS"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bdh-HZ-Par" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-536" y="1469"/>
+            <point key="canvasLocation" x="-768.11594202898561" y="1122.9910714285713"/>
         </scene>
     </scenes>
     <resources>
         <image name="Exercise" width="48" height="48"/>
         <image name="PlannerIcon" width="25" height="25"/>
+        <image name="Wine" width="48" height="48"/>
     </resources>
 </document>
