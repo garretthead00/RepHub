@@ -65,7 +65,7 @@ class HydrateAPI {
         
         
         if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let householdServingSize = drink.householdServingSize {
-            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": "fl oz", "householdServingSize": householdServingSize, "householdServingSizeUOM" : "fl oz", "type": type], withCompletionBlock: {
+            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": "fl oz", "householdServingSize": householdServingSize, "householdServingSizeUOM" : "fl oz", "type": type, "name": drink.name], withCompletionBlock: {
                 error, ref in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)

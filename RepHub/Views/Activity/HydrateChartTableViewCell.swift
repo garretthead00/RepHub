@@ -19,6 +19,12 @@ class HydrateChartTableViewCell: UITableViewCell {
         }
     }
     
+    var drinksByType : [String:Double]? {
+        didSet {
+            self.setChartData()
+        }
+    }
+    
     // Calculation Items
     var total : Double?
     var remaining : Double?
@@ -84,6 +90,16 @@ class HydrateChartTableViewCell: UITableViewCell {
 //            percentComplete.label = "%"
 //            percentremaining.label = "%"
             self.dataSet = [percentComplete, percentremaining]
+        }
+        
+        if let drinksByType = self.drinksByType {
+            self.dataSet = []
+            for (key, sum) in drinksByType {
+                print("key: \(key) ---sum: \(sum)")
+                self.dataSet?.append(PieChartDataEntry(value: sum))
+                
+                
+            }
         }
         
         

@@ -60,6 +60,7 @@ class DrinkTableViewController: UITableViewController {
                        // API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: self.drink!)
                         
                         if let type = self.drinkType, let drink = self.drink {
+                            print("savign drink name: \(drink.name)")
                             API.Hydrate.saveHydrationLog(ofDrinkType: type, userId: currentUserId, drink: drink)
                         }
                     }

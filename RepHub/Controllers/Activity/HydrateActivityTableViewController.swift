@@ -27,6 +27,8 @@ class HydrateActivityTableViewController: UITableViewController {
     var hydrateLogs : [HydrateLog] = []
     var totalDrankByDrinkType : [(String, Double)] = []
 
+    var drinkDict = [String : Double]()
+    
     override func viewDidLoad() {
         print("HydrateActivityCtrl -- viewDidLoad")
         super.viewDidLoad()
@@ -76,6 +78,9 @@ class HydrateActivityTableViewController: UITableViewController {
             let sum = self.hydrateLogs.filter({$0.drinkType! == key}).map({$0.servingSize!}).reduce(0, +)
             self.totalDrankByDrinkType.append((key, sum))
             print("totalDrankBydrinkType -- \(self.totalDrankByDrinkType)")
+            self.drinkDict[key] = sum
+            print("drinkDict -- \(self.drinkDict)")
+            
         }
         
     }
@@ -116,6 +121,7 @@ class HydrateActivityTableViewController: UITableViewController {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ChartView", for: indexPath) as! HydrateChartTableViewCell
                 cell.activity = self.activity
+                cell.drinksByType = self.drinkDict
                 return cell
             }
         } else if section == 1 {
