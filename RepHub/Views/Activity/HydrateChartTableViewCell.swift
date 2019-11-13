@@ -39,7 +39,7 @@ class HydrateChartTableViewCell: UITableViewCell {
     var totalDataEntry = PieChartDataEntry(value: 0.0)
     var remainingDataEntry = PieChartDataEntry(value: 0.0)
     var dataSet : [PieChartDataEntry]? {
-        didSet{
+        didSet {
             self.updateView()
         }
     }
@@ -53,7 +53,7 @@ class HydrateChartTableViewCell: UITableViewCell {
         self.pieChart.chartDescription?.text = "Target"
         self.pieChart.noDataText = "Drink up...There's no data today."
         self.pieChart.holeColor = UIColor.black
-        self.pieChart.holeRadiusPercent = 0.8
+        self.pieChart.holeRadiusPercent = 0.5
         let firstAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.Theme.aqua,
             .font: UIFont.systemFont(ofSize: 36)
@@ -70,33 +70,33 @@ class HydrateChartTableViewCell: UITableViewCell {
     }
     
     private func updateView(){
-        totalDataEntry.value = self.total ?? 0
-        remainingDataEntry.value = self.remaining ?? 0
-        
-        let firstAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.Theme.aqua,
-            .font: UIFont.systemFont(ofSize: 36)
-        ]
-        let firstString = NSMutableAttributedString(string: "\(self.score ?? 0) %", attributes: firstAttributes)
-        self.pieChart.centerAttributedText = firstString
+//        totalDataEntry.value = self.total ?? 0
+//        remainingDataEntry.value = self.remaining ?? 0
+//
+//        let firstAttributes: [NSAttributedString.Key: Any] = [
+//            .foregroundColor: UIColor.Theme.aqua,
+//            .font: UIFont.systemFont(ofSize: 36)
+//        ]
+//        let firstString = NSMutableAttributedString(string: "\(self.score ?? 0) %", attributes: firstAttributes)
+//        self.pieChart.centerAttributedText = firstString
         updateChartData()
     }
     
     
     private func setChartData() {
-        if let activity = self.activity {
-            let percentComplete = PieChartDataEntry(value: activity.percentComplete ?? 0)
-            let percentremaining = PieChartDataEntry(value: activity.percentRemaining ?? 0)
-//            percentComplete.label = "%"
-//            percentremaining.label = "%"
-            self.dataSet = [percentComplete, percentremaining]
-        }
+//        if let activity = self.activity {
+//            let percentComplete = PieChartDataEntry(value: activity.percentComplete ?? 0)
+//            let percentremaining = PieChartDataEntry(value: activity.percentRemaining ?? 0)
+////            percentComplete.label = "%"
+////            percentremaining.label = "%"
+//            self.dataSet = [percentComplete, percentremaining]
+//        }
         
         if let drinksByType = self.drinksByType {
             self.dataSet = []
             for (key, sum) in drinksByType {
                 print("key: \(key) ---sum: \(sum)")
-                self.dataSet?.append(PieChartDataEntry(value: sum))
+                self.dataSet?.append(PieChartDataEntry(value: sum, icon: UIImage(named: key)))
                 
                 
             }
@@ -111,9 +111,10 @@ class HydrateChartTableViewCell: UITableViewCell {
         
         let chartDataSet = PieChartDataSet(entries: self.dataSet, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
-        let colors = [NSUIColor(cgColor: UIColor.Theme.aqua.cgColor), NSUIColor(cgColor: UIColor.Theme.sky.cgColor)]
+        let colors = [NSUIColor(cgColor: UIColor.Theme.aqua.cgColor), NSUIColor(cgColor: UIColor.Theme.sky.cgColor),NSUIColor(cgColor: UIColor.Theme.lavender.cgColor),NSUIColor(cgColor: UIColor.Theme.salmon.cgColor),NSUIColor(cgColor: UIColor.Theme.banana.cgColor)]
         chartDataSet.colors = colors
         chartDataSet.drawValuesEnabled = false
+        chartDataSet.drawIconsEnabled = true
         self.pieChart.data = chartData
     }
 

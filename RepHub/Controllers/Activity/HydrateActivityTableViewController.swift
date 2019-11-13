@@ -61,7 +61,7 @@ class HydrateActivityTableViewController: UITableViewController {
         API.Hydrate.observeHydrateLogs(withId: currentUserId) {
             log in
             self.hydrateLogs.append(log)
-            self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timeStamp! > $1.timeStamp!})
+            self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timestamp > $1.timestamp})
             print("hydrate log -- : \(log)")
             self.calculateTotalDrankByDrinkType()
             self.tableView.reloadData()

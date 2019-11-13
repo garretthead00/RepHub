@@ -113,15 +113,22 @@ class DrinkResultsTableViewController: UITableViewController {
                 if let name = log.drinkName {
                     cell.name = name
                 }
-                if let timeStamp = log.timeStamp {
-                    let date = Date(timeIntervalSince1970: timeStamp)
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "M/d/yyyy h:m a"
-                    dateFormatter.amSymbol = "AM"
-                    dateFormatter.pmSymbol = "PM"
-                    let dateStr = dateFormatter.string(from: date)
-                    cell.nutritionFactsMessage = "\(dateStr)"
-                }
+//                if let timeStamp = log.timestamp {
+//                    let date = Date(timeIntervalSince1970: timeStamp)
+//                    let dateFormatter = DateFormatter()
+//                    dateFormatter.dateFormat = "M/d/yyyy h:m a"
+//                    dateFormatter.amSymbol = "AM"
+//                    dateFormatter.pmSymbol = "PM"
+//                    let dateStr = dateFormatter.string(from: date)
+//                    cell.nutritionFactsMessage = "\(dateStr)"
+//                }
+                let date = Date(timeIntervalSince1970: log.timestamp)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "M/d/yyyy h:m a"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
+                let dateStr = dateFormatter.string(from: date)
+                cell.nutritionFactsMessage = "\(dateStr)"
                 
                 if let hhServingSize = log.householdServingSize, let hhUnit = log.householdServingSizeUnit, let servingSize = log.servingSize, let unit = log.servingSizeUnit {
                     cell.servingSize = "Amount per \(hhServingSize) \(hhUnit) (\(servingSize) \(unit))"
