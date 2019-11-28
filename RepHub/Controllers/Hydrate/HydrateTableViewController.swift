@@ -279,7 +279,7 @@ class HydrateTableViewController: UITableViewController {
         if segue.identifier == "Results" {
             let drinkResultsTVC = segue.destination as! DrinkResultsTableViewController
             let log = sender as! HydrateLog
-            drinkResultsTVC.log = log
+            //drinkResultsTVC.log = log
         }
     }
     

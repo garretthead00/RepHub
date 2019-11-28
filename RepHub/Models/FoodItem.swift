@@ -9,26 +9,72 @@
 import Foundation
 
 class FoodItem {
-
+    
     var name : String?
-    var ndb_no : Int?
+    var id : Int?
+    var foodGroup : String?
     var manufacturer : String?
-    var dateAvailable : String?
     var servingSize : Double?
     var servingSizeUnit : String?
     var householdServingSize : Double?
     var householdServingSizeUnit : String?
-    var type : String?
+    var category : String?
+    var subCategory : String?
+    var subCategory2 : String?
+    var subCategory3 : String?
+    var source : String?
+    var sourceDescription : String?
     
 }
 
 extension FoodItem {
+    
+    static func transformFood(data: [String: Any], key: String) -> FoodItem {
+        let food = FoodItem()
+        food.name = data["Name"] as? String
+        food.id = data["ID"] as? Int
+        food.foodGroup = data["Food Group"] as? String
+        food.manufacturer = data["Manufacturer"] as? String
+        food.servingSize = data["serving size"] as? Double
+        food.servingSizeUnit = data["serving size unit"] as? String
+        food.householdServingSize = data["household serving size"] as? Double
+        food.householdServingSizeUnit = data["household serving size unit"] as? String
+        food.category = data["Category"] as? String
+        food.subCategory = data["Sub Category 1"] as? String
+        food.subCategory2 = data["Sub Category 2"] as? String
+        food.subCategory3 = data["Sub Category 3"] as? String
+        food.source = data["Source"] as? String
+        food.sourceDescription = data["Source Description"] as? String
+        return food
+    }
+    
     static func transformFoodByType(data: [String: Any], key: String) -> FoodItem {
         let food = FoodItem()
         food.name = data["Name"] as? String
-        food.ndb_no = data["ID"] as? Int
-        food.manufacturer = data["Manufacturer"] as? String
-        food.type = data["Sub Category 1"] as? String
+        food.id = data["ID"] as? Int
+        food.servingSize = data["serving size"] as? Double
+        food.servingSizeUnit = data["serving size unit"] as? String
+        food.householdServingSize = data["household serving size"] as? Double
+        food.householdServingSizeUnit = data["household serving size unit"] as? String
+        food.category = data["Category"] as? String
+        food.subCategory = data["Sub Category 1"] as? String
+        food.subCategory2 = data["Sub Category 2"] as? String
+        food.subCategory3 = data["Sub Category 3"] as? String
+        food.source = data["Source"] as? String
+        food.sourceDescription = data["Source Description"] as? String
         return food
     }
+
+    
+    func foodTypes(byGroup: String) -> [String] {
+        switch byGroup {
+        case "Fruit" : return ["Berries", "Citrus", "Tropical", "Drupes", "Melons", "Pomes"]
+        case "Vegetables" : return ["Flower","Fruit","Gourds And Squashes","Leafy Greens","Legumes","Bulb And Stem","Podded","Root And Tuberous"]
+        case "Fats" : return ["Butter","Dressing","Oil","Shortening"]
+        case "Dairy" : return ["Cheese", "Cream", "Milk", "Sherbert", "Yogurt"]
+        case "Protein" : return ["Meat","Eggs","Poultry","Fish","Crustaceans","Mollusks","Beans","Nuts","Seeds","Veggie","Meatless"]
+        default : return []
+        }
+    }
+    
 }

@@ -10,48 +10,37 @@ import UIKit
 
 class HydrateActivityTableViewController: UITableViewController {
     
-    var activity : Activity? {
+    var activity : HydrateActivity? {
         didSet {
             print("activity set")
-            
             self.tableView.reloadData()
         }
     }
     
-    var logs : [Double]? {
+    var hydrateActivity : HydrateActivity? {
         didSet {
+            print("hydrateActivity set")
             self.tableView.reloadData()
         }
     }
     
+
     var hydrateLogs : [HydrateLog] = []
     var totalDrankByDrinkType : [(String, Double)] = []
 
     var drinkDict = [String : Double]()
     
     override func viewDidLoad() {
-        print("HydrateActivityCtrl -- viewDidLoad")
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Drinks"), style: .plain, target: self, action: #selector(goToDrinkMenu))
-        
-        let logs = [12.0]
-        self.activity = HydrateActivity(logs: logs)
-        self.fetchHydrationLogs()
+        //self.fetchHydrationLogs()
     }
     
     @objc private func goToDrinkMenu(){
         self.performSegue(withIdentifier: "Drinks", sender: nil)
     }
     
-    private func loadHydrationLogs(){
-        let logs = [12.0]
-        self.activity = HydrateActivity(logs: logs)
-    }
     
     private func fetchHydrationLogs(){
         guard let currentUser = API.RepHubUser.CURRENT_USER else {
@@ -64,9 +53,8 @@ class HydrateActivityTableViewController: UITableViewController {
             self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timestamp > $1.timestamp})
             print("hydrate log -- : \(log)")
             self.calculateTotalDrankByDrinkType()
+            self.activity?.logs = self.hydrateLogs
             self.tableView.reloadData()
-            
-            
         }
 
     }
@@ -85,8 +73,6 @@ class HydrateActivityTableViewController: UITableViewController {
         
     }
 
-    
-    
     
 
     // MARK: - Table view data source

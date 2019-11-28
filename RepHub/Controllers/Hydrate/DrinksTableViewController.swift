@@ -12,11 +12,16 @@ class DrinksTableViewController: UITableViewController {
 
     
     var drinkType : String?
-    var drinks : [Drink] = []
+    var drinks : [FoodItem] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadDrinks()
+        self.navigationItem.title = self.drinkType!
     }
 
     private func loadDrinks(){
@@ -24,7 +29,6 @@ class DrinksTableViewController: UITableViewController {
             API.Drink.observeDrinks(byType: type, completion: {
                 drink in
                 self.drinks.append(drink)
-                self.tableView.reloadData()
             })
         }
     }
@@ -46,7 +50,7 @@ class DrinksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Drink", for: indexPath)
         cell.textLabel?.text = self.drinks[indexPath.row].name
-        cell.detailTextLabel?.text = self.drinks[indexPath.row].dateAvailable
+        cell.detailTextLabel?.text = self.drinks[indexPath.row].category
         return cell
     }
  
@@ -67,10 +71,8 @@ class DrinksTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Nutrition" {
             let drinkTVC = segue.destination as! DrinkTableViewController
-            let drink = sender as! Drink
-            print("sender: \(drink.name)  \(drink.ndb_no)")
+            let drink = sender as! FoodItem
             drinkTVC.drink = drink
-            drinkTVC.drinkType = self.drinkType
         }
     }
  

@@ -11,14 +11,26 @@ import FirebaseDatabase
 
 class FoodAPI {
     
-    var FOOD_BY_TYPE_DB_REF = Database.database().reference().child("food")
+    var FOOD_DB_REF = Database.database().reference().child("food")
     func observeFood(ofGroup group: String, byType foodType:String, completion: @escaping(FoodItem) -> Void){
-        FOOD_BY_TYPE_DB_REF.child(group.lowercased()).child(foodType).observe(.childAdded, with: {
+        FOOD_DB_REF.child(group.lowercased()).child(foodType).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String:Any] {
-                let food = FoodItem.transformFoodByType(data: data, key: snapshot.key)
+                let food = FoodItem.transformFood(data: data, key: snapshot.key)
                 completion(food)
             }
         })
+    }
+    
+    func observeFood(byType foodType:String, completion: @escaping(FoodItem) -> Void){
+        
+        FOOD_DB_REF.child("Drinks").observe(.childAdded, with: {
+            snapshot in
+            if let data = snapshot.value as? [String:Any] {
+                let drink = FoodItem.transformFood(data: data, key: snapshot.key)
+                completion(drink)
+            }
+        })
+
     }
 }

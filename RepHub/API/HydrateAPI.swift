@@ -13,15 +13,27 @@ class HydrateAPI {
     
     var HYDRATE_DB_REF = Database.database().reference().child("hydrate")
     
-    
     /* HYDRATION LOGS */
     var HYDRATE_LOGS_DB_REF = Database.database().reference().child("hydrate-logs")
     var USER_HYDRATE_LOGS_DB_REF = Database.database().reference().child("user-hydrate-logs")
+    var USER_NUTRITION_LOGS_DB_REF = Database.database().reference().child("user-nutrition-logs")
+    
     func observeHydrateLogs(withId id: String, completion: @escaping(HydrateLog) -> Void){
         let date = Date()
         let cal = Calendar(identifier: .gregorian)
         let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
         HYDRATE_LOGS_DB_REF.child(id).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
+            snapshot in
+            if let data = snapshot.value as? [String: Any] {
+                let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
+                completion(log)
+            }
+        })
+    }
+    
+    
+    func observeHydrateLog(forUserId userId: String, logId: String, completion: @escaping(HydrateLog) -> Void) {
+        USER_HYDRATE_LOGS_DB_REF.child(userId).child(logId).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
                 let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
@@ -45,37 +57,56 @@ class HydrateAPI {
         })
     }
     
-    func saveHyrdationLog(withUserId id: String, drink: Drink) {
-        let newRef = HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
+    
+    
+//    func saveHyrdationLog(withUserId id: String, drink: FoodItem, nutrients: [Nutrient]) {
+//        let logRef = USER_HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
+//        let nutritionRef = USER_NUTRITION_LOGS_DB_REF.child(id)
+//        let timestamp = NSDate().timeIntervalSince1970
+//        if let drinkID = drink.id, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
+//            logRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit, "name": drink.name], withCompletionBlock: {
+//                error, ref in
+//                if error != nil {
+//                    ProgressHUD.showError(error!.localizedDescription)
+//                    return
+//                }
+//                if let logKey = ref.key {
+//                    for (index, element) in nutrients.enumerated() {
+//                        if let nutrient = element.name, let value = element.value, let unit = element.unit {
+//                            let key = String(index)
+//                            let nutritionRef = self.USER_NUTRITION_LOGS_DB_REF.child(id).child(logKey).child(key)
+//                            nutritionRef.setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
+//                                error, ref in
+//                                if error != nil {
+//                                    ProgressHUD.showError(error!.localizedDescription)
+//                                    return
+//                                }
+//                                ProgressHUD.showSuccess("Hydration Log saved!")
+//                            })
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//    }
+    
+    func saveHyrdationLog(withUserId id: String, drink: FoodItem, completion: @escaping(String) -> Void){
+        let logRef = USER_HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
         let timestamp = NSDate().timeIntervalSince1970
-        if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
-            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit, "name": drink.name], withCompletionBlock: {
+        if let drinkID = drink.id, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
+            logRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit], withCompletionBlock: {
                 error, ref in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)
                     return
                 }
-            })
-        }
-    }
-    
-    func saveHydrationLog(ofDrinkType type: String, userId: String, drink: Drink){
-        let newRef = HYDRATE_LOGS_DB_REF.child(userId).childByAutoId()
-        let timestamp = NSDate().timeIntervalSince1970
-        
-        
-        if let drinkID = drink.ndb_no, let servingSize = drink.servingSize, let householdServingSize = drink.householdServingSize {
-            newRef.setValue(["timestamp": timestamp, "drinkId": drinkID, "servingSize": servingSize, "servingSizeUOM": "fl oz", "householdServingSize": householdServingSize, "householdServingSizeUOM" : "fl oz", "type": type, "name": drink.name], withCompletionBlock: {
-                error, ref in
-                if error != nil {
-                    ProgressHUD.showError(error!.localizedDescription)
-                    return
+                if let key = ref.key {
+                    completion(key)
                 }
             })
         }
     }
-    
-    
+
     
 
     /* HYDRATION SETTINGS */
@@ -99,11 +130,7 @@ class HydrateAPI {
         HYDRATE_SETTINGS_DB_REF.child(API.RepHubUser.CURRENT_USER!.uid).updateChildValues(["target" : value])
     }
 
-    
 
-    
-    
-    
     func observeHydrateDailies(withId id: String, completion: @escaping(HydrateDailies) -> Void){
         HYDRATE_DB_REF.child(id).observeSingleEvent(of: .value, with: {
             snapshot in
@@ -113,8 +140,6 @@ class HydrateAPI {
             }
         })
     }
-    
-    
     
 }
 

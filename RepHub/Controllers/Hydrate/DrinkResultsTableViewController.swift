@@ -11,17 +11,27 @@ import UIKit
 
 class DrinkResultsTableViewController: UITableViewController {
 
-    
-    var log : HydrateLog? {
+
+    var drink : FoodItem? {
         didSet {
-            self.loadNutritionFacts()
+            self.tableView.reloadData()
         }
-        
     }
-    var nutrients : [Nutrient] = []
-    var groupedNutrients : [String : [Nutrient]] = [:]
-    var nutrientGroupName = ["","Macronutrients","Vitamins","Minerals","Other"]
+    var hydrateLogId : String?
+
     
+    var nutrients : [Nutrient] = [] {
+        didSet {
+            self.groupNutrients()
+        }
+    }
+    var groupedNutrients : [String : [Nutrient]] = [:] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    var nutrientGroupName = ["","Macronutrient","Vitamin","Mineral","Ultratrace Mineral","Other"]
+    var alwaysDisplayNutrients = ["Calories", "Protein", "Fat", "Carbohydrates", "Sugar"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,53 +41,33 @@ class DrinkResultsTableViewController: UITableViewController {
         button.frame = CGRect(x: 16, y: 100, width: 48, height: 48)
         button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(addTapped), for:.touchUpInside)
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
 
-    @objc private func addTapped(){
-        guard let currentUser = API.RepHubUser.CURRENT_USER else {
-            return
-        }
-        let currentUserId = currentUser.uid
-        let drink = Drink()
-        drink.ndb_no = self.log!.drinkId
-        drink.householdServingSize = self.log!.householdServingSize
-        drink.householdServingSizeUnit = self.log!.householdServingSizeUnit
-        drink.servingSize = self.log!.servingSize
-        drink.servingSizeUnit = self.log!.servingSizeUnit
-        NutritionStore.saveDrink(nutrients: self.nutrients)
-        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink)
-    }
     
-    private func loadNutritionFacts(){
-        
 
-        if let log = self.log, let id = log.drinkId {
-            let idStr = String(id)
-            
-            API.Drink.observeDrink(withId: idStr, completion: {
-                drink in
-                let nutritionWeight = log.servingSize! / drink.servingSize!
-                log.drinkName = drink.name!
-                log.drinkType = drink.type!
-                API.Nutrient.observeNutrition(withId: idStr, completion: {
-                    nutrient in
-                    nutrient.value = nutrient.value! * nutritionWeight
-                    nutrient.value = nutrient.value!.truncate(places: 2)
-                    self.nutrients.append(nutrient)
-                    self.groupNutrients(nutrients: self.nutrients)
-                })
-                
-            })
-        }
+    @objc private func addTapped(){
+//        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+//            return
+//        }
+//        let currentUserId = currentUser.uid
+//        let drink = Drink()
+//        drink.ndb_no = self.log!.drinkId
+//        drink.householdServingSize = self.log!.householdServingSize
+//        drink.householdServingSizeUnit = self.log!.householdServingSizeUnit
+//        drink.servingSize = self.log!.servingSize
+//        drink.servingSizeUnit = self.log!.servingSizeUnit
+//        NutritionStore.saveDrink(nutrients: self.nutrients)
+        //API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink)
     }
     
-    private func groupNutrients(nutrients: [Nutrient]){
-//        self.groupedNutrients = Dictionary(grouping: nutrients, by: {
-//            element in
-//            return nutritionDictionary[element.name!]!
-//        })
+
+    
+    private func groupNutrients(){
+        self.groupedNutrients = Dictionary(grouping: self.nutrients, by: {
+            element in
+            return element.category!
+        })
         self.tableView.reloadData()
     }
     
@@ -89,53 +79,47 @@ class DrinkResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let nutrientGroup = self.nutrientGroupName[section]
-        if let nutrients = self.groupedNutrients[nutrientGroup] {
-            let count = nutrients.count
-            return count
+        if section > 0 {
+            let nutrientGroup = self.nutrientGroupName[section]
+            if let nutrients = self.groupedNutrients[nutrientGroup] {
+                let count = nutrients.count
+                return count
+            } else {
+                return 0
+            }
         }
         return 1
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.nutrientGroupName[section]
+        let nutrientGroup = self.nutrientGroupName[section]
+        if let nutrients = self.groupedNutrients[nutrientGroup], nutrients.count > 0 {
+            return nutrientGroup
+        }
+        return ""
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let section = indexPath.section
         let row = indexPath.row
         
         if section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DrinkDetails", for: indexPath) as! DrinkDetailsTableViewCell
-            if let log = self.log {
-                if let name = log.drinkName {
+            if let drink = self.drink {
+                if let name = drink.name {
                     cell.name = name
                 }
-//                if let timeStamp = log.timestamp {
-//                    let date = Date(timeIntervalSince1970: timeStamp)
-//                    let dateFormatter = DateFormatter()
-//                    dateFormatter.dateFormat = "M/d/yyyy h:m a"
-//                    dateFormatter.amSymbol = "AM"
-//                    dateFormatter.pmSymbol = "PM"
-//                    let dateStr = dateFormatter.string(from: date)
-//                    cell.nutritionFactsMessage = "\(dateStr)"
-//                }
-                let date = Date(timeIntervalSince1970: log.timestamp)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "M/d/yyyy h:m a"
-                dateFormatter.amSymbol = "AM"
-                dateFormatter.pmSymbol = "PM"
-                let dateStr = dateFormatter.string(from: date)
-                cell.nutritionFactsMessage = "\(dateStr)"
+                if let source = drink.source {
+                    cell.nutritionFactsMessage = "**Nutrition Facts provided by \(source)"
+                }
                 
-                if let hhServingSize = log.householdServingSize, let hhUnit = log.householdServingSizeUnit, let servingSize = log.servingSize, let unit = log.servingSizeUnit {
-                    cell.servingSize = "Amount per \(hhServingSize) \(hhUnit) (\(servingSize) \(unit))"
+                if let hhServingSize = drink.householdServingSize, let hhUnit = drink.householdServingSizeUnit, let servingSize = drink.servingSize, let unit = drink.servingSizeUnit {
+                     cell.servingSize = "Amount per \(hhServingSize) \(hhUnit) (\(servingSize) \(unit))"
                 }
             }
             return cell
-            
+
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Nutrient", for: indexPath)
             let nutrientGroup = self.nutrientGroupName[section]

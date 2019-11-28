@@ -14,7 +14,7 @@ private let reuseIdentifier = "DrinkCell"
 class DrinkMenuCollectionViewController: UICollectionViewController {
     
     
-    var drinks : [String] = ["Water", "Coffee", "Milk", "Shake", "Sports Drink", "Juice", "Tea", "Beer", "Wine", "Soda"]
+    var drinks : [String] = ["Water", "Coffee", "Tea", "Milk", "Juice", "Shake", "Energy", "Sports Drink", "Soda", "Beer", "Wine", "Cocktail"]
 
     override func viewDidLoad() {
         super.viewDidLoad()

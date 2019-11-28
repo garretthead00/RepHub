@@ -14,10 +14,10 @@ protocol Activity {
     var icon : UIImage { get }
     var color : UIColor { get }
     var unit : String { get }
-    var dailyTotal : Double? { get }
-    var target : Double { get }
-    var percentComplete : Double? { get }
-    var percentRemaining : Double? { get }
+    var dailyTotal : Double? { get set }
+    var target : Double { get set }
+    var percentComplete : Double? { get set }
+    var percentRemaining : Double? { get set }
     var data : [(String,Double,String)] { get }
 }
 

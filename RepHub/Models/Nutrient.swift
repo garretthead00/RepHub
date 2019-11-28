@@ -11,9 +11,11 @@ import Foundation
 class Nutrient {
     
     var name : String?
-    var ndb_no : String?
+    var id : String?
     var unit : String?
     var value : Double?
+    var category : String?
+    var secondaryName : String?
     
 }
 
@@ -21,10 +23,12 @@ extension Nutrient {
     
     static func transformNutrient(data: [String: Any], key: String) -> Nutrient {
         let nutrient = Nutrient()
-        nutrient.ndb_no = key
-        nutrient.name = data["name"] as? String
-        nutrient.unit = data["unit"] as? String
-        nutrient.value = data["value"] as? Double
+        nutrient.id = key
+        nutrient.name = data["Nutrient"] as? String
+        nutrient.unit = data["Unit"] as? String
+        nutrient.value = data["Value"] as? Double
+        nutrient.category = data["Category"] as? String
+        nutrient.secondaryName = data["Secondary Name"] as? String
         return nutrient
     }
     
