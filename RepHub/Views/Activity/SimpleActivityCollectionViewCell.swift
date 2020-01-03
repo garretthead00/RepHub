@@ -37,7 +37,7 @@ class SimpleActivityCollectionViewCell: UICollectionViewCell {
         print("Simple ActivityCollectionViewCell Hey!")
         self.iconImageView.image = self.activity?.icon
         self.titleLabel.text = self.activity?.label
-        self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(self.activity!.target) \(self.activity!.unit)"
+        self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(self.activity!.target ?? 0.0) \(self.activity!.unit)"
         self.titleLabel.textColor = self.activity?.color
         self.progressLabel.textColor = self.activity?.color
         self.layer.borderColor = self.activity!.color.withAlphaComponent(0.5).cgColor

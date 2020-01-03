@@ -71,7 +71,6 @@ class DrinkTableViewController: UITableViewController {
     
     private func addLog(){
         let alertController = UIAlertController(title: self.drink!.name!, message: "\n", preferredStyle: .alert)
-        alertController.isModalInPopover = true
         alertController.addTextField(configurationHandler: {
             (textField) in
             textField.placeholder = "fl oz" //self.drink!.householdServingSizeUnit!
@@ -94,20 +93,15 @@ class DrinkTableViewController: UITableViewController {
                             nutrient.value = nutrient.value!.truncate(places: 2)
                         }
                         
-                        
-                        if let drink = self.drink {
-                            print("savign drink name: \(drink.name)")
-                            //NutritionStore.saveDrink(nutrients: self.nutrients)
-                            
-                            API.UserFoodLog.saveFoodLog(withUserId: currentUserId, food: drink, completion: {
-                                logKey in
-                                API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
-                                    key in
-                                    self.performSegue(withIdentifier: "Results", sender: logKey)
-                                })
-                                
+                        //NutritionStore.saveDrink(nutrients: self.nutrients)
+                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, completion: {
+                            logKey in
+                            API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
+                                key in
+                                self.performSegue(withIdentifier: "Results", sender: logKey)
                             })
-                        }
+                        })
+                        
                     }
                 }
             }

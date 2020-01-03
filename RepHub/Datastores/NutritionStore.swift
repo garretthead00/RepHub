@@ -8,7 +8,7 @@
 import HealthKit
 
 
-var nutritionDataTypeCollection : [String:HKQuantityType] = [
+var nutritionDataTypeCollection = [
     "Calcium":HKSampleType.quantityType(forIdentifier:HKQuantityTypeIdentifier.dietaryCalcium)!,
     "Carbohydrate":HKSampleType.quantityType(forIdentifier:HKQuantityTypeIdentifier.dietaryCarbohydrates)!,
     "Cholesterol":HKSampleType.quantityType(forIdentifier:HKQuantityTypeIdentifier.dietaryCholesterol)!,
@@ -50,7 +50,7 @@ var nutritionDataTypeCollection : [String:HKQuantityType] = [
     "Selenium":HKSampleType.quantityType(forIdentifier:HKQuantityTypeIdentifier.dietarySelenium)!
 ]
 
-var nutritionUnitCollection : [String:HKUnit] = [
+var nutritionUnitCollection = [
     "g" : HKUnit(from: .gram),
     "mcg" : HKUnit.gramUnit(with: .micro),
     "kcal" : HKUnit(from: .kilocalorie),
@@ -81,7 +81,9 @@ class NutritionStore {
                 ProgressHUD.showError("Could not save to HealthKit!")
             }
         })
+        
     }
+    
     
     
     /**
@@ -102,7 +104,7 @@ class NutritionStore {
         let limit = Int(HKObjectQueryNoLimit)
         let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]) { (query, results, error) in
             guard let samples = results as? [HKQuantitySample] else {
-                fatalError("An error occured fetching the user's tracked food. In your app, try to handle this error gracefully. The error was: \(error?.localizedDescription)");
+                fatalError("An error occured fetching the user's tracked food. In your app, try to handle this error gracefully. The error was: \(error!.localizedDescription)");
             }
             DispatchQueue.main.async {
                 completion(samples, nil)

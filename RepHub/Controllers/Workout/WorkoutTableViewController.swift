@@ -92,7 +92,7 @@ class WorkoutTableViewController: UITableViewController {
                 print("saved")
                 var i = 0
                 for exercise in self.exercises {
-                    print("exercise: \(exercise.id) index: \(i)")
+                    print("exercise: \(exercise.id ?? "") index: \(i)")
                 API.WorkoutExercises.WORKOUT_EXERCISES_DB_REF.child(id).child("exercises").child(exercise.id!).updateChildValues(["atIndex": i], withCompletionBlock: {
                         err, ref in
                         if err != nil {
@@ -280,7 +280,7 @@ class WorkoutTableViewController: UITableViewController {
 extension WorkoutTableViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     
    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        var values = Array(0...60)
+        let values = Array(0...60)
         if targetAlertOption == "Time" {
             if component == 0 {
                 return values.count;
@@ -313,7 +313,7 @@ extension WorkoutTableViewController : UIPickerViewDelegate, UIPickerViewDataSou
     
     // Return the title of each row in your picker ... In my case that will be the profile name or the username string
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        var values = Array(0...60)
+        let values = Array(0...60)
 
         if targetAlertOption == "Time" {
             if component == 0 {
@@ -393,7 +393,6 @@ extension WorkoutTableViewController : Workout_ExerciseDelegate {
             let title = "Set Break"
             let message = "Set the break time between sets.\n\n\n\n\n";
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.isModalInPopover = true;
             let picker = UIPickerView(frame: CGRect(x: 10, y: 60, width: 250, height: 100))
             picker.tag = 0;
             picker.delegate = self;

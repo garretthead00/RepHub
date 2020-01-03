@@ -42,34 +42,34 @@ class HydrateActivityTableViewController: UITableViewController {
     }
     
     
-    private func fetchHydrationLogs(){
-        guard let currentUser = API.RepHubUser.CURRENT_USER else {
-            return
-        }
-        let currentUserId = currentUser.uid
-        API.Hydrate.observeHydrateLogs(withId: currentUserId) {
-            log in
-            self.hydrateLogs.append(log)
-            self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timestamp > $1.timestamp})
-            print("hydrate log -- : \(log)")
-            self.calculateTotalDrankByDrinkType()
-            self.activity?.logs = self.hydrateLogs
-            self.tableView.reloadData()
-        }
-
-    }
+//    private func fetchHydrationLogs(){
+//        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+//            return
+//        }
+//        let currentUserId = currentUser.uid
+//        API.Hydrate.observeHydrateLogs(withId: currentUserId) {
+//            log in
+//            self.hydrateLogs.append(log)
+//            self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timestamp > $1.timestamp})
+//            print("hydrate log -- : \(log)")
+//            self.calculateTotalDrankByDrinkType()
+//            self.activity?.logs = self.hydrateLogs
+//            self.tableView.reloadData()
+//        }
+//
+//    }
     
     private func calculateTotalDrankByDrinkType(){
-        let allKeys = Set<String>(self.hydrateLogs.filter({!$0.drinkType!.isEmpty}).map{$0.drinkType!})
-        
-        for key in allKeys {
-            let sum = self.hydrateLogs.filter({$0.drinkType! == key}).map({$0.servingSize!}).reduce(0, +)
-            self.totalDrankByDrinkType.append((key, sum))
-            print("totalDrankBydrinkType -- \(self.totalDrankByDrinkType)")
-            self.drinkDict[key] = sum
-            print("drinkDict -- \(self.drinkDict)")
-            
-        }
+//        let allKeys = Set<String>(self.hydrateLogs.filter({!$0.drinkType!.isEmpty}).map{$0.drinkType!})
+//        
+//        for key in allKeys {
+//            let sum = self.hydrateLogs.filter({$0.drinkType! == key}).map({$0.servingSize!}).reduce(0, +)
+//            self.totalDrankByDrinkType.append((key, sum))
+//            print("totalDrankBydrinkType -- \(self.totalDrankByDrinkType)")
+//            self.drinkDict[key] = sum
+//            print("drinkDict -- \(self.drinkDict)")
+//            
+//        }
         
     }
 
@@ -102,11 +102,11 @@ class HydrateActivityTableViewController: UITableViewController {
         if section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ProgressView", for: indexPath) as! CalorieMonitorTableViewCell
-                cell.activity = self.activity
+                //cell.activity = self.activity
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ChartView", for: indexPath) as! HydrateChartTableViewCell
-                cell.activity = self.activity
+                //cell.activity = self.activity
                 cell.drinksByType = self.drinkDict
                 return cell
             }
@@ -116,10 +116,10 @@ class HydrateActivityTableViewController: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogView", for: indexPath) as! HydrateLogTableViewCell
-            cell.name = self.hydrateLogs[row].drinkName!
-            cell.quantity = Int(self.hydrateLogs[row].householdServingSize!)
-            cell.type = self.hydrateLogs[row].drinkType!
-            cell.unit = self.hydrateLogs[row].householdServingSizeUnit!
+//            cell.name = self.hydrateLogs[row].drinkName!
+//            cell.quantity = Int(self.hydrateLogs[row].householdServingSize!)
+//            cell.type = self.hydrateLogs[row].drinkType!
+//            cell.unit = self.hydrateLogs[row].householdServingSizeUnit!
             return cell
         }
 
@@ -158,9 +158,13 @@ class HydrateActivityTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destination = segue.destination as! DrinkMenuCollectionViewController
+//        if segue.identifier == "Drinks" {
+//            let destination = segue.destination as! DrinksController
+//            destination.navigationItem.largeTitleDisplayMode = .always
+//        }
+//        
 //
 //    }
     

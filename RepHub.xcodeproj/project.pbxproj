@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,6 @@
 		6815FCBB215599F500E26732 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCBA215599F500E26732 /* HealthKitSetupAssistant.swift */; };
 		6815FCBD2155D22100E26732 /* BioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCBC2155D22100E26732 /* BioTableViewController.swift */; };
 		681604F621EED5BB003030B4 /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681604F521EED5BB003030B4 /* ReportAPI.swift */; };
-		68187412235FA08D005EC5EE /* ActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68187411235FA08D005EC5EE /* ActivityDelegate.swift */; };
 		68189D50238FE4D8009622EB /* FoodLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68189D4F238FE4D8009622EB /* FoodLog.swift */; };
 		68189D52238FE654009622EB /* UserFoodLogAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68189D51238FE654009622EB /* UserFoodLogAPI.swift */; };
 		681B3B17230C8D9E0064CE39 /* Eat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681B3B16230C8D9E0064CE39 /* Eat.storyboard */; };
@@ -126,7 +125,6 @@
 		6868EA9A2317489B00368C87 /* FoodGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868EA992317489B00368C87 /* FoodGroupCollectionViewController.swift */; };
 		686AB7F0235236840046BB41 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB7EF235236840046BB41 /* Activity.swift */; };
 		686AB7F22352458F0046BB41 /* ExerciseActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB7F12352458F0046BB41 /* ExerciseActivity.swift */; };
-		686AB7F4235257520046BB41 /* MindActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB7F3235257520046BB41 /* MindActivity.swift */; };
 		686AB7F6235257930046BB41 /* HydrateActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB7F5235257930046BB41 /* HydrateActivity.swift */; };
 		686AB7F8235257DC0046BB41 /* EatActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB7F7235257DC0046BB41 /* EatActivity.swift */; };
 		686AB7FA2352C5100046BB41 /* EatActivityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB7F92352C5100046BB41 /* EatActivityStore.swift */; };
@@ -210,9 +208,13 @@
 		68C8A6072327E83000C7FEB0 /* FoodFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C8A6062327E83000C7FEB0 /* FoodFilterTableViewCell.swift */; };
 		68D08D8821095C2000912F70 /* HydrateDailies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D08D8721095C2000912F70 /* HydrateDailies.swift */; };
 		68D3767E212E26530083B6D3 /* ExerciseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D3767D212E26530083B6D3 /* ExerciseLogViewController.swift */; };
+		68D5CA9323BD66E200EB97E9 /* DrinksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9223BD66E200EB97E9 /* DrinksController.swift */; };
+		68D5CA9523BD6B1400EB97E9 /* DrinkSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9423BD6B1400EB97E9 /* DrinkSearchTableViewCell.swift */; };
+		68D5CA9723BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9623BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift */; };
+		68D5CA9923BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9823BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift */; };
+		68D5CA9B23BD71D600EB97E9 /* DrinkItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9A23BD71D600EB97E9 /* DrinkItemTableViewCell.swift */; };
 		68E7184E2376031B00E58D6F /* HydrateActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7184D2376031B00E58D6F /* HydrateActivityTableViewController.swift */; };
 		68E71850237604B700E58D6F /* HydrateChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7184F237604B700E58D6F /* HydrateChartTableViewCell.swift */; };
-		68E7185423760D1200E58D6F /* HydrateChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E7185323760D1200E58D6F /* HydrateChartTableViewCell.swift */; };
 		68E71856237CC63E00E58D6F /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E71855237CC63E00E58D6F /* ActivityLog.swift */; };
 		68E987CA21052DF10022150A /* PlannerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E987C921052DF10022150A /* PlannerTableViewController.swift */; };
 		68E987CC21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E987CB21053FFA0022150A /* PlannerRecentActivityTableViewCell.swift */; };
@@ -222,6 +224,7 @@
 		68E987DC2107CC050022150A /* HydrateReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E987DB2107CC050022150A /* HydrateReminderTableViewCell.swift */; };
 		68E987DE2107E6B00022150A /* HydrateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E987DD2107E6B00022150A /* HydrateLog.swift */; };
 		68E987E22108038C0022150A /* HydrateSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E987E12108038C0022150A /* HydrateSettings.swift */; };
+		68EB895A23B1DA9700840D63 /* ActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EB895923B1DA9600840D63 /* ActivityDelegate.swift */; };
 		68F33BD421E1C570001BB39B /* UserTagAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F33BD321E1C570001BB39B /* UserTagAPI.swift */; };
 		68F9C0F821612CA3000799C4 /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9C0F721612CA3000799C4 /* WorkoutStore.swift */; };
 		68F9C0FA2161303D000799C4 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9C0F92161303D000799C4 /* WorkoutSession.swift */; };
@@ -251,9 +254,8 @@
 		6815FCBA215599F500E26732 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		6815FCBC2155D22100E26732 /* BioTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTableViewController.swift; sourceTree = "<group>"; };
 		681604F521EED5BB003030B4 /* ReportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
-		68187411235FA08D005EC5EE /* ActivityDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDelegate.swift; sourceTree = "<group>"; };
-		68189D4F238FE4D8009622EB /* FoodLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoodLog.swift; path = RepHub/Models/FoodLog.swift; sourceTree = "<group>"; };
-		68189D51238FE654009622EB /* UserFoodLogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserFoodLogAPI.swift; path = RepHub/API/UserFoodLogAPI.swift; sourceTree = "<group>"; };
+		68189D4F238FE4D8009622EB /* FoodLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodLog.swift; sourceTree = "<group>"; };
+		68189D51238FE654009622EB /* UserFoodLogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFoodLogAPI.swift; sourceTree = "<group>"; };
 		681B3B16230C8D9E0064CE39 /* Eat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Eat.storyboard; sourceTree = "<group>"; };
 		681B3B18230C8E580064CE39 /* Eat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Eat.storyboard; sourceTree = "<group>"; };
 		681B3B1A230DEECD0064CE39 /* EatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatTableViewController.swift; sourceTree = "<group>"; };
@@ -360,7 +362,6 @@
 		6868EA992317489B00368C87 /* FoodGroupCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodGroupCollectionViewController.swift; sourceTree = "<group>"; };
 		686AB7EF235236840046BB41 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		686AB7F12352458F0046BB41 /* ExerciseActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseActivity.swift; sourceTree = "<group>"; };
-		686AB7F3235257520046BB41 /* MindActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindActivity.swift; sourceTree = "<group>"; };
 		686AB7F5235257930046BB41 /* HydrateActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateActivity.swift; sourceTree = "<group>"; };
 		686AB7F7235257DC0046BB41 /* EatActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatActivity.swift; sourceTree = "<group>"; };
 		686AB7F92352C5100046BB41 /* EatActivityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatActivityStore.swift; sourceTree = "<group>"; };
@@ -447,6 +448,11 @@
 		68C8A6062327E83000C7FEB0 /* FoodFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodFilterTableViewCell.swift; sourceTree = "<group>"; };
 		68D08D8721095C2000912F70 /* HydrateDailies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateDailies.swift; sourceTree = "<group>"; };
 		68D3767D212E26530083B6D3 /* ExerciseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogViewController.swift; sourceTree = "<group>"; };
+		68D5CA9223BD66E200EB97E9 /* DrinksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksController.swift; sourceTree = "<group>"; };
+		68D5CA9423BD6B1400EB97E9 /* DrinkSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSearchTableViewCell.swift; sourceTree = "<group>"; };
+		68D5CA9623BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFiltersTableViewCell.swift; sourceTree = "<group>"; };
+		68D5CA9823BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		68D5CA9A23BD71D600EB97E9 /* DrinkItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkItemTableViewCell.swift; sourceTree = "<group>"; };
 		68E7184D2376031B00E58D6F /* HydrateActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HydrateActivityTableViewController.swift; path = RepHub/Controllers/Activity/HydrateActivityTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		68E7184F237604B700E58D6F /* HydrateChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HydrateChartTableViewCell.swift; path = RepHub/Views/Activity/HydrateChartTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		68E7185323760D1200E58D6F /* HydrateChartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HydrateChartTableViewCell.swift; sourceTree = "<group>"; };
@@ -459,6 +465,7 @@
 		68E987DB2107CC050022150A /* HydrateReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateReminderTableViewCell.swift; sourceTree = "<group>"; };
 		68E987DD2107E6B00022150A /* HydrateLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateLog.swift; sourceTree = "<group>"; };
 		68E987E12108038C0022150A /* HydrateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateSettings.swift; sourceTree = "<group>"; };
+		68EB895923B1DA9600840D63 /* ActivityDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDelegate.swift; sourceTree = "<group>"; };
 		68F33BD321E1C570001BB39B /* UserTagAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagAPI.swift; sourceTree = "<group>"; };
 		68F9C0F721612CA3000799C4 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
 		68F9C0F92161303D000799C4 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
@@ -493,7 +500,7 @@
 		68187413235FA093005EC5EE /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				68187411235FA08D005EC5EE /* ActivityDelegate.swift */,
+				68EB895923B1DA9600840D63 /* ActivityDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -535,7 +542,6 @@
 				68BB3368235E135000AD0C3F /* EnergyBalanceDataHandler.swift */,
 				686AB7F7235257DC0046BB41 /* EatActivity.swift */,
 				686AB7F5235257930046BB41 /* HydrateActivity.swift */,
-				686AB7F3235257520046BB41 /* MindActivity.swift */,
 				686AB7F12352458F0046BB41 /* ExerciseActivity.swift */,
 				686AB7EF235236840046BB41 /* Activity.swift */,
 			);
@@ -602,6 +608,7 @@
 		684CF32820DB334E0009357B /* API */ = {
 			isa = PBXGroup;
 			children = (
+				68189D51238FE654009622EB /* UserFoodLogAPI.swift */,
 				684CF32920DB35750009357B /* API.swift */,
 				68FB234222BC178900D6153C /* DrinkAPI.swift */,
 				68C8A5FE23259F0E00C7FEB0 /* FoodAPI.swift */,
@@ -639,6 +646,7 @@
 		685FB92C22B2EBB20046924A /* Hydrate */ = {
 			isa = PBXGroup;
 			children = (
+				68D5CA9223BD66E200EB97E9 /* DrinksController.swift */,
 				68476FD822C7AF7E0051D6A1 /* DrinkResultsTableViewController.swift */,
 				68FB234622BC19D000D6153C /* DrinksTableViewController.swift */,
 				68476FD422C7AF590051D6A1 /* DrinkResultsTableViewController.swift */,
@@ -652,6 +660,10 @@
 		685FB92D22B2EBDB0046924A /* Hydrate */ = {
 			isa = PBXGroup;
 			children = (
+				68D5CA9623BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift */,
+				68D5CA9823BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift */,
+				68D5CA9A23BD71D600EB97E9 /* DrinkItemTableViewCell.swift */,
+				68D5CA9423BD6B1400EB97E9 /* DrinkSearchTableViewCell.swift */,
 				685FB93422B683820046924A /* DrinkCollectionViewCell.swift */,
 				68E987D92107CB970022150A /* HydrateDailyTableViewCell.swift */,
 				686E741F22BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift */,
@@ -715,6 +727,7 @@
 				6885873D20D9CD4100DAC4A3 /* Comment.swift */,
 				683E759D23300BC1009A00B5 /* LifeData.swift */,
 				6833EE3E211BC85B0018DAA2 /* Exercise.swift */,
+				68189D4F238FE4D8009622EB /* FoodLog.swift */,
 				68FB234422BC183A00D6153C /* Drink.swift */,
 				68C8A60023259FAF00C7FEB0 /* FoodItem.swift */,
 				68FB234C22BC228300D6153C /* Nutrient.swift */,
@@ -871,8 +884,6 @@
 		68B3EC41202FD57800A894CF = {
 			isa = PBXGroup;
 			children = (
-				68189D4F238FE4D8009622EB /* FoodLog.swift */,
-				68189D51238FE654009622EB /* UserFoodLogAPI.swift */,
 				68B3EC4C202FD57800A894CF /* RepHub */,
 				68B3EC4B202FD57800A894CF /* Products */,
 				6CCC1EC84A96D7D8C6C87DC8 /* Pods */,
@@ -962,7 +973,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Garrett Head";
 				TargetAttributes = {
 					68B3EC49202FD57800A894CF = {
@@ -981,7 +992,7 @@
 				};
 			};
 			buildConfigurationList = 68B3EC45202FD57800A894CF /* Build configuration list for PBXProject "RepHub" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1090,8 +1101,8 @@
 				681B3B1B230DEECD0064CE39 /* EatTableViewController.swift in Sources */,
 				683AB58020E042C9001B3345 /* DiscoverViewController.swift in Sources */,
 				683096A72145A71A009AFB83 /* ExerciseLog.swift in Sources */,
-				68187412235FA08D005EC5EE /* ActivityDelegate.swift in Sources */,
 				68FB234B22BC220200D6153C /* NutritionAPI.swift in Sources */,
+				68EB895A23B1DA9700840D63 /* ActivityDelegate.swift in Sources */,
 				689CAAAF21239EC200BC2975 /* WorkoutTableViewCell.swift in Sources */,
 				689CAAA92123848300BC2975 /* MuscleGroupTableViewController.swift in Sources */,
 				6841E5B2212E4E5000D17B87 /* UserExerciseLogsAPI.swift in Sources */,
@@ -1100,6 +1111,7 @@
 				68A54EF0229999CD001AE006 /* CreateWorkoutTableViewController.swift in Sources */,
 				68F9C0FE21613218000799C4 /* WorkoutInterval.swift in Sources */,
 				68E7184E2376031B00E58D6F /* HydrateActivityTableViewController.swift in Sources */,
+				68D5CA9723BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift in Sources */,
 				686AB7F8235257DC0046BB41 /* EatActivity.swift in Sources */,
 				682CA29320E837510006552D /* MyPostsAPI.swift in Sources */,
 				683AB58220E198DF001B3345 /* DiscoverUserTableViewCell.swift in Sources */,
@@ -1139,6 +1151,7 @@
 				6875622D2048EF6100DDD09D /* SearchViewController.swift in Sources */,
 				6868EA982317480800368C87 /* FoodGroupCollectionViewCell.swift in Sources */,
 				6873C39E2266C0390069149C /* ExerciseModalityFilterTableViewCell.swift in Sources */,
+				68D5CA9B23BD71D600EB97E9 /* DrinkItemTableViewCell.swift in Sources */,
 				68E71850237604B700E58D6F /* HydrateChartTableViewCell.swift in Sources */,
 				6862F23321794B3700D65448 /* WorkoutMotionTracker.swift in Sources */,
 				68BB3369235E135000AD0C3F /* EnergyBalanceDataHandler.swift in Sources */,
@@ -1160,8 +1173,10 @@
 				688E3CE520D6AF690032B35F /* RepHubUser.swift in Sources */,
 				684A28D721270C0E00F00CA8 /* ExercisesTableViewController.swift in Sources */,
 				68FB234D22BC228300D6153C /* Nutrient.swift in Sources */,
+				68D5CA9523BD6B1400EB97E9 /* DrinkSearchTableViewCell.swift in Sources */,
 				6888323B222AB40A00C4D077 /* ActiveWorkoutExerciseCollectionReusableView.swift in Sources */,
 				68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */,
+				68D5CA9323BD66E200EB97E9 /* DrinksController.swift in Sources */,
 				683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */,
 				68540218226224FA0020396A /* ComplexExercisesTableViewController.swift in Sources */,
 				6860335C2227707F0009335A /* WorkoutControlsTableViewCell.swift in Sources */,
@@ -1228,7 +1243,6 @@
 				681E438620DDB56900FB6686 /* LockerCRV.swift in Sources */,
 				68A54EEA229302F1001AE006 /* Workout_ExerciseTableViewCell.swift in Sources */,
 				6854021A22622C4F0020396A /* ExerciseTypesCollectionViewController.swift in Sources */,
-				68E7185423760D1200E58D6F /* HydrateChartTableViewCell.swift in Sources */,
 				68189D50238FE4D8009622EB /* FoodLog.swift in Sources */,
 				689CAAB12123A07B00BC2975 /* WorkoutAPI.swift in Sources */,
 				68AE61ED2336612D005A0456 /* EatActivityTableViewController.swift in Sources */,
@@ -1238,7 +1252,6 @@
 				684A28E1212747BC00F00CA8 /* WorkoutDetailsTableViewCell.swift in Sources */,
 				689CAAA7212379E900BC2975 /* ExerciseTypesTableViewController.swift in Sources */,
 				68C1DEC321E40D3D005048C6 /* SidePanelViewController.swift in Sources */,
-				686AB7F4235257520046BB41 /* MindActivity.swift in Sources */,
 				686F38E920ED425400502636 /* FilterCollectionViewCell.swift in Sources */,
 				68AF9ECA20E1A47300EA8D36 /* FollowAPI.swift in Sources */,
 				683E75A523317620009A00B5 /* LifeRingChart.swift in Sources */,
@@ -1266,6 +1279,7 @@
 				688EE25B20CB4EEB007EE071 /* SignupViewController.swift in Sources */,
 				68C77D6A21E7E7900000A73B /* LockerMenuView.swift in Sources */,
 				68883237222A20F200C4D077 /* ActiveExerciseTargetsTableViewCell.swift in Sources */,
+				68D5CA9923BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift in Sources */,
 				684CB62C2149EF680065EB5F /* WorkoutLog.swift in Sources */,
 				6868EA962317196600368C87 /* FoodMenuItemTableViewCell.swift in Sources */,
 				683480722208C8880024EA66 /* ExerciseTargetsCell.swift in Sources */,
@@ -1426,7 +1440,7 @@
 				DEVELOPMENT_TEAM = WVLJ6K5F9U;
 				INFOPLIST_FILE = RepHub/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1450,7 +1464,7 @@
 				DEVELOPMENT_TEAM = WVLJ6K5F9U;
 				INFOPLIST_FILE = RepHub/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

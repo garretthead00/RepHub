@@ -34,6 +34,9 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateView(){
+//        print("energyBurned: \(self.energyBurned)")
+//        print("energyconsmed: \(self.energyConsumed)")
+//        print("energyBalance: \(self.energyBalance)")
         self.setChartData()
     }
     

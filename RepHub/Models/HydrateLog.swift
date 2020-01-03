@@ -8,74 +8,36 @@
 
 import Foundation
 
-class HydrateLog : ActivityLog {
+class HydrateLog {
 
     
-    var timestamp: Double
-    var unit: String
-    var value: Double
-    
-
     var id : String?
+    var drinkId: Int?
+    var timestamp: Double?
     var servingSize : Double?
     var servingSizeUnit : String?
     var householdServingSize : Double?
     var householdServingSizeUnit : String?
-    //var timeStamp : Double?
-    var drinkId : Int?
-    var drinkName : String?
-    var drinkType : String?
-    
-    init(){
-        self.timestamp = 0.0
-        self.value = 0.0
-        self.unit = ""
-    }
-    
-    init(timestamp: Double, value: Double, unit: String) {
-        self.timestamp = timestamp
-        self.value = value
-        self.unit = unit
-    }
+    var drink : FoodItem?
+    var nutrition : [(String, Double, String)]?
+
     
 }
 
 extension HydrateLog {
     
     
-
-    
     static func transformHydrateLog(data: [String: Any], key: String) -> HydrateLog {
-        
-        let timestamp = data["timestamp"] as! Double
-        let servingSize = data["servingSize"] as! Double
-        let unit = data["servingSizeUOM"] as! String
-            
-        
-        
-        let log = HydrateLog(timestamp: timestamp, value: servingSize, unit: unit)
+        let log = HydrateLog()
         log.id = key
+        log.drinkId = data["id"] as? Int
         log.servingSize = data["servingSize"] as? Double
-        log.drinkId = data["drinkId"] as? Int
         log.servingSizeUnit = data["servingSizeUOM"] as? String
         log.householdServingSize = data["householdServingSize"] as? Double
         log.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
-        log.drinkName = data["name"] as? String
-        log.drinkType = data["type"] as? String
+        log.timestamp = data["timestamp"] as? Double
+        log.nutrition = [] as? [(String, Double, String)]
         return log
     }
-    
-//    static func transformHydrateLog(data: [String: Any], key: String) -> HydrateLog {
-//        let log = HydrateLog()
-//        log.id = key
-//        log.servingSize = data["servingSize"] as? Double
-//        log.drinkId = data["drinkId"] as? Int
-//        log.servingSizeUnit = data["servingSizeUOM"] as? String
-//        log.householdServingSize = data["householdServingSize"] as? Double
-//        log.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
-//        log.timeStamp = data["timestamp"] as? Double
-//        log.drinkName = data["name"] as? String
-//        log.drinkType = data["type"] as? String
-//        return log
-//    }
+
 }

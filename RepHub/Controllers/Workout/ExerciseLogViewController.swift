@@ -247,7 +247,7 @@ extension ExerciseLogViewController {
         let title = "Break"
         let message = "Set the break time limit between sets.\n\n\n\n\n";
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        alert.isModalInPopover = true;
+        alert.isModalInPresentation = true;
         
         let picker = UIPickerView(frame: CGRect(x: 10, y: 60, width: 250, height: 100))
         picker.tag = 0;

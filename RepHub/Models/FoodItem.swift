@@ -11,9 +11,8 @@ import Foundation
 class FoodItem {
     
     var name : String?
-    var id : Int?
+    var id : String?
     var foodGroup : String?
-    var manufacturer : String?
     var servingSize : Double?
     var servingSizeUnit : String?
     var householdServingSize : Double?
@@ -21,7 +20,6 @@ class FoodItem {
     var category : String?
     var subCategory : String?
     var subCategory2 : String?
-    var subCategory3 : String?
     var source : String?
     var sourceDescription : String?
     
@@ -31,40 +29,20 @@ extension FoodItem {
     
     static func transformFood(data: [String: Any], key: String) -> FoodItem {
         let food = FoodItem()
-        food.name = data["Name"] as? String
-        food.id = data["ID"] as? Int
-        food.foodGroup = data["Food Group"] as? String
-        food.manufacturer = data["Manufacturer"] as? String
-        food.servingSize = data["serving size"] as? Double
-        food.servingSizeUnit = data["serving size unit"] as? String
-        food.householdServingSize = data["household serving size"] as? Double
-        food.householdServingSizeUnit = data["household serving size unit"] as? String
-        food.category = data["Category"] as? String
-        food.subCategory = data["Sub Category 1"] as? String
-        food.subCategory2 = data["Sub Category 2"] as? String
-        food.subCategory3 = data["Sub Category 3"] as? String
-        food.source = data["Source"] as? String
-        food.sourceDescription = data["Source Description"] as? String
+        food.id = key
+        food.name = data["name"] as? String
+        food.foodGroup = data["foodGroup"] as? String
+        food.servingSize = data["servingSize"] as? Double
+        food.servingSizeUnit = data["servingSizeUnit"] as? String
+        food.householdServingSize = data["householdServingSize"] as? Double
+        food.householdServingSizeUnit = data["householdServingSizeUnit"] as? String
+        food.category = data["category"] as? String
+        food.subCategory = data["subCategory1"] as? String
+        food.subCategory2 = data["subCategory2"] as? String
+        food.source = data["source"] as? String
+        food.sourceDescription = data["sourceDescription"] as? String
         return food
     }
-    
-    static func transformFoodByType(data: [String: Any], key: String) -> FoodItem {
-        let food = FoodItem()
-        food.name = data["Name"] as? String
-        food.id = data["ID"] as? Int
-        food.servingSize = data["serving size"] as? Double
-        food.servingSizeUnit = data["serving size unit"] as? String
-        food.householdServingSize = data["household serving size"] as? Double
-        food.householdServingSizeUnit = data["household serving size unit"] as? String
-        food.category = data["Category"] as? String
-        food.subCategory = data["Sub Category 1"] as? String
-        food.subCategory2 = data["Sub Category 2"] as? String
-        food.subCategory3 = data["Sub Category 3"] as? String
-        food.source = data["Source"] as? String
-        food.sourceDescription = data["Source Description"] as? String
-        return food
-    }
-
     
     func foodTypes(byGroup: String) -> [String] {
         switch byGroup {

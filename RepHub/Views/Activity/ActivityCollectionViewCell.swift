@@ -22,16 +22,19 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var itemThreeTitleLabel: UILabel!
     @IBOutlet weak var itemThreeValueLabel: UILabel!
 
-    
     var delegate : ActivityDelegate?
-    
     var activity : Activity? {
         didSet {
             updateView()
         }
     }
+
+    var chartDataSet = PieChartDataSet()
+    
     
     override func awakeFromNib() {
+        self.layer.borderWidth = 2
+        self.layer.cornerRadius = 8
         self.iconImageView.image = nil
         self.titleLabel.text = ""
         self.progressLabel.text = ""
@@ -47,48 +50,54 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         self.itemOneValueLabel.textColor = UIColor.lightText
         self.itemTwoValueLabel.textColor = UIColor.lightText
         self.itemThreeValueLabel.textColor = UIColor.lightText
-        self.layer.borderWidth = 2
-        self.layer.cornerRadius = 8
+        self.chartDataSet.sliceSpace = 4.0
+        self.chartDataSet.xValuePosition = .insideSlice
+        self.chartDataSet.yValuePosition = .insideSlice
+        self.chartDataSet.drawValuesEnabled = false
+        self.chartDataSet.useValueColorForLine = false
+        self.chartDataSet.valueLineColor = UIColor.clear
+        self.chartDataSet.valueLinePart1Length = -0.2
+        self.chartDataSet.valueLinePart2Length = -0.1
+        self.chartDataSet.label = nil
+        self.chartDataSet.selectionShift = 0
+        
         self.setupCharts()
     }
     
     private func updateView(){
         
+        
         if let activity = self.activity {
 
             self.iconImageView.image = activity.icon
             self.titleLabel.text = activity.label
-            self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(activity.target) \(activity.unit)"
+            self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(activity.target!) \(activity.unit)"
             self.titleLabel.textColor = activity.color
-            self.progressLabel.textColor = activity.color
-            self.layer.borderColor = activity.color.withAlphaComponent(0.5).cgColor
+            self.progressLabel.textColor =  UIColor.white
             let percentComplete = activity.percentComplete ?? 0.0
             let percentRemaining = activity.percentRemaining ?? 0.0
             let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: activity.label)
             let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: activity.label)
             let colors = [activity.color,activity.color.withAlphaComponent(0.5)]
-            let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
-            chartDataSet.sliceSpace = 4.0
-            chartDataSet.xValuePosition = .insideSlice
-            chartDataSet.yValuePosition = .insideSlice
-            chartDataSet.drawValuesEnabled = false
-            chartDataSet.useValueColorForLine = false
-            chartDataSet.valueLineColor = UIColor.clear
-            chartDataSet.valueLinePart1Length = -0.2
-            chartDataSet.valueLinePart2Length = -0.1
-            chartDataSet.colors = colors
-            chartDataSet.selectionShift = 0
+            self.chartDataSet.replaceEntries([pieChartDataEntry,remainingPieChartDataEntry])
+            self.chartDataSet.colors = colors
             let chartData = PieChartData(dataSet: chartDataSet)
             self.progressChartView.data = chartData
-             
-            if activity.data.count > 0 {
-                self.itemOneTitleLabel.text = "\(activity.data[0].0)"
-                self.itemOneValueLabel.text = "\(String(format: "%.0f", activity.data[0].1)) \(activity.data[0].2)"
-                self.itemTwoTitleLabel.text = "\(activity.data[1].0)"
-                self.itemTwoValueLabel.text = "\(String(format: "%.0f", activity.data[1].1)) \(activity.data[1].2)"
-                self.itemThreeTitleLabel.text = "\(activity.data[2].0)"
-                self.itemThreeValueLabel.text = "\(String(format: "%.0f", activity.data[2].1)) \(activity.data[2].2)"
+
+            
+            if let data = self.activity?.summaryData[0] {
+                self.itemOneTitleLabel.text = "\(data.0)"
+                self.itemOneValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
             }
+            if let data = self.activity?.summaryData[1] {
+                self.itemTwoTitleLabel.text = "\(data.0)"
+                self.itemTwoValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
+            }
+            if let data = self.activity?.summaryData[2] {
+                self.itemThreeTitleLabel.text = "\(data.0)"
+                self.itemThreeValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
+            }
+            
         }
     }
     
@@ -105,7 +114,6 @@ extension ActivityCollectionViewCell {
         self.progressChartView.usePercentValuesEnabled = true
         self.progressChartView.holeRadiusPercent = 0.9
         self.progressChartView.animate(xAxisDuration: 1.25, yAxisDuration: 1.25)
-        //self.progressChartView.delegate = self
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 8
         

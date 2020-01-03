@@ -15,9 +15,10 @@ protocol Activity {
     var color : UIColor { get }
     var unit : String { get }
     var dailyTotal : Double? { get set }
-    var target : Double { get set }
+    var target : Double? { get set }
     var percentComplete : Double? { get set }
     var percentRemaining : Double? { get set }
     var data : [(String,Double,String)] { get }
+    var summaryData : [(String,Double,String)] { get }
 }
 

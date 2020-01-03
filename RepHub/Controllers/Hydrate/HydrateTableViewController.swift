@@ -98,14 +98,14 @@ class HydrateTableViewController: UITableViewController {
         let currentUserId = currentUser.uid
         API.Hydrate.observeHydrateLogs(withId: currentUserId) {
             log in
-            API.Drink.observeDrink(withId: String(log.drinkId!), completion: {
-                drink in
-                log.drinkName = drink.name!
-                log.drinkType = drink.type!
-                self.hydrateLogs.append(log)
-                self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timestamp > $1.timestamp})
-                self.calculateData()
-            })
+//            API.Drink.observeDrink(withId: String(log.drinkId!), completion: {
+//                drink in
+//                log.drinkName = drink.name!
+//                log.drinkType = drink.type!
+//                self.hydrateLogs.append(log)
+//                self.hydrateLogs = self.hydrateLogs.sorted(by: { $0.timestamp > $1.timestamp})
+//                self.calculateData()
+//            })
             
             
         }
@@ -173,14 +173,14 @@ class HydrateTableViewController: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogCell", for: indexPath) as! HydrateLogTableViewCell
-            print("displaying row with name: \(self.hydrateLogs[row-1].drinkName!)")
-            print("val: \(self.hydrateLogs[row-1].householdServingSize!)")
-            print("type: \(self.hydrateLogs[row-1].drinkType!)")
-            print("unit: \(self.hydrateLogs[row-1].householdServingSizeUnit!)")
-            cell.name = self.hydrateLogs[row-1].drinkName!
-            cell.quantity = Int(self.hydrateLogs[row-1].householdServingSize!)
-            cell.type = self.hydrateLogs[row-1].drinkType!
-            cell.unit = self.hydrateLogs[row-1].householdServingSizeUnit!
+//            print("displaying row with name: \(self.hydrateLogs[row-1].drinkName!)")
+//            print("val: \(self.hydrateLogs[row-1].householdServingSize!)")
+//            print("type: \(self.hydrateLogs[row-1].drinkType!)")
+//            print("unit: \(self.hydrateLogs[row-1].householdServingSizeUnit!)")
+//            cell.name = self.hydrateLogs[row-1].drinkName!
+//            cell.quantity = Int(self.hydrateLogs[row-1].householdServingSize!)
+//            cell.type = self.hydrateLogs[row-1].drinkType!
+//            cell.unit = self.hydrateLogs[row-1].householdServingSizeUnit!
             return cell
         }
         

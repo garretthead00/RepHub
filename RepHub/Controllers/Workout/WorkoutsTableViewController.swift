@@ -75,9 +75,7 @@ class WorkoutsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let id = self.workouts[indexPath.row].id {
-            performSegue(withIdentifier: "Workout", sender: indexPath.row)
-        }
+        performSegue(withIdentifier: "Workout", sender: indexPath.row)
     }
  
     

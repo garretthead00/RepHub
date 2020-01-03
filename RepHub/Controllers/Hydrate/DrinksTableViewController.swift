@@ -25,12 +25,18 @@ class DrinksTableViewController: UITableViewController {
     }
 
     private func loadDrinks(){
-        if let type = self.drinkType {
-            API.Drink.observeDrinks(byType: type, completion: {
-                drink in
-                self.drinks.append(drink)
-            })
-        }
+        API.Food.observeFood(ofGroup: "Drinks", completion: {
+            drink in
+            self.drinks.append(drink)
+        })
+        
+//        if let type = self.drinkType {
+//
+//            API.Drink.observeDrinks(byType: type, completion: {
+//                drink in
+//                self.drinks.append(drink)
+//            })
+//        }
     }
     
     

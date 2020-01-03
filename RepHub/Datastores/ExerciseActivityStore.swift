@@ -12,6 +12,27 @@ import HealthKit
 
 class ExerciseActivityStore {
     
+
+    class func getTodaysExerciseMinutes(completion: @escaping (Double?, Error?) -> Void){
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        guard let exerciseMinutesQuantityType = HKSampleType.quantityType(forIdentifier: .appleExerciseTime) else {
+            print("*** Unable to create a exercise time type ***")
+            fatalError("*** Unable to create a exercise time type ***")
+        }
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: exerciseMinutesQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (query, result, error) in
+            DispatchQueue.main.async {
+                guard let result = result, let sum = result.sumQuantity() else {
+                    completion(nil, error)
+                    return
+                }
+                completion(sum.doubleValue(for: HKUnit.minute()), nil)
+            }
+        }
+        HKHealthStore().execute(query)
+    }
+    
     class func getTodaysSteps(completion: @escaping (Double?, Error?) -> Void){
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)
@@ -32,7 +53,7 @@ class ExerciseActivityStore {
         HKHealthStore().execute(query)
     }
     
-    class func getTodaysStandHours(completion: @escaping (Double?, Error?) -> Void){
+    class func getTodaysStandMinutes(completion: @escaping (Double?, Error?) -> Void){
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)
         guard let standQuantityType = HKSampleType.quantityType(forIdentifier: .appleStandTime) else {
@@ -112,6 +133,69 @@ class ExerciseActivityStore {
             }
         }
 
+        HKHealthStore().execute(query)
+    }
+    
+    class func getTodaysDistance(completion: @escaping(Double?, Error?)-> Void){
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        guard let distanceQuantityType = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning) else {
+            print("*** Unable to create a distance type ***")
+            fatalError("*** Unable to create a distance type ***")
+        }
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: distanceQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) {
+            (query, result, error) in
+            DispatchQueue.main.async {
+                guard let result = result, let sum = result.sumQuantity() else {
+                    completion(nil, error)
+                    return
+                }
+                completion(sum.doubleValue(for: HKUnit.mile()), nil)
+            }
+        }
+        HKHealthStore().execute(query)
+    }
+    
+    class func getTodaysFlightsClimbed(completion: @escaping(Double?, Error?)-> Void){
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        guard let flightsClimberQuantityType = HKSampleType.quantityType(forIdentifier: .flightsClimbed) else {
+            print("*** Unable to create a flights climbed type ***")
+            fatalError("*** Unable to create a flights climbed type ***")
+        }
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: flightsClimberQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) {
+            (query, result, error) in
+            DispatchQueue.main.async {
+                guard let result = result, let sum = result.sumQuantity() else {
+                    completion(nil, error)
+                    return
+                }
+                completion(sum.doubleValue(for: HKUnit.count()), nil)
+            }
+        }
+        HKHealthStore().execute(query)
+    }
+    
+    class func getTodaysRestingEnergyBurned(completion: @escaping(Double?, Error?)-> Void){
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        guard let restingEnergyBurnedQuantityType = HKSampleType.quantityType(forIdentifier: .basalEnergyBurned) else {
+            print("*** Unable to create a resting energy burned type ***")
+            fatalError("*** Unable to create a resting energy burned type ***")
+        }
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: restingEnergyBurnedQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) {
+            (query, result, error) in
+            DispatchQueue.main.async {
+                guard let result = result, let sum = result.sumQuantity() else {
+                    completion(nil, error)
+                    return
+                }
+                completion(sum.doubleValue(for: HKUnit.largeCalorie()), nil)
+            }
+        }
         HKHealthStore().execute(query)
     }
     
