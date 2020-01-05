@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DrinkTableViewController: UITableViewController {
+class DrinkController: UITableViewController {
 
     var drink : FoodItem? {
         didSet {
@@ -81,19 +81,23 @@ class DrinkTableViewController: UITableViewController {
             if let field = alertController.textFields?[0] {
                 if field.text != "", let quantity = Double(field.text!) {
                     if let drink = self.drink {
-                        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+                        guard let currentUserId = API.RepHubUser.CURRENT_USER?.uid else {
                             return
                         }
-                        let currentUserId = currentUser.uid
+                        
+                        // Calculate nutrition metrics based on the input value.
                         let nutritionWeight = quantity / drink.householdServingSize!
                         drink.householdServingSize = quantity
-                        drink.servingSize = quantity//drink.servingSize! * nutritionWeight
+                        drink.servingSize = drink.servingSize! * nutritionWeight
                         for nutrient in self.nutrients {
                             nutrient.value = nutrient.value! * nutritionWeight
                             nutrient.value = nutrient.value!.truncate(places: 2)
                         }
                         
-                        //NutritionStore.saveDrink(nutrients: self.nutrients)
+                        
+                        
+                        // Save log data & nutrition data to db.
+                        NutritionStore.saveDrink(nutrients: self.nutrients)
                         API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, completion: {
                             logKey in
                             API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
@@ -190,7 +194,7 @@ class DrinkTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Results" {
-            let drinkResultsTVC = segue.destination as! DrinkResultsTableViewController
+            let drinkResultsTVC = segue.destination as! DrinkResultsController
             let key = sender as! String
             drinkResultsTVC.hydrateLogId = key
             drinkResultsTVC.drink = self.drink

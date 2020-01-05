@@ -22,11 +22,7 @@ class FoodAPI {
         })
     }
     
-    
-    
-    /// MARK!!! need to create a unique drink query
     func observeFood(byType foodType:String, completion: @escaping(FoodItem) -> Void){
-        
         FOOD_DB_REF.child("Drinks").observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String:Any] {
@@ -34,12 +30,8 @@ class FoodAPI {
                 completion(drink)
             }
         })
-        
-        
-
     }
-//    var query = ref.orderByChild("database/username").equalTo("some_data");
-//    query.once("value", function(snapshot) {
+
     
     
 }

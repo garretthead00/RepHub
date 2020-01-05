@@ -54,7 +54,8 @@ var nutritionUnitCollection = [
     "g" : HKUnit(from: .gram),
     "mcg" : HKUnit.gramUnit(with: .micro),
     "kcal" : HKUnit(from: .kilocalorie),
-    "mg" : HKUnit.gramUnit(with: .milli)
+    "mg" : HKUnit.gramUnit(with: .milli),
+    "fl oz" : HKUnit.fluidOunceUS()
 ]
 
 
@@ -64,16 +65,21 @@ class NutritionStore {
         SAVING DATA
     **/
     class func saveDrink(nutrients: [Nutrient]) {
+        print("-----saving nutrients to HK..")
         let healthStore = HKHealthStore()
         var samples : [HKSample] = []
         for nutrient in nutrients {
+            print("-----nutrient \(nutrient.name) \(nutrient.value) \(nutrient.unit)")
             if let name = nutrient.name, let sampleType = nutritionDataTypeCollection[name] {
+                print("-----nutrient \(name) now")
                 let unit = nutritionUnitCollection[nutrient.unit!]
                 let quantity = HKQuantity(unit: unit!, doubleValue: Double(nutrient.value!))
                 let sample = HKQuantitySample(type: sampleType, quantity: quantity, start: NSDate() as Date, end: Date())
                 samples.append(sample)
             }
         }
+        
+        print("-----execute save..")
         healthStore.save(samples, withCompletion: { (success, error) -> Void in
             if success {
                 ProgressHUD.showSuccess("Saved to HealthKit!")

@@ -38,4 +38,5 @@ struct API {
     static var Nutrition = NutritionAPI()
     static var Food = FoodAPI()
     static var UserFoodLog = UserFoodLogAPI()
+    static var Library = LibraryAPI()
 }
