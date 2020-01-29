@@ -47,12 +47,44 @@ class NutritionAPI {
     }
     
     func observeNutritionLog(forUserId userId: String, logId: String, completion: @escaping(Nutrient) -> Void){
+        print("query nutrition Logs")
         USER_NUTRITION_LOGS_DB_REF.child(userId).child(logId).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String:Any]{
+                print("nutrition snapshot successfull")
                 let nutrient = Nutrient.transformNutrient(data: data, key: snapshot.key)
                 completion(nutrient)
             }
+        })
+    }
+    
+    func dispatchNutritionLog(forUserId userId: String, logId: String, completion: @escaping([Nutrient]) -> Void){
+        print("dispatchNutrition")
+        var nutrition = [Nutrient]()
+        let myGroup = DispatchGroup()
+        myGroup.enter()
+
+        USER_NUTRITION_LOGS_DB_REF.child(userId).child(logId).observe(.childAdded, with: {
+            snapshot in
+            print("got nutrition snapshot")
+            let items = snapshot.children.allObjects as! [DataSnapshot]
+            for (_, item) in items.enumerated() {
+
+                if let data = item.value as? [String:Any]{
+                    print("dispatchGroup iteration")
+                    let nutrient = Nutrient.transformNutrient(data: data, key: item.key)
+                    nutrition.append(nutrient)
+                }
+
+            }
+            myGroup.leave()
+
+        })
+        
+
+        
+        myGroup.notify(queue: .main, execute: {
+            completion(nutrition)
         })
     }
     

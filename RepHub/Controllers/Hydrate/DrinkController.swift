@@ -86,11 +86,11 @@ class DrinkController: UITableViewController {
                         }
                         
                         // Calculate nutrition metrics based on the input value.
-                        let nutritionWeight = quantity / drink.householdServingSize!
+                        let servings = quantity / drink.householdServingSize!
                         drink.householdServingSize = quantity
-                        drink.servingSize = drink.servingSize! * nutritionWeight
+                        drink.servingSize = drink.servingSize! * servings
                         for nutrient in self.nutrients {
-                            nutrient.value = nutrient.value! * nutritionWeight
+                            nutrient.value = nutrient.value! * servings
                             nutrient.value = nutrient.value!.truncate(places: 2)
                         }
                         
@@ -98,12 +98,13 @@ class DrinkController: UITableViewController {
                         
                         // Save log data & nutrition data to db.
                         NutritionStore.saveDrink(nutrients: self.nutrients)
-                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, completion: {
+                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, nutrients: self.nutrients, completion: {
                             logKey in
-                            API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
-                                key in
-                                self.performSegue(withIdentifier: "Results", sender: logKey)
-                            })
+                            //self.performSegue(withIdentifier: "Results", sender: logKey)
+//                            API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
+//                                key in
+//                                self.performSegue(withIdentifier: "Results", sender: logKey)
+//                            })
                         })
                         
                     }

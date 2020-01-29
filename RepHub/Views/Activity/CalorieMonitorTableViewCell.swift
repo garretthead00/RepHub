@@ -60,7 +60,7 @@ class CalorieMonitorTableViewCell: UITableViewCell {
     private func updateView(){
         
         if let activity = self.activity {
-            self.label.text = "\(activity.dailyTotal!) / \(activity.target) \(activity.unit)"
+            self.label.text = "\(activity.dailyTotal!) / \(activity.target!) \(activity.unit)"
             let chartDataSet = PieChartDataSet(entries: self.calorieEntries, label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.colors = [activity.color, activity.color.withAlphaComponent(0.5)]
@@ -70,7 +70,6 @@ class CalorieMonitorTableViewCell: UITableViewCell {
             chartDataSet.selectionShift = 0
         }
         
-
     }
 
 }

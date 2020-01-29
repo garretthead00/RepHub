@@ -36,7 +36,7 @@ class SimpleActivityCollectionViewCell: UICollectionViewCell {
     private func updateView(){
         print("Simple ActivityCollectionViewCell Hey!")
         self.iconImageView.image = self.activity?.icon
-        self.titleLabel.text = self.activity?.label
+        self.titleLabel.text = self.activity?.name
         self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(self.activity!.target ?? 0.0) \(self.activity!.unit)"
         self.titleLabel.textColor = self.activity?.color
         self.progressLabel.textColor = self.activity?.color
@@ -46,8 +46,8 @@ class SimpleActivityCollectionViewCell: UICollectionViewCell {
         let percentComplete = self.activity?.percentComplete ?? 0.0
         let percentRemaining = self.activity?.percentRemaining ?? 0.0
         
-        let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: self.activity!.label)
-        let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: self.activity!.label)
+        let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: self.activity!.name)
+        let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: self.activity!.name)
         let colors = [self.activity!.color,self.activity!.color.withAlphaComponent(0.5)]
         let chartDataSet = PieChartDataSet(entries: [pieChartDataEntry,remainingPieChartDataEntry], label: nil)
         chartDataSet.sliceSpace = 4.0

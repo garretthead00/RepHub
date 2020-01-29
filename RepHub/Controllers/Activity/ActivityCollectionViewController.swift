@@ -13,9 +13,9 @@ class ActivityCollectionViewController: UICollectionViewController {
     
     let activityView = UIActivityIndicatorView(style: .large)
     var energyBalance : EnergyBalanceDataHandler? = EnergyBalanceDataHandler()
-    var exerciseActivity : ExerciseActivity? = ExerciseActivity()
-    var eatActivity : EatActivity? = EatActivity()
-    var hydrateActivity : HydrateActivity? = HydrateActivity()
+    var exerciseActivity : ExerciseActivity?
+    var eatActivity : EatActivity?
+    var hydrateActivity : HydrateActivity?
     var activities = [Activity]() {
         didSet {
             self.refreshController()
@@ -34,6 +34,29 @@ class ActivityCollectionViewController: UICollectionViewController {
         self.activityView.center = self.view.center
         self.activityView.startAnimating()
         self.authorizeHealthKit()
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width - 24, height: 16))
+        label.text = "Enable HealthKit to view Activity."
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        label.center = CGPoint(x: screenSize.width/2, y: screenSize.width/2 - 64)
+        let button = UIButton(frame: CGRect(x: 0, y: 48, width: 92, height: 44))
+        button.center = CGPoint(x: screenSize.width/2, y: screenSize.width/2 - 12)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.cornerRadius = 8
+        button.backgroundColor = .clear
+        button.setTitle("Enable", for: .normal)
+        button.setTitleColor(.darkGray, for: .normal)
+        
+        let myView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width - 8, height: 128))
+
+        myView.addSubview(label)
+        myView.addSubview(button)
+        
+        self.collectionView.backgroundView = myView
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,6 +77,7 @@ class ActivityCollectionViewController: UICollectionViewController {
         HealthKitSetupAssistant.authorizeHealthKit {
             (authorized, error) in
             guard authorized else {
+                self.collectionView.backgroundView?.isHidden = false
                 let baseMessage = "--HealthKit Authorization Failed"
                 if let error = error {
                     print("\(baseMessage). Reason: \(error.localizedDescription)")
@@ -65,6 +89,7 @@ class ActivityCollectionViewController: UICollectionViewController {
             }
             //print("--HealthKit Successfully Authorized.")
             self.isHealthKitAuthorized = true
+            self.collectionView.backgroundView?.isHidden = true
             self.manageActivity()
             return
         }
@@ -74,6 +99,9 @@ class ActivityCollectionViewController: UICollectionViewController {
     
     private func manageActivity(){
 
+        self.exerciseActivity = ExerciseActivity()
+        self.eatActivity = EatActivity()
+        self.hydrateActivity = HydrateActivity()
         
         print("ActivityCtrl Load Activity")
         if let exercise = self.exerciseActivity, let eat = self.eatActivity, let hydrate = self.hydrateActivity {
@@ -96,11 +124,11 @@ class ActivityCollectionViewController: UICollectionViewController {
             destination.activity = self.activities[0]
         }
         else if segue.identifier == "Eat" {
-            let destination = segue.destination as! EatActivityTableViewController
-            destination.activity = self.activities[1]
+            let destination = segue.destination as! EatActivityController
+            //destination.activity = self.activities[1]
         }
         else if segue.identifier == "Hydrate" {
-            let destination = segue.destination as! HydrateActivityTableViewController
+            let destination = segue.destination as! HydrateActivityController
             let activity = self.activities[2] as! HydrateActivity
             destination.activity = activity
             
@@ -110,15 +138,24 @@ class ActivityCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        if self.isHealthKitAuthorized {
+            return 2
+        } else {
+            return 0
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (section == 0) ? 1 : activities.count
+        if self.isHealthKitAuthorized {
+            return (section == 0) ? 1 : activities.count
+        } else {
+            return 0
+        }
+        
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnergyBalanceView", for: indexPath) as! EnergyBalanceCollectionViewCell
             if let energyBurned = self.energyBalance?.activeEnergyBurnedByHour, let energyConsumed = self.energyBalance?.energyConsumedByHour, let energyBalance = self.energyBalance?.energyBalanceByHour {
@@ -146,12 +183,11 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
         if indexPath.section == 0 && indexPath.row == 0 {
             return CGSize(width: collectionViewSize, height: 300)
         } else {
-            
-            if self.activities[indexPath.row].data.count > 0 {
+            //if self.activities[indexPath.row].data.count > 0 {
                return CGSize(width: collectionViewSize, height: 154)
-            } else {
-                return CGSize(width: collectionViewSize, height: 100)
-            }
+            //} else {
+             //   return CGSize(width: collectionViewSize, height: 100)
+            //}
 
         }
 
@@ -171,7 +207,7 @@ extension ActivityCollectionViewController : UICollectionViewDelegateFlowLayout 
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
-            self.performSegue(withIdentifier: self.activities[indexPath.row].label, sender: nil)
+            
         }
     }
     

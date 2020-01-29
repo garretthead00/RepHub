@@ -70,33 +70,38 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         if let activity = self.activity {
 
             self.iconImageView.image = activity.icon
-            self.titleLabel.text = activity.label
-            self.progressLabel.text = "\(self.activity!.dailyTotal ?? 0.0) / \(activity.target!) \(activity.unit)"
+            self.titleLabel.text = activity.name
+            
+            if let total = activity.dailyTotal, let target = activity.target {
+                self.progressLabel.text = "\(Int(total)) / \(Int(target)) \(activity.unit)"
+            }
+            
+            
             self.titleLabel.textColor = activity.color
             self.progressLabel.textColor =  UIColor.white
             let percentComplete = activity.percentComplete ?? 0.0
             let percentRemaining = activity.percentRemaining ?? 0.0
-            let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: activity.label)
-            let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: activity.label)
+            let pieChartDataEntry = PieChartDataEntry(value: percentComplete, icon: nil, data: activity.name)
+            let remainingPieChartDataEntry = PieChartDataEntry(value: percentRemaining, icon: nil, data: activity.name)
             let colors = [activity.color,activity.color.withAlphaComponent(0.5)]
             self.chartDataSet.replaceEntries([pieChartDataEntry,remainingPieChartDataEntry])
             self.chartDataSet.colors = colors
             let chartData = PieChartData(dataSet: chartDataSet)
             self.progressChartView.data = chartData
 
-            
-            if let data = self.activity?.summaryData[0] {
-                self.itemOneTitleLabel.text = "\(data.0)"
-                self.itemOneValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
-            }
-            if let data = self.activity?.summaryData[1] {
-                self.itemTwoTitleLabel.text = "\(data.0)"
-                self.itemTwoValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
-            }
-            if let data = self.activity?.summaryData[2] {
-                self.itemThreeTitleLabel.text = "\(data.0)"
-                self.itemThreeValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
-            }
+//            
+//            if let data = self.activity?.summaryData[0] {
+//                self.itemOneTitleLabel.text = "\(data.0)"
+//                self.itemOneValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
+//            }
+//            if let data = self.activity?.summaryData[1] {
+//                self.itemTwoTitleLabel.text = "\(data.0)"
+//                self.itemTwoValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
+//            }
+//            if let data = self.activity?.summaryData[2] {
+//                self.itemThreeTitleLabel.text = "\(data.0)"
+//                self.itemThreeValueLabel.text = "\(String(format: "%.0f", data.1)) \(data.2)"
+//            }
             
         }
     }

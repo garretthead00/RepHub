@@ -7,6 +7,20 @@
 
 import HealthKit
 
+enum Nutrients : String {
+    case Energy = "Calories"
+    case Protein = "Protein"
+    case Carbs = "Carbohydrate"
+    case Fat = "Fat"
+    case Sugar = "Sugar"
+    case Water = "Water"
+    case Caffeine = "Caffeine"
+    case Sodium = "Sodium"
+    case Fiber = "Fiber"
+    case Cholesterol = "Cholesterol"
+}
+
+
 
 var nutritionDataTypeCollection = [
     "Calcium":HKSampleType.quantityType(forIdentifier:HKQuantityTypeIdentifier.dietaryCalcium)!,

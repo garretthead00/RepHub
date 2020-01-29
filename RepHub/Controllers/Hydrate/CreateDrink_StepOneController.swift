@@ -15,8 +15,6 @@ class CreateDrink_StepOneController: UITableViewController {
     var sectionHeaders = ["","Serving", "Ingredients", "Nutrition"]
     var name : String?
     var foodGroup: String? = "Drinks"
-    var category: String?
-    var otherCategory : String?
     var servingSize: Double?
     var servingUnit : String?
     var ingredients = [FoodItem]()
@@ -33,7 +31,7 @@ class CreateDrink_StepOneController: UITableViewController {
     
     @IBAction func next(_ sender: Any) {
         // segue to step two controller
-        print("next! -- name: \(self.name), foodGroup: \(self.foodGroup), category: \(self.category), otherCat: \(self.otherCategory), servingSize: \(self.servingSize), servingUnit: \(self.servingUnit)")
+        print("next! -- name: \(self.name), foodGroup: \(self.foodGroup), servingSize: \(self.servingSize), servingUnit: \(self.servingUnit)")
         self.performSegue(withIdentifier: "NextStep", sender: nil)
     }
     
@@ -48,9 +46,18 @@ class CreateDrink_StepOneController: UITableViewController {
         if section <= 1 {
             return 1
         } else if section == 2 {
-            return self.ingredients.count
+            if self.ingredients.count > 0 {
+                return self.ingredients.count
+            } else {
+                return 1
+            }
+            
         } else {
-            return self.nutrients.count
+            if self.nutrients.count > 0 {
+                return self.nutrients.count
+            } else {
+                return 1
+            }
         }
     }
 
@@ -58,12 +65,10 @@ class CreateDrink_StepOneController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         if section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsView", for: indexPath) as! CreateDrinkDetailsView
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NameView", for: indexPath) as! CreateDrinkNameView
             cell.delegate = self
             cell.name = self.name
             cell.foodGroup = self.foodGroup
-            cell.category = self.category
-            cell.otherCategory = self.otherCategory
             
             return cell
         } else if section == 1 {
@@ -73,15 +78,29 @@ class CreateDrink_StepOneController: UITableViewController {
             cell.selectedUnit = self.servingUnit
             return cell
         } else if section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientView", for: indexPath) as! CreateDrinkIngredientView
-            cell.delegate = self
-            cell.ingredient = self.ingredients[indexPath.row]
-            return cell
+            
+            if self.ingredients.count > 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientView", for: indexPath) as! CreateDrinkIngredientView
+                cell.delegate = self
+                cell.ingredient = self.ingredients[indexPath.row]
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AddView", for: indexPath) as! CreateDrinkAddItemView
+                return cell
+            }
+            
+            
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientView", for: indexPath) as! CreateDrinkNutrientView
-            cell.delegate = self
-            cell.nutrient = self.nutrients[indexPath.row]
-            return cell
+            
+            if self.nutrients.count > 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientView", for: indexPath) as! CreateDrinkNutrientView
+                cell.delegate = self
+                cell.nutrient = nutrients[indexPath.row]
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AddView", for: indexPath) as! CreateDrinkAddItemView
+                return cell
+            }
         }
     }
     
@@ -90,22 +109,22 @@ class CreateDrink_StepOneController: UITableViewController {
         return self.sectionHeaders[section]
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
  
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//
-//        let button = UIButton(type: .contactAdd)
-//        button.tag = section
-//        // the button is image - set image
-//        //button.setImage(UIImage(named: "add"), for: .normal)  // assumes there is an image named "remove_button"
-//        //button.addTarget(self, action: #selector(TestController.remove(_:)), forControlEvents: .TouchUpInside)  // add selector called by clicking on the button
-//
-//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))  // create custom view
-//        headerView.addSubview(button)   // add the button to the view
-//
-//        return headerView
-//    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        
+
+        let headerView = UIView()
+        let myLabel = UILabel()
+        myLabel.frame = CGRect(x: 8, y: 8, width: 320, height: 36)
+        myLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        headerView.addSubview(myLabel)
+        return headerView
+    }
 
     
     // MARK: - Navigation
@@ -116,7 +135,6 @@ class CreateDrink_StepOneController: UITableViewController {
             let vc = segue.destination as! CreateDrink_StepTwoController
             vc.name = self.name
             vc.foodGroup = self.foodGroup
-            vc.category = self.category
             vc.servingSize = self.servingSize
             vc.servingUnit = self.servingUnit
             
@@ -134,14 +152,6 @@ extension CreateDrink_StepOneController : CreateFoodDelegate {
     
     func updateFoodGroup(foodGroup: String) {
         self.foodGroup = foodGroup
-    }
-    
-    func updateCategory(category: String) {
-        self.category = category
-    }
-    
-    func updateOtherCategory(category: String) {
-        self.otherCategory = category
     }
     
     func updateIngredients(ingredients: [FoodItem]) {

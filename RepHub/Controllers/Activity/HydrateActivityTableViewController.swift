@@ -87,7 +87,7 @@ class HydrateActivityTableViewController: UITableViewController {
         if section == 0 {
             return 2
         } else if section == 1 {
-            return self.activity?.data.count ?? 0
+            return 1 //self.activity?.data.count ?? 0
         } else {
             return self.hydrateLogs.count
         }
@@ -112,7 +112,7 @@ class HydrateActivityTableViewController: UITableViewController {
             }
         } else if section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DailyActivityView", for: indexPath) as! DailyActivityTableViewCell
-            cell.activities = self.activity?.data[indexPath.row]
+            //cell.activities = self.activity?.data[indexPath.row]
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HydrationLogView", for: indexPath) as! HydrateLogTableViewCell

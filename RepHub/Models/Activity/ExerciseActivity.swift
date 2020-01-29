@@ -13,16 +13,15 @@ class ExerciseActivity : Activity {
     
     
     
-    var label: String
+    var name: String
     var icon: UIImage
     var color: UIColor
     var unit: String
     var dailyTotal: Double?
     var target: Double?
+    var remainingToTarget : Double?
     var percentComplete: Double?
     var percentRemaining: Double?
-    var data: [(String, Double, String)] = []
-    var summaryData: [(String, Double, String)] = []
     
     // MARK: - HealthKit properties
     var workoutsCompleted : Double?
@@ -37,7 +36,7 @@ class ExerciseActivity : Activity {
     
     
     init() {
-        self.label = "Exercise"
+        self.name = "Exercise"
         self.icon = UIImage.Theme.Activity.exercise
         self.color = UIColor.Theme.Activity.exercise
         self.unit = "Calories"
@@ -65,6 +64,7 @@ extension ExerciseActivity {
         if let dailyTotal = self.dailyTotal {
             self.percentComplete = dailyTotal / self.target! * 100
             self.percentRemaining = 100.0 - self.percentComplete!
+            self.remainingToTarget = self.target! - dailyTotal
         }
 
     }
@@ -100,8 +100,7 @@ extension ExerciseActivity {
             }
             print("got exercise minutes \(result)")
             self.exerciseMinutes = result
-            self.summaryData.append(("Exercise", result, HKUnit.minute().unitString))
-            self.data.append(("Exercise", result, HKUnit.minute().unitString))
+
             
             
         }
@@ -119,8 +118,7 @@ extension ExerciseActivity {
             }
             print("got total steps \(result)")
             self.totalSteps = result
-            self.summaryData.append(("Steps", result, ""))
-            self.data.append(("Steps", result, ""))
+
         }
     }
     func queryHKStandMinutes(){
@@ -136,8 +134,7 @@ extension ExerciseActivity {
             }
             print("got stand minutes \(result)")
             self.standMinutes = result
-            self.summaryData.append(("Stand", result, HKUnit.minute().unitString))
-            self.data.append(("Stand", result, HKUnit.minute().unitString))
+
         }
     }
     
@@ -152,7 +149,7 @@ extension ExerciseActivity {
             }
             self.distance = result
             
-            self.data.append(("Distance", result, HKUnit.mile().unitString))
+
         }
     }
 
@@ -166,7 +163,6 @@ extension ExerciseActivity {
                 return
             }
             self.flightsAscended = result
-            self.data.append(("Flights Climbed", result, ""))
         }
     }
 
@@ -180,7 +176,7 @@ extension ExerciseActivity {
                 return
             }
             self.totalRestingCaloriesBurned = result
-            self.data.append(("Resting Energy", result, HKUnit.largeCalorie().unitString))
+        
         }
     }
     

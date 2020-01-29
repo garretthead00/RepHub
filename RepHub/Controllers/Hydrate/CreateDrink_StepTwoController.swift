@@ -16,8 +16,6 @@ class CreateDrink_StepTwoController: UITableViewController {
     // properties from step one
     var name : String?
     var foodGroup: String? = "Drinks"
-    var category: String?
-    var otherCategory : String?
     var servingSize: Double?
     var servingUnit : String?
     var ingredients = [FoodItem]()
@@ -29,11 +27,10 @@ class CreateDrink_StepTwoController: UITableViewController {
 
     }
     @IBAction func saveDrink(_ sender: Any) {
-        print("save! -- name: \(self.name), foodGroup: \(self.foodGroup), category: \(self.category), otherCat: \(self.otherCategory), servingSize: \(self.servingSize), servingUnit: \(self.servingUnit), desc: \(self.drinkDescription)")
+        print("save! -- name: \(self.name), foodGroup: \(self.foodGroup), servingSize: \(self.servingSize), servingUnit: \(self.servingUnit), desc: \(self.drinkDescription)")
         let foodItem = FoodItem()
         foodItem.name = self.name
         foodItem.foodGroup = self.foodGroup
-        foodItem.category = self.category
         foodItem.servingSize = self.servingSize
         foodItem.servingSizeUnit = self.servingUnit
         foodItem.householdServingSize = self.servingSize
@@ -102,13 +99,6 @@ extension CreateDrink_StepTwoController : CreateFoodDelegate {
 
     }
     
-    func updateCategory(category: String) {
-
-    }
-    
-    func updateOtherCategory(category: String) {
-
-    }
     
     func updateIngredients(ingredients: [FoodItem]) {
 

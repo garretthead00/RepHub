@@ -18,16 +18,73 @@ class HydrateAPI {
     var USER_HYDRATE_LOGS_DB_REF = Database.database().reference().child("user-hydrate-logs")
     var USER_NUTRITION_LOGS_DB_REF = Database.database().reference().child("user-nutrition-logs")
     
-    func observeHydrateLogs(withId id: String, completion: @escaping(HydrateLog) -> Void){
+    func observeHydrateLogs(completion: @escaping(HydrateLog) -> Void){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+            return
+        }
+        let currentUserId = currentUser.uid
         let date = Date()
         let cal = Calendar(identifier: .gregorian)
         let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
-        USER_HYDRATE_LOGS_DB_REF.child(id).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
+        print("query hydration logs")
+        USER_HYDRATE_LOGS_DB_REF.child(currentUserId).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
             snapshot in
             if let data = snapshot.value as? [String: Any] {
+                print("hydrateLog snapshot successfull")
                 let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
                 completion(log)
             }
+        })
+    }
+    
+    
+    func dispatchHydrationLogs(completion: @escaping(HydrateLog) -> Void){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+           return
+        }
+        let currentUserId = currentUser.uid
+        let date = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
+        print("query hydration logs")
+        USER_HYDRATE_LOGS_DB_REF.child(currentUserId).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
+           snapshot in
+           
+            
+           
+            if let data = snapshot.value as? [String: Any] {
+                print("hydrateLog snapshot successfull")
+                let nutrition = snapshot.childSnapshot(forPath: "nutrition").children.allObjects as! [DataSnapshot]
+                print(nutrition)
+                let dispatchGroup = DispatchGroup()
+                dispatchGroup.enter()
+                let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
+                print("logId \(log.id!)")
+                API.Food.observeDrink(withId: log.drinkId!, completion: {
+                    drink in
+                    log.drink = drink
+                    dispatchGroup.leave()
+                })
+                
+                dispatchGroup.enter()
+                for(_, item) in nutrition.enumerated() {
+                    if let data = item.value as? [String:Any]{
+                        print("dispatchGroup iteration")
+                        let nutrient = Nutrient.transformNutrient(data: data, key: item.key)
+                        print("nutrient: \(nutrient.name) -- \(nutrient.value) \(nutrient.unit)")
+                        log.nutrition?.append(nutrient)
+                    }
+                }
+                dispatchGroup.leave()
+                
+                
+                
+                dispatchGroup.notify(queue: .main, execute: {
+                    completion(log)
+                })
+               
+            }
+
         })
     }
     
@@ -58,7 +115,7 @@ class HydrateAPI {
     }
     
     
-    func saveHyrdationLog(withUserId id: String, drink: FoodItem, completion: @escaping(String) -> Void){
+    func saveHyrdationLog(withUserId id: String, drink: FoodItem, nutrients: [Nutrient], completion: @escaping(String) -> Void){
         let logRef = USER_HYDRATE_LOGS_DB_REF.child(id).childByAutoId()
         let timestamp = NSDate().timeIntervalSince1970
         if let drinkID = drink.id, let servingSize = drink.servingSize, let servingSizeUnit = drink.servingSizeUnit, let householdServingSize = drink.householdServingSize, let householdServingSizeUnit = drink.householdServingSizeUnit {
@@ -71,7 +128,22 @@ class HydrateAPI {
                 if let key = ref.key {
                     completion(key)
                 }
+                for (index, element) in nutrients.enumerated() {
+                    if let nutrient = element.name, let value = element.value, let unit = element.unit {
+                        let key = String(index)
+                        logRef.child("nutrition").child(key).setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
+                            error, ref in
+                            if error != nil {
+                                ProgressHUD.showError(error!.localizedDescription)
+                                return
+                            }
+
+                        })
+                    }
+                }
+                
             })
+
         }
     }
 

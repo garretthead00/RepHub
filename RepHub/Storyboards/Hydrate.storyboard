@@ -155,59 +155,38 @@
         <scene sceneID="CwU-xa-Z0L">
             <objects>
                 <tableViewController id="kHm-8Z-vhu" customClass="CreateDrink_StepOneController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="a3J-KN-Gu6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="a3J-KN-Gu6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsView" rowHeight="182" id="Dzq-7v-8BQ" customClass="CreateDrinkDetailsView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="182"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameView" rowHeight="64" id="Dzq-7v-8BQ" customClass="CreateDrinkNameView" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dzq-7v-8BQ" id="sNK-SB-P34">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="rtD-uW-z3M">
-                                            <rect key="frame" x="24" y="11" width="327" height="160"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K6N-XW-kA5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="327" height="37.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <pickerView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="G5h-Av-nPN">
-                                                    <rect key="frame" x="0.0" y="62" width="327" height="37"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="RIq-Lq-bbn"/>
-                                                    </constraints>
-                                                </pickerView>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="other category..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZbG-I4-8bu">
-                                                    <rect key="frame" x="0.0" y="122.5" width="327" height="37.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="180" id="KJb-b5-6v8"/>
-                                            </constraints>
-                                        </stackView>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K6N-XW-kA5">
+                                            <rect key="frame" x="16" y="11" width="343" height="53"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="rtD-uW-z3M" firstAttribute="centerX" secondItem="sNK-SB-P34" secondAttribute="centerX" id="227-Gj-LGB"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="rtD-uW-z3M" secondAttribute="trailing" constant="8" id="EVk-y0-qLz"/>
-                                        <constraint firstItem="rtD-uW-z3M" firstAttribute="top" secondItem="sNK-SB-P34" secondAttribute="topMargin" id="ajA-rM-535"/>
-                                        <constraint firstItem="rtD-uW-z3M" firstAttribute="leading" secondItem="sNK-SB-P34" secondAttribute="leadingMargin" constant="8" id="dfn-IC-PmW"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="rtD-uW-z3M" secondAttribute="bottom" id="hRE-Ac-BsU"/>
+                                        <constraint firstItem="K6N-XW-kA5" firstAttribute="top" secondItem="sNK-SB-P34" secondAttribute="topMargin" id="McA-Hf-KW7"/>
+                                        <constraint firstItem="K6N-XW-kA5" firstAttribute="leading" secondItem="sNK-SB-P34" secondAttribute="leadingMargin" id="Qfc-NU-7wL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="K6N-XW-kA5" secondAttribute="trailing" id="dCm-12-eD5"/>
+                                        <constraint firstAttribute="bottom" secondItem="K6N-XW-kA5" secondAttribute="bottom" id="wcD-vi-6WN"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <outlet property="categoryPicker" destination="G5h-Av-nPN" id="EYl-gb-zgj"/>
                                     <outlet property="nameTextField" destination="K6N-XW-kA5" id="7hY-Yw-SFv"/>
-                                    <outlet property="otherCategoryTextField" destination="ZbG-I4-8bu" id="sYR-HR-MJM"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServingView" rowHeight="76" id="i2X-Cc-kvq" customClass="CreateDrinkServingView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="210" width="375" height="76"/>
+                                <rect key="frame" x="0.0" y="119.5" width="375" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i2X-Cc-kvq" id="Urm-cK-J2p">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
@@ -218,7 +197,7 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="serving size" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="bLr-Zv-1Kf">
                                                     <rect key="frame" x="0.0" y="0.0" width="199" height="44"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <pickerView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="sv1-or-b0F">
@@ -239,16 +218,17 @@
                                         <constraint firstItem="II0-iH-Zxe" firstAttribute="centerX" secondItem="Urm-cK-J2p" secondAttribute="centerX" id="uEl-R7-8QW"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="servingSizeTextField" destination="bLr-Zv-1Kf" id="rjS-cg-uML"/>
                                     <outlet property="unitPicker" destination="sv1-or-b0F" id="5V7-WB-jXR"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IngredientView" id="ECh-yU-dim" customClass="CreateDrinkIngredientView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="286" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="195.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ECh-yU-dim" id="WrT-j4-4Dd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ingredient" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGR-qG-X6j">
@@ -267,16 +247,17 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="ingredientLabel" destination="kGR-qG-X6j" id="n9B-lN-byF"/>
                                     <outlet property="valueLabel" destination="yZk-nq-40N" id="k4Y-ht-rxS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NutrientView" id="tPo-Br-f2G" customClass="CreateDrinkNutrientView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="329.5" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="239.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tPo-Br-f2G" id="5NI-uw-wJc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nutrient" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEo-Rx-5f2">
@@ -295,9 +276,48 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="nutrientLabel" destination="GEo-Rx-5f2" id="EoG-Vz-WlZ"/>
                                     <outlet property="valueLabel" destination="dE9-50-jc3" id="cWe-2W-p4N"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddView" id="16x-CB-sKY" customClass="CreateDrinkAddItemView" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="283.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="16x-CB-sKY" id="UFj-QX-RkS">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yao-cA-v2N">
+                                            <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="28" id="cLl-29-g5T"/>
+                                                <constraint firstAttribute="height" constant="28" id="usR-N9-gWo"/>
+                                            </constraints>
+                                            <state key="normal" image="plus.circle" catalog="system"/>
+                                            <connections>
+                                                <action selector="add:" destination="16x-CB-sKY" eventType="touchUpInside" id="8BA-FE-hQR"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hg-2M-v0m">
+                                            <rect key="frame" x="44" y="13" width="61.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="yao-cA-v2N" secondAttribute="bottom" constant="8" id="Bny-Az-KPR"/>
+                                        <constraint firstItem="yao-cA-v2N" firstAttribute="leading" secondItem="UFj-QX-RkS" secondAttribute="leading" constant="8" id="GJm-VY-FbS"/>
+                                        <constraint firstItem="9hg-2M-v0m" firstAttribute="leading" secondItem="yao-cA-v2N" secondAttribute="trailing" constant="8" id="dYS-Sk-oIn"/>
+                                        <constraint firstItem="9hg-2M-v0m" firstAttribute="centerY" secondItem="yao-cA-v2N" secondAttribute="centerY" id="dsc-97-6p0"/>
+                                        <constraint firstItem="yao-cA-v2N" firstAttribute="top" secondItem="UFj-QX-RkS" secondAttribute="top" constant="8" id="hfv-XD-vgg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="addLabel" destination="9hg-2M-v0m" id="TY6-0W-dey"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -333,7 +353,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ast-ag-riT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddImageView" rowHeight="104" id="U05-kl-JAh" customClass="CreateDrinkImageView" customModule="RepHub" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="104"/>
@@ -374,6 +394,7 @@
                                         <constraint firstItem="Bqt-st-Hcl" firstAttribute="top" secondItem="axs-XK-VXu" secondAttribute="topMargin" constant="24" id="ajp-9o-zx6"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="cameraButton" destination="PvQ-Rb-CiB" id="Bvi-f9-X3p"/>
                                     <outlet property="galleryButton" destination="8LL-73-d6P" id="Q9S-BY-kY1"/>
@@ -388,7 +409,7 @@
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="add a little something extra..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kp3-bY-PBA">
                                             <rect key="frame" x="16" y="11" width="343" height="306"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="306" id="Mtp-ID-Hlq"/>
                                             </constraints>
@@ -404,6 +425,7 @@
                                         <constraint firstItem="kp3-bY-PBA" firstAttribute="bottom" secondItem="bEL-iT-b4W" secondAttribute="bottomMargin" id="tDp-40-ZFI"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="descriptionTextView" destination="kp3-bY-PBA" id="Jbf-Wa-fLL"/>
                                 </connections>
@@ -622,5 +644,6 @@
         <image name="Wine" width="48" height="48"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="photo.on.rectangle" catalog="system" width="64" height="48"/>
+        <image name="plus.circle" catalog="system" width="64" height="60"/>
     </resources>
 </document>

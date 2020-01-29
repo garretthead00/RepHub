@@ -9,118 +9,98 @@
 import Foundation
 import HealthKit
 
-class HydrateActivity: Activity {
-
-    
-    
-    var label: String
+struct HydrateActivity: Activity {
+    var name: String
     var icon: UIImage
     var color: UIColor
     var unit: String
+    
     var dailyTotal: Double?
+    var remainingToTarget: Double?
     var target: Double?
     var percentComplete: Double?
     var percentRemaining: Double?
-    var data: [(String, Double, String)] {
-        return [
-            ("Caffeine", self.totalCaffeine, "mg"),
-            ("Sugar", self.totalSugar, "mg"),
-            ("Water", self.totalWater, "mg")
-        ]
-    }
-    var summaryData: [(String, Double, String)] {
-        return [
-            ("Drank", self.dailyTotal ?? 0.0, "oz"),
-            ("Sugar", self.totalSugar, "mg"),
-            ("Caffeine", self.totalCaffeine, "mg")
-        ]
-    }
-    var logs : [HydrateLog] = [] {
-        didSet{
-            self.calculateProgress()
-        }
-    }
-    var nutrition : [(String, Double, String)] = []
+    var logs : [HydrateLog] = []
+    
     
     
     // MARK: Nutrition
-    var totalEnergyConsumed : Double {
-        return nutritionTotalizer(forNutrient: Nutrients.Energy.rawValue)
-    }
     var totalCaffeine : Double {
-        return nutritionTotalizer(forNutrient: Nutrients.Caffeine.rawValue)
+        return self.nutritionTotalizer(forNutrient: Nutrients.Caffeine.rawValue)
     }
     var totalWater : Double {
-        return nutritionTotalizer(forNutrient: Nutrients.Water.rawValue)
+        var sum = 0.0
+        // iterate through the logs and sum the values on the nutrient map.
+        for log in self.logs {
+            if let drink = log.drink, let type = drink.category{
+                if let serving = log.householdServingSize, type == "Water" {
+                    sum += serving
+                }
+            }
+        }
+        return sum
     }
     var totalFluids : Double {
-        return nutritionTotalizer(forNutrient: Nutrients.Water.rawValue)
+        var sum = 0.0
+        // iterate through the logs and sum the values on the nutrient map.
+        for log in self.logs{
+            if let serving = log.householdServingSize {
+                sum += serving
+            }
+        }
+        return sum
     }
     var totalSugar : Double {
-        return nutritionTotalizer(forNutrient: Nutrients.Sugar.rawValue)
+        print("totalSugar \(Nutrients.Sugar.rawValue)")
+        return self.nutritionTotalizer(forNutrient: Nutrients.Sugar.rawValue)
     }
-    var totalSodium : Double {
-        return nutritionTotalizer(forNutrient: Nutrients.Sodium.rawValue)
-    }
-
     
-    init() {
-        self.label = "Hydrate"
-        self.icon = UIImage.Theme.Activity.hydrate
-        self.color = UIColor.Theme.Activity.hydrate
-        self.unit = "fl oz"
-        self.target = 64.0
-        self.getTodaysLogs()
-        
+    mutating func refreshLogs(logs: [HydrateLog]){
+        self.logs.removeAll()
+        self.logs = logs
     }
+    
 }
 
 extension HydrateActivity {
     
-
-    private func calculateProgress(){
-        let sum = self.logs.map({$0.servingSize!}).reduce(0, +)//.filter({$0.drink!.category == "Water"}).map({$0.servingSize!}).reduce(0, +)
-        self.dailyTotal = sum
-        let dailyTotal = self.dailyTotal ?? 0.0
-        self.percentComplete = dailyTotal / self.target! * 100
-        self.percentRemaining = 100.0 - self.percentComplete!
-        print("total Water: \(sum)")
+    init() {
+        self.name = "Hydration"
+        self.icon = UIImage.Theme.Activity.hydrate
+        self.color = UIColor.Theme.Activity.hydrate
+        self.unit = "fl oz"
+        self.target = 64.0
+        self.dailyTotal = 0.0
+        self.remainingToTarget = (self.target! - self.dailyTotal!) < 0.0 ? 0.0 : (self.target! - self.dailyTotal!)
+        
     }
     
-    private func getTodaysLogs(){
-        // fetch Hydrate Logs
-        guard let currentUser = API.RepHubUser.CURRENT_USER else {
-            return
-        }
-        let currentUserId = currentUser.uid
-        API.Hydrate.observeHydrateLogs(withId: currentUserId, completion:  {
-            log in
-
-            if let logId = log.id {
-                API.Nutrition.observeNutritionLog(forUserId: currentUserId, logId: logId, completion: {
-                    nutrient in
-                    if let name = nutrient.name, let value = nutrient.value, let unit = nutrient.unit {
-                        log.nutrition?.append((name, value, unit))
-                    }
-                    
-                })
-                self.logs.append(log)
-                if self.logs.count > 0 {
-                    self.logs = self.logs.sorted(by: { $0.timestamp! > $1.timestamp!})
-                }
-            }
-
-        })
+    init(logs: [HydrateLog]) {
+        self.name = "Hydration"
+        self.icon = UIImage.Theme.Activity.hydrate
+        self.color = UIColor.Theme.Activity.hydrate
+        self.unit = "fl oz"
+        self.target = 64.0
+        self.dailyTotal = 0.0
+        self.remainingToTarget = (self.target! - self.dailyTotal!) < 0.0 ? 0.0 : (self.target! - self.dailyTotal!)
+        self.logs = logs
+        
     }
+
     
+
+
+
     private func nutritionTotalizer(forNutrient nutrient: String) -> Double{
         var sum = 0.0
         // iterate through the logs and sum the values on the nutrient map.
         for log in self.logs{
-            if let nutrition = log.nutrition {
-                sum += nutrition.filter({$0.0 == nutrient}).map({$0.1}).reduce(0, +)
+            print("log sum")
+            if let nutrition = log.nutrition, nutrition.count > 0 {
+                print("nutrition: \(nutrition[0].name)")
+                sum += nutrition.filter({$0.name == nutrient}).map({$0.value!}).reduce(0, +)
             }
-            
+
         }
         return sum
     }

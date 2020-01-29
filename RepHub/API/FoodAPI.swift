@@ -31,6 +31,16 @@ class FoodAPI {
             }
         })
     }
+    
+    func observeDrink(withId id: String, completion: @escaping(FoodItem) -> Void){
+        FOOD_DB_REF.child(id).observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let data = snapshot.value as? [String:Any] {
+                let drink = FoodItem.transformFood(data: data, key: snapshot.key)
+                completion(drink)
+            }
+        })
+    }
 
     
     

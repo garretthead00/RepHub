@@ -10,15 +10,14 @@ import Foundation
 
 
 protocol Activity {
-    var label : String { get }
+    var name : String { get }
     var icon : UIImage { get }
     var color : UIColor { get }
     var unit : String { get }
     var dailyTotal : Double? { get set }
+    var remainingToTarget : Double? { get }
     var target : Double? { get set }
-    var percentComplete : Double? { get set }
-    var percentRemaining : Double? { get set }
-    var data : [(String,Double,String)] { get }
-    var summaryData : [(String,Double,String)] { get }
+    var percentComplete : Double? { get }
+    var percentRemaining : Double? { get }
 }
 

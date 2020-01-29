@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Supplements.png",
+      "filename" : "workouts.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Supplements2x.png",
+      "filename" : "workouts2x.png",
       "scale" : "2x"
     },
     {
