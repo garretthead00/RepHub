@@ -22,6 +22,7 @@ class ExerciseActivity : Activity {
     var remainingToTarget : Double?
     var percentComplete: Double?
     var percentRemaining: Double?
+    var summaryData: [(String, Double, String)]?
     
     // MARK: - HealthKit properties
     var workoutsCompleted : Double?

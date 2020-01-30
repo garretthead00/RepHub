@@ -451,7 +451,7 @@
         <!--Drink Controller-->
         <scene sceneID="fHv-l8-z7H">
             <objects>
-                <tableViewController id="At9-gA-zTJ" customClass="DrinkController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController interfaceStyle="dark" id="At9-gA-zTJ" customClass="DrinkController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="y2w-YX-X9f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -536,108 +536,11 @@
                             <outlet property="delegate" destination="At9-gA-zTJ" id="69I-Er-k8r"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="UUc-dc-1re"/>
-                    <connections>
-                        <segue destination="Doi-p2-rkZ" kind="show" identifier="Results" id="cjf-y6-Mhe"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="UeW-fo-uut"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KjP-f0-jXF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4111" y="2823"/>
-        </scene>
-        <!--Drink Results Controller-->
-        <scene sceneID="aGE-v7-plT">
-            <objects>
-                <tableViewController id="Doi-p2-rkZ" customClass="DrinkResultsController" customModule="RepHub" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BNX-DD-sYf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DrinkDetails" rowHeight="122" id="pJb-LR-a0L" customClass="DrinkDetailsTableViewCell" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="122"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pJb-LR-a0L" id="aa1-2q-4N7">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDe-zP-wQU">
-                                            <rect key="frame" x="16" y="11" width="343" height="21.5"/>
-                                            <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="serving size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syv-2y-oCu">
-                                            <rect key="frame" x="16" y="40.5" width="343" height="16.5"/>
-                                            <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="14"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="**Nutrition Facts provided by..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ow-4i-vG3">
-                                            <rect key="frame" x="16" y="73" width="343" height="30"/>
-                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
-                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="WDe-zP-wQU" secondAttribute="trailing" id="0Lk-i6-0Fh"/>
-                                        <constraint firstItem="syv-2y-oCu" firstAttribute="top" secondItem="WDe-zP-wQU" secondAttribute="bottom" constant="8" id="7lg-6F-ZON"/>
-                                        <constraint firstItem="syv-2y-oCu" firstAttribute="trailing" secondItem="aa1-2q-4N7" secondAttribute="trailingMargin" id="9oF-Au-bYS"/>
-                                        <constraint firstItem="syv-2y-oCu" firstAttribute="leading" secondItem="aa1-2q-4N7" secondAttribute="leadingMargin" id="9xa-er-KeL"/>
-                                        <constraint firstItem="7Ow-4i-vG3" firstAttribute="leading" secondItem="aa1-2q-4N7" secondAttribute="leadingMargin" id="Tjk-oq-IQo"/>
-                                        <constraint firstItem="WDe-zP-wQU" firstAttribute="top" secondItem="aa1-2q-4N7" secondAttribute="topMargin" id="Xhj-De-Xtj"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="7Ow-4i-vG3" secondAttribute="bottom" constant="8" id="afI-0P-RKX"/>
-                                        <constraint firstItem="7Ow-4i-vG3" firstAttribute="trailing" secondItem="aa1-2q-4N7" secondAttribute="trailingMargin" id="ayg-tv-ol1"/>
-                                        <constraint firstItem="WDe-zP-wQU" firstAttribute="leading" secondItem="aa1-2q-4N7" secondAttribute="leadingMargin" id="faa-dP-zcq"/>
-                                        <constraint firstItem="7Ow-4i-vG3" firstAttribute="top" secondItem="syv-2y-oCu" secondAttribute="bottom" constant="16" id="ons-ho-lne"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="nameLabel" destination="WDe-zP-wQU" id="5zz-h2-vFa"/>
-                                    <outlet property="nutritionFactsLabel" destination="7Ow-4i-vG3" id="yGd-RM-ReZ"/>
-                                    <outlet property="servingSizeLabel" destination="syv-2y-oCu" id="wio-IS-WKo"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutrient" textLabel="92O-Pv-3lb" detailTextLabel="de0-ep-lgF" style="IBUITableViewCellStyleValue1" id="dWR-H6-dPj">
-                                <rect key="frame" x="0.0" y="150" width="375" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dWR-H6-dPj" id="ONm-wZ-vdd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="92O-Pv-3lb">
-                                            <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="de0-ep-lgF">
-                                            <rect key="frame" x="321.5" y="15" width="37.5" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Doi-p2-rkZ" id="geA-Hn-2o8"/>
-                            <outlet property="delegate" destination="Doi-p2-rkZ" id="aNo-hI-v1W"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="dav-LA-Z8Y"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f1C-5D-dsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4991" y="2823"/>
         </scene>
     </scenes>
     <resources>

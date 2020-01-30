@@ -20,8 +20,8 @@ struct HydrateActivity: Activity {
     var target: Double?
     var percentComplete: Double?
     var percentRemaining: Double?
-    var logs : [HydrateLog] = []
-    
+    var logs : [NutritionLog] = []
+    var summaryData: [(String, Double, String)]?
     
     
     // MARK: Nutrition
@@ -32,7 +32,7 @@ struct HydrateActivity: Activity {
         var sum = 0.0
         // iterate through the logs and sum the values on the nutrient map.
         for log in self.logs {
-            if let drink = log.drink, let type = drink.category{
+            if let food = log.food, let type = food.category{
                 if let serving = log.householdServingSize, type == "Water" {
                     sum += serving
                 }
@@ -55,7 +55,7 @@ struct HydrateActivity: Activity {
         return self.nutritionTotalizer(forNutrient: Nutrients.Sugar.rawValue)
     }
     
-    mutating func refreshLogs(logs: [HydrateLog]){
+    mutating func refreshLogs(logs: [NutritionLog]){
         self.logs.removeAll()
         self.logs = logs
     }
@@ -75,7 +75,7 @@ extension HydrateActivity {
         
     }
     
-    init(logs: [HydrateLog]) {
+    init(logs: [NutritionLog]) {
         self.name = "Hydration"
         self.icon = UIImage.Theme.Activity.hydrate
         self.color = UIColor.Theme.Activity.hydrate
@@ -93,11 +93,8 @@ extension HydrateActivity {
 
     private func nutritionTotalizer(forNutrient nutrient: String) -> Double{
         var sum = 0.0
-        // iterate through the logs and sum the values on the nutrient map.
         for log in self.logs{
-            print("log sum")
             if let nutrition = log.nutrition, nutrition.count > 0 {
-                print("nutrition: \(nutrition[0].name)")
                 sum += nutrition.filter({$0.name == nutrient}).map({$0.value!}).reduce(0, +)
             }
 

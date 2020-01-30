@@ -13,17 +13,11 @@ class ActivityController: UITableViewController {
     
     var activitySummary : String?
     var summaryData = [(String, Double, String)]()
-    var exerciseActivity : newExerciseActivity?
     var exerciseData = [(String, Double, String)]()
-    var nutritionActivity : EatActivity?
-    var nutritionData = [(String, Double, String)]()
+    var exerciseActivity : newExerciseActivity?
+    var nutritionActivity : NutritionActivity?
     var hydrationActivity : HydrateActivity?
-    var hydrationData = [(String, Double, String)]()
-    var hydrationLogs = [HydrateLog](){
-        didSet {
-            self.updateActivities()
-        }
-    }
+    var nutritionLogs = [NutritionLog]()
     var activities = [Activity]()
 
     
@@ -31,66 +25,54 @@ class ActivityController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.summaryData = [("sleep", 495.0, "min"),("mindfulness", 12.0, "min"),("weight", 176.0, "lbs")]
+        exerciseActivity = newExerciseActivity()
+        nutritionActivity = NutritionActivity()
+        hydrationActivity = HydrateActivity()
         self.fetchExerciseActivity()
         self.fetchNutritionActivity()
-        self.fetchHydrationActivity()
-        
         // HK Authentication
     }
     
     private func updateActivities(){
         
-        
-        
-        self.activities.removeAll()
+        activities.removeAll()
         if let exercise = self.exerciseActivity {
-            self.activities.append(exercise)
+            activities.append(exercise)
         }
         
-        if let nutrition = self.nutritionActivity {
-            self.activities.append(nutrition)
+        if self.nutritionActivity != nil {
+            nutritionActivity!.dailyTotal = nutritionActivity!.energyConsumed
+            nutritionActivity!.summaryData = [("protein", nutritionActivity!.protein, "g"),("carbohydrates", nutritionActivity!.carbohydrates, "g"),("fats", nutritionActivity!.fats, "g")]
+            activities.append(nutritionActivity!)
         }
         
         if self.hydrationActivity != nil {
-            self.hydrationActivity!.refreshLogs(logs: self.hydrationLogs)
-            self.activities.append(self.hydrationActivity!)
-            
-            if let caffeine = self.hydrationActivity?.totalCaffeine, let fluids = self.hydrationActivity?.totalFluids, let sugar = self.hydrationActivity?.totalSugar, let water = self.hydrationActivity?.totalWater {
-                self.hydrationActivity!.dailyTotal = water
-                self.hydrationData = [("caffeine", caffeine, "mg"),("sugar", sugar, "g"),("total drank", fluids, "oz")]
-            }
+            hydrationActivity!.dailyTotal = self.hydrationActivity!.totalWater
+            hydrationActivity!.summaryData = [("caffeine", hydrationActivity!.totalCaffeine, "mg"),("sugar", hydrationActivity!.totalSugar, "g"),("total drank", hydrationActivity!.totalFluids, "oz")]
+            activities.append(hydrationActivity!)
         }
-        
-
-        
         self.tableView.reloadData()
     }
     
     private func fetchExerciseActivity(){
-        self.exerciseActivity = newExerciseActivity()
-        self.exerciseData = [("workouts", self.exerciseActivity!.workoutsCompleted, ""),("steps", self.exerciseActivity!.totalSteps, ""),("exercise minutes", self.exerciseActivity!.exerciseMinutes, "min")]
+        exerciseData = [("workouts", exerciseActivity!.workoutsCompleted, ""),("steps", exerciseActivity!.totalSteps, ""),("exercise minutes", exerciseActivity!.exerciseMinutes, "min")]
         self.updateActivities()
-        
     }
     
     private func fetchNutritionActivity(){
-        self.nutritionActivity = EatActivity()
-        self.nutritionData = [("protein", self.nutritionActivity!.protein, "g"),("carbohydrates", self.nutritionActivity!.carbohydrates, "g"),("fats", self.nutritionActivity!.fats, "g")]
-        self.updateActivities()
-        
-    }
-    
-    private func fetchHydrationActivity(){
-        self.hydrationActivity = HydrateActivity(logs: self.hydrationLogs)
-        self.updateActivities()
-        API.Hydrate.dispatchHydrationLogs(completion: {
+        nutritionActivity!.dailyTotal = nutritionActivity!.energyConsumed
+        nutritionActivity!.summaryData = [("protein", nutritionActivity!.protein, "g"),("carbohydrates", nutritionActivity!.carbohydrates, "g"),("fats", nutritionActivity!.fats, "g")]
+        hydrationActivity!.dailyTotal = hydrationActivity!.totalWater
+        hydrationActivity!.summaryData = [("caffeine", hydrationActivity!.totalCaffeine, "mg"),("sugar", hydrationActivity!.totalSugar, "g"),("total drank", hydrationActivity!.totalFluids, "oz")]
+        API.Nutrition.dispatchNutritionLog(completion: {
             log in
-            self.hydrationLogs.append(log)
-            
-            //self.updateActivities()
+            self.nutritionLogs.append(log)
+            self.hydrationActivity!.refreshLogs(logs: self.nutritionLogs)
+            self.nutritionActivity!.refreshLogs(logs: self.nutritionLogs)
+            self.updateActivities()
         })
+        self.tableView.reloadData()
     }
-    
 
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -103,9 +85,9 @@ class ActivityController: UITableViewController {
         } else if section == 1 {
             return self.exerciseData.count + 1
         } else if section == 2 {
-            return self.nutritionData.count + 1
+            return self.nutritionActivity!.summaryData!.count + 1
         } else {
-            return self.hydrationData.count + 1
+            return self.hydrationActivity!.summaryData!.count + 1
         }
             
     }
@@ -143,11 +125,11 @@ class ActivityController: UITableViewController {
                 return cell
              } else if section == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DataView", for: indexPath) as! ActivityDataView
-                cell.data = self.nutritionData[indexPath.row - 1]
+                cell.data = self.nutritionActivity!.summaryData![indexPath.row - 1]
                 return cell
              } else {
                  let cell = tableView.dequeueReusableCell(withIdentifier: "DataView", for: indexPath) as! ActivityDataView
-                 cell.data = self.hydrationData[indexPath.row - 1]
+                cell.data = self.hydrationActivity!.summaryData![indexPath.row - 1]
                  return cell
              }
         }

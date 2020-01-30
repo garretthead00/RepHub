@@ -19,5 +19,6 @@ protocol Activity {
     var target : Double? { get set }
     var percentComplete : Double? { get }
     var percentRemaining : Double? { get }
+    var summaryData : [(String, Double, String)]? { get set }
 }
 

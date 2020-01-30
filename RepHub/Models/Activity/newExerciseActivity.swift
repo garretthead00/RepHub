@@ -19,6 +19,7 @@ struct newExerciseActivity : Activity {
     var target: Double?
     var percentComplete: Double?
     var percentRemaining: Double?
+    var summaryData: [(String, Double, String)]?
     
     lazy var totalActiveCaloriesBurned : Double? = {
         return 0.0

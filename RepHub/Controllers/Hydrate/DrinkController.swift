@@ -98,14 +98,22 @@ class DrinkController: UITableViewController {
                         
                         // Save log data & nutrition data to db.
                         NutritionStore.saveDrink(nutrients: self.nutrients)
-                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, nutrients: self.nutrients, completion: {
-                            logKey in
-                            //self.performSegue(withIdentifier: "Results", sender: logKey)
-//                            API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
-//                                key in
-//                                self.performSegue(withIdentifier: "Results", sender: logKey)
-//                            })
+                        API.Nutrition.saveNutritionLog(food: drink, nutrients: self.nutrients, completion: {
+                            success in
+                            if !success {
+                                
+                            }
                         })
+                        
+                        
+//                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, nutrients: self.nutrients, completion: {
+//                            logKey in
+//                            //self.performSegue(withIdentifier: "Results", sender: logKey)
+////                            API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
+////                                key in
+////                                self.performSegue(withIdentifier: "Results", sender: logKey)
+////                            })
+//                        })
                         
                     }
                 }

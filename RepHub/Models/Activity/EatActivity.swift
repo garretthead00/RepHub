@@ -11,24 +11,26 @@ import HealthKit
 
 
 struct EatActivity : Activity {
+    
+    
     var name: String
     var icon: UIImage
     var color: UIColor
     var unit: String
-    
+
     var dailyTotal: Double?
     var remainingToTarget: Double?
     var target: Double?
     var percentComplete: Double?
     var percentRemaining: Double?
-
+    var summaryData: [(String, Double, String)]?
     var logs : [FoodLog] = []
     // var nutritionLogs : [[NutritionLog]] = []
     
     
     // MARK: Nutrition
     lazy var totalEnergyConsumed : Double = {
-        return 432.0
+        return 0.0
     }()
     lazy var protein : Double = {
         return 0.0
@@ -51,7 +53,7 @@ extension EatActivity {
         self.color = UIColor.Theme.Activity.eat
         self.unit = "Calories"
         self.target = 1600.0
-        self.dailyTotal = 432.0
+        self.dailyTotal = 0.0
         self.remainingToTarget = (self.target! - self.dailyTotal!) < 0.0 ? 0.0 : (self.target! - self.dailyTotal!)
     }
     

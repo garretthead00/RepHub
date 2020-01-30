@@ -125,9 +125,6 @@ class HydrateAPI {
                     ProgressHUD.showError(error!.localizedDescription)
                     return
                 }
-                if let key = ref.key {
-                    completion(key)
-                }
                 for (index, element) in nutrients.enumerated() {
                     if let nutrient = element.name, let value = element.value, let unit = element.unit {
                         let key = String(index)
@@ -140,6 +137,9 @@ class HydrateAPI {
 
                         })
                     }
+                }
+                if let key = ref.key {
+                    completion(key)
                 }
                 
             })

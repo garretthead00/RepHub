@@ -26,25 +26,7 @@ class NutritionAPI {
 
     }
     
-    func saveNutritionLog(forUserId id: String, logId: String, nutrients: [Nutrient], completion: @escaping(String) -> Void){
-        let userNutritionLogRef = USER_NUTRITION_LOGS_DB_REF.child(id).child(logId)
-        for (index, element) in nutrients.enumerated() {
-            if let nutrient = element.name, let value = element.value, let unit = element.unit {
-                let key = String(index)
-                let ref = userNutritionLogRef.child(key)
-                ref.setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
-                    error, ref in
-                    if error != nil {
-                        ProgressHUD.showError(error!.localizedDescription)
-                        return
-                    }
-                    
-                })
-            }
-        }
-        completion(logId)
-        
-    }
+
     
     func observeNutritionLog(forUserId userId: String, logId: String, completion: @escaping(Nutrient) -> Void){
         print("query nutrition Logs")
@@ -58,35 +40,105 @@ class NutritionAPI {
         })
     }
     
-    func dispatchNutritionLog(forUserId userId: String, logId: String, completion: @escaping([Nutrient]) -> Void){
-        print("dispatchNutrition")
-        var nutrition = [Nutrient]()
-        let myGroup = DispatchGroup()
-        myGroup.enter()
+    func dispatchNutritionLog(completion: @escaping(NutritionLog) -> Void){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+           return
+        }
+        let currentUserId = currentUser.uid
+        let date = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let todayAtMidnight = cal.startOfDay(for: date).timeIntervalSince1970
+        print("query hydration logs")
+        USER_NUTRITION_LOGS_DB_REF.child(currentUserId).queryOrdered(byChild: "timestamp").queryStarting(atValue: todayAtMidnight).observe(.childAdded, with: {
+           snapshot in
 
-        USER_NUTRITION_LOGS_DB_REF.child(userId).child(logId).observe(.childAdded, with: {
-            snapshot in
-            print("got nutrition snapshot")
-            let items = snapshot.children.allObjects as! [DataSnapshot]
-            for (_, item) in items.enumerated() {
-
-                if let data = item.value as? [String:Any]{
-                    print("dispatchGroup iteration")
-                    let nutrient = Nutrient.transformNutrient(data: data, key: item.key)
-                    nutrition.append(nutrient)
+            if let data = snapshot.value as? [String: Any] {
+                print("hydrateLog snapshot successfull")
+                let dispatchGroup = DispatchGroup()
+                dispatchGroup.enter()
+                let nutrition = snapshot.childSnapshot(forPath: "nutrition").children.allObjects as! [DataSnapshot]
+                //let log = HydrateLog.transformHydrateLog(data: data, key: snapshot.key)
+                let log = NutritionLog.transformNutritionLog(data: data, key: snapshot.key)
+                for(_, item) in nutrition.enumerated() {
+                    if let data = item.value as? [String:Any]{
+                        let nutrient = Nutrient.transformNutrient(data: data, key: item.key)
+                        log.nutrition?.append(nutrient)
+                    }
                 }
 
+                API.Food.observeDrink(withId: log.foodId!, completion: {
+                    drink in
+                    log.food = drink
+                    dispatchGroup.leave()
+                })
+                dispatchGroup.notify(queue: .main, execute: {
+                    completion(log)
+                })
             }
-            myGroup.leave()
-
-        })
-        
-
-        
-        myGroup.notify(queue: .main, execute: {
-            completion(nutrition)
         })
     }
+    
+    
+    func saveNutritionLog(food: FoodItem, nutrients: [Nutrient], completion: @escaping(Bool) -> Void){
+        guard let currentUser = API.RepHubUser.CURRENT_USER else {
+           return
+        }
+        let currentUserId = currentUser.uid
+        let newLogRef = USER_NUTRITION_LOGS_DB_REF.child(currentUserId).childByAutoId()
+        let timestamp = NSDate().timeIntervalSince1970
+        if let foodId = food.id, let servingSize = food.servingSize, let servingSizeUnit = food.servingSizeUnit, let householdServingSize = food.householdServingSize, let householdServingSizeUnit = food.householdServingSizeUnit {
+            newLogRef.setValue(["timestamp": timestamp, "foodId": foodId, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit], withCompletionBlock: {
+                error, ref in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    completion(false)
+                    return
+                }
+                for (index, element) in nutrients.enumerated() {
+                    if let nutrient = element.name, let value = element.value, let unit = element.unit {
+                        let key = String(index)
+                        newLogRef.child("nutrition").child(key).setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
+                            error, ref in
+                            if error != nil {
+                                ProgressHUD.showError(error!.localizedDescription)
+                                completion(false)
+                                return
+                            }
+
+                        })
+                    }
+                }
+                completion(true)
+            })
+        }
+        
+        
+        
+        
+        
+//        let userNutritionLogRef = USER_NUTRITION_LOGS_DB_REF.child(id).child(logId)
+//        for (index, element) in nutrients.enumerated() {
+//            if let nutrient = element.name, let value = element.value, let unit = element.unit {
+//                let key = String(index)
+//                let ref = userNutritionLogRef.child(key)
+//                ref.setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
+//                    error, ref in
+//                    if error != nil {
+//                        ProgressHUD.showError(error!.localizedDescription)
+//                        return
+//                    }
+//
+//                })
+//            }
+//        }
+//        completion(logId)
+        
+        
+        
+    }
+    
+    
+    
     
     
 }
