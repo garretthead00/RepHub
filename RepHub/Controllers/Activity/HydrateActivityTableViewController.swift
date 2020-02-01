@@ -10,14 +10,14 @@ import UIKit
 
 class HydrateActivityTableViewController: UITableViewController {
     
-    var activity : HydrateActivity? {
+    var activity : HydrationActivity? {
         didSet {
             print("activity set")
             self.tableView.reloadData()
         }
     }
     
-    var hydrateActivity : HydrateActivity? {
+    var hydrateActivity : HydrationActivity? {
         didSet {
             print("hydrateActivity set")
             self.tableView.reloadData()

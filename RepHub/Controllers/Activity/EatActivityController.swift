@@ -65,6 +65,13 @@ class EatActivityController: UITableViewController {
         ("Molybdenum",0.18,"mg"),
         ("Selenium",1.32,"mcg"),
     ]
+    
+    
+    var activity : NutritionActivity? {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +98,7 @@ class EatActivityController: UITableViewController {
             case 3: rows = self.lipids.count
             case 4: rows = self.carbohydrates.count
             case 5: rows = self.vitamins.count
-            case 6: rows = self.minerals.count
+            case 6: rows = activity!.minerals!.count
             case 7: rows = self.utlraTraceMinerals.count
             default: rows = 0
         }
@@ -107,9 +114,9 @@ class EatActivityController: UITableViewController {
         if section == 0 {
             if row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ProgressView", for: indexPath) as! ActivityProgressView
-                cell.progress = 25.0
-                cell.activityTarget = 100.0
-                cell.progressPercent = 25
+                cell.progress = activity?.dailyTotal
+                cell.activityTarget = activity?.target
+                cell.progressPercent = Int(activity!.percentComplete!)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "EnergyView", for: indexPath) as! EatActivityEnergyView
@@ -128,7 +135,7 @@ class EatActivityController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MacroDetailView", for: indexPath) as! MacroDetailView
-                cell.total = self.macros[indexPath.row-1]
+                cell.total = activity?.macros![indexPath.row-1]
                 return cell
             }
         } else if section == 3 {
@@ -145,7 +152,7 @@ class EatActivityController: UITableViewController {
             return cell
         } else if section == 6 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.minerals[indexPath.row]
+            cell.nutrient = activity?.minerals![indexPath.row]
             return cell
         } else if section == 7 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView

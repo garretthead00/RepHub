@@ -16,9 +16,17 @@ class ActivityController: UITableViewController {
     var exerciseData = [(String, Double, String)]()
     var exerciseActivity : newExerciseActivity?
     var nutritionActivity : NutritionActivity?
-    var hydrationActivity : HydrateActivity?
-    var nutritionLogs = [NutritionLog]()
-    var activities = [Activity]()
+    var hydrationActivity : HydrationActivity?
+    var nutritionLogs = [NutritionLog](){
+        didSet {
+            updateActivities()
+        }
+    }
+    var activities = [Activity](){
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     
     
@@ -27,7 +35,7 @@ class ActivityController: UITableViewController {
         self.summaryData = [("sleep", 495.0, "min"),("mindfulness", 12.0, "min"),("weight", 176.0, "lbs")]
         exerciseActivity = newExerciseActivity()
         nutritionActivity = NutritionActivity()
-        hydrationActivity = HydrateActivity()
+        hydrationActivity = HydrationActivity()
         self.fetchExerciseActivity()
         self.fetchNutritionActivity()
         // HK Authentication
@@ -41,17 +49,16 @@ class ActivityController: UITableViewController {
         }
         
         if self.nutritionActivity != nil {
-            nutritionActivity!.dailyTotal = nutritionActivity!.energyConsumed
-            nutritionActivity!.summaryData = [("protein", nutritionActivity!.protein, "g"),("carbohydrates", nutritionActivity!.carbohydrates, "g"),("fats", nutritionActivity!.fats, "g")]
+            self.nutritionActivity!.refreshLogs(logs: self.nutritionLogs)
             activities.append(nutritionActivity!)
+                
         }
         
         if self.hydrationActivity != nil {
-            hydrationActivity!.dailyTotal = self.hydrationActivity!.totalWater
-            hydrationActivity!.summaryData = [("caffeine", hydrationActivity!.totalCaffeine, "mg"),("sugar", hydrationActivity!.totalSugar, "g"),("total drank", hydrationActivity!.totalFluids, "oz")]
+            self.hydrationActivity!.refreshLogs(logs: self.nutritionLogs)
             activities.append(hydrationActivity!)
         }
-        self.tableView.reloadData()
+        
     }
     
     private func fetchExerciseActivity(){
@@ -60,18 +67,10 @@ class ActivityController: UITableViewController {
     }
     
     private func fetchNutritionActivity(){
-        nutritionActivity!.dailyTotal = nutritionActivity!.energyConsumed
-        nutritionActivity!.summaryData = [("protein", nutritionActivity!.protein, "g"),("carbohydrates", nutritionActivity!.carbohydrates, "g"),("fats", nutritionActivity!.fats, "g")]
-        hydrationActivity!.dailyTotal = hydrationActivity!.totalWater
-        hydrationActivity!.summaryData = [("caffeine", hydrationActivity!.totalCaffeine, "mg"),("sugar", hydrationActivity!.totalSugar, "g"),("total drank", hydrationActivity!.totalFluids, "oz")]
         API.Nutrition.dispatchNutritionLog(completion: {
             log in
             self.nutritionLogs.append(log)
-            self.hydrationActivity!.refreshLogs(logs: self.nutritionLogs)
-            self.nutritionActivity!.refreshLogs(logs: self.nutritionLogs)
-            self.updateActivities()
         })
-        self.tableView.reloadData()
     }
 
 
@@ -175,11 +174,11 @@ class ActivityController: UITableViewController {
         }
         else if segue.identifier == "Nutrition" {
             let destination = segue.destination as! EatActivityController
-            //destination.activity = self.activities[1]
+            destination.activity = self.activities[1] as! NutritionActivity
         }
         else if segue.identifier == "Hydration" {
             let destination = segue.destination as! HydrateActivityController
-            let activity = self.activities[2] as! HydrateActivity
+            let activity = self.activities[2] as! HydrationActivity
             destination.activity = activity
             
         }

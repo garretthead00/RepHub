@@ -44,7 +44,7 @@ class HydrateActivityController: UITableViewController {
         ("Sodium",1.07,"mg"),
     ]
     
-    var activity : HydrateActivity? {
+    var activity : HydrationActivity? {
         didSet {
             print("got hydrate Activity")
             self.tableView.reloadData()
@@ -74,9 +74,9 @@ class HydrateActivityController: UITableViewController {
         switch section {
             case 0 : rows = 2
             case 1: rows = 1
-            case 2: rows = self.nutrition.count + 1
-            case 3: rows = self.macros.count
-            case 4: rows = self.electrolytes.count
+            case 2: rows = activity!.summaryData!.count + 1
+            case 3: rows = activity!.macros!.count
+            case 4: rows = activity!.electrolytes!.count
             default: rows = 0
         }
         return rows
@@ -103,7 +103,8 @@ class HydrateActivityController: UITableViewController {
                 return cell
             }
         } else if section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DrinksView", for: indexPath) as! EatActivityMealsView
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DrinksView", for: indexPath) as! ActivityLogsView
+            cell.logs = activity!.logs
             return cell
             
         } else if section == 2 {
@@ -113,16 +114,16 @@ class HydrateActivityController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MacroDetailView", for: indexPath) as! MacroDetailView
-                cell.total = self.nutrition[indexPath.row-1]
+                cell.total = activity!.summaryData![indexPath.row-1]
                 return cell
             }
         } else if section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.macros[indexPath.row]
+            cell.nutrient = activity!.macros![indexPath.row]
             return cell
         } else if section == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.electrolytes[indexPath.row]
+            cell.nutrient = activity!.electrolytes![indexPath.row]
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NoDataView", for: indexPath) as UITableViewCell
@@ -141,7 +142,7 @@ class HydrateActivityController: UITableViewController {
                 return 228
             }
         } else if section == 1 {
-            return 80
+            return 180
         } else if section == 2 {
             if row == 0 {
                 return 228

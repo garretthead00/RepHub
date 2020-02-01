@@ -10,14 +10,20 @@ import HealthKit
 enum Nutrients : String {
     case Energy = "Calories"
     case Protein = "Protein"
-    case Carbs = "Carbohydrate"
+    case Carbs = "Carbohydrates"
     case Fat = "Fat"
     case Sugar = "Sugar"
     case Water = "Water"
     case Caffeine = "Caffeine"
-    case Sodium = "Sodium"
     case Fiber = "Fiber"
     case Cholesterol = "Cholesterol"
+    case Calcium = "Calcium"
+    case Chloride = "Chloride"
+    case Magnesium = "Magnesium"
+    case Phosphorus = "Phosphorus"
+    case Potassium = "Potassium"
+    case Sodium = "Sodium"
+    case Fluids = "Total Fluids"
 }
 
 

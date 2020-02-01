@@ -35,7 +35,7 @@ class NutrientDetailView: UITableViewCell {
      
         if let nutrient = self.nutrient {
             self.nameLabel.text = nutrient.0
-            self.valueLabel.text = "\(nutrient.1) \(nutrient.2)"
+            self.valueLabel.text = "\(Int(nutrient.1)) \(nutrient.2)"
         }
 
     }

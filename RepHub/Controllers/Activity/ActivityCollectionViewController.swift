@@ -15,7 +15,7 @@ class ActivityCollectionViewController: UICollectionViewController {
     var energyBalance : EnergyBalanceDataHandler? = EnergyBalanceDataHandler()
     var exerciseActivity : ExerciseActivity?
     var eatActivity : EatActivity?
-    var hydrateActivity : HydrateActivity?
+    var hydrateActivity : HydrationActivity?
     var activities = [Activity]() {
         didSet {
             self.refreshController()
@@ -101,7 +101,7 @@ class ActivityCollectionViewController: UICollectionViewController {
 
         self.exerciseActivity = ExerciseActivity()
         self.eatActivity = EatActivity()
-        self.hydrateActivity = HydrateActivity()
+        self.hydrateActivity = HydrationActivity()
         
         print("ActivityCtrl Load Activity")
         if let exercise = self.exerciseActivity, let eat = self.eatActivity, let hydrate = self.hydrateActivity {
@@ -129,7 +129,7 @@ class ActivityCollectionViewController: UICollectionViewController {
         }
         else if segue.identifier == "Hydrate" {
             let destination = segue.destination as! HydrateActivityController
-            let activity = self.activities[2] as! HydrateActivity
+            let activity = self.activities[2] as! HydrationActivity
             destination.activity = activity
             
         }

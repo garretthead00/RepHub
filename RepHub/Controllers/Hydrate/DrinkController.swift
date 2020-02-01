@@ -94,8 +94,6 @@ class DrinkController: UITableViewController {
                             nutrient.value = nutrient.value!.truncate(places: 2)
                         }
                         
-                        
-                        
                         // Save log data & nutrition data to db.
                         NutritionStore.saveDrink(nutrients: self.nutrients)
                         API.Nutrition.saveNutritionLog(food: drink, nutrients: self.nutrients, completion: {
@@ -104,16 +102,6 @@ class DrinkController: UITableViewController {
                                 
                             }
                         })
-                        
-                        
-//                        API.Hydrate.saveHyrdationLog(withUserId: currentUserId, drink: drink, nutrients: self.nutrients, completion: {
-//                            logKey in
-//                            //self.performSegue(withIdentifier: "Results", sender: logKey)
-////                            API.Nutrition.saveNutritionLog(forUserId: currentUserId, logId: logKey, nutrients: self.nutrients, completion: {
-////                                key in
-////                                self.performSegue(withIdentifier: "Results", sender: logKey)
-////                            })
-//                        })
                         
                     }
                 }

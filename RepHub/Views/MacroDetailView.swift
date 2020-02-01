@@ -89,7 +89,7 @@ class MacroDetailView: UITableViewCell {
             chartDataSet.drawValuesEnabled = false
             self.horizontalBarChart.data = chartData
             self.nameLabel.text = total.0
-            self.valueLabel.text = "\(total.1) \(total.2)"
+            self.valueLabel.text = "\(Int(total.1)) \(total.2)"
         }
 
     }

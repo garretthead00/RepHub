@@ -86,28 +86,38 @@ class NutritionAPI {
         let currentUserId = currentUser.uid
         let newLogRef = USER_NUTRITION_LOGS_DB_REF.child(currentUserId).childByAutoId()
         let timestamp = NSDate().timeIntervalSince1970
+        
         if let foodId = food.id, let servingSize = food.servingSize, let servingSizeUnit = food.servingSizeUnit, let householdServingSize = food.householdServingSize, let householdServingSizeUnit = food.householdServingSizeUnit {
-            newLogRef.setValue(["timestamp": timestamp, "foodId": foodId, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit], withCompletionBlock: {
+            
+            var nutrition = [[String:Any]]()
+            for (index, element) in nutrients.enumerated() {
+                if let nutrient = element.name, let value = element.value, let unit = element.unit {
+                    nutrition.append(["Nutrient": nutrient, "Value": value, "Unit": unit])
+                }
+            }
+            
+
+            newLogRef.setValue(["timestamp": timestamp, "foodId": foodId, "servingSize": servingSize, "servingSizeUOM": servingSizeUnit, "householdServingSize": householdServingSize, "householdServingSizeUOM" : householdServingSizeUnit, "nutrition": nutrition], withCompletionBlock: {
                 error, ref in
                 if error != nil {
                     ProgressHUD.showError(error!.localizedDescription)
                     completion(false)
                     return
                 }
-                for (index, element) in nutrients.enumerated() {
-                    if let nutrient = element.name, let value = element.value, let unit = element.unit {
-                        let key = String(index)
-                        newLogRef.child("nutrition").child(key).setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
-                            error, ref in
-                            if error != nil {
-                                ProgressHUD.showError(error!.localizedDescription)
-                                completion(false)
-                                return
-                            }
-
-                        })
-                    }
-                }
+//                for (index, element) in nutrients.enumerated() {
+//                    if let nutrient = element.name, let value = element.value, let unit = element.unit {
+//                        let key = String(index)
+//                        newLogRef.child("nutrition").child(key).setValue(["Nutrient": nutrient, "Value": value, "Unit": unit], withCompletionBlock: {
+//                            error, ref in
+//                            if error != nil {
+//                                ProgressHUD.showError(error!.localizedDescription)
+//                                completion(false)
+//                                return
+//                            }
+//
+//                        })
+//                    }
+//                }
                 completion(true)
             })
         }

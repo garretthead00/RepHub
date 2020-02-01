@@ -3,6 +3,8 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -295,14 +297,14 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Progess / Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVT-Ey-Cvi">
-                                            <rect key="frame" x="68" y="52" width="233" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progess / Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVT-Ey-Cvi">
+                                            <rect key="frame" x="68" y="52" width="16" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-5o-dee">
-                                            <rect key="frame" x="58.5" y="95.5" width="276" height="45"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-5o-dee">
+                                            <rect key="frame" x="-61" y="97.5" width="276" height="45"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="rv4-tP-GQp">
                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="45"/>
@@ -357,8 +359,8 @@
                                                 </stackView>
                                             </subviews>
                                         </stackView>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z2y-mt-ghU" customClass="PieChartView" customModule="Charts">
-                                            <rect key="frame" x="309" y="20" width="42" height="42"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2y-mt-ghU" customClass="PieChartView" customModule="Charts">
+                                            <rect key="frame" x="92" y="20" width="42" height="42"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="42" id="UJD-dZ-npp"/>
@@ -1344,32 +1346,84 @@
                                     <outlet property="barChart" destination="Zzb-YC-oY4" id="sGy-ds-Fhj"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DrinksView" rowHeight="80" id="gXO-az-lZc" customClass="EatActivityMealsView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="20" y="340.5" width="374" height="80"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DrinksView" rowHeight="180" id="gXO-az-lZc" customClass="ActivityLogsView" customModule="RepHub" customModuleProvider="target">
+                                <rect key="frame" x="20" y="340.5" width="374" height="180"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gXO-az-lZc" id="bvi-6O-pK3">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="180"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drinks..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FT2-6J-XhA">
-                                            <rect key="frame" x="20" y="30" width="188" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ipf-gY-Kig">
+                                            <rect key="frame" x="20" y="11" width="334" height="158"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CCs-Hu-AaL">
+                                                <size key="itemSize" width="92" height="127"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LogView" id="w8m-Tk-bED" customClass="HydrationLogView" customModule="RepHub" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="15.5" width="92" height="127"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8qi-pa-YQi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="127"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GAU-u6-ExO">
+                                                                <rect key="frame" x="21" y="8" width="50" height="102.5"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Coffee" translatesAutoresizingMaskIntoConstraints="NO" id="0Os-Hi-rMe">
+                                                                        <rect key="frame" x="1" y="0.0" width="48" height="48"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="48" id="6NV-3v-Gwb"/>
+                                                                            <constraint firstAttribute="width" constant="48" id="JPx-Rn-72X"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="coffee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hd-A0-HmH">
+                                                                        <rect key="frame" x="0.0" y="56" width="50" height="20.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-pL-9ZJ">
+                                                                        <rect key="frame" x="5.5" y="84.5" width="39" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="GAU-u6-ExO" firstAttribute="top" secondItem="8qi-pa-YQi" secondAttribute="top" constant="8" id="Q9n-aH-QIK"/>
+                                                            <constraint firstItem="GAU-u6-ExO" firstAttribute="centerX" secondItem="8qi-pa-YQi" secondAttribute="centerX" id="y0e-rs-1bO"/>
+                                                        </constraints>
+                                                    </collectionViewCellContentView>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <size key="customSize" width="92" height="127"/>
+                                                    <connections>
+                                                        <outlet property="drinkTypeLabel" destination="4hd-A0-HmH" id="UVF-Z7-OuP"/>
+                                                        <outlet property="imageView" destination="0Os-Hi-rMe" id="bYy-Ip-1x7"/>
+                                                        <outlet property="servingLabel" destination="Ra8-pL-9ZJ" id="WUP-12-aZl"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="FT2-6J-XhA" firstAttribute="leading" secondItem="bvi-6O-pK3" secondAttribute="leading" constant="20" id="DVB-Ms-7XR"/>
-                                        <constraint firstAttribute="trailing" secondItem="FT2-6J-XhA" secondAttribute="trailing" constant="166" id="au1-vx-MaC"/>
-                                        <constraint firstItem="FT2-6J-XhA" firstAttribute="centerY" secondItem="bvi-6O-pK3" secondAttribute="centerY" id="r5d-a1-y0h"/>
+                                        <constraint firstItem="Ipf-gY-Kig" firstAttribute="bottom" secondItem="bvi-6O-pK3" secondAttribute="bottomMargin" id="5A2-z8-t0I"/>
+                                        <constraint firstItem="Ipf-gY-Kig" firstAttribute="top" secondItem="bvi-6O-pK3" secondAttribute="topMargin" id="lsW-Ig-UTY"/>
+                                        <constraint firstItem="Ipf-gY-Kig" firstAttribute="leading" secondItem="bvi-6O-pK3" secondAttribute="leadingMargin" id="pm7-jw-Lx7"/>
+                                        <constraint firstItem="Ipf-gY-Kig" firstAttribute="trailing" secondItem="bvi-6O-pK3" secondAttribute="trailingMargin" id="siz-nT-uMG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="label" destination="FT2-6J-XhA" id="QRG-nJ-cBC"/>
+                                    <outlet property="collectionView" destination="Ipf-gY-Kig" id="FN0-8m-Tvz"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MacroChart" rowHeight="228" id="G40-Z8-eQ8" customClass="DrinksByTypeView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="20" y="420.5" width="374" height="228"/>
+                                <rect key="frame" x="20" y="520.5" width="374" height="228"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G40-Z8-eQ8" id="8lw-wW-Mjm">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="228"/>
@@ -1392,7 +1446,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MacroDetailView" rowHeight="44" id="p2b-lI-zqt" customClass="MacroDetailView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="20" y="648.5" width="374" height="44"/>
+                                <rect key="frame" x="20" y="748.5" width="374" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p2b-lI-zqt" id="VMK-3D-qJO">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
@@ -1449,7 +1503,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackedNutrientDetailView" rowHeight="44" id="lsU-3B-ZJq">
-                                <rect key="frame" x="20" y="692.5" width="374" height="44"/>
+                                <rect key="frame" x="20" y="792.5" width="374" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lsU-3B-ZJq" id="HSk-j0-X0e">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
@@ -1492,7 +1546,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NutrientDetailView" rowHeight="44" id="zJC-tV-uWV" customClass="NutrientDetailView" customModule="RepHub" customModuleProvider="target">
-                                <rect key="frame" x="20" y="736.5" width="374" height="44"/>
+                                <rect key="frame" x="20" y="836.5" width="374" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zJC-tV-uWV" id="sm5-41-Yh0">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
@@ -1531,7 +1585,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoDataView" textLabel="3is-NF-YVP" detailTextLabel="c2i-Ix-zt8" style="IBUITableViewCellStyleSubtitle" id="bgj-sT-FBz">
-                                <rect key="frame" x="20" y="780.5" width="374" height="55.5"/>
+                                <rect key="frame" x="20" y="880.5" width="374" height="55.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bgj-sT-FBz" id="uIY-W8-ecH">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="55.5"/>
@@ -1567,7 +1621,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i2Y-98-t28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1558" y="417"/>
+            <point key="canvasLocation" x="1557.9710144927537" y="416.51785714285711"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jbU-7h-iho">
@@ -1589,6 +1643,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Coffee" width="48" height="48"/>
         <image name="Exercise" width="48" height="48"/>
         <image name="PlannerIcon" width="25" height="25"/>
         <image name="bolt.circle.fill" catalog="system" width="64" height="60"/>
