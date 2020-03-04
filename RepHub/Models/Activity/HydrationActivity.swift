@@ -22,9 +22,9 @@ struct HydrationActivity: Activity {
     var percentRemaining: Double?
     var logs : [NutritionLog] = []
     var summaryData: [(String, Double, String)]?
-    var macros : [(String, Double, String)]?
-    var electrolytes: [(String, Double, String)]?
-    var otherNutrients : [(String, Double, String)]?
+    var macros : [(String, Double, Double, String)]?
+    var electrolytes: [(String, Double, Double, String)]?
+    var otherNutrients : [(String, Double, Double, String)]?
     
     // MARK: Nutrition
     var totalWater : Double? {
@@ -50,12 +50,12 @@ struct HydrationActivity: Activity {
         return sum
     }
     
-    var energyConsumed : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Energy.rawValue) }
-    var protein : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Protein.rawValue) }
-    var fats : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Fat.rawValue) }
-    var carbohydrates : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Carbs.rawValue) }
+    var totalEnergyConsumed : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Energy.rawValue) }
+    var totalProtein : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Protein.rawValue) }
+    var totalFats : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Fat.rawValue) }
+    var totalCarbohydrates : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Carbs.rawValue) }
     var totalSugar : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Sugar.rawValue) }
-    var fiber : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Fiber.rawValue) }
+    var totalFiber : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Fiber.rawValue) }
     var totalCalcium : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Calcium.rawValue) }
     var totalChloride : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Chloride.rawValue) }
     var totalMagnesium : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Magnesium.rawValue) }
@@ -64,19 +64,39 @@ struct HydrationActivity: Activity {
     var totalSodium : Double? { return self.nutritionTotalizer(forNutrient: Nutrients.Sodium.rawValue) }
     var totalCaffeine : Double? { return nutritionTotalizer(forNutrient: Nutrients.Caffeine.rawValue) }
     
+    
+    var energyConsumed : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Energy.rawValue) }
+    var protein : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Protein.rawValue) }
+    var fats : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Fat.rawValue) }
+    var carbohydrates : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Carbs.rawValue) }
+    var sugar : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Sugar.rawValue) }
+    var fiber : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Fiber.rawValue) }
+    var calcium : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Calcium.rawValue) }
+    var chloride : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Chloride.rawValue) }
+    var magnesium : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Magnesium.rawValue) }
+    var phosphorus : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Phosphorus.rawValue) }
+    var potassium : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Potassium.rawValue) }
+    var sodium : Double? { return self.nutritionTotalizerForDrinks(forNutrient: Nutrients.Sodium.rawValue) }
+    var caffeine : Double? { return nutritionTotalizerForDrinks(forNutrient: Nutrients.Caffeine.rawValue) }
+    
     mutating func refreshLogs(logs: [NutritionLog]){
         self.logs.removeAll()
         self.logs = logs
         self.summaryData = [(Nutrients.Caffeine.rawValue, self.totalCaffeine!, "mg"),(Nutrients.Sugar.rawValue, self.totalSugar!, "g"),(Nutrients.Fluids.rawValue, self.totalFluids!, "oz")]
-        self.macros = [(Nutrients.Protein.rawValue, self.protein!, "g"), (Nutrients.Fat.rawValue,self.fats!, "g"), (Nutrients.Carbs.rawValue,self.carbohydrates!, "g")]
+        self.macros = [(Nutrients.Protein.rawValue, protein!, self.totalProtein!, "g"),
+                       (Nutrients.Fat.rawValue, fats!, self.totalFats!, "g"),
+                       (Nutrients.Carbs.rawValue, carbohydrates!, self.totalCarbohydrates!, "g")]
         
-        self.electrolytes = [(Nutrients.Calcium.rawValue, self.totalCalcium!, "mg"),
-                        (Nutrients.Chloride.rawValue,self.totalChloride!, "mg"),
-                        (Nutrients.Magnesium.rawValue,self.totalMagnesium!, "mg"),
-                        (Nutrients.Phosphorus.rawValue,self.totalPhosphorus!, "mg"),
-                        (Nutrients.Potassium.rawValue,self.totalPotassium!, "mg"),
-                        (Nutrients.Sodium.rawValue,self.totalSodium!, "mg")]
+        self.electrolytes = [(Nutrients.Calcium.rawValue, calcium!, self.totalCalcium!, "mg"),
+                        (Nutrients.Chloride.rawValue, chloride!, self.totalChloride!, "mg"),
+                        (Nutrients.Magnesium.rawValue, magnesium!,self.totalMagnesium!, "mg"),
+                        (Nutrients.Phosphorus.rawValue, phosphorus!,self.totalPhosphorus!, "mg"),
+                        (Nutrients.Potassium.rawValue, potassium!, self.totalPotassium!, "mg"),
+                        (Nutrients.Sodium.rawValue, sodium!, self.totalSodium!, "mg")]
         
+        self.otherNutrients = [(Nutrients.Caffeine.rawValue, self.caffeine!, self.totalCaffeine!,  "mg"),
+                               (Nutrients.Sugar.rawValue, self.sugar!, self.totalSugar!, "g"),
+                               ("alcohol", 0.0, 0.0, "oz")]
         self.dailyTotal = self.totalWater!
         self.remainingToTarget = (self.target! - self.dailyTotal!) < 0.0 ? 0.0 : (self.target! - self.dailyTotal!)
         self.percentComplete = self.dailyTotal! / self.target! * 100
@@ -98,14 +118,20 @@ extension HydrationActivity {
         self.percentComplete = 0.0
         self.percentRemaining = 0.0
         self.summaryData = [(Nutrients.Caffeine.rawValue, self.totalCaffeine!, "mg"),(Nutrients.Sugar.rawValue, self.totalSugar!, "g"),(Nutrients.Fluids.rawValue, self.totalFluids!, "oz")]
-        self.macros = [(Nutrients.Protein.rawValue, self.protein!, "g"), (Nutrients.Fat.rawValue,self.fats!, "g"), (Nutrients.Carbs.rawValue,self.carbohydrates!, "g")]
+        self.macros = [(Nutrients.Protein.rawValue, protein!, self.totalProtein!, "g"),
+                       (Nutrients.Fat.rawValue, fats!, self.totalFats!, "g"),
+                       (Nutrients.Carbs.rawValue, carbohydrates!, self.totalCarbohydrates!, "g")]
         
-        self.electrolytes = [(Nutrients.Calcium.rawValue, self.totalCalcium!, "mg"),
-                        (Nutrients.Chloride.rawValue,self.totalChloride!, "mg"),
-                        (Nutrients.Magnesium.rawValue,self.totalMagnesium!, "mg"),
-                        (Nutrients.Phosphorus.rawValue,self.totalPhosphorus!, "mg"),
-                        (Nutrients.Potassium.rawValue,self.totalPotassium!, "mg"),
-                        (Nutrients.Sodium.rawValue,self.totalSodium!, "mg")]
+        self.electrolytes = [(Nutrients.Calcium.rawValue, calcium!, self.totalCalcium!, "mg"),
+                        (Nutrients.Chloride.rawValue, chloride!, self.totalChloride!, "mg"),
+                        (Nutrients.Magnesium.rawValue, magnesium!,self.totalMagnesium!, "mg"),
+                        (Nutrients.Phosphorus.rawValue, phosphorus!,self.totalPhosphorus!, "mg"),
+                        (Nutrients.Potassium.rawValue, potassium!, self.totalPotassium!, "mg"),
+                        (Nutrients.Sodium.rawValue, sodium!, self.totalSodium!, "mg")]
+        
+        self.otherNutrients = [(Nutrients.Caffeine.rawValue, self.caffeine!, self.totalCaffeine!,  "mg"),
+                               (Nutrients.Sugar.rawValue, self.sugar!, self.totalSugar!, "g"),
+                               ("alcohol", 0.0, 0.0, "oz")]
         
     }
     
@@ -131,7 +157,20 @@ extension HydrationActivity {
             if let nutrition = log.nutrition, nutrition.count > 0 {
                 sum += nutrition.filter({$0.name == nutrient}).map({$0.value!}).reduce(0, +)
             }
-
+        }
+        return sum
+    }
+    
+    private func nutritionTotalizerForDrinks(forNutrient nutrient: String) -> Double{
+        var sum = 0.0
+        for log in self.logs {
+            if let food = log.food {
+                if food.foodGroup == "Drinks" {
+                    if let nutrition = log.nutrition, nutrition.count > 0 {
+                        sum += nutrition.filter({$0.name == nutrient}).map({$0.value!}).reduce(0, +)
+                    }
+                }
+            }
         }
         return sum
     }

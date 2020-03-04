@@ -173,11 +173,11 @@ class ActivityController: UITableViewController {
             destination.activity = self.activities[0]
         }
         else if segue.identifier == "Nutrition" {
-            let destination = segue.destination as! EatActivityController
+            let destination = segue.destination as! NutritionController
             destination.activity = self.activities[1] as! NutritionActivity
         }
         else if segue.identifier == "Hydration" {
-            let destination = segue.destination as! HydrateActivityController
+            let destination = segue.destination as! HydrationActivityController
             let activity = self.activities[2] as! HydrationActivity
             destination.activity = activity
             

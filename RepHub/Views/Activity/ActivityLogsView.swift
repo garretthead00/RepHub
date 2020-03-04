@@ -50,7 +50,7 @@ extension ActivityLogsView : UICollectionViewDelegate, UICollectionViewDataSourc
 
 extension ActivityLogsView : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 128.0, height: 128.0)
+        return CGSize(width: 192.0, height: 148.0)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -62,7 +62,7 @@ extension ActivityLogsView : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return 16
     }
     
 

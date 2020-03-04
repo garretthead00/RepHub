@@ -19,6 +19,7 @@
 @interface SDAnimatedImageView () <CALayerDelegate> {
     BOOL _initFinished; // Extra flag to mark the `commonInit` is called
     NSRunLoopMode _runLoopMode;
+    NSUInteger _maxBufferSize;
     double _playbackRate;
 }
 
@@ -153,6 +154,9 @@
         // RunLoop Mode
         self.player.runLoopMode = self.runLoopMode;
         
+        // Max Buffer Size
+        self.player.maxBufferSize = self.maxBufferSize;
+        
         // Play Rate
         self.player.playbackRate = self.playbackRate;
         
@@ -166,23 +170,21 @@
         };
         self.player.animationLoopHandler = ^(NSUInteger loopCount) {
             @strongify(self);
-            self.currentLoopCount = loopCount;
             // Progressive image reach the current last frame index. Keep the state and pause animating. Wait for later restart
             if (self.isProgressive) {
-                NSUInteger lastFrameIndex = self.player.totalFrameCount;
+                NSUInteger lastFrameIndex = self.player.totalFrameCount - 1;
                 [self.player seekToFrameAtIndex:lastFrameIndex loopCount:0];
                 [self.player pausePlaying];
+            } else {
+                self.currentLoopCount = loopCount;
             }
         };
         
         // Ensure disabled highlighting; it's not supported (see `-setHighlighted:`).
         super.highlighted = NO;
         
-        // Update should animate
-        [self updateShouldAnimate];
-        if (self.shouldAnimate) {
-            [self startAnimating];
-        }
+        // Start animating
+        [self startAnimating];
 
         [self.imageViewLayer setNeedsDisplay];
     }
@@ -207,6 +209,16 @@
 + (NSString *)defaultRunLoopMode {
     // Key off `activeProcessorCount` (as opposed to `processorCount`) since the system could shut down cores in certain situations.
     return [NSProcessInfo processInfo].activeProcessorCount > 1 ? NSRunLoopCommonModes : NSDefaultRunLoopMode;
+}
+
+- (void)setMaxBufferSize:(NSUInteger)maxBufferSize
+{
+    _maxBufferSize = maxBufferSize;
+    self.player.maxBufferSize = maxBufferSize;
+}
+
+- (NSUInteger)maxBufferSize {
+    return _maxBufferSize; // Defaults to 0
 }
 
 - (void)setPlaybackRate:(double)playbackRate
@@ -309,10 +321,26 @@
 #pragma mark - UIImageView Method Overrides
 #pragma mark Image Data
 
+- (void)setAnimationRepeatCount:(NSInteger)animationRepeatCount
+{
+#if SD_UIKIT
+    [super setAnimationRepeatCount:animationRepeatCount];
+#else
+    _animationRepeatCount = animationRepeatCount;
+#endif
+    
+    if (self.shouldCustomLoopCount) {
+        self.player.totalLoopCount = animationRepeatCount;
+    }
+}
+
 - (void)startAnimating
 {
     if (self.player) {
-        [self.player startPlaying];
+        [self updateShouldAnimate];
+        if (self.shouldAnimate) {
+            [self.player startPlaying];
+        }
     } else {
 #if SD_UIKIT
         [super startAnimating];

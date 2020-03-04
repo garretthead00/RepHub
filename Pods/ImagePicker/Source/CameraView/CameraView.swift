@@ -187,7 +187,7 @@ class CameraView: UIViewController, CLLocationManagerDelegate, CameraManDelegate
 
   @objc func settingsButtonDidTap() {
     DispatchQueue.main.async {
-      if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+        if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
         UIApplication.shared.openURL(settingsURL)
       }
     }
