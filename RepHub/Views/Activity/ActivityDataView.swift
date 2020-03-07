@@ -34,7 +34,7 @@ class ActivityDataView: UITableViewCell {
     
     private func updateView(){
         if let data = self.data {
-            self.icon.image = UIImage(named: data.0)
+            self.icon.image = UIImage(named: data.0.lowercased())
             self.label.text = "\(data.0)"
             self.value.text = "\(Int(data.1)) \(data.2)"
         }

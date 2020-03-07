@@ -76,7 +76,7 @@
                                     <outlet property="collectionView" destination="TSp-5Z-UBr" id="aSr-qB-2J7"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemView" rowHeight="128" id="vwr-No-At4" customClass="DrinkItemTableViewCell" customModule="RepHub" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemView" rowHeight="128" id="vwr-No-At4" customClass="DrinkView" customModule="RepHub" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="110" width="375" height="128"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vwr-No-At4" id="YiK-Me-fhv">
@@ -116,8 +116,9 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <outlet property="descriptionLabel" destination="DWh-uo-Xit" id="IQz-8k-TXb"/>
-                                    <outlet property="nameLabel" destination="VuA-UB-qtA" id="UCO-z8-cQL"/>
+                                    <outlet property="detail" destination="DWh-uo-Xit" id="6LY-zq-rNh"/>
+                                    <outlet property="icon" destination="m9W-g0-yih" id="msh-m9-iLh"/>
+                                    <outlet property="name" destination="VuA-UB-qtA" id="QVK-M3-kkH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -84,7 +84,7 @@ open class ImagePickerController: UIViewController {
   open var doneButtonTitle: String? {
     didSet {
       if let doneButtonTitle = doneButtonTitle {
-        bottomContainer.doneButton.setTitle(doneButtonTitle, for: UIControl.State())
+        bottomContainer.doneButton.setTitle(doneButtonTitle, for: UIControlState())
       }
     }
   }
@@ -160,8 +160,9 @@ open class ImagePickerController: UIViewController {
     initialContentOffset = galleryView.collectionView.contentOffset
 
     applyOrientationTransforms()
+
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
-                                                    bottomContainer);
+                                    bottomContainer);
   }
 
   open func resetAssets() {
@@ -189,7 +190,7 @@ open class ImagePickerController: UIViewController {
     let alertController = UIAlertController(title: configuration.requestPermissionTitle, message: configuration.requestPermissionMessage, preferredStyle: .alert)
 
     let alertAction = UIAlertAction(title: configuration.OKButtonTitle, style: .default) { _ in
-        if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+      if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
         UIApplication.shared.openURL(settingsURL)
       }
     }
@@ -276,7 +277,7 @@ open class ImagePickerController: UIViewController {
 
     let title = !sender.assets.isEmpty ?
       configuration.doneButtonTitle : configuration.cancelButtonTitle
-    bottomContainer.doneButton.setTitle(title, for: UIControl.State())
+    bottomContainer.doneButton.setTitle(title, for: UIControlState())
   }
   
   @objc func dismissIfNeeded() {

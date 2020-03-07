@@ -123,7 +123,7 @@ class DrinkMenuController: UITableViewController {
             cell.filters = self.filters
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "itemView", for: indexPath) as! DrinkItemTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "itemView", for: indexPath) as! DrinkView
             cell.drink = self.displayDrinks[row - 1]
             return cell
         }
