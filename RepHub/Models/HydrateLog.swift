@@ -9,31 +9,37 @@
 import Foundation
 
 class HydrateLog {
+
     
     var id : String?
+    var drinkId: String?
+    var timestamp: Double?
     var servingSize : Double?
     var servingSizeUnit : String?
     var householdServingSize : Double?
     var householdServingSizeUnit : String?
-    var timeStamp : Double?
-    var drinkId : Int?
-    var drinkName : String?
-    var drinkType : String?
+    var drink : FoodItem?
+    var nutrition : [Nutrient]?
+
+    
 }
 
 extension HydrateLog {
     
+    
     static func transformHydrateLog(data: [String: Any], key: String) -> HydrateLog {
         let log = HydrateLog()
         log.id = key
+        log.drinkId = data["foodId"] as? String
         log.servingSize = data["servingSize"] as? Double
-        log.drinkId = data["drinkId"] as? Int
         log.servingSizeUnit = data["servingSizeUOM"] as? String
         log.householdServingSize = data["householdServingSize"] as? Double
         log.householdServingSizeUnit = data["householdServingSizeUOM"] as? String
-        log.timeStamp = data["timestamp"] as? Double
-        log.drinkName = ""
-        log.drinkType = ""
+        log.timestamp = data["timestamp"] as? Double
+        log.nutrition = [] as? [Nutrient]
+        
+        
         return log
     }
+
 }

@@ -5,6 +5,8 @@ target 'RepHub' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  #use_modular_headers!
+  
   # Pods for RepHub
   pod 'Firebase/Core', '~> 5.20.1'
   pod 'Firebase/Auth'

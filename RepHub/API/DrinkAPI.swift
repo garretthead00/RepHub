@@ -13,13 +13,18 @@ import FirebaseAuth
 
 class DrinkAPI {
 
-    var DRINKS_BY_TYPE_DB_REF = Database.database().reference().child("drinksByType")
-    func observeDrinks(byType drinkType:String, completion: @escaping(Drink) -> Void){
-        DRINKS_BY_TYPE_DB_REF.child(drinkType).observe(.childAdded, with: {
+    var DRINKS_BY_TYPE_DB_REF = Database.database().reference().child("foodByGroup").child("Drinks")
+    func observeDrinks(byType drinkType:String, completion: @escaping(FoodItem) -> Void){
+        let query = DRINKS_BY_TYPE_DB_REF.queryOrdered(byChild: "Category").queryEqual(toValue: drinkType)
+        query.observe(.value, with: {
             snapshot in
-            if let data = snapshot.value as? [String:Any] {
-                let drink = Drink.transformDrinkByType(data: data, key: snapshot.key)
-                completion(drink)
+            for childSnapshot in snapshot.children {
+                if let child = childSnapshot as? DataSnapshot {
+                    if let data = child.value as? [String:Any] {
+                        let drink = FoodItem.transformFood(data: data, key: snapshot.key)
+                        completion(drink)
+                    }
+                }
             }
         })
     }

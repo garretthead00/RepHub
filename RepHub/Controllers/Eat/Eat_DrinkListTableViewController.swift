@@ -25,12 +25,12 @@ class Eat_DrinkListTableViewController: UITableViewController {
     
     
     private func fetchDrinksByType(){
-        API.Drink.observeDrinks(byType: self.drinkType!, completion: {
-            drink in
-            self.drinks.append(drink)
-            self.drinksByType = Dictionary(grouping: self.drinks, by: { $0.type! })
-            self.tableView.reloadData()
-        })
+//        API.Drink.observeDrinks(byType: self.drinkType!, completion: {
+//            drink in
+//            self.drinks.append(drink)
+//            self.drinksByType = Dictionary(grouping: self.drinks, by: { $0.type! })
+//            self.tableView.reloadData()
+//        })
     }
     
 

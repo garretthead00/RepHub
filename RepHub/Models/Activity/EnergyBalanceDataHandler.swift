@@ -11,31 +11,37 @@ import HealthKit
 
 class EnergyBalanceDataHandler {
     
-    var energyBurned : [(Date, Double, String)]? {
-        didSet {
-            self.calculateEnergyBalance()
-        }
-    }
-    var energyConsumed : [(Date, Double, String)]? {
-        didSet {
-            self.calculateEnergyBalance()
-        }
-    }
+    var activeEnergyBurnedByHour : [(Date, Double, String)]?
+    var restingEnergyBurnedByHour : [(Date, Double, String)]?
+    var energyConsumedByHour : [(Date, Double, String)]?
     
-    var energyBalance : [(Date, Double, String)]?
+    var energyBalanceByHour : [(Date, Double, String)]? {
+        var energBurnedSum = 0.0
+        var energyConsumedSum = 0.0
+        var balanceArray : [(Date, Double, String)] = []
+        if let energyBurned = self.activeEnergyBurnedByHour, let energyConsumed = self.energyConsumedByHour {
+            for i in 0 ..< energyBurned.count {
+                energBurnedSum += energyBurned[i].1
+                energyConsumedSum += energyConsumed[i].1
+                let difference = energyConsumedSum - energBurnedSum
+                balanceArray.append((energyBurned[i].0, difference, energyBurned[i].2))
+            }
+        }
+        return balanceArray
+    }
     
     init(){
+        print("energyBalance init")
         self.getEnergyBurned()
         self.getEnergyConsumed()
     }
-    
 
-    
 }
 
 extension EnergyBalanceDataHandler {
     
     private func getEnergyBurned(){
+        print("getting energy burned per hour")
         ExerciseActivityStore.getHourlyActiveEnergyBurned(){
             result, error in
             guard let result = result else {
@@ -44,13 +50,13 @@ extension EnergyBalanceDataHandler {
                 }
                 return
             }
-            print("---- Energy Burned ---)")
-            print("result \(result)")
-            self.energyBurned = result
+            print("got energyBurned per hour")
+            self.activeEnergyBurnedByHour = result
         }
     }
     
     private func getEnergyConsumed(){
+        print("getting energy consumed per hour")
         EatActivityStore.getHourlyEnergyConsumedTotal(){
             result, error in
             guard let result = result else {
@@ -59,26 +65,10 @@ extension EnergyBalanceDataHandler {
                 }
                 return
             }
-            print("---- Energy Consumed ---)")
-            print("result \(result)")
-            self.energyConsumed = result
+            print("got energyConsumed per hour")
+            self.energyConsumedByHour = result
         }
     }
     
-    private func calculateEnergyBalance(){
-        
-        if let energyBurned = self.energyBurned, let energyConsumed = self.energyConsumed {
-            var balanceArray : [(Date, Double, String)] = []
-            for i in 0 ..< energyBurned.count {
-                let difference = energyConsumed[i].1 - energyBurned[i].1
-                balanceArray.append((energyBurned[i].0, difference, energyBurned[i].2))
-            }
-            print("---- Energy Balance ---)")
-            print("result \(balanceArray)")
-            self.energyBalance = balanceArray
-        }
-        
-
-    }
     
 }

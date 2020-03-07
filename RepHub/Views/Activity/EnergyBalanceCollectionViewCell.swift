@@ -34,6 +34,9 @@ class EnergyBalanceCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateView(){
+//        print("energyBurned: \(self.energyBurned)")
+//        print("energyconsmed: \(self.energyConsumed)")
+//        print("energyBalance: \(self.energyBalance)")
         self.setChartData()
     }
     
@@ -103,7 +106,7 @@ extension EnergyBalanceCollectionViewCell {
     
     func generateBarData() -> BarChartData {
         
-        if let energyConsumed = self.energyConsumed, let energyBurned = self.energyBurned, energyConsumed.count > 0, energyConsumed.count > 0 {
+        if let energyConsumed = self.energyConsumed, let energyBurned = self.energyBurned, energyBurned.count > 0, energyConsumed.count > 0 {
             let entries = (0..<energyConsumed.count).map { (i) -> BarChartDataEntry in
                 return BarChartDataEntry(x: Double(i) + 0.5, yValues: [energyConsumed[i].1, energyBurned[i].1 * -1])
             }

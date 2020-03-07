@@ -10,7 +10,7 @@ import UIKit
 
 class FoodListTableViewController: UITableViewController {
 
-    private let foodTypesByGroup = Food()
+    private let foodTypesByGroup = FoodItem()
    
     
     var foodGroup : String? {
@@ -47,12 +47,12 @@ class FoodListTableViewController: UITableViewController {
     
     private func loadFood() {
         let defaultFilterSelection = self.filters![0]
-        API.Food.observeFood(ofGroup: self.foodGroup!, byType: defaultFilterSelection, completion: {
-            food in
-            self.foods.append(food)
-            self.foodsByType = Dictionary(grouping: self.foods, by: { $0.type! })
-            self.tableView.reloadData()
-        })
+//        API.Food.observeFood(ofGroup: self.foodGroup!, byType: defaultFilterSelection, completion: {
+//            food in
+//            self.foods.append(food)
+//            self.foodsByType = Dictionary(grouping: self.foods, by: { $0.foodGroup! })
+//            self.tableView.reloadData()
+//        })
 
         
     }

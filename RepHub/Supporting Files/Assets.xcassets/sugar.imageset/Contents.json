@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icons8-christmas-candy-96.png",
+      "filename" : "Supplements.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Supplements2x.png",
       "scale" : "2x"
     },
     {
