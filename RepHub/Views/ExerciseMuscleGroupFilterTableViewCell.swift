@@ -19,8 +19,8 @@ class ExerciseMuscleGroupFilterTableViewCell: UITableViewCell {
     var delegate : UpdateMuscleGroupFilterDelegate?
     var muscleGroups : [String]? {
         didSet {
-            self.collectionView.delegate = self
-            self.collectionView.dataSource = self
+//            self.collectionView.delegate = self
+//            self.collectionView.dataSource = self
             self.collectionView.allowsSelection = true
             self.collectionView.allowsMultipleSelection = false
             self.collectionView.reloadData()

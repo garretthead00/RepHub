@@ -10,68 +10,21 @@ import UIKit
 
 class NutritionController: UITableViewController {
     
-    private let sectionHeaders = ["","Meals", "Macros","Lipids","Carbohydrates","Vitamins","Minerals","Ultra-Trace Minerals"]
+    private let sectionHeaders = ["", "Macros","Logs", "Lipids","Carbohydrates","Vitamins","Minerals","Ultra-Trace Minerals"]
     
-    private let macros = [
-        ("Protein",20.0, 75.0, "g"),
-        ("Carbs",20.0, 43.0, "g"),
-        ("Fat",20.0, 35.0, "g"),
-    ]
-    
-    private let lipids = [
-        ("Monounsaturated Fat",20.0,1.2,"g"),
-        ("Polyunsaturated Fat",20.0,1.59,"g"),
-        ("Saturated Fat",20.0,0.57,"g"),
-        ("Cholesterol",20.0,0.88,"g"),
-    ]
-    
-    private let carbohydrates = [
-        ("Fiber",20.0,0.75,"g"),
-        ("Sugar",20.0,1.39,"g"),
-    ]
-    
-    
-    private let vitamins = [
-        ("Folate",20.0,0.45,"mg"),
-        ("Vitamin A",20.0,0.53,"mcg"),
-        ("Vitamin B1",20.0,1.78,"mg"),
-        ("Vitamin B12",20.0,1.05,"mg"),
-        ("Vitamin B2",20.0,1.33,"mg"),
-        ("Vitamin B3",20.0,0.14,"mg"),
-        ("Vitamin B5",20.0,1.75,"mg"),
-        ("Vitamin B6",20.0,1.2,"mg"),
-        ("Vitamin B7",20.0,1.35,"mg"),
-        ("Vitamin C",20.0,0.39,"mg"),
-        ("Vitamin D",20.0,1.47,"mcg"),
-        ("Vitamin E",20.0,0.09,"mg"),
-        ("Vitamin K",20.0,1.34,"mg"),
-    ]
-    
-    private let minerals = [
-        ("Calcium",20.0,0.65,"mg"),
-        ("Chloride",20.0,0.51,"mg"),
-        ("Iron",20.0,0.03,"mg"),
-        ("Magnesium",20.0,1.87,"mg"),
-        ("Phosphorus",20.0,0.63,"mg"),
-        ("Potassium",20.0,0.43,"mg"),
-        ("Sodium",20.0,1.07,"mg"),
-        ("Zinc",20.0,1.13,"mg"),
-    ]
-    private let utlraTraceMinerals = [
-        ("Chromium",20.0,1.66,"mg"),
-        ("Copper",20.0,0.54,"mg"),
-        ("Iodine",20.0,0.77,"mcg"),
-        ("Manganese",20.0,0.68,"mg"),
-        ("Molybdenum",20.0,0.18,"mg"),
-        ("Selenium",20.0,1.32,"mcg"),
-    ]
     
     
     var activity : NutritionActivity? {
         didSet {
-            self.tableView.reloadData()
+            
+            // filter nutrition logs
+            filterNutritionLogs()
+            
         }
     }
+    
+    var nutritionLogs : [NutritionLog] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,13 +46,13 @@ class NutritionController: UITableViewController {
         var rows = 0
         switch section {
             case 0 : rows = 2
-            case 1: rows = 1
-            case 2: rows = self.macros.count + 1
-            case 3: rows = self.lipids.count
-            case 4: rows = self.carbohydrates.count
-            case 5: rows = self.vitamins.count
+            case 1: rows = 1 + activity!.macros!.count
+            case 2: rows = 1
+            case 3: rows = activity!.lipids!.count
+            case 4: rows = activity!.carbohydrates!.count
+            case 5: rows = activity!.vitamins!.count
             case 6: rows = activity!.minerals!.count
-            case 7: rows = self.utlraTraceMinerals.count
+            case 7: rows = activity!.ultraTraceMinerals!.count
             default: rows = 0
         }
         return rows
@@ -113,54 +66,49 @@ class NutritionController: UITableViewController {
         
         if section == 0 {
             if row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ProgressView", for: indexPath) as! ActivityProgressView
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityProgressView", for: indexPath) as! ActivityProgressView
                 cell.progress = activity?.dailyTotal
                 cell.activityTarget = activity?.target
                 cell.progressPercent = Int(activity!.percentComplete!)
-                return cell
+                cell.colorTheme = self.activity!.color
+                return cell          
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "EnergyView", for: indexPath) as! EatActivityEnergyView
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityRollingTotal", for: indexPath) as! ActivityRollingTotalView
+                let caloriesConsumed = calculateCaloriesConsumedRunningTotal()
+                cell.activityTarget = activity!.target
+                cell.activityColor = activity!.color
+                cell.rollingTotal = caloriesConsumed
+               
                 return cell
             }
-        } else if section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MealsView", for: indexPath) as! EatActivityMealsView
-            return cell
-            
-        } else if section == 2 {
+        }
+        else if section == 1 {
             if row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MacroChart", for: indexPath) as! MacroChartView
-                cell.protein = 35.0
-                cell.fats = 13.0
-                cell.carbs = 22.0
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MacroOverview", for: indexPath) as! NutritionActivityMacroOverview
+                cell.macros = activity!.macros
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MacroDetailView", for: indexPath) as! MacroDetailView
-                cell.total = activity?.macros![indexPath.row-1]
-                return cell
+               let cell = tableView.dequeueReusableCell(withIdentifier: "MacroProgressView", for: indexPath) as! NutritionActivity_MacroProgressView
+                cell.macro = activity!.macros![indexPath.row-1]
+               return cell
+           }
+        }
+        else if section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityLogCollection", for: indexPath) as! ActivityLogsView
+            cell.logs = nutritionLogs
+            return cell
+        }
+        else if section >= 3 && section <= 7 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
+            
+            switch section {
+                case 3: cell.nutrient = activity!.lipids![indexPath.row]
+                case 4: cell.nutrient = activity!.carbohydrates![indexPath.row]
+                case 5: cell.nutrient = activity!.vitamins![indexPath.row]
+                case 6: cell.nutrient = activity!.minerals![indexPath.row]
+                case 7: cell.nutrient = activity!.ultraTraceMinerals![indexPath.row]
+                default: cell.nutrient = ("",0.0,0.0,"")
             }
-        } else if section == 3 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.lipids[indexPath.row]
-            cell.valueLabel.textColor = activity!.color
-            return cell
-        } else if section == 4 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.carbohydrates[indexPath.row]
-            cell.valueLabel.textColor = activity!.color
-            return cell
-        } else if section == 5 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.vitamins[indexPath.row]
-            cell.valueLabel.textColor = activity!.color
-            return cell
-        } else if section == 6 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.minerals[indexPath.row]
-            cell.valueLabel.textColor = activity!.color
-            return cell
-        } else if section == 7 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutrientDetailView", for: indexPath) as! NutrientDetailView
-            cell.nutrient = self.utlraTraceMinerals[indexPath.row]
             cell.valueLabel.textColor = activity!.color
             return cell
         } else {
@@ -180,13 +128,13 @@ class NutritionController: UITableViewController {
                 return 228
             }
         } else if section == 1 {
-            return 80
-        } else if section == 2 {
             if row == 0 {
                 return 228
             } else {
                 return 44
             }
+        } else if section == 2 {
+            return 180
         } else {
             return 44
         }
@@ -206,4 +154,50 @@ class NutritionController: UITableViewController {
     }
     */
 
+}
+
+extension NutritionController {
+    
+    private func filterNutritionLogs(){
+        if let activity = self.activity {
+            self.nutritionLogs = activity.logs.filter({
+                $0.food?.foodGroup != "Drinks"
+            })
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    
+    private func calculateCaloriesConsumedRunningTotal()  -> [Double]{
+        var totalHydration = [Double]()
+        var sum = 0.0
+        if let activity = activity {
+            for hour in 0...24 {
+                let calendar = Calendar.current
+                var components = calendar.dateComponents([.year, .month, .day, .hour], from: Date())
+                components.hour = hour
+                if let startTime = calendar.date(from: components)?.timeIntervalSince1970 {
+                    components.hour = hour + 1
+                    if let endTime = calendar.date(from: components)?.timeIntervalSince1970 {
+                        let logsOnTheHour = activity.logs.filter({
+                            $0.timestamp! >= Double(startTime) && $0.timestamp! <= Double(endTime)
+                        })
+                        for log in logsOnTheHour {
+                            if let nutrition = log.nutrition {
+                                let energy = nutrition.filter({ $0.name == Nutrients.Energy.rawValue}).first
+                                if let calories = energy!.value {
+                                    sum += calories
+                                }
+                                
+                            }
+                        }
+                        totalHydration.append(sum)
+                    }
+                }
+            }
+        }
+        return totalHydration
+    }
+    
 }

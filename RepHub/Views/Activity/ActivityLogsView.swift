@@ -39,7 +39,7 @@ extension ActivityLogsView : UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LogView", for: indexPath) as! HydrationLogView
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityLogView", for: indexPath) as! ActivityLogView
         cell.log = logs![indexPath.row]
         return cell
     }

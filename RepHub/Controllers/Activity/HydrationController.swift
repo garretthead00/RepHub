@@ -8,16 +8,17 @@
 
 import UIKit
 
-class HydrationActivityController: UITableViewController {
+class HydrationController: UITableViewController {
 
     private let sectionHeaders = ["","Drinks","Macros","Electrolytes", "Other"]
     
     var activity : HydrationActivity? {
         didSet {
-            print("got hydrate Activity")
-            self.tableView.reloadData()
+            filterHydrationLogs()
         }
     }
+    
+    var hydrationLogs : [NutritionLog] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,8 +80,8 @@ class HydrationActivityController: UITableViewController {
                 cell.drinksByType = drinksByType
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DrinksView", for: indexPath) as! ActivityLogsView
-                cell.logs = activity!.logs
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityLogCollection", for: indexPath) as! ActivityLogsView
+                cell.logs = hydrationLogs
                 return cell
             }
         } else if section == 2 {
@@ -141,7 +142,17 @@ class HydrationActivityController: UITableViewController {
 
 }
 
-extension HydrationActivityController {
+extension HydrationController {
+    
+    private func filterHydrationLogs(){
+        if let activity = self.activity {
+            self.hydrationLogs = activity.logs.filter({
+                $0.food?.foodGroup == "Drinks"
+            })
+            self.tableView.reloadData()
+        }
+        
+    }
     
     private func calculateWaterDrankOvertime() -> [Double]{
         var drinksOvertime = [Double]()
