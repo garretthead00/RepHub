@@ -12,13 +12,7 @@ class HydrationController: UITableViewController {
 
     private let sectionHeaders = ["","Drinks","Macros","Electrolytes", "Other"]
     
-    var activity : HydrationActivity? {
-        didSet {
-            filterHydrationLogs()
-        }
-    }
-    
-    var hydrationLogs : [NutritionLog] = []
+    var activity : HydrationActivity?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +62,7 @@ class HydrationController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityLineChartView", for: indexPath) as! ActivityLineChartView
-                let waterDrank = calculateHydrationRunningTotal()
+                let waterDrank = activity!.rollingTotal
                 cell.hydrationTarget = activity!.target
                 cell.waterDrank = waterDrank
                 return cell
@@ -76,12 +70,12 @@ class HydrationController: UITableViewController {
         } else if section == 1 {
             if row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MacroChart", for: indexPath) as! DrinksByTypeView
-                let drinksByType = calculateTotalDrankByType()
+                let drinksByType = activity!.drinksByType
                 cell.drinksByType = drinksByType
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityLogCollection", for: indexPath) as! ActivityLogsView
-                cell.logs = hydrationLogs
+                cell.logs = activity!.hydrationLogs
                 return cell
             }
         } else if section == 2 {
@@ -140,95 +134,4 @@ class HydrationController: UITableViewController {
     }
     */
 
-}
-
-extension HydrationController {
-    
-    private func filterHydrationLogs(){
-        if let activity = self.activity {
-            self.hydrationLogs = activity.logs.filter({
-                $0.food?.foodGroup == "Drinks"
-            })
-            self.tableView.reloadData()
-        }
-        
-    }
-    
-    private func calculateWaterDrankOvertime() -> [Double]{
-        var drinksOvertime = [Double]()
-        if let activity = activity {
-            for hour in 0...24 {
-                let calendar = Calendar.current
-                var components = calendar.dateComponents([.year, .month, .day, .hour], from: Date())
-                components.hour = hour
-                if let startTime = calendar.date(from: components)?.timeIntervalSince1970 {
-                    components.hour = hour + 1
-                    if let endTime = calendar.date(from: components)?.timeIntervalSince1970 {
-                        let logsOnTheHour = activity.logs.filter({
-                            $0.timestamp! >= Double(startTime) && $0.timestamp! <= Double(endTime)
-                        })
-                        var sum = 0.0
-                        for log in logsOnTheHour {
-                            if let food = log.food, let type = food.category{
-                                if let serving = log.householdServingSize, type == "Water" {
-                                    sum += serving
-                                }
-                            }
-                        }
-                        drinksOvertime.append(sum)
-                    }
-                }
-            }
-        }
-        return drinksOvertime
-    }
-    
-    private func calculateHydrationRunningTotal()  -> [Double]{
-        var totalHydration = [Double]()
-        var sum = 0.0
-        if let activity = activity {
-            for hour in 0...24 {
-                let calendar = Calendar.current
-                var components = calendar.dateComponents([.year, .month, .day, .hour], from: Date())
-                components.hour = hour
-                if let startTime = calendar.date(from: components)?.timeIntervalSince1970 {
-                    components.hour = hour + 1
-                    if let endTime = calendar.date(from: components)?.timeIntervalSince1970 {
-                        let logsOnTheHour = activity.logs.filter({
-                            $0.timestamp! >= Double(startTime) && $0.timestamp! <= Double(endTime)
-                        })
-                        for log in logsOnTheHour {
-                            if let food = log.food, let type = food.category{
-                                if let serving = log.householdServingSize, type == "Water" {
-                                    sum += serving
-                                }
-                            }
-                        }
-                        totalHydration.append(sum)
-                    }
-                }
-            }
-        }
-        return totalHydration
-    }
-    
-    private func calculateTotalDrankByType() -> [String:Double]{
-        var drinksByType = [String:Double]()
-        
-        if let activity = activity{
-            
-            let uniqueDrinkTypes = activity.logs.reduce([], {
-                $0.contains($1.food?.category) ? $0 : $0 + [$1.food?.category]
-            })
-            
-            for key in uniqueDrinkTypes {
-                let sum = activity.logs.filter({$0.food?.category == key}).map({$0.servingSize!}).reduce(0, +)
-                drinksByType[key!] = sum
-            }
-        }
-        
-        return drinksByType
-    }
-    
-    
 }

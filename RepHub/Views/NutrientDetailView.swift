@@ -14,7 +14,7 @@ class NutrientDetailView: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var nutrient : (String, Double, Double, String)? {
+    var nutrient : (String, Double, String)? {
         didSet {
             self.updateView()
         }
@@ -37,7 +37,7 @@ class NutrientDetailView: UITableViewCell {
      
         if let nutrient = self.nutrient {
             self.nameLabel.text = nutrient.0
-            self.totalLabel.text = "\(Int(nutrient.2)) \(nutrient.3)"
+            self.totalLabel.text = "\(Int(nutrient.2))"
             self.valueLabel.text = "(\(Int(nutrient.1)))"
         }
 

@@ -49,13 +49,13 @@ class ActivityController: UITableViewController {
         }
         
         if self.nutritionActivity != nil {
-            self.nutritionActivity!.refreshLogs(logs: self.nutritionLogs)
+            self.nutritionActivity!.logs = self.nutritionLogs
             activities.append(nutritionActivity!)
                 
         }
         
         if self.hydrationActivity != nil {
-            self.hydrationActivity!.refreshLogs(logs: self.nutritionLogs)
+            self.hydrationActivity!.logs = self.nutritionLogs
             activities.append(hydrationActivity!)
         }
         
@@ -174,7 +174,7 @@ class ActivityController: UITableViewController {
         }
         else if segue.identifier == "Nutrition" {
             let destination = segue.destination as! NutritionController
-            destination.activity = self.activities[1] as! NutritionActivity
+            destination.activity = self.activities[1] as? NutritionActivity
         }
         else if segue.identifier == "Hydration" {
             let destination = segue.destination as! HydrationController

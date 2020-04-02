@@ -18,6 +18,7 @@
 		680040F723DC94930025E0E7 /* ActivitySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680040F623DC94930025E0E7 /* ActivitySummaryView.swift */; };
 		680040F923DC98000025E0E7 /* ActivityDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680040F823DC98000025E0E7 /* ActivityDataView.swift */; };
 		680040FB23DC99510025E0E7 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680040FA23DC99510025E0E7 /* ActivityView.swift */; };
+		68082F2F2433AFC0007419A5 /* NutritionCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68082F2E2433AFC0007419A5 /* NutritionCalculator.swift */; };
 		680B999521E93B2E00FE6C4F /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680B999421E93B2E00FE6C4F /* FollowersViewController.swift */; };
 		680DD044241D9249002F6BEE /* ActivityRollingTotalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680DD043241D9249002F6BEE /* ActivityRollingTotalView.swift */; };
 		680DD046241DAF00002F6BEE /* NutritionActivityMacroOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680DD045241DAF00002F6BEE /* NutritionActivityMacroOverview.swift */; };
@@ -269,6 +270,7 @@
 		680040F623DC94930025E0E7 /* ActivitySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryView.swift; sourceTree = "<group>"; };
 		680040F823DC98000025E0E7 /* ActivityDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataView.swift; sourceTree = "<group>"; };
 		680040FA23DC99510025E0E7 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		68082F2E2433AFC0007419A5 /* NutritionCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionCalculator.swift; sourceTree = "<group>"; };
 		680B999421E93B2E00FE6C4F /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
 		680DD043241D9249002F6BEE /* ActivityRollingTotalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRollingTotalView.swift; sourceTree = "<group>"; };
 		680DD045241DAF00002F6BEE /* NutritionActivityMacroOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionActivityMacroOverview.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				683E75A423317620009A00B5 /* LifeRingChart.swift */,
+				68082F2E2433AFC0007419A5 /* NutritionCalculator.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -1304,6 +1307,7 @@
 				6833EE41211E2E770018DAA2 /* ExerciseViewController.swift in Sources */,
 				68C9B73B23C0D3B90098F1A7 /* LibraryAPI.swift in Sources */,
 				681604F621EED5BB003030B4 /* ReportAPI.swift in Sources */,
+				68082F2F2433AFC0007419A5 /* NutritionCalculator.swift in Sources */,
 				6895852D23DCE564004261B7 /* ActivityController.swift in Sources */,
 				688E3CE120D35BCA0032B35F /* Post.swift in Sources */,
 				684A28BD2124FF2600F00CA8 /* CreateWorkoutDetailsTableViewCell.swift in Sources */,
