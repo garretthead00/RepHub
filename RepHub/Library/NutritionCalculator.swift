@@ -17,7 +17,7 @@ struct NutritionCalculator {
     }
 
     func food(foodType: String) -> Bool {
-        return foodType == "Food"
+        return foodType != "Drinks"
     }
 
     func drink(foodType: String) -> Bool {
@@ -56,6 +56,29 @@ struct NutritionCalculator {
         return totalizer
 
     }
+    
+    func calculateTotalWaterDrank(logs : [NutritionLog]) -> Double {
+        var total = 0.0
+        for log in logs {
+            if let food = log.food, let type = food.category{
+                if let serving = log.householdServingSize, type == "Water" {
+                    total += serving
+                }
+            }
+        }
+        return total
+    }
+    
+    func calculateTotalFluidsDrank(logs: [NutritionLog]) -> Double {
+        var total = 0.0
+        for log in logs {
+            if let serving = log.householdServingSize {
+                total += serving
+            }
+        }
+        
+        return total
+    }
 }
 
 
@@ -83,9 +106,10 @@ extension NutritionCalculator {
                             }
                         }
                     }
-                    totalHydration.append(sum)
+                    
                 }
             }
+            totalHydration.append(sum)
         }
         
         return totalHydration
@@ -117,7 +141,7 @@ extension NutritionCalculator {
     
     // calculate nutrition rolling total
     func calculateCaloriesConsumedRunningTotal(logs: [NutritionLog])  -> [Double]{
-        var totalHydration = [Double]()
+        var totalNutrition = [Double]()
         var sum = 0.0
         let calendar = Calendar.current
         for hour in 0...24 {
@@ -138,12 +162,13 @@ extension NutritionCalculator {
                             
                         }
                     }
-                    totalHydration.append(sum)
+                    
                 }
             }
+            totalNutrition.append(sum)
         }
         
-        return totalHydration
+        return totalNutrition
     }
 }
 

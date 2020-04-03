@@ -33,46 +33,26 @@ struct HydrationActivity: Activity {
     var nutrition : [String : Double]?      // nutrition filtered for drinks only.
     
     // MARK: Nutrition Groups
-    var macros : [(String, Double, String)]?
-    var electrolytes: [(String, Double, String)]?
-    var otherNutrients : [(String, Double, String)]?
+    var macros : [(String, Double, Double, String)]?
+    var electrolytes: [(String, Double, Double, String)]?
+    var otherNutrients : [(String, Double, Double, String)]?
     
     // calculated propeties
     var rollingTotal : [Double]?
     var drinksByType : [String:Double]?
 
-    var totalWater : Double? {
-        var sum = 0.0
-        if let logs = self.logs {
-            for log in logs {
-                if let food = log.food, let type = food.category{
-                    if let serving = log.householdServingSize, type == "Water" {
-                        sum += serving
-                    }
-                }
-            }
-        }
-        return sum
-    }
-    var totalFluids : Double? {
-        var sum = 0.0
-        if let logs = self.logs {
-            for log in logs {
-                if let serving = log.householdServingSize {
-                    sum += serving
-                }
-            }
-        }
-        return sum
-    }
+    var totalWater : Double?
+    var totalFluids : Double?
     
     init(){
         name = "Hydration"
         icon = UIImage.Theme.Activity.hydrate
         color = UIColor.Theme.Activity.hydrate
         unit = "fl oz"
-        target = 0.0
+        target = 64.0
         calculator = NutritionCalculator()
+        totalFluids = 0.0
+        totalWater = 0.0
         dailyTotal = 0.0
         remainingToTarget = 0.0
         percentComplete = 0.0
@@ -98,6 +78,8 @@ extension HydrationActivity {
         hydrationLogs = calculator!.filterLogs(closure: calculator!.drink, logs: logs!)
         totalNutrition = calculator!.totalizeNutrition(logs: logs!)
         nutrition = calculator!.totalizeNutrition(logs: hydrationLogs!)
+        totalWater = calculator!.calculateTotalWaterDrank(logs: hydrationLogs!)
+        totalFluids = calculator!.calculateTotalFluidsDrank(logs: hydrationLogs!)
         rollingTotal = calculator!.calculateHydrationRunningTotal(logs: hydrationLogs!)
         drinksByType = calculator!.calculateTotalDrankByType(logs: hydrationLogs!)
         dailyTotal = totalWater ?? 0.0
@@ -112,23 +94,23 @@ extension HydrationActivity {
         ]
         
         macros = [
-            (Nutrients.Protein.rawValue,totalNutrition![Nutrients.Protein.rawValue] ?? 0.0, "g"),
-            (Nutrients.Carbs.rawValue,totalNutrition![Nutrients.Carbs.rawValue] ?? 0.0, "g"),
-            (Nutrients.Fat.rawValue,totalNutrition![Nutrients.Fat.rawValue] ?? 0.0, "g"),
+            (Nutrients.Protein.rawValue,totalNutrition![Nutrients.Protein.rawValue] ?? 0.0,nutrition![Nutrients.Protein.rawValue] ?? 0.0, "g"),
+            (Nutrients.Carbs.rawValue,totalNutrition![Nutrients.Carbs.rawValue] ?? 0.0,nutrition![Nutrients.Carbs.rawValue] ?? 0.0, "g"),
+            (Nutrients.Fat.rawValue,totalNutrition![Nutrients.Fat.rawValue] ?? 0.0,nutrition![Nutrients.Fat.rawValue] ?? 0.0, "g"),
         ]
                 
         electrolytes = [
-            (Nutrients.Calcium.rawValue, totalNutrition![Nutrients.Calcium.rawValue] ?? 0.0, "mg"),
-            (Nutrients.Chloride.rawValue, totalNutrition![Nutrients.Chloride.rawValue] ?? 0.0, "mg"),
-            (Nutrients.Magnesium.rawValue, totalNutrition![Nutrients.Magnesium.rawValue] ?? 0.0, "mg"),
-            (Nutrients.Phosphorus.rawValue, totalNutrition![Nutrients.Phosphorus.rawValue] ?? 0.0, "mg"),
-            (Nutrients.Potassium.rawValue, totalNutrition![Nutrients.Potassium.rawValue] ?? 0.0, "mg"),
-            (Nutrients.Sodium.rawValue, totalNutrition![Nutrients.Sodium.rawValue] ?? 0.0, "mg")
+            (Nutrients.Calcium.rawValue, totalNutrition![Nutrients.Calcium.rawValue] ?? 0.0,nutrition![Nutrients.Calcium.rawValue] ?? 0.0, "mg"),
+            (Nutrients.Chloride.rawValue, totalNutrition![Nutrients.Chloride.rawValue] ?? 0.0,nutrition![Nutrients.Chloride.rawValue] ?? 0.0, "mg"),
+            (Nutrients.Magnesium.rawValue, totalNutrition![Nutrients.Magnesium.rawValue] ?? 0.0,nutrition![Nutrients.Magnesium.rawValue] ?? 0.0, "mg"),
+            (Nutrients.Phosphorus.rawValue, totalNutrition![Nutrients.Phosphorus.rawValue] ?? 0.0, nutrition![Nutrients.Phosphorus.rawValue] ?? 0.0, "mg"),
+            (Nutrients.Potassium.rawValue, totalNutrition![Nutrients.Potassium.rawValue] ?? 0.0, nutrition![Nutrients.Potassium.rawValue] ?? 0.0, "mg"),
+            (Nutrients.Sodium.rawValue, totalNutrition![Nutrients.Sodium.rawValue] ?? 0.0,nutrition![Nutrients.Sodium.rawValue] ?? 0.0, "mg"),
         ]
             
         otherNutrients = [
-            (Nutrients.Caffeine.rawValue, totalNutrition![Nutrients.Caffeine.rawValue] ?? 0.0, "mg"),
-            ("alcohol", 0.0, "oz")
+            (Nutrients.Caffeine.rawValue, totalNutrition![Nutrients.Caffeine.rawValue] ?? 0.0, nutrition![Nutrients.Caffeine.rawValue] ?? 0.0, "mg"),
+            ("alcohol", 0.0, 0.0, "oz")
         ]
         
         

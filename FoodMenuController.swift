@@ -1,19 +1,20 @@
 //
-//  DrinksController.swift
+//  FoodMenuController.swift
 //  RepHub
 //
-//  Created by Garrett Head on 1/1/20.
+//  Created by Garrett Head on 4/2/20.
 //  Copyright © 2020 Garrett Head. All rights reserved.
 //
 
 import UIKit
 
-class DrinkMenuController: UITableViewController {
+class FoodMenuController: UITableViewController {
+
     
-    // MARK: - Drinks
-    var drinks = [FoodItem]() { didSet{ self.refreshController() } }
-    var userDrinks = [FoodItem]() { didSet{ self.refreshController() } }
-    var displayDrinks = [FoodItem]()
+    // MARK: Food
+    var food = [FoodItem]() { didSet{ self.refreshController() } }
+    var savedFood = [FoodItem]() { didSet{ self.refreshController() } }
+    var displayFood = [FoodItem]()
     
     // MARK: - Filter control properties
     var isSearching = false
@@ -22,8 +23,6 @@ class DrinkMenuController: UITableViewController {
     var searchText : String = ""
     var dataSourceFilterIndex : Int = 0
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let search = UISearchController(searchResultsController: nil)
@@ -33,65 +32,26 @@ class DrinkMenuController: UITableViewController {
         search.searchBar.text = self.searchText
         search.searchBar.sizeToFit()
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDrink))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFood))
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.loadDrinks()
-    }
-
-    
-    private func refreshController(){
-        self.displayDrinks.removeAll()
-        self.filters.removeAll()
-        
-        self.displayDrinks = (self.dataSourceFilterIndex == 0) ? self.userDrinks : self.drinks
-        setFilters()
-        
-        // searchText filter
-        if !self.searchText.isEmpty {
-            self.displayDrinks = self.displayDrinks.filter({(drink : FoodItem) -> Bool in
-                return (drink.name?.lowercased().contains(self.searchText.lowercased()))!
-            })
-        }
-
-        // filter items
-        if let filter = self.selectedFilter {
-            self.displayDrinks = self.displayDrinks.filter({
-                return $0.category == self.filters[filter]
-            })
-        }
-        
-        // sort the drinks by name
-        self.displayDrinks.sort {
-            $0.name! < $1.name!
-        }
-        self.tableView.reloadData()
+        self.loadFood()
     }
     
-    private func setFilters(){
-        for drink in self.displayDrinks {
-            if let category = drink.category{
-                if !self.filters.contains(category)  {
-                    self.filters.append(category)
-                }
-            }
-        }
-    }
     
-    private func loadDrinks(){
-        API.Food.observeFood(ofGroup: "Drinks", completion: {
-            drink in
-            self.drinks.append(drink)
+    // MARK: API
+    private func loadFood(){
+        API.Food.observeFood(completion: {
+            foodItem in
+            self.food.append(foodItem)
         })
         API.Library.observeFood(ofType: "drinks", completion: {
-            drink in
-            self.userDrinks.append(drink)
+            foodItem in
+            self.savedFood.append(foodItem)
         })
     }
     
-    // add drink
-    @objc private func addDrink(){
-        //API.Library.createFood()
+    @objc private func addFood(){
         print("Food created!")
         self.performSegue(withIdentifier: "CreateFood", sender: nil)
     }
@@ -103,6 +63,7 @@ class DrinkMenuController: UITableViewController {
         self.refreshController()
     }
     
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,21 +71,20 @@ class DrinkMenuController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.displayDrinks.count + 1
+        return displayFood.count + 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
         if row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "filterView", for: indexPath) as! FoodMenuFilterView
             cell.delegate = self
-            cell.selectedFilter = self.selectedFilter
-            cell.filters = self.filters
+            cell.selectedFilter = selectedFilter
+            cell.filters = filters
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "itemView", for: indexPath) as! FoodMenuItemView
-            cell.drink = self.displayDrinks[row - 1]
+            cell.drink = displayFood[row - 1]
             return cell
         }
         
@@ -154,22 +114,64 @@ class DrinkMenuController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row at indexpath.row: \(indexPath.row-1)")
-        self.performSegue(withIdentifier: "Nutrition", sender: self.displayDrinks[indexPath.row-1])
+        self.performSegue(withIdentifier: "Nutrition", sender: displayFood[indexPath.row-1])
     }
 
 
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Nutrition" {
-            let drinkTVC = segue.destination as! DrinkController
-            let drink = sender as! FoodItem
-            drinkTVC.drink = drink
-        }
-    }
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "Nutrition" {
+             let foodController = segue.destination as! FoodItemController
+             let foodItem = sender as! FoodItem
+             foodController.foodItem = foodItem
+         }
+     }
 
 }
 
-extension DrinkMenuController : UISearchBarDelegate {
+extension FoodMenuController {
+    
+    private func refreshController(){
+        displayFood.removeAll()
+        filters.removeAll()
+        
+        displayFood = (dataSourceFilterIndex == 0) ? savedFood : food
+        setFilters()
+        
+        // searchText filter
+        if !searchText.isEmpty {
+            displayFood = displayFood.filter({(foodItem : FoodItem) -> Bool in
+                return (foodItem.name?.lowercased().contains(searchText.lowercased()))!
+            })
+        }
+
+        // filter items
+        if let filter = selectedFilter {
+            displayFood = displayFood.filter({
+                return $0.category == self.filters[filter]
+            })
+        }
+        
+        // sort the drinks by name
+        displayFood.sort {
+            $0.name! < $1.name!
+        }
+        self.tableView.reloadData()
+    }
+    
+    private func setFilters(){
+        for foodItem in displayFood {
+            if let category = foodItem.category{
+                if !self.filters.contains(category)  {
+                    self.filters.append(category)
+                }
+            }
+        }
+    }
+    
+}
+
+extension FoodMenuController : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("search did change!")
         if searchText.isEmpty {
@@ -184,7 +186,7 @@ extension DrinkMenuController : UISearchBarDelegate {
     }
 }
 
-extension DrinkMenuController : FoodMenuFilterDelegate {
+extension FoodMenuController : FoodMenuFilterDelegate {
     func applyFilter(index: Int) {
         self.selectedFilter = index
         self.refreshController()

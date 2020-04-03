@@ -99,7 +99,7 @@ class NutritionController: UITableViewController {
                 case 5: cell.nutrient = activity!.vitamins![indexPath.row]
                 case 6: cell.nutrient = activity!.minerals![indexPath.row]
                 case 7: cell.nutrient = activity!.ultraTraceMinerals![indexPath.row]
-                default: cell.nutrient = ("",0.0,"")
+            default: cell.nutrient = ("",0.0,0.0,"")
             }
             cell.valueLabel.textColor = activity!.color
             return cell

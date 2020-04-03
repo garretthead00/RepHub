@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DrinkView: UITableViewCell {
+class FoodMenuItemView: UITableViewCell {
     
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var name: UILabel!

@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol DrinkMenuFilterDelegate {
+protocol FoodMenuFilterDelegate {
     func applyFilter(index: Int)
 }
 
-class DrinkFiltersTableViewCell: UITableViewCell {
+class FoodMenuFilterView: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var delegate : DrinkMenuFilterDelegate?
+    var delegate : FoodMenuFilterDelegate?
     var selectedFilter : Int?
     var filters : [String]? {
         didSet {
@@ -34,13 +34,13 @@ class DrinkFiltersTableViewCell: UITableViewCell {
     }
 }
 
-extension DrinkFiltersTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
+extension FoodMenuFilterView : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.filters!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filterView", for: indexPath) as! DrinkFilterCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filterView", for: indexPath) as! FoodMenuFilterItemView
         if let selectedFilter = self.selectedFilter {
             cell.isSelected = (indexPath.row == selectedFilter) ? true : false
         }
@@ -53,7 +53,7 @@ extension DrinkFiltersTableViewCell : UICollectionViewDelegate, UICollectionView
     }
 }
 
-extension DrinkFiltersTableViewCell : UICollectionViewDelegateFlowLayout {
+extension FoodMenuFilterView : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 92.0, height: 36.0)
     }

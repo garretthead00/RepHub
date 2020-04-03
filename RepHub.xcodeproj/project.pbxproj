@@ -28,6 +28,8 @@
 		680EA85C229DBD9F00387A1B /* ExerciseResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680EA85B229DBD9F00387A1B /* ExerciseResultsTableViewCell.swift */; };
 		680F17FC20D1FAD400FABE7D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F17FB20D1FAD400FABE7D /* AuthService.swift */; };
 		6815848620EF0272007CE53A /* HashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815848520EF0272007CE53A /* HashTagViewController.swift */; };
+		6815CEF52436B4540031AE9D /* FoodMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815CEF42436B4540031AE9D /* FoodMenuController.swift */; };
+		6815CEF72436BE3F0031AE9D /* FoodItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815CEF62436BE3F0031AE9D /* FoodItemController.swift */; };
 		6815FCB121552B3200E26732 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCB021552B3200E26732 /* UserAPI.swift */; };
 		6815FCB321552B7E00E26732 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCB221552B7E00E26732 /* Config.swift */; };
 		6815FCB521552CEB00E26732 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6815FCB421552CEB00E26732 /* CommentViewController.swift */; };
@@ -84,7 +86,7 @@
 		6841E5B4212E4E5B00D17B87 /* ExerciseLogsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841E5B3212E4E5B00D17B87 /* ExerciseLogsAPI.swift */; };
 		68459ED020D225F500CB2176 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68459ECD20D225F400CB2176 /* ProgressHUD.bundle */; };
 		68459ED120D225F500CB2176 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 68459ECE20D225F400CB2176 /* ProgressHUD.m */; };
-		68466E54241448800052182A /* DrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68466E53241448800052182A /* DrinkView.swift */; };
+		68466E54241448800052182A /* FoodMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68466E53241448800052182A /* FoodMenuItemView.swift */; };
 		68476FDD22C7B9D70051D6A1 /* GlobalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68476FDC22C7B9D70051D6A1 /* GlobalExtensions.swift */; };
 		68480FEA206344B100B2E312 /* MainTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68480FE9206344B100B2E312 /* MainTBC.swift */; };
 		68489ADF2373A26E000CFEBB /* CalorieMonitorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68489ADE2373A26E000CFEBB /* CalorieMonitorTableViewCell.swift */; };
@@ -228,8 +230,8 @@
 		68D08D8821095C2000912F70 /* HydrateDailies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D08D8721095C2000912F70 /* HydrateDailies.swift */; };
 		68D3767E212E26530083B6D3 /* ExerciseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D3767D212E26530083B6D3 /* ExerciseLogViewController.swift */; };
 		68D5CA9323BD66E200EB97E9 /* DrinkMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9223BD66E200EB97E9 /* DrinkMenuController.swift */; };
-		68D5CA9723BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9623BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift */; };
-		68D5CA9923BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9823BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift */; };
+		68D5CA9723BD6DF600EB97E9 /* FoodMenuFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9623BD6DF600EB97E9 /* FoodMenuFilterView.swift */; };
+		68D5CA9923BD700A00EB97E9 /* FoodMenuFilterItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D5CA9823BD700A00EB97E9 /* FoodMenuFilterItemView.swift */; };
 		68E320CF23E260140048086F /* NutritionLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E320CE23E260140048086F /* NutritionLog.swift */; };
 		68E320D123E2636E0048086F /* NutritionActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E320D023E2636E0048086F /* NutritionActivity.swift */; };
 		68E71856237CC63E00E58D6F /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E71855237CC63E00E58D6F /* ActivityLog.swift */; };
@@ -280,6 +282,8 @@
 		680EA85B229DBD9F00387A1B /* ExerciseResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExerciseResultsTableViewCell.swift; path = /Users/Garrett/Documents/Workspace/RepHub/iOS/RepHub/RepHub/Views/ExerciseResultsTableViewCell.swift; sourceTree = "<absolute>"; };
 		680F17FB20D1FAD400FABE7D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6815848520EF0272007CE53A /* HashTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagViewController.swift; sourceTree = "<group>"; };
+		6815CEF42436B4540031AE9D /* FoodMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuController.swift; sourceTree = SOURCE_ROOT; };
+		6815CEF62436BE3F0031AE9D /* FoodItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemController.swift; sourceTree = "<group>"; };
 		6815FCB021552B3200E26732 /* UserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		6815FCB221552B7E00E26732 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		6815FCB421552CEB00E26732 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
@@ -340,7 +344,7 @@
 		68459ECD20D225F400CB2176 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		68459ECE20D225F400CB2176 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		68459ECF20D225F500CB2176 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
-		68466E53241448800052182A /* DrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkView.swift; sourceTree = "<group>"; };
+		68466E53241448800052182A /* FoodMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuItemView.swift; sourceTree = "<group>"; };
 		68476FDC22C7B9D70051D6A1 /* GlobalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalExtensions.swift; sourceTree = "<group>"; };
 		68480FE9206344B100B2E312 /* MainTBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTBC.swift; sourceTree = "<group>"; };
 		68489ADE2373A26E000CFEBB /* CalorieMonitorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieMonitorTableViewCell.swift; sourceTree = "<group>"; };
@@ -488,8 +492,8 @@
 		68D08D8721095C2000912F70 /* HydrateDailies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateDailies.swift; sourceTree = "<group>"; };
 		68D3767D212E26530083B6D3 /* ExerciseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogViewController.swift; sourceTree = "<group>"; };
 		68D5CA9223BD66E200EB97E9 /* DrinkMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkMenuController.swift; sourceTree = "<group>"; };
-		68D5CA9623BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFiltersTableViewCell.swift; sourceTree = "<group>"; };
-		68D5CA9823BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		68D5CA9623BD6DF600EB97E9 /* FoodMenuFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuFilterView.swift; sourceTree = "<group>"; };
+		68D5CA9823BD700A00EB97E9 /* FoodMenuFilterItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuFilterItemView.swift; sourceTree = "<group>"; };
 		68E320CE23E260140048086F /* NutritionLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionLog.swift; sourceTree = "<group>"; };
 		68E320D023E2636E0048086F /* NutritionActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionActivity.swift; sourceTree = "<group>"; };
 		68E71855237CC63E00E58D6F /* ActivityLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLog.swift; sourceTree = "<group>"; };
@@ -545,6 +549,8 @@
 		681B3B1C230DEED30064CE39 /* Eat */ = {
 			isa = PBXGroup;
 			children = (
+				6815CEF42436B4540031AE9D /* FoodMenuController.swift */,
+				6815CEF62436BE3F0031AE9D /* FoodItemController.swift */,
 				68C8A6022325BD7600C7FEB0 /* FoodTypeFilterCollectionViewController.swift */,
 				68C8A5FC23258F2000C7FEB0 /* FoodListTableViewController.swift */,
 				68360C4223230F0D002DDAB4 /* Eat_DrinkListTableViewController.swift */,
@@ -720,9 +726,9 @@
 				68C9B74423C250A30098F1A7 /* CreateDrinkNutrientView.swift */,
 				68C9B74023C250770098F1A7 /* CreateDrinkServingView.swift */,
 				686E741F22BE7F0B007526C0 /* DrinkDetailsTableViewCell.swift */,
-				68D5CA9823BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift */,
-				68D5CA9623BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift */,
-				68466E53241448800052182A /* DrinkView.swift */,
+				68D5CA9823BD700A00EB97E9 /* FoodMenuFilterItemView.swift */,
+				68D5CA9623BD6DF600EB97E9 /* FoodMenuFilterView.swift */,
+				68466E53241448800052182A /* FoodMenuItemView.swift */,
 			);
 			path = Hydrate;
 			sourceTree = "<group>";
@@ -1177,7 +1183,7 @@
 				68480FEA206344B100B2E312 /* MainTBC.swift in Sources */,
 				68A54EF0229999CD001AE006 /* CreateWorkoutTableViewController.swift in Sources */,
 				68F9C0FE21613218000799C4 /* WorkoutInterval.swift in Sources */,
-				68D5CA9723BD6DF600EB97E9 /* DrinkFiltersTableViewCell.swift in Sources */,
+				68D5CA9723BD6DF600EB97E9 /* FoodMenuFilterView.swift in Sources */,
 				686AB7F8235257DC0046BB41 /* EatActivity.swift in Sources */,
 				682CA29320E837510006552D /* MyPostsAPI.swift in Sources */,
 				683AB58220E198DF001B3345 /* DiscoverUserTableViewCell.swift in Sources */,
@@ -1249,7 +1255,7 @@
 				684A28D721270C0E00F00CA8 /* ExercisesTableViewController.swift in Sources */,
 				68FB234D22BC228300D6153C /* Nutrient.swift in Sources */,
 				6888323B222AB40A00C4D077 /* ActiveWorkoutExerciseCollectionReusableView.swift in Sources */,
-				68466E54241448800052182A /* DrinkView.swift in Sources */,
+				68466E54241448800052182A /* FoodMenuItemView.swift in Sources */,
 				68261F46220A92BF00D3978C /* WeeklyItemCollectionViewCell.swift in Sources */,
 				68D5CA9323BD66E200EB97E9 /* DrinkMenuController.swift in Sources */,
 				683AB57C20E000C8001B3345 /* PostCollectionViewCell.swift in Sources */,
@@ -1323,6 +1329,7 @@
 				6873C39A22655E1E0069149C /* ExerciseModalityFilterCollectionViewCell.swift in Sources */,
 				685B112020F404DA00EE2DA4 /* WalkthroughPageViewController.swift in Sources */,
 				681E438620DDB56900FB6686 /* LockerCRV.swift in Sources */,
+				6815CEF72436BE3F0031AE9D /* FoodItemController.swift in Sources */,
 				68A54EEA229302F1001AE006 /* Workout_ExerciseTableViewCell.swift in Sources */,
 				6854021A22622C4F0020396A /* ExerciseTypesCollectionViewController.swift in Sources */,
 				68189D50238FE4D8009622EB /* FoodLog.swift in Sources */,
@@ -1348,6 +1355,7 @@
 				68C9B76023C2FB8B0098F1A7 /* CreateDrinkAddItemView.swift in Sources */,
 				681B3B23230F35240064CE39 /* EatMacrosTableViewCell.swift in Sources */,
 				68883239222AAE2500C4D077 /* ActiveExerciseTargetCollectionViewCell.swift in Sources */,
+				6815CEF52436B4540031AE9D /* FoodMenuController.swift in Sources */,
 				68C8A5FF23259F0E00C7FEB0 /* FoodAPI.swift in Sources */,
 				680DD044241D9249002F6BEE /* ActivityRollingTotalView.swift in Sources */,
 				68678F6921F0223600E56D70 /* BlockAPI.swift in Sources */,
@@ -1366,7 +1374,7 @@
 				680040ED23CD153D0025E0E7 /* HydrationController.swift in Sources */,
 				68C77D6A21E7E7900000A73B /* LockerMenuView.swift in Sources */,
 				68883237222A20F200C4D077 /* ActiveExerciseTargetsTableViewCell.swift in Sources */,
-				68D5CA9923BD700A00EB97E9 /* DrinkFilterCollectionViewCell.swift in Sources */,
+				68D5CA9923BD700A00EB97E9 /* FoodMenuFilterItemView.swift in Sources */,
 				684CB62C2149EF680065EB5F /* WorkoutLog.swift in Sources */,
 				6868EA962317196600368C87 /* FoodMenuItemTableViewCell.swift in Sources */,
 				683480722208C8880024EA66 /* ExerciseTargetsCell.swift in Sources */,

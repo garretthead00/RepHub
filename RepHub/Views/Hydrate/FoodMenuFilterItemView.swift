@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DrinkFilterCollectionViewCell: UICollectionViewCell {
+class FoodMenuFilterItemView: UICollectionViewCell {
     
     @IBOutlet weak var filterLabel: UILabel!
     
